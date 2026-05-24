@@ -1,0 +1,54 @@
+name: Build and Deploy Doxygen Docs
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Init submodules
+        run: git submodule update --init --depth=1
+
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen graphviz
+
+      - name: Create output directory
+        run: mkdir -p docs/LAMMP docs/LMCAS docs/LMMC
+
+      - name: Build LAMMP docs
+        working-directory: LAMMP
+        run: |
+          ( cat Doxyfile ; echo "OUTPUT_DIRECTORY = ../docs/LAMMP" ; echo "DOT_PATH =" ) | doxygen -
+
+      - name: Build LMCAS docs
+        working-directory: LMCAS
+        run: |
+          ( cat Doxyfile ; echo "OUTPUT_DIRECTORY = ../docs/LMCAS" ) | doxygen -
+
+      - name: Build LMMC docs
+        working-directory: LMMC
+        run: |
+          ( cat Doxyfile ; echo "OUTPUT_DIRECTORY = ../docs/LMMC" ) | doxygen -
+
+      - name: Deploy to dep branch
+        run: |
+          cd docs
+          git init
+          git checkout -b dep
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Deploy docs $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push -f origin dep
