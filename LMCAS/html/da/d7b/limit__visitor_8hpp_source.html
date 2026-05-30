@@ -1,0 +1,471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/visitors/limit_visitor.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('da/d7b/limit__visitor_8hpp_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">limit_visitor.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../da/d7b/limit__visitor_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file limit_visitor.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 极限访问器，通过代入和 L&#39;Hôpital 法则计算极限。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../symbolic_ast.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d5e/normalization__visitor_8hpp.html">normalization_visitor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"></span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/** @brief 极限访问器，通过代入求值和 L&#39;Hôpital 法则计算符号表达式的极限 */</span></div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../da/dcb/classSymbolicVisitor.html">SymbolicVisitor</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">   14</a></span>    std::string <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>;                        <span class="comment">///&lt; 趋近变量名</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">   15</a></span>    std::shared_ptr&lt;SymbolicNode&gt; <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">point</a>;    <span class="comment">///&lt; 趋近点</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">   16</a></span>    std::string <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a>;                  <span class="comment">///&lt; 趋近方向（&quot;+&quot;、&quot;-&quot; 或空表示双侧）</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">   18</a></span>    std::shared_ptr&lt;SymbolicNode&gt; <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>;   <span class="comment">///&lt; 极限计算结果</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"></span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">     * @brief 构造极限访问器</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">     * @param v 趋近变量名</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">     * @param p 趋近点的 AST 节点</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">     * @param dir 趋近方向，&quot;+&quot; 为右极限，&quot;-&quot; 为左极限，空为双侧</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">     */</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#a7975b241b51386db6b8365cb00725581">   26</a></span>    <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7975b241b51386db6b8365cb00725581">LimitVisitor</a>(std::string v, std::shared_ptr&lt;SymbolicNode&gt; p, std::string dir = <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        : <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>(std::move(v)), <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">point</a>(std::move(p)), <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a>(std::move(dir)) {}</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"></span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">     * @brief 获取极限计算结果</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">     * @return 极限值的 AST 节点</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">   33</a></span>    std::shared_ptr&lt;SymbolicNode&gt; <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">get_result</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>; }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#adf98cc0ad7e5f20dc0c5f674504dee9b">   35</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#adf98cc0ad7e5f20dc0c5f674504dee9b">visit</a>(<a class="code hl_class" href="../../dc/dea/classNumberNode.html">NumberNode</a>&amp; node)<span class="keyword"> override </span>{ <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = node.<a class="code hl_function" href="../../dc/dea/classNumberNode.html#a9c75d0e8c16b76d2105bc0127b6213c1">clone</a>(); }</div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#adc2993fa889f2fe85f404263abc9b8eb">   36</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#adc2993fa889f2fe85f404263abc9b8eb">visit</a>(<a class="code hl_class" href="../../d5/d93/classVariableNode.html">VariableNode</a>&amp; node)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> (node.<a class="code hl_variable" href="../../d5/d93/classVariableNode.html#af14b88bab85ecdd8021a7b45c1253b65">name</a> == <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>) <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">point</a>-&gt;clone();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">else</span> <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = node.<a class="code hl_function" href="../../d5/d93/classVariableNode.html#a593e527fbdb73b75def16654ffe93350">clone</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#aec5cf0381c03243c9a3282ac3b7147e9">   41</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#aec5cf0381c03243c9a3282ac3b7147e9">visit</a>(<a class="code hl_class" href="../../d8/d2e/classAddNode.html">AddNode</a>&amp; node)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; new_ops;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; op : node.<a class="code hl_variable" href="../../d8/d2e/classAddNode.html#aa3f09257b2594fd422133f36da2b0a4f">operands</a>) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            op-&gt;accept(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            new_ops.push_back(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> norm;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        std::make_shared&lt;AddNode&gt;(new_ops)-&gt;accept(norm);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = norm.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#a855a101268eef2498d340d147fe79c7e">   52</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a855a101268eef2498d340d147fe79c7e">visit</a>(<a class="code hl_class" href="../../dd/dce/classMultiplyNode.html">MultiplyNode</a>&amp; node)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; subs_ops;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; op : node.<a class="code hl_variable" href="../../dd/dce/classMultiplyNode.html#a591c7070a2022eb64bef00a21133ea1c">operands</a>) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            op-&gt;accept(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            subs_ops.push_back(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> norm;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">auto</span> subs_res = std::make_shared&lt;MultiplyNode&gt;(subs_ops);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        subs_res-&gt;accept(norm);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">auto</span> final_subs = norm.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">bool</span> has_zero = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">bool</span> has_inf = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; num_nodes, den_nodes;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; op : node.<a class="code hl_variable" href="../../dd/dce/classMultiplyNode.html#a591c7070a2022eb64bef00a21133ea1c">operands</a>) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> pow = std::dynamic_pointer_cast&lt;PowerNode&gt;(op)) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;NumberNode&gt;(pow-&gt;exponent)) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                    <span class="keywordtype">double</span> e = 0;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                    <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(num-&gt;value)) e = std::get&lt;double&gt;(num-&gt;value);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value)) e = std::get&lt;BigInt&gt;(num-&gt;value).to_double();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value)) e = std::get&lt;Rational&gt;(num-&gt;value).to_double();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    <span class="keywordflow">if</span> (e &lt; 0) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                         <span class="keyword">auto</span> new_exp = std::make_shared&lt;NumberNode&gt;(-e);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                         den_nodes.push_back(std::make_shared&lt;PowerNode&gt;(pow-&gt;base, new_exp));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                         <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            num_nodes.push_back(op);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> (den_nodes.empty()) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = final_subs;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">auto</span> N = num_nodes.size() == 1 ? num_nodes[0] : std::make_shared&lt;MultiplyNode&gt;(num_nodes);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keyword">auto</span> D = den_nodes.size() == 1 ? den_nodes[0] : std::make_shared&lt;MultiplyNode&gt;(den_nodes);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <a class="code hl_class" href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a> sub_vis(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>, <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">point</a>, <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        N-&gt;accept(sub_vis);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">auto</span> val_n = sub_vis.<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">get_result</a>();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        D-&gt;accept(sub_vis);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">auto</span> val_d = sub_vis.<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">get_result</a>();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> norm2;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        val_n-&gt;accept(norm2); val_n = norm2.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        val_d-&gt;accept(norm2); val_d = norm2.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordtype">bool</span> n_zero = val_n-&gt;is_zero();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordtype">bool</span> d_zero = val_d-&gt;is_zero();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordtype">bool</span> n_inf = <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(val_n);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordtype">bool</span> d_inf = <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(val_d);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">if</span> ((n_zero &amp;&amp; d_zero) || (n_inf &amp;&amp; d_inf)) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <a class="code hl_class" href="../../d3/d1a/classDifferentiationVisitor.html">DifferentiationVisitor</a> diff_vis(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            N-&gt;accept(diff_vis); <span class="keyword">auto</span> dN = diff_vis.<a class="code hl_function" href="../../d3/d1a/classDifferentiationVisitor.html#a069c6a379bd1b15007f02ed883114ab9">get_result</a>();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            D-&gt;accept(diff_vis); <span class="keyword">auto</span> dD = diff_vis.<a class="code hl_function" href="../../d3/d1a/classDifferentiationVisitor.html#a069c6a379bd1b15007f02ed883114ab9">get_result</a>();</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; m_ops = { dN, std::make_shared&lt;PowerNode&gt;(dD, std::make_shared&lt;NumberNode&gt;(<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(-1))) };</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keyword">auto</span> ratio = std::make_shared&lt;MultiplyNode&gt;(m_ops);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            ratio-&gt;accept(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">if</span> (!n_zero &amp;&amp; d_zero) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordtype">int</span> sign_n = 1;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;NumberNode&gt;(val_n)) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                 <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(num-&gt;value)) sign_n = std::get&lt;double&gt;(num-&gt;value) &gt; 0 ? 1 : -1;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value)) sign_n = std::get&lt;BigInt&gt;(num-&gt;value) &gt; <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(0) ? 1 : -1;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value)) sign_n = std::get&lt;Rational&gt;(num-&gt;value) &gt; <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(0) ? 1 : -1;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <a class="code hl_class" href="../../d3/d1a/classDifferentiationVisitor.html">DifferentiationVisitor</a> diff_vis(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            std::shared_ptr&lt;SymbolicNode&gt; curr_d = D;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keywordtype">int</span> sign_d = 0;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=1; i&lt;=3; ++i) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                 curr_d-&gt;accept(diff_vis);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                 <span class="keyword">auto</span> deriv = diff_vis.<a class="code hl_function" href="../../d3/d1a/classDifferentiationVisitor.html#a069c6a379bd1b15007f02ed883114ab9">get_result</a>();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                 <span class="keywordflow">if</span>(!deriv) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                 <a class="code hl_class" href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a> sub_vis(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>, <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">point</a>, <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a>);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                 deriv-&gt;accept(sub_vis);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                 <span class="keyword">auto</span> val_deriv = sub_vis.<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">get_result</a>();</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                 <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> norm;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                 val_deriv-&gt;accept(norm);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                 val_deriv = norm.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                 <span class="keywordflow">if</span> (!val_deriv-&gt;is_zero()) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                      <span class="keywordtype">int</span> s_deriv = 1;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                      <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;NumberNode&gt;(val_deriv)) {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                           <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(num-&gt;value)) s_deriv = std::get&lt;double&gt;(num-&gt;value) &gt; 0 ? 1 : -1;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                           <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value)) s_deriv = std::get&lt;BigInt&gt;(num-&gt;value) &gt; <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(0) ? 1 : -1;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                           <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value)) s_deriv = std::get&lt;Rational&gt;(num-&gt;value) &gt; <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(0) ? 1 : -1;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                      }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                      <span class="keywordflow">if</span> (i % 2 != 0) {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                          <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a> == <span class="stringliteral">&quot;-&quot;</span>) s_deriv *= -1;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                      }</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                      sign_d = s_deriv;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                      <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                 }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                 curr_d = deriv;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">if</span> (sign_d == 0) sign_d = (<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a> == <span class="stringliteral">&quot;-&quot;</span> ? -1 : 1);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            <span class="keywordtype">int</span> final_sign = sign_n * sign_d;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; inf_args;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keyword">auto</span> inf_node = std::make_shared&lt;FunctionNode&gt;(<a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3">FunctionNode::FuncType::Infinity</a>, inf_args);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <span class="keywordflow">if</span> (final_sign &lt; 0) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; m_args = { std::make_shared&lt;NumberNode&gt;(<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(-1)), inf_node };</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = std::make_shared&lt;MultiplyNode&gt;(m_args);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = inf_node;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        }</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = final_subs;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    }</div>
+</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="foldopen" id="foldopen00184" data-start="{" data-end="}">
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#afd43b96190b598ecbf2c4c3f8aacf4c6">  184</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#afd43b96190b598ecbf2c4c3f8aacf4c6">visit</a>(<a class="code hl_class" href="../../d5/d72/classPowerNode.html">PowerNode</a>&amp; node)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        node.<a class="code hl_variable" href="../../d5/d72/classPowerNode.html#afd55da5a61b9bfd863413de3bafdbd95">base</a>-&gt;accept(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keyword">auto</span> b = <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        node.<a class="code hl_variable" href="../../d5/d72/classPowerNode.html#a31d230eb35ae5b520b62500df8e136bf">exponent</a>-&gt;accept(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keyword">auto</span> e = <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keywordflow">if</span> (b-&gt;is_zero()) {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>             <span class="keywordtype">bool</span> neg_exp = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>             <span class="keywordtype">bool</span> odd_exp = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>             <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;NumberNode&gt;(e)) {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                 <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value)) {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                      <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> v = std::get&lt;BigInt&gt;(num-&gt;value);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                      <span class="keywordflow">if</span> (v &lt; <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(0)) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                           neg_exp = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                           <span class="keywordflow">if</span> (v.<a class="code hl_function" href="../../da/d5b/classBigInt.html#a2c6c5776fd02f5f4e89f2e58ae27cb37">is_odd</a>()) odd_exp = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                      }</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                 } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(num-&gt;value)) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                      <span class="keywordflow">if</span> (std::get&lt;double&gt;(num-&gt;value) &lt; 0) neg_exp = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                 }</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>             }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>             <span class="keywordflow">if</span> (neg_exp) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                  <a class="code hl_class" href="../../d3/d1a/classDifferentiationVisitor.html">DifferentiationVisitor</a> diff_vis(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                  std::shared_ptr&lt;SymbolicNode&gt; curr_base = node.<a class="code hl_variable" href="../../d5/d72/classPowerNode.html#afd55da5a61b9bfd863413de3bafdbd95">base</a>;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                  <span class="keywordtype">int</span> sign_base = 0;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                  <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=1; i&lt;=3; ++i) {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                       curr_base-&gt;accept(diff_vis);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                       <span class="keyword">auto</span> deriv = diff_vis.<a class="code hl_function" href="../../d3/d1a/classDifferentiationVisitor.html#a069c6a379bd1b15007f02ed883114ab9">get_result</a>();</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                       <span class="keywordflow">if</span> (!deriv) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                       <a class="code hl_class" href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a> sub(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">var</a>, <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">point</a>, <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a>);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>                       deriv-&gt;accept(sub);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                       <span class="keyword">auto</span> val = sub.<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">get_result</a>();</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                       <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> n; val-&gt;accept(n); val = n.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                       <span class="keywordflow">if</span> (!val-&gt;is_zero()) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                            <span class="keywordtype">int</span> s = 1;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                            <span class="keywordflow">if</span> (<span class="keyword">auto</span> nval = std::dynamic_pointer_cast&lt;NumberNode&gt;(val)) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                                 <span class="keywordflow">if</span> (std::holds_alternative&lt;double&gt;(nval-&gt;value)) s = std::get&lt;double&gt;(nval-&gt;value) &gt; 0 ? 1 : -1;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(nval-&gt;value)) s = std::get&lt;BigInt&gt;(nval-&gt;value) &gt; <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(0) ? 1 : -1;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(nval-&gt;value)) s = std::get&lt;Rational&gt;(nval-&gt;value) &gt; <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(0) ? 1 : -1;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                            }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                            <span class="keywordflow">if</span> (i % 2 != 0 &amp;&amp; <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a> == <span class="stringliteral">&quot;-&quot;</span>) s *= -1;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                            sign_base = s;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                       }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                       curr_base = deriv;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                  }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                  <span class="keywordflow">if</span> (sign_base == 0) sign_base = (<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">direction</a> == <span class="stringliteral">&quot;-&quot;</span> ? -1 : 1);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                  <span class="keywordtype">int</span> final_sign = 1;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                  <span class="keywordflow">if</span> (odd_exp) final_sign = sign_base;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                  std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; inf_args;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                  <span class="keyword">auto</span> inf_node = std::make_shared&lt;FunctionNode&gt;(<a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3">FunctionNode::FuncType::Infinity</a>, inf_args);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                  <span class="keywordflow">if</span> (final_sign &lt; 0) {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                        std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; m = {std::make_shared&lt;NumberNode&gt;(<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(-1)), inf_node};</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                        <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = std::make_shared&lt;MultiplyNode&gt;(m);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                        <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = inf_node;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                  }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                  <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>             }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        }</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(e) &amp;&amp; b-&gt;is_one()) {</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        }</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> norm;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        std::make_shared&lt;PowerNode&gt;(b, e)-&gt;accept(norm);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = norm.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    }</div>
+</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="foldopen" id="foldopen00262" data-start="{" data-end="}">
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#ab0a3fb0309e64deed65cb1fc3189d1a8">  262</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#ab0a3fb0309e64deed65cb1fc3189d1a8">visit</a>(<a class="code hl_class" href="../../d7/d06/classFunctionNode.html">FunctionNode</a>&amp; node)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        std::vector&lt;std::shared_ptr&lt;SymbolicNode&gt;&gt; new_args;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; a : node.<a class="code hl_variable" href="../../d7/d06/classFunctionNode.html#ac9b0d2d20ad5b396b355ff3d066dd33f">arguments</a>) {</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            a-&gt;accept(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            new_args.push_back(<a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a>);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <a class="code hl_class" href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a> norm;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        std::make_shared&lt;FunctionNode&gt;(node.<a class="code hl_variable" href="../../d7/d06/classFunctionNode.html#a467c4857905979ec431b6572872ea506">type</a>, new_args)-&gt;accept(norm);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = norm.<a class="code hl_function" href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">get_result</a>();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    }</div>
+</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#aa8a9a7655c2f2742c7249960192a7b44">  273</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#aa8a9a7655c2f2742c7249960192a7b44">visit</a>(<a class="code hl_class" href="../../d3/d86/classMatrixNode.html">MatrixNode</a>&amp; node)<span class="keyword"> override </span>{ <a class="code hl_variable" href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">result</a> = node.<a class="code hl_function" href="../../d3/d86/classMatrixNode.html#a80ec72c40bb7a6b7511acbe5a9c84cbc">clone</a>(); }</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="keyword">private</span>:</div>
+<div class="foldopen" id="foldopen00276" data-start="{" data-end="}">
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">  276</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicNode&gt;&amp; node) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> f = std::dynamic_pointer_cast&lt;FunctionNode&gt;(node)) {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            <span class="keywordflow">return</span> f-&gt;type == <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3">FunctionNode::FuncType::Infinity</a>;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> m = std::dynamic_pointer_cast&lt;MultiplyNode&gt;(node)) {</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; op : m-&gt;operands) <span class="keywordflow">if</span> (<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(op)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        }</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> p = std::dynamic_pointer_cast&lt;PowerNode&gt;(node)) {</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(p-&gt;base)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        }</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> a = std::dynamic_pointer_cast&lt;AddNode&gt;(node)) {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; op : a-&gt;operands) <span class="keywordflow">if</span> (<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">is_inf</a>(op)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
+</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>};</div>
+</div>
+<div class="ttc" id="aclassAddNode_html"><div class="ttname"><a href="../../d8/d2e/classAddNode.html">AddNode</a></div><div class="ttdoc">加法节点，表示多个操作数的求和。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00358">symbolic_ast.hpp:358</a></div></div>
+<div class="ttc" id="aclassAddNode_html_aa3f09257b2594fd422133f36da2b0a4f"><div class="ttname"><a href="../../d8/d2e/classAddNode.html#aa3f09257b2594fd422133f36da2b0a4f">AddNode::operands</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicNode &gt; &gt; operands</div><div class="ttdoc">加法操作数列表</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00360">symbolic_ast.hpp:360</a></div></div>
+<div class="ttc" id="aclassBigInt_html"><div class="ttname"><a href="../../da/d5b/classBigInt.html">BigInt</a></div><div class="ttdoc">任意精度整数类，底层使用 LAMMP 多精度库</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d09/bigint_8hpp_source.html#l00073">bigint.hpp:73</a></div></div>
+<div class="ttc" id="aclassBigInt_html_a2c6c5776fd02f5f4e89f2e58ae27cb37"><div class="ttname"><a href="../../da/d5b/classBigInt.html#a2c6c5776fd02f5f4e89f2e58ae27cb37">BigInt::is_odd</a></div><div class="ttdeci">bool is_odd() const</div><div class="ttdoc">判断是否为奇数</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d09/bigint_8hpp_source.html#l00730">bigint.hpp:730</a></div></div>
+<div class="ttc" id="aclassDifferentiationVisitor_html"><div class="ttname"><a href="../../d3/d1a/classDifferentiationVisitor.html">DifferentiationVisitor</a></div><div class="ttdoc">微分访问器，对符号 AST 执行求导运算，支持普通求导和隐函数求导</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d89/differentiation__visitor_8hpp_source.html#l00009">differentiation_visitor.hpp:9</a></div></div>
+<div class="ttc" id="aclassDifferentiationVisitor_html_a069c6a379bd1b15007f02ed883114ab9"><div class="ttname"><a href="../../d3/d1a/classDifferentiationVisitor.html#a069c6a379bd1b15007f02ed883114ab9">DifferentiationVisitor::get_result</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; get_result() const</div><div class="ttdoc">获取求导结果</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d89/differentiation__visitor_8hpp_source.html#l00035">differentiation_visitor.hpp:35</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html">FunctionNode</a></div><div class="ttdoc">函数节点，表示数学函数调用（三角函数、对数、特殊函数等）。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00513">symbolic_ast.hpp:513</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3">FunctionNode::FuncType::Infinity</a></div><div class="ttdeci">@ Infinity</div><div class="ttdoc">无穷大</div></div>
+<div class="ttc" id="aclassFunctionNode_html_a467c4857905979ec431b6572872ea506"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a467c4857905979ec431b6572872ea506">FunctionNode::type</a></div><div class="ttdeci">FuncType type</div><div class="ttdoc">函数类型</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00535">symbolic_ast.hpp:535</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_ac9b0d2d20ad5b396b355ff3d066dd33f"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#ac9b0d2d20ad5b396b355ff3d066dd33f">FunctionNode::arguments</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicNode &gt; &gt; arguments</div><div class="ttdoc">函数参数列表</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00536">symbolic_ast.hpp:536</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a></div><div class="ttdoc">极限访问器，通过代入求值和 L'Hôpital 法则计算符号表达式的极限</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00013">limit_visitor.hpp:13</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_a304fbca1414565db87b890a93c51a5e1"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#a304fbca1414565db87b890a93c51a5e1">LimitVisitor::direction</a></div><div class="ttdeci">std::string direction</div><div class="ttdoc">趋近方向（&quot;+&quot;、&quot;-&quot; 或空表示双侧）</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00016">limit_visitor.hpp:16</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_a6f8266ef082db5ed42978094a116b35d"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#a6f8266ef082db5ed42978094a116b35d">LimitVisitor::point</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; point</div><div class="ttdoc">趋近点</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00015">limit_visitor.hpp:15</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_a7002fa3381ccfbfa6d55474edf289ca5"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#a7002fa3381ccfbfa6d55474edf289ca5">LimitVisitor::is_inf</a></div><div class="ttdeci">bool is_inf(const std::shared_ptr&lt; SymbolicNode &gt; &amp;node)</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00276">limit_visitor.hpp:276</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_a7975b241b51386db6b8365cb00725581"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#a7975b241b51386db6b8365cb00725581">LimitVisitor::LimitVisitor</a></div><div class="ttdeci">LimitVisitor(std::string v, std::shared_ptr&lt; SymbolicNode &gt; p, std::string dir=&quot;&quot;)</div><div class="ttdoc">构造极限访问器</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00026">limit_visitor.hpp:26</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_a7d14e62114579764808068e5a9a28913"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#a7d14e62114579764808068e5a9a28913">LimitVisitor::result</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; result</div><div class="ttdoc">极限计算结果</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00018">limit_visitor.hpp:18</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_a855a101268eef2498d340d147fe79c7e"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#a855a101268eef2498d340d147fe79c7e">LimitVisitor::visit</a></div><div class="ttdeci">void visit(MultiplyNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00052">limit_visitor.hpp:52</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_aa8a9a7655c2f2742c7249960192a7b44"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#aa8a9a7655c2f2742c7249960192a7b44">LimitVisitor::visit</a></div><div class="ttdeci">void visit(MatrixNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00273">limit_visitor.hpp:273</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_ab0a3fb0309e64deed65cb1fc3189d1a8"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#ab0a3fb0309e64deed65cb1fc3189d1a8">LimitVisitor::visit</a></div><div class="ttdeci">void visit(FunctionNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00262">limit_visitor.hpp:262</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_ab1ab4b6502d19a225ac7fbf61dde7eef"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#ab1ab4b6502d19a225ac7fbf61dde7eef">LimitVisitor::get_result</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; get_result() const</div><div class="ttdoc">获取极限计算结果</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00033">limit_visitor.hpp:33</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_adc2993fa889f2fe85f404263abc9b8eb"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#adc2993fa889f2fe85f404263abc9b8eb">LimitVisitor::visit</a></div><div class="ttdeci">void visit(VariableNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00036">limit_visitor.hpp:36</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_adf98cc0ad7e5f20dc0c5f674504dee9b"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#adf98cc0ad7e5f20dc0c5f674504dee9b">LimitVisitor::visit</a></div><div class="ttdeci">void visit(NumberNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00035">limit_visitor.hpp:35</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_ae232e7d14e51d75a5233bb7a9e39713e"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#ae232e7d14e51d75a5233bb7a9e39713e">LimitVisitor::var</a></div><div class="ttdeci">std::string var</div><div class="ttdoc">趋近变量名</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00014">limit_visitor.hpp:14</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_aec5cf0381c03243c9a3282ac3b7147e9"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#aec5cf0381c03243c9a3282ac3b7147e9">LimitVisitor::visit</a></div><div class="ttdeci">void visit(AddNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00041">limit_visitor.hpp:41</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_afd43b96190b598ecbf2c4c3f8aacf4c6"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#afd43b96190b598ecbf2c4c3f8aacf4c6">LimitVisitor::visit</a></div><div class="ttdeci">void visit(PowerNode &amp;node) override</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00184">limit_visitor.hpp:184</a></div></div>
+<div class="ttc" id="aclassMatrixNode_html"><div class="ttname"><a href="../../d3/d86/classMatrixNode.html">MatrixNode</a></div><div class="ttdoc">矩阵节点，支持稠密和稀疏两种存储方式。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00585">symbolic_ast.hpp:585</a></div></div>
+<div class="ttc" id="aclassMatrixNode_html_a80ec72c40bb7a6b7511acbe5a9c84cbc"><div class="ttname"><a href="../../d3/d86/classMatrixNode.html#a80ec72c40bb7a6b7511acbe5a9c84cbc">MatrixNode::clone</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; clone() const override</div><div class="ttdoc">深拷贝当前节点及其子树。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00689">symbolic_ast.hpp:689</a></div></div>
+<div class="ttc" id="aclassMultiplyNode_html"><div class="ttname"><a href="../../dd/dce/classMultiplyNode.html">MultiplyNode</a></div><div class="ttdoc">乘法节点，表示多个操作数的乘积。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00419">symbolic_ast.hpp:419</a></div></div>
+<div class="ttc" id="aclassMultiplyNode_html_a591c7070a2022eb64bef00a21133ea1c"><div class="ttname"><a href="../../dd/dce/classMultiplyNode.html#a591c7070a2022eb64bef00a21133ea1c">MultiplyNode::operands</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicNode &gt; &gt; operands</div><div class="ttdoc">乘法操作数列表</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00421">symbolic_ast.hpp:421</a></div></div>
+<div class="ttc" id="aclassNormalizationVisitor_html"><div class="ttname"><a href="../../d3/da1/classNormalizationVisitor.html">NormalizationVisitor</a></div><div class="ttdoc">规范化访问器，合并同类项、化简数值运算、处理矩阵算术和三角函数特殊值</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5e/normalization__visitor_8hpp_source.html#l00222">normalization_visitor.hpp:222</a></div></div>
+<div class="ttc" id="aclassNormalizationVisitor_html_abefa11f3ddef7d3918dec3102f6fbd40"><div class="ttname"><a href="../../d3/da1/classNormalizationVisitor.html#abefa11f3ddef7d3918dec3102f6fbd40">NormalizationVisitor::get_result</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; get_result() const</div><div class="ttdoc">获取规范化结果</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5e/normalization__visitor_8hpp_source.html#l00237">normalization_visitor.hpp:237</a></div></div>
+<div class="ttc" id="aclassNumberNode_html"><div class="ttname"><a href="../../dc/dea/classNumberNode.html">NumberNode</a></div><div class="ttdoc">数值节点，存储 BigInt、Rational 或浮点数。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00221">symbolic_ast.hpp:221</a></div></div>
+<div class="ttc" id="aclassNumberNode_html_a9c75d0e8c16b76d2105bc0127b6213c1"><div class="ttname"><a href="../../dc/dea/classNumberNode.html#a9c75d0e8c16b76d2105bc0127b6213c1">NumberNode::clone</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; clone() const override</div><div class="ttdoc">深拷贝当前节点及其子树。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00288">symbolic_ast.hpp:288</a></div></div>
+<div class="ttc" id="aclassPowerNode_html"><div class="ttname"><a href="../../d5/d72/classPowerNode.html">PowerNode</a></div><div class="ttdoc">幂运算节点，表示 base^exponent。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00475">symbolic_ast.hpp:475</a></div></div>
+<div class="ttc" id="aclassPowerNode_html_a31d230eb35ae5b520b62500df8e136bf"><div class="ttname"><a href="../../d5/d72/classPowerNode.html#a31d230eb35ae5b520b62500df8e136bf">PowerNode::exponent</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; exponent</div><div class="ttdoc">指数</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00478">symbolic_ast.hpp:478</a></div></div>
+<div class="ttc" id="aclassPowerNode_html_afd55da5a61b9bfd863413de3bafdbd95"><div class="ttname"><a href="../../d5/d72/classPowerNode.html#afd55da5a61b9bfd863413de3bafdbd95">PowerNode::base</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; base</div><div class="ttdoc">底数</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00477">symbolic_ast.hpp:477</a></div></div>
+<div class="ttc" id="aclassRational_html"><div class="ttname"><a href="../../d8/da7/classRational.html">Rational</a></div><div class="ttdoc">精确有理数类，以 BigInt 分子/分母表示，构造时自动约分</div><div class="ttdef"><b>Definition</b> <a href="../../d1/de8/rational_8hpp_source.html#l00017">rational.hpp:17</a></div></div>
+<div class="ttc" id="aclassSymbolicVisitor_html"><div class="ttname"><a href="../../da/dcb/classSymbolicVisitor.html">SymbolicVisitor</a></div><div class="ttdoc">AST 访问者基类（Visitor 模式）。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00128">symbolic_ast.hpp:128</a></div></div>
+<div class="ttc" id="aclassVariableNode_html"><div class="ttname"><a href="../../d5/d93/classVariableNode.html">VariableNode</a></div><div class="ttdoc">变量节点，表示一个符号变量。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00330">symbolic_ast.hpp:330</a></div></div>
+<div class="ttc" id="aclassVariableNode_html_a593e527fbdb73b75def16654ffe93350"><div class="ttname"><a href="../../d5/d93/classVariableNode.html#a593e527fbdb73b75def16654ffe93350">VariableNode::clone</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicNode &gt; clone() const override</div><div class="ttdoc">深拷贝当前节点及其子树。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00350">symbolic_ast.hpp:350</a></div></div>
+<div class="ttc" id="aclassVariableNode_html_af14b88bab85ecdd8021a7b45c1253b65"><div class="ttname"><a href="../../d5/d93/classVariableNode.html#af14b88bab85ecdd8021a7b45c1253b65">VariableNode::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">变量名</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d89/symbolic__ast_8hpp_source.html#l00332">symbolic_ast.hpp:332</a></div></div>
+<div class="ttc" id="anormalization__visitor_8hpp_html"><div class="ttname"><a href="../../dd/d5e/normalization__visitor_8hpp.html">normalization_visitor.hpp</a></div><div class="ttdoc">规范化访问器，合并同类项、化简数值运算、处理矩阵算术。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4e5658a7286517e9c5b1437feaf10aed.html">visitors</a></li><li class="navelem"><a class="el" href="../../da/d7b/limit__visitor_8hpp.html">limit_visitor.hpp</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

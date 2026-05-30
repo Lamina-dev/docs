@@ -1,0 +1,808 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAMMP: src/lammp/NumTh/binvert.c 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LAMMP<span id="projectnumber">&#160;4.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('dd/d93/binvert_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">binvert.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d8/dd0/mparam_8h_source.html">../../../include/lammp/impl/mparam.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/daa/tmp__alloc_8h_source.html">../../../include/lammp/impl/tmp_alloc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d39/lmmpn_8h_source.html">../../../include/lammp/lmmpn.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/da4/numth_8h_source.html">../../../include/lammp/numth.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> binvert.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d2f/binvert_8c__incl.svg" width="100%" height="503"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../dd/d93/binvert_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a1b1de7b3b1a3f935e2577e27dce4aeba" id="r_a1b1de7b3b1a3f935e2577e27dce4aeba"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a1b1de7b3b1a3f935e2577e27dce4aeba">ahi</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a1b1de7b3b1a3f935e2577e27dce4aeba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b1de7b3b1a3f935e2577e27dce4aeba" id="r_a1b1de7b3b1a3f935e2577e27dce4aeba"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a1b1de7b3b1a3f935e2577e27dce4aeba">ahi</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a1b1de7b3b1a3f935e2577e27dce4aeba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a557e50273d5eec5f81d43424459bd" id="r_ab9a557e50273d5eec5f81d43424459bd"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>)</td></tr>
+<tr class="separator:ab9a557e50273d5eec5f81d43424459bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a557e50273d5eec5f81d43424459bd" id="r_ab9a557e50273d5eec5f81d43424459bd"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>)</td></tr>
+<tr class="separator:ab9a557e50273d5eec5f81d43424459bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13b230ea1d237595fb236c951a0849e0" id="r_a13b230ea1d237595fb236c951a0849e0"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td></tr>
+<tr class="separator:a13b230ea1d237595fb236c951a0849e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13b230ea1d237595fb236c951a0849e0" id="r_a13b230ea1d237595fb236c951a0849e0"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td></tr>
+<tr class="separator:a13b230ea1d237595fb236c951a0849e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b70e7939cd9ba1ea8520af6c7507ce" id="r_a88b70e7939cd9ba1ea8520af6c7507ce"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 3 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a88b70e7939cd9ba1ea8520af6c7507ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b70e7939cd9ba1ea8520af6c7507ce" id="r_a88b70e7939cd9ba1ea8520af6c7507ce"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 3 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a88b70e7939cd9ba1ea8520af6c7507ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ff1e9a0f68c8743deb65981d330867b" id="r_a7ff1e9a0f68c8743deb65981d330867b"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a7ff1e9a0f68c8743deb65981d330867b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ff1e9a0f68c8743deb65981d330867b" id="r_a7ff1e9a0f68c8743deb65981d330867b"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a7ff1e9a0f68c8743deb65981d330867b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af023ebc6b5220d21a0b36bd5b9a5d869" id="r_af023ebc6b5220d21a0b36bd5b9a5d869"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>)</td></tr>
+<tr class="separator:af023ebc6b5220d21a0b36bd5b9a5d869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af023ebc6b5220d21a0b36bd5b9a5d869" id="r_af023ebc6b5220d21a0b36bd5b9a5d869"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>)</td></tr>
+<tr class="separator:af023ebc6b5220d21a0b36bd5b9a5d869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65ffa1b425ad81a7158988fc83c885f2" id="r_a65ffa1b425ad81a7158988fc83c885f2"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a65ffa1b425ad81a7158988fc83c885f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65ffa1b425ad81a7158988fc83c885f2" id="r_a65ffa1b425ad81a7158988fc83c885f2"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a65ffa1b425ad81a7158988fc83c885f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54a1ee1564a1ca194e671eb5d086e667" id="r_a54a1ee1564a1ca194e671eb5d086e667"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 2 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a54a1ee1564a1ca194e671eb5d086e667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54a1ee1564a1ca194e671eb5d086e667" id="r_a54a1ee1564a1ca194e671eb5d086e667"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 2 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td></tr>
+<tr class="separator:a54a1ee1564a1ca194e671eb5d086e667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a7a117714be10e35005a968c5c3ab878d" id="r_a7a117714be10e35005a968c5c3ab878d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a7a117714be10e35005a968c5c3ab878d">binvert_mulhi_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td></tr>
+<tr class="separator:a7a117714be10e35005a968c5c3ab878d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fd1bd013e0538b438fc6a69e6e29a74" id="r_a3fd1bd013e0538b438fc6a69e6e29a74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#a3fd1bd013e0538b438fc6a69e6e29a74">lmmp_binvert_n_dc_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td></tr>
+<tr class="separator:a3fd1bd013e0538b438fc6a69e6e29a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af33c404d23771847ae3a9a9b71f76551" id="r_af33c404d23771847ae3a9a9b71f76551"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#af33c404d23771847ae3a9a9b71f76551">lmmp_mullo_n_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#a567890c0f403309773585d81b331db5a">numb</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td></tr>
+<tr class="separator:af33c404d23771847ae3a9a9b71f76551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad25f4574e86237b74eecd941793656b1" id="r_ad25f4574e86237b74eecd941793656b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d93/binvert_8c.html#ad25f4574e86237b74eecd941793656b1">lmmp_sqrlo_n_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td></tr>
+<tr class="separator:ad25f4574e86237b74eecd941793656b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a1b1de7b3b1a3f935e2577e27dce4aeba" name="a1b1de7b3b1a3f935e2577e27dce4aeba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b1de7b3b1a3f935e2577e27dce4aeba">&#9670;&#160;</a></span>ahi <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> ahi&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b1de7b3b1a3f935e2577e27dce4aeba" name="a1b1de7b3b1a3f935e2577e27dce4aeba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b1de7b3b1a3f935e2577e27dce4aeba">&#9670;&#160;</a></span>ahi <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> ahi&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9a557e50273d5eec5f81d43424459bd" name="ab9a557e50273d5eec5f81d43424459bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a557e50273d5eec5f81d43424459bd">&#9670;&#160;</a></span>alo <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> alo&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9a557e50273d5eec5f81d43424459bd" name="ab9a557e50273d5eec5f81d43424459bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a557e50273d5eec5f81d43424459bd">&#9670;&#160;</a></span>alo <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> alo&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13b230ea1d237595fb236c951a0849e0" name="a13b230ea1d237595fb236c951a0849e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13b230ea1d237595fb236c951a0849e0">&#9670;&#160;</a></span>k <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> k&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13b230ea1d237595fb236c951a0849e0" name="a13b230ea1d237595fb236c951a0849e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13b230ea1d237595fb236c951a0849e0">&#9670;&#160;</a></span>k <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> k&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88b70e7939cd9ba1ea8520af6c7507ce" name="a88b70e7939cd9ba1ea8520af6c7507ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b70e7939cd9ba1ea8520af6c7507ce">&#9670;&#160;</a></span>scratch <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> scratch&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 3 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88b70e7939cd9ba1ea8520af6c7507ce" name="a88b70e7939cd9ba1ea8520af6c7507ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b70e7939cd9ba1ea8520af6c7507ce">&#9670;&#160;</a></span>scratch <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> scratch&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 3 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ff1e9a0f68c8743deb65981d330867b" name="a7ff1e9a0f68c8743deb65981d330867b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ff1e9a0f68c8743deb65981d330867b">&#9670;&#160;</a></span>xhi <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xhi&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ff1e9a0f68c8743deb65981d330867b" name="a7ff1e9a0f68c8743deb65981d330867b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ff1e9a0f68c8743deb65981d330867b">&#9670;&#160;</a></span>xhi <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xhi&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af023ebc6b5220d21a0b36bd5b9a5d869" name="af023ebc6b5220d21a0b36bd5b9a5d869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af023ebc6b5220d21a0b36bd5b9a5d869">&#9670;&#160;</a></span>xlo <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xlo&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af023ebc6b5220d21a0b36bd5b9a5d869" name="af023ebc6b5220d21a0b36bd5b9a5d869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af023ebc6b5220d21a0b36bd5b9a5d869">&#9670;&#160;</a></span>xlo <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xlo&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65ffa1b425ad81a7158988fc83c885f2" name="a65ffa1b425ad81a7158988fc83c885f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65ffa1b425ad81a7158988fc83c885f2">&#9670;&#160;</a></span>xlo_sqr <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xlo_sqr&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65ffa1b425ad81a7158988fc83c885f2" name="a65ffa1b425ad81a7158988fc83c885f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65ffa1b425ad81a7158988fc83c885f2">&#9670;&#160;</a></span>xlo_sqr <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xlo_sqr&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54a1ee1564a1ca194e671eb5d086e667" name="a54a1ee1564a1ca194e671eb5d086e667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a1ee1564a1ca194e671eb5d086e667">&#9670;&#160;</a></span>xlo_sqr_mul_ahi <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xlo_sqr_mul_ahi&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 2 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54a1ee1564a1ca194e671eb5d086e667" name="a54a1ee1564a1ca194e671eb5d086e667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a1ee1564a1ca194e671eb5d086e667">&#9670;&#160;</a></span>xlo_sqr_mul_ahi <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> xlo_sqr_mul_ahi&#160;&#160;&#160;(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + 2 * <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a7a117714be10e35005a968c5c3ab878d" name="a7a117714be10e35005a968c5c3ab878d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a117714be10e35005a968c5c3ab878d">&#9670;&#160;</a></span>binvert_mulhi_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> binvert_mulhi_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a>&#160;</td>
+          <td class="paramname"><em>xp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a>&#160;</td>
+          <td class="paramname"><em>ap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a>&#160;</td>
+          <td class="paramname"><em>tp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dd/d93/binvert_8c_source.html">binvert.c</a> 第 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00013">13</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   13</span>                                                                                                  {</div>
+<div class="line"><span class="lineno">   14</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt; <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#ae72ec9c0765cd31ecbd2479240f522e3">BINVERT_MULHI_MERSENNE_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">   15</span>        <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a2dd531ca22dfc3a447630852b5275fe5">lmmp_mul_n_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   16</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   17</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   18</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> m = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aab5be2d356cd6c7236cacb11d9315666">lmmp_fft_next_size_</a>((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> * 2 + 1) &gt;&gt; 1);</div>
+<div class="line"><span class="lineno">   19</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> * 2 &gt; m &amp;&amp; m &gt;= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   20</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a1d4cd32c506207c7617dadfa39a9236c">lmmp_mul_mersenne_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, m, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   21</span>        <a class="code hl_define" href="../../d6/d39/lmmpn_8h.html#a29ab1eb3b7124254a32a001dcd019ee6">lmmp_dec</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><span class="lineno">   22</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fn</a> = m - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;   <span class="comment">// 从 tp+n 开始的长度</span></div>
+<div class="line"><span class="lineno">   23</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">sn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fn</a>;  <span class="comment">// 从 tp 开始的长度</span></div>
+<div class="line"><span class="lineno">   24</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fn</a>);</div>
+<div class="line"><span class="lineno">   25</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">sn</a>);</div>
+<div class="line"><span class="lineno">   26</span>    }</div>
+<div class="line"><span class="lineno">   27</span>}</div>
+<div class="ttc" id="ainlines_8h_html_a2dd531ca22dfc3a447630852b5275fe5"><div class="ttname"><a href="../../d1/de6/inlines_8h.html#a2dd531ca22dfc3a447630852b5275fe5">lmmp_mul_n_</a></div><div class="ttdeci">#define lmmp_mul_n_</div><div class="ttdef"><b>Definition</b> <a href="../../d1/de6/inlines_8h_source.html#l00170">inlines.h:170</a></div></div>
+<div class="ttc" id="almmp_8h_html_a1e058c47a192be811139a760f7dc99c3"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a></div><div class="ttdeci">#define lmmp_copy(dst, src, n)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00333">lmmp.h:333</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00207">lmmp.h:207</a></div></div>
+<div class="ttc" id="almmp_8h_html_a615856ce29bb791b82c2c8271aa829da"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a></div><div class="ttdeci">#define lmmp_debug_assert(x)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00356">lmmp.h:356</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a1d4cd32c506207c7617dadfa39a9236c"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a1d4cd32c506207c7617dadfa39a9236c">lmmp_mul_mersenne_</a></div><div class="ttdeci">void lmmp_mul_mersenne_(mp_ptr dst, mp_size_t rn, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">梅森数模乘法 [dst,rn] = [numa,na]*[numb,nb] mod B^rn-1</div><div class="ttdef"><b>Definition</b> <a href="../../db/dfa/mul__fft_8c_source.html#l00754">mul_fft.c:754</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a29ab1eb3b7124254a32a001dcd019ee6"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a29ab1eb3b7124254a32a001dcd019ee6">lmmp_dec</a></div><div class="ttdeci">#define lmmp_dec(p)</div><div class="ttdoc">大数减1宏（预期无借位）</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d39/lmmpn_8h_source.html#l00969">lmmpn.h:969</a></div></div>
+<div class="ttc" id="almmpn_8h_html_aab5be2d356cd6c7236cacb11d9315666"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#aab5be2d356cd6c7236cacb11d9315666">lmmp_fft_next_size_</a></div><div class="ttdeci">mp_size_t lmmp_fft_next_size_(mp_size_t n)</div><div class="ttdoc">计算满足 &gt;=n 的最小费马/梅森乘法可行尺寸</div><div class="ttdef"><b>Definition</b> <a href="../../db/dfa/mul__fft_8c_source.html#l00086">mul_fft.c:86</a></div></div>
+<div class="ttc" id="amparam_8h_html_ae72ec9c0765cd31ecbd2479240f522e3"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#ae72ec9c0765cd31ecbd2479240f522e3">BINVERT_MULHI_MERSENNE_THRESHOLD</a></div><div class="ttdeci">#define BINVERT_MULHI_MERSENNE_THRESHOLD</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00136">mparam.h:136</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_ab025e87040bd241c89f5a880c12fc80c"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a></div><div class="ttdeci">#define tp</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00136">BINVERT_MULHI_MERSENNE_THRESHOLD</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00333">lmmp_copy</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00356">lmmp_debug_assert</a>, <a class="el" href="../../d6/d39/lmmpn_8h_source.html#l00969">lmmp_dec</a>, <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l00086">lmmp_fft_next_size_()</a>, <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l00754">lmmp_mul_mersenne_()</a>, <a class="el" href="../../d1/de6/inlines_8h_source.html#l00170">lmmp_mul_n_</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00091">lmmp_binvert_n_dc_()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_a7a117714be10e35005a968c5c3ab878d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_a7a117714be10e35005a968c5c3ab878d_icgraph.svg" width="335" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3fd1bd013e0538b438fc6a69e6e29a74" name="a3fd1bd013e0538b438fc6a69e6e29a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fd1bd013e0538b438fc6a69e6e29a74">&#9670;&#160;</a></span>lmmp_binvert_n_dc_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_binvert_n_dc_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>numa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>tp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dd/d93/binvert_8c_source.html">binvert.c</a> 第 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00091">91</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>                                                                                                       {</div>
+<div class="line"><span class="lineno">   92</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a> &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>);</div>
+<div class="line"><span class="lineno">   93</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a> &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0);</div>
+<div class="line"><span class="lineno">   94</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>[0] % 2 == 1);</div>
+<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 1) {</div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[0] = <a class="code hl_function" href="../../de/da4/numth_8h.html#a3926a6e48ffe7baef646e599da10ed2c">lmmp_binvert_ulong_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>[0]);</div>
+<div class="line"><span class="lineno">   97</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 2) {</div>
+<div class="line"><span class="lineno">   98</span>        <a class="code hl_function" href="../../de/da4/numth_8h.html#a74a5578fb2cb77451ab849f43cb5688d">lmmp_binvert_2_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>);</div>
+<div class="line"><span class="lineno">   99</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 3) {</div>
+<div class="line"><span class="lineno">  100</span>        <a class="code hl_function" href="../../de/da4/numth_8h.html#a7c4f959219fb14ce3e2449839c3f7ff3">lmmp_binvert_3_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>);</div>
+<div class="line"><span class="lineno">  101</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 4) {</div>
+<div class="line"><span class="lineno">  102</span>        <a class="code hl_function" href="../../de/da4/numth_8h.html#a9b626b38855437e68c106c63c6af28cc">lmmp_binvert_4_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>);</div>
+<div class="line"><span class="lineno">  103</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> % 2 == 0) {</div>
+<div class="line"><span class="lineno">  104</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 2;</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span><span class="preprocessor">#define k               (tp)              </span><span class="comment">// [tp,          halfn]</span></div>
+<div class="line"><span class="lineno">  107</span><span class="preprocessor">#define alo             (numa)            </span><span class="comment">// [numa,        halfn]</span></div>
+<div class="line"><span class="lineno">  108</span><span class="preprocessor">#define ahi             (numa + halfn)    </span><span class="comment">// [numa+halfn,  halfn]</span></div>
+<div class="line"><span class="lineno">  109</span><span class="preprocessor">#define xlo             (dst)             </span><span class="comment">// [dst,         halfn]</span></div>
+<div class="line"><span class="lineno">  110</span><span class="preprocessor">#define xhi             (dst + halfn)     </span><span class="comment">// [dst+halfn,   halfn]</span></div>
+<div class="line"><span class="lineno">  111</span><span class="preprocessor">#define xlo_sqr         (tp + halfn)      </span><span class="comment">// [tp+halfn,    halfn]</span></div>
+<div class="line"><span class="lineno">  112</span><span class="preprocessor">#define xlo_sqr_mul_ahi (tp + 2 * halfn)  </span><span class="comment">// [tp+2*halfn,  halfn]</span></div>
+<div class="line"><span class="lineno">  113</span><span class="preprocessor">#define scratch         (tp + 3 * halfn)  </span><span class="comment">// [tp+3*halfn,2*halfn]</span></div>
+<div class="line"><span class="lineno">  114</span><span class="comment">//      ________________________________________________________________</span></div>
+<div class="line"><span class="lineno">  115</span><span class="comment">// tp : |_________________________5*(n+1)/2____________________________|</span></div>
+<div class="line"><span class="lineno">  116</span><span class="comment">//      |   k   | xlo_sqr | xlo_sqr_mul_ahi |   scratch   | remaining  |</span></div>
+<div class="line"><span class="lineno">  117</span><span class="comment">//      |_halfn_|__halfn__|______halfn______|___2*halfn___|            |</span></div>
+<div class="line"><span class="lineno">  118</span> </div>
+<div class="line"><span class="lineno">  119</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#a3fd1bd013e0538b438fc6a69e6e29a74">lmmp_binvert_n_dc_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><span class="lineno">  120</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#a7a117714be10e35005a968c5c3ab878d">binvert_mulhi_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>);</div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#ad25f4574e86237b74eecd941793656b1">lmmp_sqrlo_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>);</div>
+<div class="line"><span class="lineno">  122</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#af33c404d23771847ae3a9a9b71f76551">lmmp_mullo_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a1b1de7b3b1a3f935e2577e27dce4aeba">ahi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>);</div>
+<div class="line"><span class="lineno">  123</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#af33c404d23771847ae3a9a9b71f76551">lmmp_mullo_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>);</div>
+<div class="line"><span class="lineno">  124</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#afa05758121cca6aa6b21256d5a959871">lmmp_add_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>);</div>
+<div class="line"><span class="lineno">  125</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#adfce4345fbfcf25e2861add91f6d2c53">lmmp_not_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>);</div>
+<div class="line"><span class="lineno">  126</span>        <a class="code hl_define" href="../../d6/d39/lmmpn_8h.html#a5606a1a46e76e77aca7f7e554c8e30e5">lmmp_inc</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>);</div>
+<div class="line"><span class="lineno">  127</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  128</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 2 + 1;</div>
+<div class="line"><span class="lineno">  129</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ahin</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>;</div>
+<div class="line"><span class="lineno">  130</span> </div>
+<div class="line"><span class="lineno">  131</span><span class="preprocessor">#define k               (tp)              </span><span class="comment">// [tp,          halfn]</span></div>
+<div class="line"><span class="lineno">  132</span><span class="preprocessor">#define alo             (numa)            </span><span class="comment">// [numa,        halfn]</span></div>
+<div class="line"><span class="lineno">  133</span><span class="preprocessor">#define ahi             (numa + halfn)    </span><span class="comment">// [numa+halfn,   ahin]</span></div>
+<div class="line"><span class="lineno">  134</span><span class="preprocessor">#define xlo             (dst)             </span><span class="comment">// [dst,         halfn]</span></div>
+<div class="line"><span class="lineno">  135</span><span class="preprocessor">#define xhi             (dst + halfn)     </span><span class="comment">// [dst+halfn,    ahin]</span></div>
+<div class="line"><span class="lineno">  136</span><span class="preprocessor">#define xlo_sqr         (tp + halfn)      </span><span class="comment">// [tp+halfn,     ahin]</span></div>
+<div class="line"><span class="lineno">  137</span><span class="preprocessor">#define xlo_sqr_mul_ahi (tp + 2 * halfn)  </span><span class="comment">// [tp+2*halfn,   ahin]</span></div>
+<div class="line"><span class="lineno">  138</span><span class="preprocessor">#define scratch         (tp + 3 * halfn)  </span><span class="comment">// [tp+3*halfn, 2*ahin]</span></div>
+<div class="line"><span class="lineno">  139</span><span class="comment">//      ________________________________________________________________</span></div>
+<div class="line"><span class="lineno">  140</span><span class="comment">// tp : |_________________________5*(n+1)/2____________________________|</span></div>
+<div class="line"><span class="lineno">  141</span><span class="comment">//      |    k    | xlo_sqr | xlo_sqr_mul_ahi |   scratch  | remaining |</span></div>
+<div class="line"><span class="lineno">  142</span><span class="comment">//      |__halfn__|__halfn__|______halfn______|___2*ahin___|           |</span></div>
+<div class="line"><span class="lineno">  143</span> </div>
+<div class="line"><span class="lineno">  144</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#a3fd1bd013e0538b438fc6a69e6e29a74">lmmp_binvert_n_dc_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><span class="lineno">  145</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#a7a117714be10e35005a968c5c3ab878d">binvert_mulhi_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">halfn</a>);</div>
+<div class="line"><span class="lineno">  146</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#ad25f4574e86237b74eecd941793656b1">lmmp_sqrlo_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ahin</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>);</div>
+<div class="line"><span class="lineno">  147</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#af33c404d23771847ae3a9a9b71f76551">lmmp_mullo_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a1b1de7b3b1a3f935e2577e27dce4aeba">ahi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ahin</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>);</div>
+<div class="line"><span class="lineno">  148</span>        <a class="code hl_function" href="../../dd/d93/binvert_8c.html#af33c404d23771847ae3a9a9b71f76551">lmmp_mullo_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ahin</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>);</div>
+<div class="line"><span class="lineno">  149</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#afa05758121cca6aa6b21256d5a959871">lmmp_add_n_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ahin</a>);</div>
+<div class="line"><span class="lineno">  150</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#adfce4345fbfcf25e2861add91f6d2c53">lmmp_not_</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ahin</a>);</div>
+<div class="line"><span class="lineno">  151</span>        <a class="code hl_define" href="../../d6/d39/lmmpn_8h.html#a5606a1a46e76e77aca7f7e554c8e30e5">lmmp_inc</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>);</div>
+<div class="line"><span class="lineno">  152</span>    }</div>
+<div class="line"><span class="lineno">  153</span>}</div>
+<div class="ttc" id="abinvert_8c_html_a13b230ea1d237595fb236c951a0849e0"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a></div><div class="ttdeci">#define k</div></div>
+<div class="ttc" id="abinvert_8c_html_a1b1de7b3b1a3f935e2577e27dce4aeba"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a1b1de7b3b1a3f935e2577e27dce4aeba">ahi</a></div><div class="ttdeci">#define ahi</div></div>
+<div class="ttc" id="abinvert_8c_html_a3fd1bd013e0538b438fc6a69e6e29a74"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a3fd1bd013e0538b438fc6a69e6e29a74">lmmp_binvert_n_dc_</a></div><div class="ttdeci">void lmmp_binvert_n_dc_(mp_ptr restrict dst, mp_srcptr restrict numa, mp_size_t n, mp_ptr restrict tp)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d93/binvert_8c_source.html#l00091">binvert.c:91</a></div></div>
+<div class="ttc" id="abinvert_8c_html_a54a1ee1564a1ca194e671eb5d086e667"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a></div><div class="ttdeci">#define xlo_sqr_mul_ahi</div></div>
+<div class="ttc" id="abinvert_8c_html_a65ffa1b425ad81a7158988fc83c885f2"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a></div><div class="ttdeci">#define xlo_sqr</div></div>
+<div class="ttc" id="abinvert_8c_html_a7a117714be10e35005a968c5c3ab878d"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a7a117714be10e35005a968c5c3ab878d">binvert_mulhi_</a></div><div class="ttdeci">static void binvert_mulhi_(mp_ptr dst, mp_srcptr xp, mp_srcptr ap, mp_size_t n, mp_ptr tp)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d93/binvert_8c_source.html#l00013">binvert.c:13</a></div></div>
+<div class="ttc" id="abinvert_8c_html_a7ff1e9a0f68c8743deb65981d330867b"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a></div><div class="ttdeci">#define xhi</div></div>
+<div class="ttc" id="abinvert_8c_html_a88b70e7939cd9ba1ea8520af6c7507ce"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a></div><div class="ttdeci">#define scratch</div></div>
+<div class="ttc" id="abinvert_8c_html_ab9a557e50273d5eec5f81d43424459bd"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a></div><div class="ttdeci">#define alo</div></div>
+<div class="ttc" id="abinvert_8c_html_ad25f4574e86237b74eecd941793656b1"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#ad25f4574e86237b74eecd941793656b1">lmmp_sqrlo_n_</a></div><div class="ttdeci">static void lmmp_sqrlo_n_(mp_ptr restrict dst, mp_srcptr restrict numa, mp_size_t n, mp_ptr restrict tp)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d93/binvert_8c_source.html#l00029">binvert.c:29</a></div></div>
+<div class="ttc" id="abinvert_8c_html_af023ebc6b5220d21a0b36bd5b9a5d869"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a></div><div class="ttdeci">#define xlo</div></div>
+<div class="ttc" id="abinvert_8c_html_af33c404d23771847ae3a9a9b71f76551"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#af33c404d23771847ae3a9a9b71f76551">lmmp_mullo_n_</a></div><div class="ttdeci">static void lmmp_mullo_n_(mp_ptr restrict dst, mp_srcptr restrict numa, mp_srcptr restrict numb, mp_size_t n, mp_ptr restrict tp)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d93/binvert_8c_source.html#l00042">binvert.c:42</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00367">lmmp.h:367</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a5606a1a46e76e77aca7f7e554c8e30e5"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a5606a1a46e76e77aca7f7e554c8e30e5">lmmp_inc</a></div><div class="ttdeci">#define lmmp_inc(p)</div><div class="ttdoc">大数加1宏（预期无进位）</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d39/lmmpn_8h_source.html#l00942">lmmpn.h:942</a></div></div>
+<div class="ttc" id="almmpn_8h_html_adfce4345fbfcf25e2861add91f6d2c53"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#adfce4345fbfcf25e2861add91f6d2c53">lmmp_not_</a></div><div class="ttdeci">void lmmp_not_(mp_ptr dst, mp_srcptr numa, mp_size_t na)</div><div class="ttdoc">大数按位取反操作 [dst,na] = ~[numa,na] (对每个limb执行按位非操作)</div></div>
+<div class="ttc" id="almmpn_8h_html_afa05758121cca6aa6b21256d5a959871"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#afa05758121cca6aa6b21256d5a959871">lmmp_add_n_</a></div><div class="ttdeci">mp_limb_t lmmp_add_n_(mp_ptr dst, mp_srcptr numa, mp_srcptr numb, mp_size_t n)</div><div class="ttdoc">无进位的n位加法 [dst,n] = [numa,n] + [numb,n]</div><div class="ttdef"><b>Definition</b> <a href="../../da/dc7/add__n_8c_source.html#l00071">add_n.c:71</a></div></div>
+<div class="ttc" id="anumth_8h_html_a3926a6e48ffe7baef646e599da10ed2c"><div class="ttname"><a href="../../de/da4/numth_8h.html#a3926a6e48ffe7baef646e599da10ed2c">lmmp_binvert_ulong_</a></div><div class="ttdeci">ulong lmmp_binvert_ulong_(ulong a)</div><div class="ttdoc">计算 a 在2^64下的逆元</div><div class="ttdef"><b>Definition</b> <a href="../../df/dea/binvert__1_8c_source.html#l00033">binvert_1.c:33</a></div></div>
+<div class="ttc" id="anumth_8h_html_a74a5578fb2cb77451ab849f43cb5688d"><div class="ttname"><a href="../../de/da4/numth_8h.html#a74a5578fb2cb77451ab849f43cb5688d">lmmp_binvert_2_</a></div><div class="ttdeci">void lmmp_binvert_2_(mp_ptr dst, mp_srcptr numa)</div><div class="ttdoc">计算 [numa,2] 在B^2下的逆元</div><div class="ttdef"><b>Definition</b> <a href="../../df/dea/binvert__1_8c_source.html#l00047">binvert_1.c:47</a></div></div>
+<div class="ttc" id="anumth_8h_html_a7c4f959219fb14ce3e2449839c3f7ff3"><div class="ttname"><a href="../../de/da4/numth_8h.html#a7c4f959219fb14ce3e2449839c3f7ff3">lmmp_binvert_3_</a></div><div class="ttdeci">void lmmp_binvert_3_(mp_ptr dst, mp_srcptr numa)</div><div class="ttdoc">计算 [numa,3] 在B^3下的逆元</div></div>
+<div class="ttc" id="anumth_8h_html_a9b626b38855437e68c106c63c6af28cc"><div class="ttname"><a href="../../de/da4/numth_8h.html#a9b626b38855437e68c106c63c6af28cc">lmmp_binvert_4_</a></div><div class="ttdeci">void lmmp_binvert_4_(mp_ptr dst, mp_srcptr numa)</div><div class="ttdoc">计算 [numa,4] 在B^4下的逆元</div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d93/binvert_8c.html#a1b1de7b3b1a3f935e2577e27dce4aeba">ahi</a>, <a class="el" href="../../dd/d93/binvert_8c.html#ab9a557e50273d5eec5f81d43424459bd">alo</a>, <a class="el" href="../../dd/d93/binvert_8c_source.html#l00013">binvert_mulhi_()</a>, <a class="el" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="el" href="../../da/dc7/add__n_8c_source.html#l00071">lmmp_add_n_()</a>, <a class="el" href="../../df/dea/binvert__1_8c_source.html#l00047">lmmp_binvert_2_()</a>, <a class="el" href="../../de/da4/numth_8h.html#a7c4f959219fb14ce3e2449839c3f7ff3">lmmp_binvert_3_()</a>, <a class="el" href="../../de/da4/numth_8h.html#a9b626b38855437e68c106c63c6af28cc">lmmp_binvert_4_()</a>, <a class="el" href="../../dd/d93/binvert_8c_source.html#l00091">lmmp_binvert_n_dc_()</a>, <a class="el" href="../../df/dea/binvert__1_8c_source.html#l00033">lmmp_binvert_ulong_()</a>, <a class="el" href="../../d6/d39/lmmpn_8h_source.html#l00942">lmmp_inc</a>, <a class="el" href="../../dd/d93/binvert_8c_source.html#l00042">lmmp_mullo_n_()</a>, <a class="el" href="../../d6/d39/lmmpn_8h.html#adfce4345fbfcf25e2861add91f6d2c53">lmmp_not_()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00367">lmmp_param_assert</a>, <a class="el" href="../../dd/d93/binvert_8c_source.html#l00029">lmmp_sqrlo_n_()</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../dd/d93/binvert_8c.html#a88b70e7939cd9ba1ea8520af6c7507ce">scratch</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, <a class="el" href="../../dd/d93/binvert_8c.html#a7ff1e9a0f68c8743deb65981d330867b">xhi</a>, <a class="el" href="../../dd/d93/binvert_8c.html#af023ebc6b5220d21a0b36bd5b9a5d869">xlo</a>, <a class="el" href="../../dd/d93/binvert_8c.html#a65ffa1b425ad81a7158988fc83c885f2">xlo_sqr</a> , 以及 <a class="el" href="../../dd/d93/binvert_8c.html#a54a1ee1564a1ca194e671eb5d086e667">xlo_sqr_mul_ahi</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00091">lmmp_binvert_n_dc_()</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_a3fd1bd013e0538b438fc6a69e6e29a74_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_a3fd1bd013e0538b438fc6a69e6e29a74_icgraph.svg" width="168" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af33c404d23771847ae3a9a9b71f76551" name="af33c404d23771847ae3a9a9b71f76551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af33c404d23771847ae3a9a9b71f76551">&#9670;&#160;</a></span>lmmp_mullo_n_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_mullo_n_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>numa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>numb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>tp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dd/d93/binvert_8c_source.html">binvert.c</a> 第 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00042">42</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>  {</div>
+<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt; <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#af1d7f2814758f041d12021bf5593e07c">MULLO_DC_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5266375a7804ac6d73be9fedb94b9e3d">lmmp_mullo_dc_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a567890c0f403309773585d81b331db5a">numb</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   51</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   52</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aba610caed10f619ee2ba4d1cbadb7f91">lmmp_mullo_fft_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a567890c0f403309773585d81b331db5a">numb</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><span class="lineno">   53</span>    }</div>
+<div class="line"><span class="lineno">   54</span>}</div>
+<div class="ttc" id="almmpn_8h_html_a5266375a7804ac6d73be9fedb94b9e3d"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a5266375a7804ac6d73be9fedb94b9e3d">lmmp_mullo_dc_</a></div><div class="ttdeci">void lmmp_mullo_dc_(mp_ptr dst, mp_srcptr numa, mp_srcptr numb, mp_ptr tp, mp_size_t n)</div><div class="ttdoc">低位乘法 [dst,n] = [numa,n] * [numb,n] mod B^n</div></div>
+<div class="ttc" id="almmpn_8h_html_aba610caed10f619ee2ba4d1cbadb7f91"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#aba610caed10f619ee2ba4d1cbadb7f91">lmmp_mullo_fft_</a></div><div class="ttdeci">void lmmp_mullo_fft_(mp_ptr dst, mp_srcptr numa, mp_srcptr numb, mp_size_t n, mp_ptr scratch)</div><div class="ttdoc">低位FFT乘法 [dst,n] = [numa,n] * [numb,n] mod B^n</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6c/mullo_8c_source.html#l00011">mullo.c:11</a></div></div>
+<div class="ttc" id="amparam_8h_html_af1d7f2814758f041d12021bf5593e07c"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#af1d7f2814758f041d12021bf5593e07c">MULLO_DC_THRESHOLD</a></div><div class="ttdeci">#define MULLO_DC_THRESHOLD</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00062">mparam.h:62</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_a567890c0f403309773585d81b331db5a"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#a567890c0f403309773585d81b331db5a">numb</a></div><div class="ttdeci">#define numb</div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d6/d39/lmmpn_8h.html#a5266375a7804ac6d73be9fedb94b9e3d">lmmp_mullo_dc_()</a>, <a class="el" href="../../dd/d6c/mullo_8c_source.html#l00011">lmmp_mullo_fft_()</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00062">MULLO_DC_THRESHOLD</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#a567890c0f403309773585d81b331db5a">numb</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00091">lmmp_binvert_n_dc_()</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_af33c404d23771847ae3a9a9b71f76551_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_af33c404d23771847ae3a9a9b71f76551_icgraph.svg" width="343" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad25f4574e86237b74eecd941793656b1" name="ad25f4574e86237b74eecd941793656b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25f4574e86237b74eecd941793656b1">&#9670;&#160;</a></span>lmmp_sqrlo_n_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_sqrlo_n_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>numa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>tp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dd/d93/binvert_8c_source.html">binvert.c</a> 第 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00029">29</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>  {</div>
+<div class="line"><span class="lineno">   35</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt; <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#af1d7f2814758f041d12021bf5593e07c">MULLO_DC_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">   36</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aabfc0384c803f953c1cc00e60a35d366">lmmp_sqrlo_dc_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   37</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   38</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aba610caed10f619ee2ba4d1cbadb7f91">lmmp_mullo_fft_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">numa</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><span class="lineno">   39</span>    }</div>
+<div class="line"><span class="lineno">   40</span>}</div>
+<div class="ttc" id="almmpn_8h_html_aabfc0384c803f953c1cc00e60a35d366"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#aabfc0384c803f953c1cc00e60a35d366">lmmp_sqrlo_dc_</a></div><div class="ttdeci">void lmmp_sqrlo_dc_(mp_ptr dst, mp_srcptr numa, mp_ptr tp, mp_size_t n)</div><div class="ttdoc">低位平方 [dst,n] = [numa,n]^2 mod B^n</div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d6c/mullo_8c_source.html#l00011">lmmp_mullo_fft_()</a>, <a class="el" href="../../d6/d39/lmmpn_8h.html#aabfc0384c803f953c1cc00e60a35d366">lmmp_sqrlo_dc_()</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00062">MULLO_DC_THRESHOLD</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dd/d93/binvert_8c_source.html#l00091">lmmp_binvert_n_dc_()</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_ad25f4574e86237b74eecd941793656b1_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dd/d93/binvert_8c_ad25f4574e86237b74eecd941793656b1_icgraph.svg" width="338" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_d77cbddddf37de395302ec58cb811daa.html">lammp</a></li><li class="navelem"><a class="el" href="../../dir_12d1bb9023a1e50bd298345c814b04b6.html">NumTh</a></li><li class="navelem"><a class="el" href="../../dd/d93/binvert_8c.html">binvert.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:36 , 为 LAMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="dd/d67/md_docs_2modules_2calculus" kind="page">
+    <compoundname>md_docs_2modules_2calculus</compoundname>
+    <title>微积分模块</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="dd/d67/md_docs_2modules_2calculus_1autotoc_md33"/> 主要头文件：<itemizedlist>
+<listitem><para><computeroutput><ref refid="d9/d15/integration_8hpp" kindref="compound">include/integration.hpp</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="d3/d89/differentiation__visitor_8hpp" kindref="compound">include/visitors/differentiation_visitor.hpp</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="d5/df2/symbolic_8hpp" kindref="compound">include/symbolic.hpp</ref></computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<sect1 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md34">
+<title>概览 (Overview)</title>
+<para>微积分模块提供了符号微分（Differentiation）、符号积分（Integration）以及级数展开（Series Expansion）的核心算法。 用户通常不需要直接实例化 <computeroutput>Integrator</computeroutput> 或 <computeroutput><ref refid="d3/d1a/classDifferentiationVisitor" kindref="compound">DifferentiationVisitor</ref></computeroutput> 类，而是通过 <computeroutput><ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref></computeroutput> 的成员函数来调用这些功能。</para>
+<para><hruler/>
+</para>
+</sect1>
+<sect1 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md36">
+<title>微分 (Differentiation)</title>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md37">
+<title>入口函数</title>
+<para><computeroutput><ref refid="dc/d25/classSymbolicExpr_1a12ea2bce8fc0fa5da98a0cfae9030c2f" kindref="member">SymbolicExpr::differentiate</ref>(const std::string&amp; var_name)</computeroutput></para>
+</sect2>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md38">
+<title>实现机制</title>
+<para>微分操作通过访问者模式 (<computeroutput><ref refid="d3/d1a/classDifferentiationVisitor" kindref="compound">DifferentiationVisitor</ref></computeroutput>) 实现。该访问者遍历表达式树，根据节点的类型应用相应的导数法则：<itemizedlist>
+<listitem><para><bold>基本法则</bold><itemizedlist>
+<listitem><para>常数 (<computeroutput><ref refid="dc/dea/classNumberNode" kindref="compound">NumberNode</ref></computeroutput>) -&gt; 0</para>
+</listitem><listitem><para>变量 (<computeroutput><ref refid="d5/d93/classVariableNode" kindref="compound">VariableNode</ref></computeroutput>) -&gt; 1 (若是求导变量) 或 0</para>
+</listitem><listitem><para>加法 (<computeroutput><ref refid="d8/d2e/classAddNode" kindref="compound">AddNode</ref></computeroutput>) -&gt; 逐项求导 (Sum Rule)</para>
+</listitem><listitem><para>乘法 (<computeroutput><ref refid="dd/dce/classMultiplyNode" kindref="compound">MultiplyNode</ref></computeroutput>) -&gt; 乘积法则 (Product Rule: <lsquo/>(uv)<rsquo/> = u&apos;v + uv&apos;<computeroutput>)</computeroutput></para>
+</listitem><listitem><para><computeroutput>幂 (</computeroutput><ref refid="d5/d72/classPowerNode" kindref="compound">PowerNode</ref><computeroutput>) -&gt; 幂法则与链式法则结合 (Power Rule / Chain Rule)</computeroutput></para>
+</listitem><listitem><para><computeroutput>函数 (</computeroutput><ref refid="d7/d06/classFunctionNode" kindref="compound">FunctionNode</ref><computeroutput>) -&gt; 链式法则 (Chain Rule:</computeroutput>f(g(x))&apos; = f&apos;(g(x)) * g&apos;(x)`)</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md39">
+<title>特性与局限</title>
+<para><itemizedlist>
+<listitem><para>**支持**：显式函数求导、多层嵌套函数求导。</para>
+</listitem><listitem><para>**局限**：目前的实现主要针对单变量显函数，对隐函数求导 (<computeroutput>Implicit Differentiation</computeroutput>) 支持仅作为实验性功能存在 (<computeroutput><ref refid="dd/d84/symbolic__implicit__diff_8hpp" kindref="compound">include/symbolic_implicit_diff.hpp</ref></computeroutput>)。</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect2>
+</sect1>
+<sect1 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md41">
+<title>积分 (Integration)</title>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md42">
+<title>入口函数</title>
+<para><computeroutput><ref refid="dc/d25/classSymbolicExpr_1a3cea51734e44db6a4a48a77206ca4055" kindref="member">SymbolicExpr::integrate</ref>(const std::string&amp; var_name)</computeroutput></para>
+</sect2>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md43">
+<title>核心算法 (Integrator)</title>
+<para>由于通用的 Risch 算法实现极其复杂，LMCAS 目前采用基于启发式规则（Heuristic Rules）和模式匹配的积分策略。</para>
+<sect3 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md44">
+<title>策略流程</title>
+<para><orderedlist>
+<listitem><para>**查表法 (Table Lookup)**：匹配基本积分公式（如 <computeroutput>x^n</computeroutput>, <computeroutput>e^x</computeroutput>, <computeroutput>sin(x)</computeroutput> 等）。</para>
+</listitem><listitem><para>**线性性质**：<computeroutput>∫(a*f + b*g) = a*∫f + b*∫g</computeroutput>。</para>
+</listitem><listitem><para>**换元法 (Substitution)**：<itemizedlist>
+<listitem><para>自动检测形如 <lsquo/>f(g(x)) * g<rsquo/>(x)<computeroutput>的结构，令</computeroutput>u = g(x)<computeroutput>简化积分。</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><computeroutput> **分部积分 (Integration by Parts, IBP)**：<itemizedlist>
+<listitem><para>针对乘积结构u * v<computeroutput>，尝试应用</computeroutput>∫u dv = uv - ∫v du<computeroutput>。</computeroutput></para>
+</listitem><listitem><para><computeroutput>使用启发式算法选择</computeroutput>u<computeroutput>和</computeroutput>dv` 以降低被积函数的复杂度。</para>
+</listitem></itemizedlist>
+</computeroutput></para>
+</listitem><listitem><para><computeroutput> **部分分式分解 (Partial Fraction Decomposition)**：<itemizedlist>
+<listitem><para>对有理函数进行分解，将其拆分为简单的分式和多项式之和。</para>
+</listitem></itemizedlist>
+</computeroutput></para>
+</listitem></orderedlist>
+</para>
+<para><computeroutput></computeroutput></para>
+</sect3>
+</sect2>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md45">
+<title>积分历史 (IntegralHistory)</title>
+<para><computeroutput> 为了防止在分部积分或换元过程中出现循环调用（即积分结果变回原函数或变得更复杂），积分器维护了一个 <computeroutput>IntegralHistory</computeroutput> 栈，检测到重复模式时会强制终止当前路径。</computeroutput></para>
+<para><computeroutput><hruler/>
+</computeroutput></para>
+<para><computeroutput></computeroutput></para>
+</sect2>
+</sect1>
+<sect1 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md47">
+<title>级数展开 (Series Expansion)</title>
+<para><computeroutput></computeroutput></para>
+<para><computeroutput></computeroutput></para>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md48">
+<title>入口函数</title>
+<para><computeroutput> <computeroutput><ref refid="dc/d25/classSymbolicExpr_1ad3a8ef12cc2631d094fe2ee5c544729a" kindref="member">SymbolicExpr::series</ref>(const std::string&amp; var, const std::shared_ptr&lt;<ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref>&gt;&amp; point, int order)</computeroutput></computeroutput></para>
+<para><computeroutput></computeroutput></para>
+</sect2>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md49">
+<title>实现</title>
+<para><computeroutput> 级数展开基于泰勒公式实现。系统自动计算目标函数在展开点 <computeroutput>point</computeroutput> 处的高阶导数（直到 <computeroutput>order</computeroutput> 阶），并构造多项式： <computeroutput>f(x) ≈ Σ (f^(n)(a) / n!) * (x-a)^n</computeroutput></computeroutput></para>
+<para><computeroutput></computeroutput></para>
+</sect2>
+<sect2 id="dd/d67/md_docs_2modules_2calculus_1autotoc_md50">
+<title>注意事项</title>
+<para><computeroutput><itemizedlist>
+<listitem><para>级数展开依赖于高阶导数的计算，对于非常复杂的函数，计算高阶导数可能会非常耗时。 </para>
+</listitem></itemizedlist>
+</computeroutput></para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="docs/modules/calculus.md"/>
+  </compounddef>
+</doxygen>

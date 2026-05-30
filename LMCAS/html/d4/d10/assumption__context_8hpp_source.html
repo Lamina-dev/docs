@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/assumption_context.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d4/d10/assumption__context_8hpp_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">assumption_context.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d4/d10/assumption__context_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file assumption_context.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief AssumptionContext class with scoped push/pop management.</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Provides a scope stack where each scope has its own PropertyStore and</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * RelationStore. Queries read through from the top scope down to the root,</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * with child scope declarations shadowing parent declarations.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/db0/assumption_8hpp.html">assumption.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/dd8/property__store_8hpp.html">property_store.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/ddb/relation__store_8hpp.html">relation_store.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dbb/query__interface_8hpp.html">query_interface.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// Forward declarations</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>InferenceEngine;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">struct </span>Interval;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"></span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * @brief Scoped assumption context with push/pop management.</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * Maintains a stack of scopes, each containing a PropertyStore and RelationStore.</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * Queries use read-through semantics: searching from the top scope down to root,</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> * returning the first scope that has a declaration for the queried symbol.</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * Child scope declarations shadow parent declarations without modifying them.</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * Popping a scope restores all query results to their pre-push values.</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../de/dc6/classlamina_1_1AssumptionContext.html">   36</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../de/dc6/classlamina_1_1AssumptionContext.html">AssumptionContext</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="../../de/dc6/classlamina_1_1AssumptionContext.html">AssumptionContext</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// --- Scope management ---</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">    /// Push a new scope onto the stack.</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"></span>    <span class="keywordtype">void</span> push();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"></span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">    /// Pop the current scope. Throws std::runtime_error if at root scope.</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"></span>    <span class="keywordtype">void</span> pop();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"></span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">    /// Return the current nesting depth (number of scopes on the stack).</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"></span>    <span class="keywordtype">int</span> depth() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// --- Direct access to current (top) scope stores ---</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"></span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">    /// Access the current scope&#39;s PropertyStore (mutable, for declarations).</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"></span>    <a class="code hl_class" href="../../d3/dba/classlamina_1_1PropertyStore.html">PropertyStore</a>&amp; current_properties();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"></span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">    /// Access the current scope&#39;s PropertyStore (const).</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d3/dba/classlamina_1_1PropertyStore.html">PropertyStore</a>&amp; current_properties() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"></span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">    /// Access the current scope&#39;s RelationStore (mutable).</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"></span>    <a class="code hl_class" href="../../de/db6/classlamina_1_1RelationStore.html">RelationStore</a>&amp; current_relations();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"></span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">    /// Access the current scope&#39;s RelationStore (const).</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_class" href="../../de/db6/classlamina_1_1RelationStore.html">RelationStore</a>&amp; current_relations() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="comment">// --- Read-through query methods ---</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">// These search from the top scope down to root, returning the first</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// scope&#39;s value that has a declaration for the symbol. This provides</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// shadowing semantics: child declarations override parent declarations.</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"></span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">    /// Check if a symbol has a specific sign (read-through all scopes).</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"></span>    <span class="keywordtype">bool</span> has_sign(<span class="keyword">const</span> std::string&amp; symbol, <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5">Sign</a> sign) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"></span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">    /// Check if a symbol has at least the given domain specificity (read-through).</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"></span>    <span class="keywordtype">bool</span> has_domain(<span class="keyword">const</span> std::string&amp; symbol, <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235">Domain</a> domain) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"></span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">    /// Get the most specific domain for a symbol (read-through).</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235">Domain</a> get_domain(<span class="keyword">const</span> std::string&amp; symbol) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"></span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">    /// Get all signs for a symbol (read-through).</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"></span>    std::unordered_set&lt;Sign, SignHash&gt; get_signs(<span class="keyword">const</span> std::string&amp; symbol) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"></span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">    /// Get parity for a symbol (read-through).</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a2738995a5e6a72cffa34e9bd323d04d5">Parity</a> get_parity(<span class="keyword">const</span> std::string&amp; symbol) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"></span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">    /// Get boundedness for a symbol (read-through).</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ac40255b119be7e58ca0a4539b9b0ab94">Boundedness</a> get_boundedness(<span class="keyword">const</span> std::string&amp; symbol) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"></span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">    /// Get interval bounds for a symbol (read-through).</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span>    std::optional&lt;Interval&gt; get_bounds(<span class="keyword">const</span> std::string&amp; symbol) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// --- Convenience declaration API ---</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"></span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">    /// Declare domain for a variable in the current scope.</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">    /// Throws std::invalid_argument if variable name is empty.</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"></span>    <span class="keywordtype">void</span> assume_domain(<span class="keyword">const</span> std::string&amp; variable, <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235">Domain</a> domain);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"></span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">    /// Declare sign for a variable in the current scope.</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">    /// Throws std::invalid_argument if variable name is empty.</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"></span>    <span class="keywordtype">void</span> assume_sign(<span class="keyword">const</span> std::string&amp; variable, <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5">Sign</a> sign);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"></span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">    /// Store a relational constraint. The expression&#39;s root must be a RelationalNode.</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">    /// Throws std::invalid_argument if expression is null/empty or root is not RelationalNode.</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment"></span>    <span class="keywordtype">void</span> assume(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; relation);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// --- Convenience query API (delegates to QueryInterface) ---</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"></span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">    /// Query whether the expression is positive (&gt; 0).</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">    /// Throws std::invalid_argument if expression has null root.</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> is_positive(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment"></span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">    /// Query whether the expression is negative (&lt; 0).</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">    /// Throws std::invalid_argument if expression has null root.</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> is_negative(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"></span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">    /// Query whether the expression is non-negative (&gt;= 0).</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">    /// Throws std::invalid_argument if expression has null root.</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> is_nonnegative(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment"></span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">    /// Query whether the expression is real.</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">    /// Throws std::invalid_argument if expression has null root.</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> is_real(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"></span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">    /// Query whether the expression is an integer.</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">    /// Throws std::invalid_argument if expression has null root.</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> is_integer(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment"></span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">    /// Query whether the expression is non-zero (!= 0).</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">    /// Throws std::invalid_argument if expression has null root.</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> is_nonzero(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keyword">private</span>:</div>
+<div class="foldopen" id="foldopen00132" data-start="{" data-end="};">
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="../../de/dc6/classlamina_1_1AssumptionContext.html">  132</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="../../de/dc6/classlamina_1_1AssumptionContext.html#d4/d31/structlamina_1_1AssumptionContext_1_1Scope">Scope</a> {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="../../de/dc6/classlamina_1_1AssumptionContext.html#ac2184d63dce43f46c70171ac68187d4e">  133</a></span>        <a class="code hl_class" href="../../d3/dba/classlamina_1_1PropertyStore.html">PropertyStore</a> <a class="code hl_variable" href="../../de/dc6/classlamina_1_1AssumptionContext.html#ac2184d63dce43f46c70171ac68187d4e">properties</a>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="../../de/dc6/classlamina_1_1AssumptionContext.html#a21af3a80f0dbe3410a1ba49b8aa24fd5">  134</a></span>        <a class="code hl_class" href="../../de/db6/classlamina_1_1RelationStore.html">RelationStore</a> <a class="code hl_variable" href="../../de/dc6/classlamina_1_1AssumptionContext.html#a21af3a80f0dbe3410a1ba49b8aa24fd5">relations</a>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    };</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="../../de/dc6/classlamina_1_1AssumptionContext.html#ad0a742a5f86d0f532f127118a501b720">  137</a></span>    std::vector&lt;Scope&gt; <a class="code hl_variable" href="../../de/dc6/classlamina_1_1AssumptionContext.html#ad0a742a5f86d0f532f127118a501b720">scope_stack_</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>};</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="aassumption_8hpp_html"><div class="ttname"><a href="../../de/db0/assumption_8hpp.html">assumption.hpp</a></div><div class="ttdoc">Core enumerations and forward declarations for the Assumption System.</div></div>
+<div class="ttc" id="aclassSymbolicExpr_html"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a></div><div class="ttdoc">符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00077">symbolic.hpp:77</a></div></div>
+<div class="ttc" id="aclasslamina_1_1AssumptionContext_html"><div class="ttname"><a href="../../de/dc6/classlamina_1_1AssumptionContext.html">lamina::AssumptionContext</a></div><div class="ttdoc">Scoped assumption context with push/pop management.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00036">assumption_context.hpp:36</a></div></div>
+<div class="ttc" id="aclasslamina_1_1AssumptionContext_html_a21af3a80f0dbe3410a1ba49b8aa24fd5"><div class="ttname"><a href="../../de/dc6/classlamina_1_1AssumptionContext.html#a21af3a80f0dbe3410a1ba49b8aa24fd5">lamina::AssumptionContext::Scope::relations</a></div><div class="ttdeci">RelationStore relations</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00134">assumption_context.hpp:134</a></div></div>
+<div class="ttc" id="aclasslamina_1_1AssumptionContext_html_ac2184d63dce43f46c70171ac68187d4e"><div class="ttname"><a href="../../de/dc6/classlamina_1_1AssumptionContext.html#ac2184d63dce43f46c70171ac68187d4e">lamina::AssumptionContext::Scope::properties</a></div><div class="ttdeci">PropertyStore properties</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00133">assumption_context.hpp:133</a></div></div>
+<div class="ttc" id="aclasslamina_1_1AssumptionContext_html_ad0a742a5f86d0f532f127118a501b720"><div class="ttname"><a href="../../de/dc6/classlamina_1_1AssumptionContext.html#ad0a742a5f86d0f532f127118a501b720">lamina::AssumptionContext::scope_stack_</a></div><div class="ttdeci">std::vector&lt; Scope &gt; scope_stack_</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00137">assumption_context.hpp:137</a></div></div>
+<div class="ttc" id="aclasslamina_1_1AssumptionContext_html_d4/d31/structlamina_1_1AssumptionContext_1_1Scope"><div class="ttname"><a href="../../de/dc6/classlamina_1_1AssumptionContext.html#d4/d31/structlamina_1_1AssumptionContext_1_1Scope">lamina::AssumptionContext::Scope</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00132">assumption_context.hpp:132</a></div></div>
+<div class="ttc" id="aclasslamina_1_1PropertyStore_html"><div class="ttname"><a href="../../d3/dba/classlamina_1_1PropertyStore.html">lamina::PropertyStore</a></div><div class="ttdoc">Stores and validates mathematical properties for named symbols.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/dd8/property__store_8hpp_source.html#l00034">property_store.hpp:34</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RelationStore_html"><div class="ttname"><a href="../../de/db6/classlamina_1_1RelationStore.html">lamina::RelationStore</a></div><div class="ttdoc">Stores relational constraints and derives sign properties for simple patterns.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00046">relation_store.hpp:46</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a2738995a5e6a72cffa34e9bd323d04d5"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a2738995a5e6a72cffa34e9bd323d04d5">lamina::Parity</a></div><div class="ttdeci">Parity</div><div class="ttdoc">Integer parity classification.</div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00035">assumption.hpp:35</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8c4ec73bc39be52e463e21d9ba3c2235"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235">lamina::Domain</a></div><div class="ttdeci">Domain</div><div class="ttdoc">Mathematical domain hierarchy (least specific → most specific). Complex ⊃ Real ⊃ Rational ⊃ Integer ⊃...</div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00015">assumption.hpp:15</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab6f6fc3b593643289105268edf9988bd"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">lamina::Tribool</a></div><div class="ttdeci">Tribool</div><div class="ttdoc">Tri-state logic value for property queries.</div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00049">assumption.hpp:49</a></div></div>
+<div class="ttc" id="anamespacelamina_html_abdfc14c28a6aca3825a6eb0519a3eda5"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5">lamina::Sign</a></div><div class="ttdeci">Sign</div><div class="ttdoc">Sign classification for symbols and expressions.</div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00025">assumption.hpp:25</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac40255b119be7e58ca0a4539b9b0ab94"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac40255b119be7e58ca0a4539b9b0ab94">lamina::Boundedness</a></div><div class="ttdeci">Boundedness</div><div class="ttdoc">Boundedness classification for symbols.</div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00042">assumption.hpp:42</a></div></div>
+<div class="ttc" id="aproperty__store_8hpp_html"><div class="ttname"><a href="../../d7/dd8/property__store_8hpp.html">property_store.hpp</a></div><div class="ttdoc">PropertyStore class for mapping symbol names to declared properties.</div></div>
+<div class="ttc" id="aquery__interface_8hpp_html"><div class="ttname"><a href="../../d9/dbb/query__interface_8hpp.html">query_interface.hpp</a></div><div class="ttdoc">QueryInterface class — unified tri-state query API for property questions on arbitrary expressions.</div></div>
+<div class="ttc" id="arelation__store_8hpp_html"><div class="ttname"><a href="../../d1/ddb/relation__store_8hpp.html">relation_store.hpp</a></div><div class="ttdoc">RelationStore class for storing relational constraints between symbolic expressions.</div></div>
+<div class="ttc" id="asymbolic_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00032">symbolic.hpp:32</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../d4/d10/assumption__context_8hpp.html">assumption_context.hpp</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="d4/d84/docs_2README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>如何使用<sp/>LMCAS</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>安装与编译</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>克隆仓库：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```sh</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>git<sp/>clone<sp/>https://github.com/yourname/LMCAS.git</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cd<sp/>LMCAS</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>使用<sp/>CMake<sp/>构建（推荐<sp/>Release<sp/>模式）：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```sh</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>build</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cmake<sp/>..<sp/>-DCMAKE_BUILD_TYPE=Release</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cmake<sp/>--build<sp/>.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>运行测试（可选）：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```sh</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ctest</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>基本用法</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LMCAS<sp/>主要以<sp/>C++<sp/>库形式使用，也可通过内置脚本接口或命令行工具调用。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.1<sp/>C++<sp/>代码集成</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```cpp</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;symbolic.hpp&quot;</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>namespace<sp/>lmcas;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>x<sp/>=<sp/>SymbolicExpr::variable(&quot;x&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>expr<sp/>=<sp/>SymbolicExpr::add(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SymbolicExpr::add(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SymbolicExpr::multiply(x,<sp/>x),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SymbolicExpr::multiply(SymbolicExpr::number(2),<sp/>x)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SymbolicExpr::number(1)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>d<sp/>=<sp/>expr-&gt;differentiate(&quot;x&quot;);<sp/>//<sp/>求导</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>s<sp/>=<sp/>expr-&gt;integrate(&quot;x&quot;);<sp/><sp/><sp/><sp/>//<sp/>积分</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;expr:<sp/>&quot;<sp/>&lt;&lt;<sp/>expr-&gt;to_string()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;diff:<sp/>&quot;<sp/>&lt;&lt;<sp/>d-&gt;to_string()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;integral:<sp/>&quot;<sp/>&lt;&lt;<sp/>s-&gt;to_string()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>注意：LMCAS<sp/>不支持直接用<sp/>C++<sp/>运算符拼接表达式，必须用<sp/>SymbolicExpr::add/multiply/number/variable<sp/>等工厂函数。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.2<sp/>命令行工具</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">部分构建目标（如<sp/>test_suite、benchmark_all）可直接运行，或自定义<sp/>main<sp/>入口。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```sh</highlight></codeline>
+<codeline><highlight class="normal">./build/test_suite</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.3<sp/>脚本接口</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">支持<sp/>Value/LmModule/LmCppFunction<sp/>组合，便于嵌入<sp/>REPL<sp/>或脚本环境。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>常见问题</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>编译报错：请检查<sp/>C++17<sp/>支持，并确认已通过<sp/>`--recurse-submodules`<sp/>拉取<sp/>LAMMP<sp/>依赖。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>表达式输出乱码：请确保终端支持<sp/>UTF-8。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>更多问题见<sp/>[FAQ](faq.md)。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>进阶用法</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>参考<sp/>docs/modules/<sp/>下各模块文档，了解符号运算、微积分、矩阵、复数等高级功能。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>可扩展自定义函数、模块，支持高精度数值与符号混合。</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>LMCAS<sp/>项目文档</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">本文档、本项目几乎所有注释和大部分单元测试使用ChatGPT-4.1自动化编写，“涵盖LMCAS项目的核心架构、功能说明、模块详解、开发指南等内容，旨在为用户和开发者提供全面的参考资料。”（这句话是AI自动补全的），经过人工核验真实性但并未人工修订，如有错误敬请谅解。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>目录结构</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>[快速入门](quickstart.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[核心架构](architecture.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[功能说明](features.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[模块详解](modules/README.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[开发与扩展](dev/README.md)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[FAQ](faq.md)</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>简介</highlight></codeline>
+<codeline><highlight class="normal">LMCAS（Lamina<sp/>Computer<sp/>Algebra<sp/>System）是一个基于C++17的轻量级符号计算引擎，支持表达式化简、微积分、代数、矩阵、复数等功能。</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>文档树状结构</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">docs/</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>quickstart.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>快速入门</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>architecture.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>核心架构</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>features.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>功能说明</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>modules/</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>README.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>模块总览</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>symbolic.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>符号表达式模块</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>calculus.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>微积分模块</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>algebra.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>代数与方程模块</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>matrix.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>矩阵与向量模块</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>complex.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>复数模块</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>└──<sp/>utils.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>工具与辅助模块</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>dev/</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>README.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>开发与扩展总览</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>build.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>构建与环境</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>test.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>测试与调试</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>└──<sp/>contribute.md<sp/><sp/><sp/><sp/><sp/>#<sp/>贡献指南</highlight></codeline>
+<codeline><highlight class="normal">└──<sp/>faq.md<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>常见问题</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>使用说明</highlight></codeline>
+<codeline><highlight class="normal">请根据需求阅读对应模块文档，开发者可参考<sp/>dev/<sp/>下的文档进行二次开发。</highlight></codeline>
+    </programlisting>
+    <location file="docs/README.md"/>
+  </compounddef>
+</doxygen>

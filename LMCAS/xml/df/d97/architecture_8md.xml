@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="df/d97/architecture_8md" kind="file" language="Markdown">
+    <compoundname>architecture.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>LMCAS<sp/>架构设计文档</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">本文档详细描述了<sp/>Lamina<sp/>Computer<sp/>Algebra<sp/>System<sp/>(LMCAS)<sp/>的技术架构、核心设计决策及模块交互方式。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>系统概述</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LMCAS<sp/>是一个基于<sp/>C++17<sp/>标准开发的轻量级符号计算系统。其核心目标是提供一个类型安全、内存自动管理且易于扩展的代数计算引擎。系统采用分层架构，底层依赖高精度数值库<sp/>LAMMP，上层通过抽象语法树（AST）实现符号运算。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>架构分层</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```mermaid</highlight></codeline>
+<codeline><highlight class="normal">graph<sp/>TD</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>User[用户代码<sp/>/<sp/>测试]<sp/>--&gt;<sp/>API[SymbolicExpr<sp/>API]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>API<sp/>--&gt;<sp/>AST[抽象语法树<sp/>(AST)]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>API<sp/>--&gt;<sp/>Visitors[访问者<sp/>(Visitors)]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AST<sp/>--&gt;<sp/>Nodes[SymbolicNode<sp/>及其子类]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Visitors<sp/>--&gt;<sp/>Algorithm[核心算法<sp/>(Simplify,<sp/>Solve,<sp/>Integrate)]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Algorithm<sp/>--&gt;<sp/>Poly[多项式系统<sp/>(Polynomial<sp/>Bridge)]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Algorithm<sp/>--&gt;<sp/>Matrix[线性代数模块]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Poly<sp/>--&gt;<sp/>LAMMP[LAMMP<sp/>(BigInt,<sp/>Rational)]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Nodes<sp/>--&gt;<sp/>LAMMP</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>核心设计原则</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.1<sp/>不可变性<sp/>(Immutability)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LMCAS<sp/>中的符号表达式是**不可变**的。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>所有的代数操作（如<sp/>`add`,<sp/>`multiply`,<sp/>`sin`）都不会修改现有对象，而是返回一个新的<sp/>`SymbolicExpr`<sp/>实例。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**优势**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>线程安全：无锁即可在多线程环境共享表达式。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>结构共享：子表达式（如<sp/>`x`）可以在多个父表达式中被复用，显著降低内存占用。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>调试友好：表达式状态不会在某个深层函数调用中被意外篡改。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.2<sp/>自动内存管理<sp/>(RAII)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">系统广泛使用<sp/>`std::shared_ptr&lt;SymbolicNode&gt;`<sp/>管理节点生命周期。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`SymbolicExpr`<sp/>本质上是一个轻量级的智能指针包装器。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>当没有任何表达式引用某个子树时，该子树的内存会自动释放。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>通过<sp/>`std::enable_shared_from_this`<sp/>支持安全的内部引用传递。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>2.3<sp/>访问者模式<sp/>(Visitor<sp/>Pattern)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">为了解决表达式类型扩展与操作扩展的冲突，LMCAS<sp/>采用访问者模式将**数据结构**与**算法**解耦。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicNode**<sp/>定义了数据结构（数值、变量、加法、乘法等）。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicVisitor**<sp/>定义了操作接口（求值、打印、微分、化简等）。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>新增算法只需实现一个新的<sp/>Visitor，无需修改现有的<sp/>Node<sp/>类。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>符号表达层<sp/>(Symbolic<sp/>Layer)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>3.1<sp/>类层次结构</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">核心类位于<sp/>`include/symbolic_ast.hpp`<sp/>和<sp/>`include/symbolic.hpp`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**SymbolicExpr**:<sp/>用户面临的主要接口类。不包含虚函数，持有一个指向<sp/>`SymbolicNode`<sp/>的<sp/>`shared_ptr`。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**SymbolicNode**:<sp/>所有<sp/>AST<sp/>节点的抽象基类。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>**原子节点<sp/>(Leaf<sp/>Nodes)**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`NumberNode`:<sp/>存储数值（`double`,<sp/>`BigInt`,<sp/>`Rational`）。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`VariableNode`:<sp/>存储变量名（字符串）。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>**复合节点<sp/>(Composite<sp/>Nodes)**:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`AddNode`:<sp/>N<sp/>元加法。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`MultiplyNode`:<sp/>N<sp/>元乘法。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`PowerNode`:<sp/>幂运算<sp/>(`base<sp/>^<sp/>exponent`)。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`FunctionNode`:<sp/>标准数学函数<sp/>(`sin`,<sp/>`cos`,<sp/>`exp`,<sp/>`log`<sp/>等)。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`MatrixNode`:<sp/>符号矩阵。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>`RelationalNode`:<sp/>关系表达式<sp/>(`=`,<sp/>`&lt;`,<sp/>`&gt;`)，用于方程和不等式。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>3.2<sp/>规范化<sp/>(Canonical<sp/>Form)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">为了简化比较和化简逻辑，LMCAS<sp/>在构造表达式时会自动应用规范化规则（主要通过<sp/>`NormalizationVisitor`）：</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**扁平化**:<sp/>`(a<sp/>+<sp/>b)<sp/>+<sp/>c`<sp/>会被自动转化为<sp/>`a<sp/>+<sp/>b<sp/>+<sp/>c`。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**排序**:<sp/>加法和乘法操作数会根据哈希值与度数（Degree）进行确定性排序。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>例如：`y<sp/>+<sp/>x<sp/>+<sp/>2`<sp/>总是被存储为<sp/>`2<sp/>+<sp/>x<sp/>+<sp/>y`。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**合并**:<sp/>`x<sp/>+<sp/>x`<sp/>自动转化为<sp/>`2*x`；`x<sp/>*<sp/>x`<sp/>自动转化为<sp/>`x^2`。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**常数折叠**:<sp/>`2<sp/>+<sp/>3`<sp/>自动计算为<sp/>`5`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">这确保了数学上等价的表达式（如<sp/>`a+b`<sp/>和<sp/>`b+a`）在内存中拥有相同的结构，可以直接通过结构比较判断相等性。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>核心算法实现机制</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>4.1<sp/>多项式桥接<sp/>(Polynomial<sp/>Bridge)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">为了利用高效的多项式算法（如<sp/>GCD、因式分解、求根），LMCAS<sp/>实现了一个独特的抽象层：`Polynomial&lt;T&gt;`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">通常多项式系数是数字，但在<sp/>LMCAS<sp/>中，我们定义了<sp/>**`SymbolicPolyCoeff`**。</highlight></codeline>
+<codeline><highlight class="normal">这意味着我们可以将任意表达式视为关于变量<sp/>$x$<sp/>的多项式，其系数本身可以是包含其他变量（$y,<sp/>z$）的复杂符号表达式。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**工作流**：</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/><sp/>用户求解方程<sp/>`ax^2<sp/>+<sp/>bx<sp/>+<sp/>c<sp/>=<sp/>0`。</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/><sp/>`symbolic_to_poly(expr,<sp/>&quot;x&quot;)`<sp/>将表达式树转换为<sp/>`Polynomial&lt;SymbolicPolyCoeff&gt;`。</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/><sp/>系统识别出系数<sp/>$a,<sp/>b,<sp/>c$。</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/><sp/>调用通用多项式求解器（利用求根公式或数值方法）。</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/><sp/>结果被重新包装为<sp/>`SymbolicExpr`<sp/>返回。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>4.2<sp/>模式匹配<sp/>(Pattern<sp/>Matcher)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`Matcher`<sp/>模块允许基于规则的重写。它支持通配符匹配。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>规则：`sin(x)^2<sp/>+<sp/>cos(x)^2<sp/>-&gt;<sp/>1`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>匹配器会遍历<sp/>AST，寻找结构匹配的子树，并将通配符绑定到实际子表达式上，然后应用变换。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>4.3<sp/>方程求解<sp/>(Solver)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">求解器采用混合策略：</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/><sp/>**隔离变量**:<sp/>对于简单的<sp/>$f(x)<sp/>=<sp/>c$，尝试逆运算（如<sp/>$e^x<sp/>=<sp/>5<sp/>\implies<sp/>x<sp/>=<sp/>\ln<sp/>5$）。</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/><sp/>**多项式转换**:<sp/>将方程视为多项式，求解根。</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/><sp/>**线性系统**:<sp/>对于线性方程组，提取系数矩阵并进行高斯消元。</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>5.<sp/>构建与扩展</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">项目使用<sp/>CMake<sp/>构建系统。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>核心库编译为<sp/>`lmcas.dll`<sp/>/<sp/>`liblmcas.so`。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>添加新函数的步骤：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>1.<sp/>在<sp/>`SymbolicNode`<sp/>中定义新类型（或复用<sp/>`FunctionNode`）。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>2.<sp/>在<sp/>`Extension`<sp/>模块注册导数规则。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>3.<sp/>在<sp/>`NormalizationVisitor`<sp/>添加化简规则。</highlight></codeline>
+<codeline></codeline>
+    </programlisting>
+    <location file="docs/architecture.md"/>
+  </compounddef>
+</doxygen>

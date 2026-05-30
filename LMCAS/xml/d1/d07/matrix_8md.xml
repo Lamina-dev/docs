@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="d1/d07/matrix_8md" kind="file" language="Markdown">
+    <compoundname>matrix.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>矩阵与向量模块</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">主要头文件：</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/symbolic.hpp`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/symbolic_matrix.hpp`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>概览<sp/>(Overview)</highlight></codeline>
+<codeline><highlight class="normal">LMCAS<sp/>支持符号矩阵（Symbolic<sp/>Matrix）运算。矩阵可以通过嵌套的<sp/>`std::vector`<sp/>构造，内部存储为<sp/>`MatrixNode`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>核心线性代数运算<sp/>(Linear<sp/>Algebra)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">这些功能主要通过<sp/>`SymbolicExpr`<sp/>类的静态成员函数提供，是处理一般矩阵问题的首选方式。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`SymbolicExpr::determinant(mat)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：计算矩阵的行列式。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：对于小矩阵使用拉普拉斯展开，对于大矩阵使用高斯消元或<sp/>LU<sp/>分解。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`SymbolicExpr::inverse(mat)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：计算逆矩阵。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：基于伴随矩阵或高斯-约旦消元法。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**注意**：如果行列式为零（奇异矩阵），将无法求逆。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`SymbolicExpr::eigenvalues(mat)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：计算矩阵的特征值。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：首先计算特征多项式<sp/>`det(A<sp/>-<sp/>λI)`，然后求解该多项式的根。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**局限**：仅适用于特征多项式可解的情况（通常是低阶矩阵或特殊结构矩阵）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`SymbolicExpr::poly_resultant(a,<sp/>b,<sp/>var)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：虽然属于多项式操作，但在处理矩阵特征值等问题时常用于消元。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>几何变换<sp/>(Geometric<sp/>Transformations)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">这些辅助函数位于<sp/>`lamina`<sp/>命名空间下（定义在<sp/>`include/symbolic_matrix.hpp`），用于快速生成几何变换矩阵。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`lamina::matrix_rotation(theta,<sp/>dim)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：生成二维或三维旋转矩阵。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**参数**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>`theta`:<sp/>旋转角度（弧度）。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>`dim`:<sp/>维度（默认为<sp/>2）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`lamina::matrix_reflection(angle,<sp/>dim)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：生成反射矩阵。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**参数**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>`angle`:<sp/>反射轴/面的角度。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`lamina::matrix_scaling(sx,<sp/>sy,<sp/>dim)`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：生成缩放矩阵。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**参数**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>`sx`,<sp/>`sy`:<sp/>X,<sp/>Y轴的缩放因子。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>向量运算<sp/>(Vector<sp/>Operations)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">向量在<sp/>LMCAS<sp/>中通常表示为<sp/>`n<sp/>x<sp/>1`<sp/>的列矩阵。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**点积<sp/>(Dot<sp/>Product)**：通过转置矩阵相乘实现<sp/>`A^T<sp/>*<sp/>B`。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**叉积<sp/>(Cross<sp/>Product)**：仅适用于<sp/>3D<sp/>向量，位于<sp/>`include/symbolic_vector_geometry.hpp`。</highlight></codeline>
+    </programlisting>
+    <location file="docs/modules/matrix.md"/>
+  </compounddef>
+</doxygen>

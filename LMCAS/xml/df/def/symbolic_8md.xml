@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="df/def/symbolic_8md" kind="file" language="Markdown">
+    <compoundname>symbolic.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>符号表达式模块</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">主要头文件：include/symbolic.hpp</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>概览</highlight></codeline>
+<codeline><highlight class="normal">SymbolicExpr<sp/>是<sp/>LMCAS<sp/>中的核心类，用于包装符号表达式树（AST）。它通过<sp/>std::shared_ptr<sp/>持有<sp/>SymbolicNode<sp/>根节点，提供了包括内存管理、表达式创建、数学运算等核心功能。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>核心特性</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**不可变性<sp/>(Immutability)**：所有的修改操作（如展开、求导）均返回新的<sp/>SymbolicExpr<sp/>实例，保证线程安全与引用透明。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**自动内存管理**：使用<sp/>std::shared_ptr<sp/>进行引用计数，当表达式不再被引用时自动释放内存。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**类型安全**：通过<sp/>SymbolicExpr::Type<sp/>枚举和动态类型检查确保操作的合法性。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>成员函数<sp/>(Member<sp/>Functions)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">以下方法需在<sp/>SymbolicExpr<sp/>实例上调用：</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/><sp value="27"/>xpand()</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：对表达式进行代数展开，应用乘法分配律并合并同类项。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：递归遍历<sp/>AST，将<sp/>NumberNode<sp/>与<sp/>VariableNode<sp/>视为基础，将<sp/>MultiplyNode<sp/>分配到<sp/>AddNode<sp/>上。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**示例**：(a+b)^2<sp/>-&gt;<sp/><sp value="7"/>^2<sp/>+<sp/>2ab<sp/>+<sp/>b^2</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>substitute(var,<sp/>value)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：将表达式中的指定符号变量替换为另一个表达式。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**参数**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><sp value="11"/>ar:<sp/>目标变量名<sp/>(std::string)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><sp value="11"/>alue:<sp/>用于替换的表达式<sp/>(std::shared_ptr&lt;SymbolicExpr&gt;)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：Visitor<sp/>模式遍历，匹配<sp/>VariableNode<sp/>名称。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>differentiate(var)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：对指定变量求导。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：依据求导法则（链式法则、乘积法则等）递归构建导数表达式。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**支持**：多项式、三角函数、指数对数等基本初等函数的求导。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>integrate(var)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：对指定变量进行符号积分。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：调用<sp/>integration<sp/>模块，使用启发式策略（由于<sp/>Risch<sp/>算法过于复杂，目前采用模式匹配与分部积分结合的策略）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>series(var,<sp/>point,<sp/>order)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：计算泰勒<sp/>(Taylor)<sp/>或麦克劳林<sp/>(Maclaurin)<sp/>级数展开。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**参数**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><sp value="11"/>ar:<sp/>展开变量。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>point:<sp/>展开点<sp/>(SymbolicExpr)。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>order:<sp/>展开阶数<sp/>(int)。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>simplify()</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**描述**：对表达式进行化简。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**算法**：综合运用常数折叠、恒等式变换（如<sp/>sin^2<sp/>+<sp/>cos^2<sp/>=<sp/>1）、最大公约数提取等策略。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>静态算法<sp/>(Static<sp/>Methods)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">以下算法为<sp/>SymbolicExpr<sp/>类的静态成员函数，主要用于多项式与矩阵运算：</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>多项式</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicExpr::poly_gcd(a,<sp/>b)**:<sp/>计算两个多项式的最大公约数（GCD）。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicExpr::poly_resultant(a,<sp/>b,<sp/>var)**:<sp/>计算两个多项式的结式（Resultant）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>线性代数<sp/>(Matrix)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicExpr::determinant(mat)**:<sp/>计算矩阵行列式。支持递归展开与<sp/>LU<sp/>分解。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicExpr::inverse(mat)**:<sp/>计算逆矩阵。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicExpr::eigenvalues(mat)**:<sp/>计算特征值（通过特征多项式）。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**SymbolicExpr::solve_system(eqs,<sp/>vars)**:<sp/>求解线性方程组。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>模式匹配逻辑</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>实现原理</highlight></codeline>
+<codeline><highlight class="normal">LMCAS<sp/>的模式匹配基于<sp/>AST<sp/>的结构比对，支持：</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**通配符<sp/>(Wildcards)**：匹配任意子树。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**交换律<sp/>(Commutativity)**：<sp value="7"/><sp/>+<sp/>b<sp/>可匹配<sp/><sp value="8"/><sp/>+<sp/>a。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**结合律<sp/>(Associativity)**：(a<sp/>+<sp/>b)<sp/>+<sp/>c<sp/>可匹配<sp/><sp value="7"/><sp/>+<sp/>b<sp/>+<sp/>c。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>算法细节</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>**类型检查**：优先比对节点类型（Add,<sp/>Multiply,<sp/>Function<sp/>等）。</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>**递归比对**：对子节点进行递归匹配。</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>**哈希剪枝**：利用节点缓存哈希值快速判断是否可能匹配（详见<sp/>SymbolicNode::hash()）。</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>**全排列尝试**：对于满足交换律的节点（如加法、乘法），在匹配时尝试子节点的全排列组合（注：这是性能瓶颈之一）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>节点类型<sp/>(SymbolicNode)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**NumberNode**:<sp/>存储数值<sp/>(BigInt,<sp/>Rational,<sp/>double)。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**VariableNode**:<sp/>存储变量名。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**AddNode<sp/>/<sp/>MultiplyNode**:<sp/>n元运算节点。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**PowerNode**:<sp/>幂运算。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**FunctionNode**:<sp/>通用函数节点<sp/>(sin,<sp/>cos,<sp/>exp,<sp/>ln,<sp/>lambertw,<sp/>rootof<sp/>等)。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**MatrixNode**:<sp/>矩阵容器。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>已知问题与局限</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**大表达式性能**：深层嵌套的递归化简可能导致栈溢出或性能显著下降。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**特殊函数积分**：目前的积分器对非初等积分的支持有限。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**非线性方程组**：solve_system<sp/>主要针对线性系统，非线性支持较弱。</highlight></codeline>
+    </programlisting>
+    <location file="docs/modules/symbolic.md"/>
+  </compounddef>
+</doxygen>

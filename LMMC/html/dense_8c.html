@@ -1,0 +1,2150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/dense.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('dense_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">dense.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>稠密矩阵 / 向量运算实现。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="memory__bridge_8h_source.html">memory_bridge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="internal_8h_source.html">internal.h</a>&quot;</code><br />
+<code>#include &quot;blas_backend.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">lmmc/config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dense_8h_source.html">lmmc/dense.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="linear__algebra_8h_source.html">lmmc/linear_algebra.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> dense.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="dense_8c__incl.svg" width="100%" height="558"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="dense_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a0fc9bc3b95589478a194ea553bd69c8f" id="r_a0fc9bc3b95589478a194ea553bd69c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a0fc9bc3b95589478a194ea553bd69c8f">lmmc_mat_create</a> (size_t rows, size_t cols, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *out_mat)</td></tr>
+<tr class="memdesc:a0fc9bc3b95589478a194ea553bd69c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">分配并初始化一个 <code>rows</code> × <code>cols</code> 的稠密矩阵，所有元素置零。  <br /></td></tr>
+<tr class="separator:a0fc9bc3b95589478a194ea553bd69c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27fb2f1cb173a2b3a11fc82e0755c9b7" id="r_a27fb2f1cb173a2b3a11fc82e0755c9b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a27fb2f1cb173a2b3a11fc82e0755c9b7">lmmc_mat_wrap</a> (size_t rows, size_t cols, size_t stride, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *data, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *out_mat)</td></tr>
+<tr class="memdesc:a27fb2f1cb173a2b3a11fc82e0755c9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">用外部缓冲区构造矩阵视图（不拥有内存，不分配）。  <br /></td></tr>
+<tr class="separator:a27fb2f1cb173a2b3a11fc82e0755c9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ffb292f06884dbb65e2cf5b3074c69" id="r_ad3ffb292f06884dbb65e2cf5b3074c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#ad3ffb292f06884dbb65e2cf5b3074c69">lmmc_mat_destroy</a> (<a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *mat)</td></tr>
+<tr class="memdesc:ad3ffb292f06884dbb65e2cf5b3074c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">销毁矩阵，释放其拥有的底层缓冲区。  <br /></td></tr>
+<tr class="separator:ad3ffb292f06884dbb65e2cf5b3074c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf174b849f655680dc4f7c1617b6c1a" id="r_a7bf174b849f655680dc4f7c1617b6c1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a7bf174b849f655680dc4f7c1617b6c1a">lmmc_mat_fill</a> (<a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *mat, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> value)</td></tr>
+<tr class="memdesc:a7bf174b849f655680dc4f7c1617b6c1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">将矩阵所有元素设为同一值。  <br /></td></tr>
+<tr class="separator:a7bf174b849f655680dc4f7c1617b6c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a015f8311b498f15bff95d72c17f1aa85" id="r_a015f8311b498f15bff95d72c17f1aa85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a015f8311b498f15bff95d72c17f1aa85">lmmc_mat_copy</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *src, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *dst)</td></tr>
+<tr class="memdesc:a015f8311b498f15bff95d72c17f1aa85"><td class="mdescLeft">&#160;</td><td class="mdescRight">逐元素复制矩阵内容：dst = src。  <br /></td></tr>
+<tr class="separator:a015f8311b498f15bff95d72c17f1aa85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91c39f6be5b8dd41c7140b2e170f665e" id="r_a91c39f6be5b8dd41c7140b2e170f665e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a91c39f6be5b8dd41c7140b2e170f665e">lmmc_mat_transpose_to</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *src, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *dst)</td></tr>
+<tr class="memdesc:a91c39f6be5b8dd41c7140b2e170f665e"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵转置：dst = src^T。  <br /></td></tr>
+<tr class="separator:a91c39f6be5b8dd41c7140b2e170f665e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f93ec17fbb9b9a7d7ee7147f7997ad9" id="r_a4f93ec17fbb9b9a7d7ee7147f7997ad9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a4f93ec17fbb9b9a7d7ee7147f7997ad9">lmmc_mat_gemm</a> (<a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> alpha, const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *A, int transA, const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *B, int transB, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> beta, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *C)</td></tr>
+<tr class="memdesc:a4f93ec17fbb9b9a7d7ee7147f7997ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">通用矩阵-矩阵乘法（GEMM）： \(C \leftarrow \alpha \cdot \mathrm{op}(A) \cdot \mathrm{op}(B) + \beta \cdot C\)。  <br /></td></tr>
+<tr class="separator:a4f93ec17fbb9b9a7d7ee7147f7997ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08f9228c5f7c743720ce23e8938d043" id="r_aa08f9228c5f7c743720ce23e8938d043"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#aa08f9228c5f7c743720ce23e8938d043">lmmc_mat_mul</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *b, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *c)</td></tr>
+<tr class="memdesc:aa08f9228c5f7c743720ce23e8938d043"><td class="mdescLeft">&#160;</td><td class="mdescRight">简化矩阵乘法：c = a * b。  <br /></td></tr>
+<tr class="separator:aa08f9228c5f7c743720ce23e8938d043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c0c5e40ee6493486028770e1868071" id="r_a51c0c5e40ee6493486028770e1868071"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a51c0c5e40ee6493486028770e1868071">lmmc_mat_norm_fro</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_norm)</td></tr>
+<tr class="memdesc:a51c0c5e40ee6493486028770e1868071"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵的 Frobenius 范数： \(\|A\|_F = \sqrt{\sum_{i,j} A_{ij}^2}\)。  <br /></td></tr>
+<tr class="separator:a51c0c5e40ee6493486028770e1868071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1ff7e1a56dc108100975e953774a2ad" id="r_ab1ff7e1a56dc108100975e953774a2ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#ab1ff7e1a56dc108100975e953774a2ad">lmmc_vec_create</a> (size_t size, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *out_vec)</td></tr>
+<tr class="memdesc:ab1ff7e1a56dc108100975e953774a2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">分配并初始化一个长度为 <code>size</code> 的稠密向量，所有元素置零。  <br /></td></tr>
+<tr class="separator:ab1ff7e1a56dc108100975e953774a2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e23d2f77598433a2b2b3043211cd2ea" id="r_a5e23d2f77598433a2b2b3043211cd2ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a5e23d2f77598433a2b2b3043211cd2ea">lmmc_vec_wrap</a> (size_t size, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *data, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *out_vec)</td></tr>
+<tr class="memdesc:a5e23d2f77598433a2b2b3043211cd2ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">用外部缓冲区构造向量视图（不拥有内存，不分配）。  <br /></td></tr>
+<tr class="separator:a5e23d2f77598433a2b2b3043211cd2ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeda4a0d3e0c54b575a9b78413118e5f0" id="r_aeda4a0d3e0c54b575a9b78413118e5f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#aeda4a0d3e0c54b575a9b78413118e5f0">lmmc_vec_destroy</a> (<a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *vec)</td></tr>
+<tr class="memdesc:aeda4a0d3e0c54b575a9b78413118e5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">销毁向量，释放其拥有的底层缓冲区。  <br /></td></tr>
+<tr class="separator:aeda4a0d3e0c54b575a9b78413118e5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27b27349658ae70afe3533afff02d6ea" id="r_a27b27349658ae70afe3533afff02d6ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a27b27349658ae70afe3533afff02d6ea">lmmc_vec_fill</a> (<a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *vec, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> value)</td></tr>
+<tr class="memdesc:a27b27349658ae70afe3533afff02d6ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">将向量所有元素设为同一值。  <br /></td></tr>
+<tr class="separator:a27b27349658ae70afe3533afff02d6ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21704ddfbc6675769e372ddf62cf1a82" id="r_a21704ddfbc6675769e372ddf62cf1a82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a21704ddfbc6675769e372ddf62cf1a82">lmmc_vec_dot</a> (const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *b, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_dot)</td></tr>
+<tr class="memdesc:a21704ddfbc6675769e372ddf62cf1a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算两个等长向量的内积： \(\text{out\_dot} = \sum_i a_i \cdot b_i\)。  <br /></td></tr>
+<tr class="separator:a21704ddfbc6675769e372ddf62cf1a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43" id="r_a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43">lmmc_mat_gemv</a> (<a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> alpha, const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *A, int transA, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> beta, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *y)</td></tr>
+<tr class="memdesc:a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43"><td class="mdescLeft">&#160;</td><td class="mdescRight">通用矩阵-向量乘法（GEMV）： \(y \leftarrow \alpha \cdot \mathrm{op}(A) \cdot x + \beta \cdot y\)。  <br /></td></tr>
+<tr class="separator:a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92fbce072b069531710cd18ba0021f1c" id="r_a92fbce072b069531710cd18ba0021f1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a92fbce072b069531710cd18ba0021f1c">lmmc_mat_vec_mul</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *y)</td></tr>
+<tr class="memdesc:a92fbce072b069531710cd18ba0021f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">简化矩阵-向量乘法：y = A * x。  <br /></td></tr>
+<tr class="separator:a92fbce072b069531710cd18ba0021f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc1a6e60d9f32c75b57487b4b5c1eda2" id="r_abc1a6e60d9f32c75b57487b4b5c1eda2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#abc1a6e60d9f32c75b57487b4b5c1eda2">lmmc_vec_norm2</a> (const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_norm)</td></tr>
+<tr class="memdesc:abc1a6e60d9f32c75b57487b4b5c1eda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算向量的欧几里得（L2）范数： \(\|x\|_2 = \sqrt{\sum_i x_i^2}\)。  <br /></td></tr>
+<tr class="separator:abc1a6e60d9f32c75b57487b4b5c1eda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac51bb926c8977268f35fca46d3f2a278" id="r_ac51bb926c8977268f35fca46d3f2a278"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#ac51bb926c8977268f35fca46d3f2a278">lmmc_vec_norm_inf</a> (const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_norm)</td></tr>
+<tr class="memdesc:ac51bb926c8977268f35fca46d3f2a278"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算向量的无穷范数： \(\|x\|_\infty = \max_i |x_i|\)。  <br /></td></tr>
+<tr class="separator:ac51bb926c8977268f35fca46d3f2a278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97c05446e03b56e8ffdde58550ca9af1" id="r_a97c05446e03b56e8ffdde58550ca9af1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a97c05446e03b56e8ffdde58550ca9af1">lmmc_vec_scale</a> (<a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> alpha)</td></tr>
+<tr class="memdesc:a97c05446e03b56e8ffdde58550ca9af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">就地向量缩放： \(x \leftarrow \alpha \cdot x\)。  <br /></td></tr>
+<tr class="separator:a97c05446e03b56e8ffdde58550ca9af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e592a539e50cb974a9eda60b6aa6da6" id="r_a7e592a539e50cb974a9eda60b6aa6da6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a7e592a539e50cb974a9eda60b6aa6da6">lmmc_vec_axpy</a> (<a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> alpha, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *y)</td></tr>
+<tr class="memdesc:a7e592a539e50cb974a9eda60b6aa6da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">向量 AXPY 运算： \(y \leftarrow \alpha \cdot x + y\)。  <br /></td></tr>
+<tr class="separator:a7e592a539e50cb974a9eda60b6aa6da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b3522edc7a0e0d928ebf48e9044f12" id="r_ab3b3522edc7a0e0d928ebf48e9044f12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#ab3b3522edc7a0e0d928ebf48e9044f12">lmmc_vec_copy</a> (const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *src, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *dst)</td></tr>
+<tr class="memdesc:ab3b3522edc7a0e0d928ebf48e9044f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">逐元素复制向量内容：dst = src。  <br /></td></tr>
+<tr class="separator:ab3b3522edc7a0e0d928ebf48e9044f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b5362906a7786d5ca4a30a871632e6" id="r_a31b5362906a7786d5ca4a30a871632e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a31b5362906a7786d5ca4a30a871632e6">lmmc_vec_swap</a> (<a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *y)</td></tr>
+<tr class="memdesc:a31b5362906a7786d5ca4a30a871632e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">交换两个等长向量的全部元素内容。  <br /></td></tr>
+<tr class="separator:a31b5362906a7786d5ca4a30a871632e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5543c1fd39be9e6c552336826e3bc689" id="r_a5543c1fd39be9e6c552336826e3bc689"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a5543c1fd39be9e6c552336826e3bc689">lmmc_vec_asum</a> (const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_asum)</td></tr>
+<tr class="memdesc:a5543c1fd39be9e6c552336826e3bc689"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算向量元素绝对值之和（L1 范数）： \(\sum_i |x_i|\)。  <br /></td></tr>
+<tr class="separator:a5543c1fd39be9e6c552336826e3bc689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50c156a105575a7d02d97b7887cd4cc4" id="r_a50c156a105575a7d02d97b7887cd4cc4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a50c156a105575a7d02d97b7887cd4cc4">lmmc_vec_iamax</a> (const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, size_t *out_idx)</td></tr>
+<tr class="memdesc:a50c156a105575a7d02d97b7887cd4cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">返回绝对值最大元素的下标（BLAS idamax 语义）。  <br /></td></tr>
+<tr class="separator:a50c156a105575a7d02d97b7887cd4cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c9b4a6371fa06811716a353664d9baa" id="r_a7c9b4a6371fa06811716a353664d9baa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a7c9b4a6371fa06811716a353664d9baa">lmmc_mat_add</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *b, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *c)</td></tr>
+<tr class="memdesc:a7c9b4a6371fa06811716a353664d9baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">同维矩阵逐元素加法：c = a + b。  <br /></td></tr>
+<tr class="separator:a7c9b4a6371fa06811716a353664d9baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d2d69181d575107b32f4192bf2f5ce" id="r_a77d2d69181d575107b32f4192bf2f5ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a77d2d69181d575107b32f4192bf2f5ce">lmmc_mat_sub</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *b, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *c)</td></tr>
+<tr class="memdesc:a77d2d69181d575107b32f4192bf2f5ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">同维矩阵逐元素减法：c = a - b。  <br /></td></tr>
+<tr class="separator:a77d2d69181d575107b32f4192bf2f5ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03c7dcb003e85fd5d356b220775597cf" id="r_a03c7dcb003e85fd5d356b220775597cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a03c7dcb003e85fd5d356b220775597cf">lmmc_mat_scale</a> (<a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> alpha)</td></tr>
+<tr class="memdesc:a03c7dcb003e85fd5d356b220775597cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">就地矩阵标量乘： \(A \leftarrow \alpha \cdot A\)。  <br /></td></tr>
+<tr class="separator:a03c7dcb003e85fd5d356b220775597cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac26eaf3c95875e1263ad8f13476f7623" id="r_ac26eaf3c95875e1263ad8f13476f7623"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#ac26eaf3c95875e1263ad8f13476f7623">lmmc_mat_identity</a> (size_t n, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *out_mat)</td></tr>
+<tr class="memdesc:ac26eaf3c95875e1263ad8f13476f7623"><td class="mdescLeft">&#160;</td><td class="mdescRight">创建 n×n 单位矩阵（对角线为 1，其余为 0）。  <br /></td></tr>
+<tr class="separator:ac26eaf3c95875e1263ad8f13476f7623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af862603536e9625e302a36b0c43b2371" id="r_af862603536e9625e302a36b0c43b2371"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#af862603536e9625e302a36b0c43b2371">lmmc_mat_trace</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_trace)</td></tr>
+<tr class="memdesc:af862603536e9625e302a36b0c43b2371"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算方阵的迹： \(\mathrm{tr}(A) = \sum_i A_{ii}\)。  <br /></td></tr>
+<tr class="separator:af862603536e9625e302a36b0c43b2371"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176886a43f7bf092e505d56840ceacbb" id="r_a176886a43f7bf092e505d56840ceacbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a176886a43f7bf092e505d56840ceacbb">lmmc_mat_det</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_det)</td></tr>
+<tr class="memdesc:a176886a43f7bf092e505d56840ceacbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算方阵行列式（基于内部 LU 分解）。  <br /></td></tr>
+<tr class="separator:a176886a43f7bf092e505d56840ceacbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c17c86b6e315487faa542c9e32d5f6" id="r_a98c17c86b6e315487faa542c9e32d5f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a98c17c86b6e315487faa542c9e32d5f6">lmmc_mat_inv</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *A, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *A_inv)</td></tr>
+<tr class="memdesc:a98c17c86b6e315487faa542c9e32d5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算方阵的逆矩阵。  <br /></td></tr>
+<tr class="separator:a98c17c86b6e315487faa542c9e32d5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fdd63e091007ac0bb525bd0bc9c1edf" id="r_a8fdd63e091007ac0bb525bd0bc9c1edf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dense_8c.html#a8fdd63e091007ac0bb525bd0bc9c1edf">lmmc_solve_triangular</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *T, int upper, int diag_unit, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *b, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x)</td></tr>
+<tr class="memdesc:a8fdd63e091007ac0bb525bd0bc9c1edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">三角矩阵求解： \(T x = b\) 。  <br /></td></tr>
+<tr class="separator:a8fdd63e091007ac0bb525bd0bc9c1edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>稠密矩阵 / 向量运算实现。 </p>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 中定义.</p>
+</div><h2 class="groupheader">函数说明</h2>
+<a id="a0fc9bc3b95589478a194ea553bd69c8f" name="a0fc9bc3b95589478a194ea553bd69c8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fc9bc3b95589478a194ea553bd69c8f">&#9670;&#160;</a></span>lmmc_mat_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_create </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>out_mat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>分配并初始化一个 <code>rows</code> × <code>cols</code> 的稠密矩阵，所有元素置零。 </p>
+<p>内部通过 lmmc_alloc 分配 rows*cols 个 lmmc_real_t 的连续缓冲区， stride 设为 cols（紧凑存储），owns_data 置 1。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rows</td><td>行数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cols</td><td>列数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_mat</td><td>输出矩阵结构体（调用方提供栈/堆上的结构体地址）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — rows 或 cols 为 0，或 out_mat 为 NULL，或 rows*cols 溢出。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存（通过 lmmc_alloc），调用方必须配对调用 <a class="el" href="dense_8h.html#ad3ffb292f06884dbb65e2cf5b3074c69" title="销毁矩阵，释放其拥有的底层缓冲区。">lmmc_mat_destroy</a> 释放。</li>
+<li>out_mat 的所有字段被覆写。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>线程安全</dt><dd>本函数本身无共享状态，多线程可并发调用（前提是 lmmc_alloc 线程安全）。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00026">26</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00031">lmmc_mat_t::owns_data</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l00465">lmmc_eigen_general()</a>, <a class="el" href="eigen_8c_source.html#l00863">lmmc_eigen_general_full()</a>, <a class="el" href="eigen_8c_source.html#l00167">lmmc_eigen_symmetric()</a>, <a class="el" href="dense_8c_source.html#l00722">lmmc_mat_identity()</a>, <a class="el" href="dense_8c_source.html#l00897">lmmc_mat_inv()</a>, <a class="el" href="optimize_8c_source.html#l00699">lmmc_minimize_levenberg_marquardt()</a>, <a class="el" href="optimize_8c_source.html#l00259">lmmc_nleq_broyden()</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="ode_8c_source.html#l01624">lmmc_ode_rosenbrock_grk4t_solve()</a> , 以及 <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a0fc9bc3b95589478a194ea553bd69c8f_icgraph.svg" width="632" height="562"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a27fb2f1cb173a2b3a11fc82e0755c9b7" name="a27fb2f1cb173a2b3a11fc82e0755c9b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27fb2f1cb173a2b3a11fc82e0755c9b7">&#9670;&#160;</a></span>lmmc_mat_wrap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_wrap </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>out_mat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>用外部缓冲区构造矩阵视图（不拥有内存，不分配）。 </p>
+<p>将已有的连续内存区域包装为 lmmc_mat_t，owns_data 置 0， 因此 <a class="el" href="dense_8h.html#ad3ffb292f06884dbb65e2cf5b3074c69" title="销毁矩阵，释放其拥有的底层缓冲区。">lmmc_mat_destroy</a> 不会释放 data 指针。 调用方需保证 data 的生命周期覆盖该视图的使用期。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rows</td><td>行数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cols</td><td>列数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stride</td><td>行步距（相邻行首元素间距），要求 &gt;= <code>cols</code> 。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>外部缓冲区指针，至少容纳 rows*stride 个 lmmc_real_t。不可为 NULL。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_mat</td><td>输出矩阵视图。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 参数非法。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无内存分配。out_mat 的所有字段被覆写。</li>
+<li>对视图的写操作会直接修改 data 指向的外部缓冲区。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00056">56</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00031">lmmc_mat_t::owns_data</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="ad3ffb292f06884dbb65e2cf5b3074c69" name="ad3ffb292f06884dbb65e2cf5b3074c69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ffb292f06884dbb65e2cf5b3074c69">&#9670;&#160;</a></span>lmmc_mat_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_mat_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>mat</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>销毁矩阵，释放其拥有的底层缓冲区。 </p>
+<p>若 mat-&gt;owns_data 非零，调用 lmmc_free 释放 mat-&gt;data； 否则仅将结构体字段清零。对 NULL 指针或已销毁（data==NULL）的矩阵安全。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">mat</td><td>待销毁的矩阵，可为 NULL。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>若 owns_data：释放堆内存，mat-&gt;data 置 NULL，rows/cols/stride 清零。</li>
+<li>若 !owns_data：仅清零结构体字段，不释放外部缓冲区。</li>
+<li>销毁后该矩阵不可再用于任何运算（除非重新 create/wrap）。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00068">68</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="dense_8h_source.html#l00031">lmmc_mat_t::owns_data</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l00598">lmmc_eigen_gen_full_result_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00465">lmmc_eigen_general()</a>, <a class="el" href="eigen_8c_source.html#l00863">lmmc_eigen_general_full()</a>, <a class="el" href="eigen_8c_source.html#l00222">lmmc_eigen_sym_result_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00167">lmmc_eigen_symmetric()</a>, <a class="el" href="dense_8c_source.html#l00897">lmmc_mat_inv()</a>, <a class="el" href="optimize_8c_source.html#l00699">lmmc_minimize_levenberg_marquardt()</a>, <a class="el" href="optimize_8c_source.html#l00259">lmmc_nleq_broyden()</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="ode_8c_source.html#l01624">lmmc_ode_rosenbrock_grk4t_solve()</a>, <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a> , 以及 <a class="el" href="eigen_8c_source.html#l01638">lmmc_svd_result_destroy()</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="dense_8c_ad3ffb292f06884dbb65e2cf5b3074c69_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7bf174b849f655680dc4f7c1617b6c1a" name="a7bf174b849f655680dc4f7c1617b6c1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf174b849f655680dc4f7c1617b6c1a">&#9670;&#160;</a></span>lmmc_mat_fill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>mat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>将矩阵所有元素设为同一值。 </p>
+<p>遍历 mat 的每个 (i,j) 位置，将 data[i*stride+j] 设为 value。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">mat</td><td>待填充矩阵，必须已创建且 data 非 NULL。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>填充值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — mat 或 mat-&gt;data 为 NULL。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 mat-&gt;data 中的所有元素。</li>
+<li>无内存分配/释放。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00085">85</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="sparse_8c_source.html#l01689">lmmc_sparse_bsr_to_dense()</a>, <a class="el" href="sparse_8c_source.html#l00426">lmmc_sparse_mat_mat_mul_dense()</a> , 以及 <a class="el" href="sparse_8c_source.html#l00266">lmmc_sparse_to_dense()</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a7bf174b849f655680dc4f7c1617b6c1a_icgraph.svg" width="348" height="166"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a015f8311b498f15bff95d72c17f1aa85" name="a015f8311b498f15bff95d72c17f1aa85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a015f8311b498f15bff95d72c17f1aa85">&#9670;&#160;</a></span>lmmc_mat_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_copy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>逐元素复制矩阵内容：dst = src。 </p>
+<p>src 与 dst 必须维度相同（rows 和 cols 均相等），但 stride 可以不同。 不分配内存，dst 必须已通过 create 或 wrap 初始化。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>源矩阵。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>目标矩阵，维度须与 src 一致。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 任一指针或 data 为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — src 与 dst 维度不同。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 dst-&gt;data 中的全部元素。src 不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00099">99</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l00167">lmmc_eigen_symmetric()</a> , 以及 <a class="el" href="dense_8c_source.html#l00897">lmmc_mat_inv()</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a015f8311b498f15bff95d72c17f1aa85_icgraph.svg" width="368" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a91c39f6be5b8dd41c7140b2e170f665e" name="a91c39f6be5b8dd41c7140b2e170f665e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91c39f6be5b8dd41c7140b2e170f665e">&#9670;&#160;</a></span>lmmc_mat_transpose_to()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_transpose_to </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算矩阵转置：dst = src^T。 </p>
+<p>dst 的维度必须为 (src-&gt;cols × src-&gt;rows)。src 与 dst 不可为同一矩阵 （不支持就地转置）。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>源矩阵 (m×n)。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>目标矩阵，必须已创建为 (n×m)。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — dst 维度不是 (src-&gt;cols × src-&gt;rows)。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 dst-&gt;data。src 不被修改。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00116">116</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a91c39f6be5b8dd41c7140b2e170f665e_icgraph.svg" width="476" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4f93ec17fbb9b9a7d7ee7147f7997ad9" name="a4f93ec17fbb9b9a7d7ee7147f7997ad9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f93ec17fbb9b9a7d7ee7147f7997ad9">&#9670;&#160;</a></span>lmmc_mat_gemm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_gemm </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>transA</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>B</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>transB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>C</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>通用矩阵-矩阵乘法（GEMM）： \(C \leftarrow \alpha \cdot \mathrm{op}(A) \cdot \mathrm{op}(B) + \beta \cdot C\)。 </p>
+<p>op(X) = X（transX==0）或 X^T（transX!=0）。 设 op(A) 为 M×K，op(B) 为 K×N，则 C 必须为 M×N。 当 LMMC_USE_BLAS 编译时，路由到外部 BLAS dgemm；否则使用内置分块三重循环（块大小 64）。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">alpha</td><td>标量乘子 α。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">A</td><td>输入矩阵 A（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">transA</td><td>非零表示对 A 取转置。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">B</td><td>输入矩阵 B（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">transB</td><td>非零表示对 B 取转置。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">beta</td><td>标量乘子 β。beta==0 时 C 的旧值被忽略（可含 NaN）。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">C</td><td>输出矩阵，维度须为 M×N。C 不可与 A 或 B 别名。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — op(A) 的列数 ≠ op(B) 的行数，或 C 维度不匹配。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 C-&gt;data。A、B 不被修改。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00133">133</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="blas__backend_8c_source.html#l00065">lmmc_blas_dgemm_ex()</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="dense_8c_source.html#l00249">lmmc_mat_mul()</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a4f93ec17fbb9b9a7d7ee7147f7997ad9_cgraph.svg" width="374" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a4f93ec17fbb9b9a7d7ee7147f7997ad9_icgraph.svg" width="324" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa08f9228c5f7c743720ce23e8938d043" name="aa08f9228c5f7c743720ce23e8938d043"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa08f9228c5f7c743720ce23e8938d043">&#9670;&#160;</a></span>lmmc_mat_mul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_mul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>简化矩阵乘法：c = a * b。 </p>
+<p>等价于 lmmc_mat_gemm(1.0, a, 0, b, 0, 0.0, c)。 a 为 m×k，b 为 k×n，c 必须已创建为 m×n。c 不可与 a 或 b 别名。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>左矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>右矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">c</td><td>结果矩阵，旧内容被完全覆写。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>同 ::lmmc_mat_gemm。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 c-&gt;data。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00249">249</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8c_source.html#l00133">lmmc_mat_gemm()</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_aa08f9228c5f7c743720ce23e8938d043_cgraph.svg" width="546" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a51c0c5e40ee6493486028770e1868071" name="a51c0c5e40ee6493486028770e1868071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c0c5e40ee6493486028770e1868071">&#9670;&#160;</a></span>lmmc_mat_norm_fro()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_norm_fro </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_norm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算矩阵的 Frobenius 范数： \(\|A\|_F = \sqrt{\sum_{i,j} A_{ij}^2}\)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_norm</td><td>输出范数值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算，不修改任何输入。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00253">253</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00047">LMMC_REAL_SQRT</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="ab1ff7e1a56dc108100975e953774a2ad" name="ab1ff7e1a56dc108100975e953774a2ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1ff7e1a56dc108100975e953774a2ad">&#9670;&#160;</a></span>lmmc_vec_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_create </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>out_vec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>分配并初始化一个长度为 <code>size</code> 的稠密向量，所有元素置零。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>元素个数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_vec</td><td>输出向量结构体。调用方需配对调用 <a class="el" href="dense_8h.html#aeda4a0d3e0c54b575a9b78413118e5f0" title="销毁向量，释放其拥有的底层缓冲区。">lmmc_vec_destroy</a> 释放。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — size==0 或 out_vec==NULL，或 size*sizeof 溢出。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存（owns_data=1）。out_vec 的所有字段被覆写。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00284">284</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00662">lmmc_bicgstab_solve()</a>, <a class="el" href="itersolve_8c_source.html#l00368">lmmc_cg_solve()</a>, <a class="el" href="eigen_8c_source.html#l00465">lmmc_eigen_general()</a>, <a class="el" href="eigen_8c_source.html#l00863">lmmc_eigen_general_full()</a>, <a class="el" href="eigen_8c_source.html#l00167">lmmc_eigen_symmetric()</a>, <a class="el" href="itersolve_8c_source.html#l00929">lmmc_gmres_solve()</a>, <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00371">lmmc_lsqr_solve()</a>, <a class="el" href="dense_8c_source.html#l00897">lmmc_mat_inv()</a>, <a class="el" href="optimize_8c_source.html#l00928">lmmc_minimize_gradient_descent()</a>, <a class="el" href="optimize_8c_source.html#l00453">lmmc_minimize_lbfgs()</a>, <a class="el" href="optimize_8c_source.html#l00699">lmmc_minimize_levenberg_marquardt()</a>, <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00122">lmmc_minres_solve()</a>, <a class="el" href="optimize_8c_source.html#l00259">lmmc_nleq_broyden()</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="sparse_8c_source.html#l01550">lmmc_sparse_diag()</a> , 以及 <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a>.</p>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="dense_8c_ab1ff7e1a56dc108100975e953774a2ad_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a5e23d2f77598433a2b2b3043211cd2ea" name="a5e23d2f77598433a2b2b3043211cd2ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e23d2f77598433a2b2b3043211cd2ea">&#9670;&#160;</a></span>lmmc_vec_wrap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_wrap </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>out_vec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>用外部缓冲区构造向量视图（不拥有内存，不分配）。 </p>
+<p>owns_data 置 0，::lmmc_vec_destroy 不会释放 data。 调用方需保证 data 的生命周期覆盖该视图的使用期。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>元素个数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>外部缓冲区，至少 size 个 lmmc_real_t。不可为 NULL。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_vec</td><td>输出向量视图。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 参数非法。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无内存分配。对视图的写操作直接修改外部 data。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00309">309</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="aeda4a0d3e0c54b575a9b78413118e5f0" name="aeda4a0d3e0c54b575a9b78413118e5f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda4a0d3e0c54b575a9b78413118e5f0">&#9670;&#160;</a></span>lmmc_vec_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_vec_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>销毁向量，释放其拥有的底层缓冲区。 </p>
+<p>若 vec-&gt;owns_data 非零则释放 vec-&gt;data；否则仅清零字段。 对 NULL 指针安全。销毁后 vec 不可再用于运算。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">vec</td><td>待销毁的向量，可为 NULL。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>若 owns_data：释放堆内存。</li>
+<li>vec-&gt;data 置 NULL，size 清零。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00319">319</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00662">lmmc_bicgstab_solve()</a>, <a class="el" href="itersolve_8c_source.html#l00368">lmmc_cg_solve()</a>, <a class="el" href="eigen_8c_source.html#l00598">lmmc_eigen_gen_full_result_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00585">lmmc_eigen_gen_result_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00465">lmmc_eigen_general()</a>, <a class="el" href="eigen_8c_source.html#l00222">lmmc_eigen_sym_result_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00167">lmmc_eigen_symmetric()</a>, <a class="el" href="itersolve_8c_source.html#l00929">lmmc_gmres_solve()</a>, <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00371">lmmc_lsqr_solve()</a>, <a class="el" href="dense_8c_source.html#l00897">lmmc_mat_inv()</a>, <a class="el" href="optimize_8c_source.html#l00928">lmmc_minimize_gradient_descent()</a>, <a class="el" href="optimize_8c_source.html#l00453">lmmc_minimize_lbfgs()</a>, <a class="el" href="optimize_8c_source.html#l00699">lmmc_minimize_levenberg_marquardt()</a>, <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00122">lmmc_minres_solve()</a>, <a class="el" href="optimize_8c_source.html#l00259">lmmc_nleq_broyden()</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="sparse_8c_source.html#l01550">lmmc_sparse_diag()</a>, <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a> , 以及 <a class="el" href="eigen_8c_source.html#l01638">lmmc_svd_result_destroy()</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="dense_8c_aeda4a0d3e0c54b575a9b78413118e5f0_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a27b27349658ae70afe3533afff02d6ea" name="a27b27349658ae70afe3533afff02d6ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27b27349658ae70afe3533afff02d6ea">&#9670;&#160;</a></span>lmmc_vec_fill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>将向量所有元素设为同一值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">vec</td><td>待填充向量，必须已创建。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>填充值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — vec 或 vec-&gt;data 为 NULL。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 vec-&gt;data 中的所有元素。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00334">334</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="sparse_8c_source.html#l01550">lmmc_sparse_diag()</a> , 以及 <a class="el" href="sparse_8c_source.html#l00303">lmmc_sparse_mat_vec_mul()</a>.</p>
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a27b27349658ae70afe3533afff02d6ea_icgraph.svg" width="586" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a21704ddfbc6675769e372ddf62cf1a82" name="a21704ddfbc6675769e372ddf62cf1a82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21704ddfbc6675769e372ddf62cf1a82">&#9670;&#160;</a></span>lmmc_vec_dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_dot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_dot</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算两个等长向量的内积： \(\text{out\_dot} = \sum_i a_i \cdot b_i\)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>第一个向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>第二个向量（不被修改），长度须与 a 相同。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_dot</td><td>输出内积值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — a-&gt;size != b-&gt;size。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算，不修改任何输入。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00345">345</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43" name="a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43">&#9670;&#160;</a></span>lmmc_mat_gemv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_gemv </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>transA</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>通用矩阵-向量乘法（GEMV）： \(y \leftarrow \alpha \cdot \mathrm{op}(A) \cdot x + \beta \cdot y\)。 </p>
+<p>op(A) 为 M×N 时，要求 x-&gt;size==N，y-&gt;size==M。 当 LMMC_USE_BLAS 编译时路由到外部 BLAS dgemv。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">alpha</td><td>标量乘子 α。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">A</td><td>输入矩阵 A（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">transA</td><td>非零表示对 A 取转置。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量 x（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">beta</td><td>标量乘子 β。beta==0 时 y 的旧值被忽略。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">y</td><td>输出向量，长度须为 op(A) 的行数。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — 向量长度与矩阵维度不匹配。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 y-&gt;data。A、x 不被修改。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00372">372</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="blas__backend_8c_source.html#l00094">lmmc_blas_dgemv()</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>, <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="dense_8c_source.html#l00455">lmmc_mat_vec_mul()</a>.</p>
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43_cgraph.svg" width="340" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43_icgraph.svg" width="350" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a92fbce072b069531710cd18ba0021f1c" name="a92fbce072b069531710cd18ba0021f1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92fbce072b069531710cd18ba0021f1c">&#9670;&#160;</a></span>lmmc_mat_vec_mul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_vec_mul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>简化矩阵-向量乘法：y = A * x。 </p>
+<p>等价于 lmmc_mat_gemv(1.0, a, 0, x, 0.0, y)。 a 为 m×n，x-&gt;size==n，y-&gt;size==m。y 的旧内容被完全覆写。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">y</td><td>输出向量，旧内容被覆写。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>同 ::lmmc_mat_gemv。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 y-&gt;data。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00455">455</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8c_source.html#l00372">lmmc_mat_gemv()</a>.</p>
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a92fbce072b069531710cd18ba0021f1c_cgraph.svg" width="543" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abc1a6e60d9f32c75b57487b4b5c1eda2" name="abc1a6e60d9f32c75b57487b4b5c1eda2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc1a6e60d9f32c75b57487b4b5c1eda2">&#9670;&#160;</a></span>lmmc_vec_norm2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_norm2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_norm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算向量的欧几里得（L2）范数： \(\|x\|_2 = \sqrt{\sum_i x_i^2}\)。 </p>
+<p>当 LMMC_USE_BLAS 编译时路由到 dnrm2。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量（不被修改），size 必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_norm</td><td>输出范数值（非负）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00460">460</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="blas__backend_8c_source.html#l00218">lmmc_blas_dnrm2()</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00047">LMMC_REAL_SQRT</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_abc1a6e60d9f32c75b57487b4b5c1eda2_cgraph.svg" width="340" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac51bb926c8977268f35fca46d3f2a278" name="ac51bb926c8977268f35fca46d3f2a278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac51bb926c8977268f35fca46d3f2a278">&#9670;&#160;</a></span>lmmc_vec_norm_inf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_norm_inf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_norm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算向量的无穷范数： \(\|x\|_\infty = \max_i |x_i|\)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量（不被修改），size 必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_norm</td><td>输出范数值（非负）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00492">492</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="a97c05446e03b56e8ffdde58550ca9af1" name="a97c05446e03b56e8ffdde58550ca9af1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97c05446e03b56e8ffdde58550ca9af1">&#9670;&#160;</a></span>lmmc_vec_scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_scale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>就地向量缩放： \(x \leftarrow \alpha \cdot x\)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">x</td><td>待缩放向量，size 必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">alpha</td><td>缩放因子。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — x 或 x-&gt;data 为 NULL 或 size==0。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 x-&gt;data 中的所有元素。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00515">515</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="a7e592a539e50cb974a9eda60b6aa6da6" name="a7e592a539e50cb974a9eda60b6aa6da6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e592a539e50cb974a9eda60b6aa6da6">&#9670;&#160;</a></span>lmmc_vec_axpy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_axpy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>向量 AXPY 运算： \(y \leftarrow \alpha \cdot x + y\)。 </p>
+<p>当 LMMC_USE_BLAS 编译时路由到 daxpy。x 与 y 长度须相同。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">alpha</td><td>缩放因子。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">y</td><td>累加目标向量，就地修改。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — x-&gt;size != y-&gt;size。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 y-&gt;data。x 不被修改。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00534">534</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="blas__backend_8c_source.html#l00205">lmmc_blas_daxpy()</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00662">lmmc_bicgstab_solve()</a> , 以及 <a class="el" href="itersolve_8c_source.html#l00368">lmmc_cg_solve()</a>.</p>
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a7e592a539e50cb974a9eda60b6aa6da6_cgraph.svg" width="327" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a7e592a539e50cb974a9eda60b6aa6da6_icgraph.svg" width="350" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab3b3522edc7a0e0d928ebf48e9044f12" name="ab3b3522edc7a0e0d928ebf48e9044f12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b3522edc7a0e0d928ebf48e9044f12">&#9670;&#160;</a></span>lmmc_vec_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_copy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>逐元素复制向量内容：dst = src。 </p>
+<p>src 与 dst 长度须相同。不分配内存。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>源向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst</td><td>目标向量，内容被覆写。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — src-&gt;size != dst-&gt;size。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 dst-&gt;data。src 不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00565">565</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00662">lmmc_bicgstab_solve()</a>, <a class="el" href="itersolve_8c_source.html#l00368">lmmc_cg_solve()</a>, <a class="el" href="itersolve_8c_source.html#l00929">lmmc_gmres_solve()</a>, <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00371">lmmc_lsqr_solve()</a> , 以及 <a class="el" href="precond_8c_source.html#l00952">lmmc_precond_apply()</a>.</p>
+<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_ab3b3522edc7a0e0d928ebf48e9044f12_icgraph.svg" width="348" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a31b5362906a7786d5ca4a30a871632e6" name="a31b5362906a7786d5ca4a30a871632e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b5362906a7786d5ca4a30a871632e6">&#9670;&#160;</a></span>lmmc_vec_swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_swap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>交换两个等长向量的全部元素内容。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">x</td><td>第一个向量。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">y</td><td>第二个向量，长度须与 x 相同。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — x-&gt;size != y-&gt;size。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 x-&gt;data 和 y-&gt;data。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00582">582</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="a5543c1fd39be9e6c552336826e3bc689" name="a5543c1fd39be9e6c552336826e3bc689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5543c1fd39be9e6c552336826e3bc689">&#9670;&#160;</a></span>lmmc_vec_asum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_asum </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_asum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算向量元素绝对值之和（L1 范数）： \(\sum_i |x_i|\)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量（不被修改），size 必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_asum</td><td>输出绝对值和（非负）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00599">599</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="a50c156a105575a7d02d97b7887cd4cc4" name="a50c156a105575a7d02d97b7887cd4cc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50c156a105575a7d02d97b7887cd4cc4">&#9670;&#160;</a></span>lmmc_vec_iamax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_vec_iamax </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>返回绝对值最大元素的下标（BLAS idamax 语义）。 </p>
+<p>若有多个相同最大值，返回最小下标。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>输入向量（不被修改），size 必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_idx</td><td>输出下标（0-based）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或 size==0。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00625">625</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00063">LMMC_REAL_CMP</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+</div>
+</div>
+<a id="a7c9b4a6371fa06811716a353664d9baa" name="a7c9b4a6371fa06811716a353664d9baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c9b4a6371fa06811716a353664d9baa">&#9670;&#160;</a></span>lmmc_mat_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>同维矩阵逐元素加法：c = a + b。 </p>
+<p>a、b、c 维度须完全相同。c 可与 a 或 b 别名（就地加法）。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">c</td><td>输出矩阵，内容被覆写。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — 维度不一致。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 c-&gt;data。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00654">654</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="a77d2d69181d575107b32f4192bf2f5ce" name="a77d2d69181d575107b32f4192bf2f5ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d2d69181d575107b32f4192bf2f5ce">&#9670;&#160;</a></span>lmmc_mat_sub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_sub </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>同维矩阵逐元素减法：c = a - b。 </p>
+<p>a、b、c 维度须完全相同。c 可与 a 或 b 别名。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">c</td><td>输出矩阵，内容被覆写。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>同 ::lmmc_mat_add。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 c-&gt;data。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00679">679</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="a03c7dcb003e85fd5d356b220775597cf" name="a03c7dcb003e85fd5d356b220775597cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03c7dcb003e85fd5d356b220775597cf">&#9670;&#160;</a></span>lmmc_mat_scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_scale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>就地矩阵标量乘： \(A \leftarrow \alpha \cdot A\)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a</td><td>待缩放矩阵。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">alpha</td><td>缩放因子。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — a 或 a-&gt;data 为 NULL。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 a-&gt;data 中的所有元素。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00704">704</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="ac26eaf3c95875e1263ad8f13476f7623" name="ac26eaf3c95875e1263ad8f13476f7623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac26eaf3c95875e1263ad8f13476f7623">&#9670;&#160;</a></span>lmmc_mat_identity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_identity </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>out_mat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>创建 n×n 单位矩阵（对角线为 1，其余为 0）。 </p>
+<p>内部调用 <a class="el" href="dense_8h.html#a0fc9bc3b95589478a194ea553bd69c8f" title="分配并初始化一个 rows × cols 的稠密矩阵，所有元素置零。">lmmc_mat_create</a> 分配内存。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>矩阵阶数，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_mat</td><td>输出矩阵，调用方需配对调用 <a class="el" href="dense_8h.html#ad3ffb292f06884dbb65e2cf5b3074c69" title="销毁矩阵，释放其拥有的底层缓冲区。">lmmc_mat_destroy</a> 释放。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — n==0 或 out_mat==NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存（owns_data=1）。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00722">722</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_ac26eaf3c95875e1263ad8f13476f7623_cgraph.svg" width="348" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af862603536e9625e302a36b0c43b2371" name="af862603536e9625e302a36b0c43b2371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af862603536e9625e302a36b0c43b2371">&#9670;&#160;</a></span>lmmc_mat_trace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_trace </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_trace</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算方阵的迹： \(\mathrm{tr}(A) = \sum_i A_{ii}\)。 </p>
+<p>要求 a-&gt;rows == a-&gt;cols。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入方阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_trace</td><td>输出迹值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或矩阵非方阵。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>无。纯计算。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00743">743</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="a176886a43f7bf092e505d56840ceacbb" name="a176886a43f7bf092e505d56840ceacbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176886a43f7bf092e505d56840ceacbb">&#9670;&#160;</a></span>lmmc_mat_det()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_det </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_det</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算方阵行列式（基于内部 LU 分解）。 </p>
+<p>内部分配临时工作空间进行 LU 分解，不修改输入矩阵。 对 1×1 和 2×2 矩阵有特化快速路径。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入方阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_det</td><td>输出行列式值。奇异矩阵时 *out_det = 0。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功（包括奇异情况，此时 *out_det==0）。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或矩阵非方阵。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 临时内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配并释放临时工作内存。输入矩阵不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00766">766</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00063">LMMC_REAL_CMP</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+<a id="a98c17c86b6e315487faa542c9e32d5f6" name="a98c17c86b6e315487faa542c9e32d5f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c17c86b6e315487faa542c9e32d5f6">&#9670;&#160;</a></span>lmmc_mat_inv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_mat_inv </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>A_inv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算方阵的逆矩阵。 </p>
+<p>内部通过 LU 分解 + 逐列求解 \(A \cdot \text{col}_i = e_i\) 实现。 若 <code>A</code> 奇异，返回 <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba951e81a95af1f2e802ccaa750f79734b">LMMC_STATUS_SINGULAR_MATRIX</a> 且 <code>A_inv</code> 不被修改。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">A</td><td>输入方阵。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">A_inv</td><td>输出逆矩阵，须已创建且与 <code>A</code> 同维。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功；奇异返回 <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba951e81a95af1f2e802ccaa750f79734b">LMMC_STATUS_SINGULAR_MATRIX</a> 。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00897">897</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="linear__algebra_8c_source.html#l00039">lmmc_lu_decompose_inplace()</a>, <a class="el" href="linear__algebra_8c_source.html#l00113">lmmc_lu_solve()</a>, <a class="el" href="dense_8c_source.html#l00099">lmmc_mat_copy()</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00284">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dense_8c_a98c17c86b6e315487faa542c9e32d5f6_cgraph.svg" width="392" height="332"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8fdd63e091007ac0bb525bd0bc9c1edf" name="a8fdd63e091007ac0bb525bd0bc9c1edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fdd63e091007ac0bb525bd0bc9c1edf">&#9670;&#160;</a></span>lmmc_solve_triangular()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_solve_triangular </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>T</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>upper</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>diag_unit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>三角矩阵求解： \(T x = b\) 。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">T</td><td>三角矩阵（上三角或下三角）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">upper</td><td>非零表示 <code>T</code> 为上三角；零表示下三角。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">diag_unit</td><td>非零表示对角线视为 1（单位三角）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>右端向量。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">x</td><td>解向量，须已创建且与 <code>b</code> 同长。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功；对角线为零返回 <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba951e81a95af1f2e802ccaa750f79734b">LMMC_STATUS_SINGULAR_MATRIX</a> 。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="dense_8c_source.html">dense.c</a> 第 <a class="el" href="dense_8c_source.html#l00991">991</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00063">LMMC_REAL_CMP</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="status_8h_source.html#l00027">LMMC_STATUS_SINGULAR_MATRIX</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>, <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dense_8c.html">dense.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:52 , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

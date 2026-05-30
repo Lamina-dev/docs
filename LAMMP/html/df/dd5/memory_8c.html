@@ -1,0 +1,992 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAMMP: src/lammp/memory.c 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LAMMP<span id="projectnumber">&#160;4.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('df/dd5/memory_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle"><div class="title">memory.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d8/dd0/mparam_8h_source.html">../../include/lammp/impl/mparam.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/d98/prime__table_8h_source.html">../../include/lammp/impl/prime_table.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/daa/tmp__alloc_8h_source.html">../../include/lammp/impl/tmp_alloc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d39/lmmpn_8h_source.html">../../include/lammp/lmmpn.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d03/safe__memory_8h_source.html">../../include/lammp/impl/safe_memory.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> memory.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d1/dcd/memory_8c__incl.svg" width="100%" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../df/dd5/memory_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a432920f8a231715906b14fc6aee8ff75" id="r_a432920f8a231715906b14fc6aee8ff75"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a432920f8a231715906b14fc6aee8ff75">heap_alloc_func</a>&#160;&#160;&#160;global_heap.alloc</td></tr>
+<tr class="separator:a432920f8a231715906b14fc6aee8ff75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb1c7b31af40639e89385d3d7c279446" id="r_abb1c7b31af40639e89385d3d7c279446"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#abb1c7b31af40639e89385d3d7c279446">heap_free_func</a>&#160;&#160;&#160;global_heap.free</td></tr>
+<tr class="separator:abb1c7b31af40639e89385d3d7c279446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accbc671b9a49dadd822cddd2ef6af38f" id="r_accbc671b9a49dadd822cddd2ef6af38f"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#accbc671b9a49dadd822cddd2ef6af38f">HSIZE</a>&#160;&#160;&#160;<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">sizeof</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>*)</td></tr>
+<tr class="separator:accbc671b9a49dadd822cddd2ef6af38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab239fa19108abcc70d98c39ccb514e5d" id="r_ab239fa19108abcc70d98c39ccb514e5d"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#ab239fa19108abcc70d98c39ccb514e5d">realloc_func</a>&#160;&#160;&#160;global_heap.realloc</td></tr>
+<tr class="separator:ab239fa19108abcc70d98c39ccb514e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a70ee66fd54cf1444186464c5dc05caf3" id="r_a70ee66fd54cf1444186464c5dc05caf3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a70ee66fd54cf1444186464c5dc05caf3">lmmp_alloc</a> (size_t size)</td></tr>
+<tr class="memdesc:a70ee66fd54cf1444186464c5dc05caf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">内存分配函数（调用lmmp_heap_alloc_fn）  <br /></td></tr>
+<tr class="separator:a70ee66fd54cf1444186464c5dc05caf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc03f84d4b4786921457b7bb4da0132c" id="r_afc03f84d4b4786921457b7bb4da0132c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#afc03f84d4b4786921457b7bb4da0132c">lmmp_alloc_count</a> (int <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cnt</a>)</td></tr>
+<tr class="memdesc:afc03f84d4b4786921457b7bb4da0132c"><td class="mdescLeft">&#160;</td><td class="mdescRight">堆内存分配计数器（线程局部）  <br /></td></tr>
+<tr class="separator:afc03f84d4b4786921457b7bb4da0132c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af02754e1eb2ea2812eb3a7b35f05e640" id="r_af02754e1eb2ea2812eb3a7b35f05e640"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#af02754e1eb2ea2812eb3a7b35f05e640">lmmp_chech_memory</a> (size_t size, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">const</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">char</a> *func, int line)</td></tr>
+<tr class="separator:af02754e1eb2ea2812eb3a7b35f05e640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9addf0b27643f70bce967ca4ef842ae9" id="r_a9addf0b27643f70bce967ca4ef842ae9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> *ptr)</td></tr>
+<tr class="memdesc:a9addf0b27643f70bce967ca4ef842ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">内存释放函数（调用lmmp_heap_free_fn）  <br /></td></tr>
+<tr class="separator:a9addf0b27643f70bce967ca4ef842ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2c1f6e12685755673ae478a8f99776e" id="r_ac2c1f6e12685755673ae478a8f99776e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>)</td></tr>
+<tr class="memdesc:ac2c1f6e12685755673ae478a8f99776e"><td class="mdescLeft">&#160;</td><td class="mdescRight">（线程局部的）全局共享的动态分配的堆内存资源释放函数  <br /></td></tr>
+<tr class="separator:ac2c1f6e12685755673ae478a8f99776e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbd99ccfcc05a5deb0b80a6ac0c2e5d6" id="r_abbd99ccfcc05a5deb0b80a6ac0c2e5d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>)</td></tr>
+<tr class="memdesc:abbd99ccfcc05a5deb0b80a6ac0c2e5d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">全局初始化函数（线程局部的）  <br /></td></tr>
+<tr class="separator:abbd99ccfcc05a5deb0b80a6ac0c2e5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15395d51fa7b118d45c19dd53c5c45d0" id="r_a15395d51fa7b118d45c19dd53c5c45d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a15395d51fa7b118d45c19dd53c5c45d0">lmmp_leak_tracker</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">const</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">char</a> *func, int line)</td></tr>
+<tr class="memdesc:a15395d51fa7b118d45c19dd53c5c45d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">内存泄漏检测器  <br /></td></tr>
+<tr class="separator:a15395d51fa7b118d45c19dd53c5c45d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f5d59e1a454e89cf7ac4801a93a6ae" id="r_aa5f5d59e1a454e89cf7ac4801a93a6ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#aa5f5d59e1a454e89cf7ac4801a93a6ae">lmmp_realloc</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> *<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">oldptr</a>, size_t <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_size</a>)</td></tr>
+<tr class="memdesc:aa5f5d59e1a454e89cf7ac4801a93a6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">内存重分配函数（调用lmmp_realloc_fn）  <br /></td></tr>
+<tr class="separator:aa5f5d59e1a454e89cf7ac4801a93a6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7ed84bade971e6852cff99315e02ce" id="r_a1d7ed84bade971e6852cff99315e02ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a1d7ed84bade971e6852cff99315e02ce">lmmp_set_heap_allocator</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">const</a> <a class="el" href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a> *<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">heap</a>)</td></tr>
+<tr class="memdesc:a1d7ed84bade971e6852cff99315e02ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置 LAMMP 全局堆内存分配函数  <br /></td></tr>
+<tr class="separator:a1d7ed84bade971e6852cff99315e02ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aec0dfcf57d9d9d655f661fe134a9dc" id="r_a8aec0dfcf57d9d9d655f661fe134a9dc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a8aec0dfcf57d9d9d655f661fe134a9dc">lmmp_stack_deinit</a> (<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>)</td></tr>
+<tr class="memdesc:a8aec0dfcf57d9d9d655f661fe134a9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAMMP 全局栈释放函数（通常不需要手动调用）  <br /></td></tr>
+<tr class="separator:a8aec0dfcf57d9d9d655f661fe134a9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a94a3fd892d50ea4f7db71b204d6ae5" id="r_a9a94a3fd892d50ea4f7db71b204d6ae5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a9a94a3fd892d50ea4f7db71b204d6ae5">lmmp_stack_init</a> (size_t size)</td></tr>
+<tr class="memdesc:a9a94a3fd892d50ea4f7db71b204d6ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAMMP 全局栈初始化函数（通常不需要手动调用）  <br /></td></tr>
+<tr class="separator:a9a94a3fd892d50ea4f7db71b204d6ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:adb417bddea17d023c7201eac94256239" id="r_adb417bddea17d023c7201eac94256239"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">_Thread_local</a> <a class="el" href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#adb417bddea17d023c7201eac94256239">global_heap</a></td></tr>
+<tr class="separator:adb417bddea17d023c7201eac94256239"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab73435ab37e53799510770fbd50170fd" id="r_ab73435ab37e53799510770fbd50170fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">_Thread_local</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a> = 0</td></tr>
+<tr class="separator:ab73435ab37e53799510770fbd50170fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a411fad373972dd1387cab2f18430d9" id="r_a5a411fad373972dd1387cab2f18430d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">_Thread_local</a> <a class="el" href="../../d8/daa/tmp__alloc_8h.html#da/d9e/structlmmp__memory__ctx">lmmp_memory_ctx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a></td></tr>
+<tr class="separator:a5a411fad373972dd1387cab2f18430d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a432920f8a231715906b14fc6aee8ff75" name="a432920f8a231715906b14fc6aee8ff75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432920f8a231715906b14fc6aee8ff75">&#9670;&#160;</a></span>heap_alloc_func</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> heap_alloc_func&#160;&#160;&#160;global_heap.alloc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00026">26</a> 行定义.</p>
+
+</div>
+</div>
+<a id="abb1c7b31af40639e89385d3d7c279446" name="abb1c7b31af40639e89385d3d7c279446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb1c7b31af40639e89385d3d7c279446">&#9670;&#160;</a></span>heap_free_func</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> heap_free_func&#160;&#160;&#160;global_heap.free</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00027">27</a> 行定义.</p>
+
+</div>
+</div>
+<a id="accbc671b9a49dadd822cddd2ef6af38f" name="accbc671b9a49dadd822cddd2ef6af38f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accbc671b9a49dadd822cddd2ef6af38f">&#9670;&#160;</a></span>HSIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> HSIZE&#160;&#160;&#160;<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">sizeof</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>*)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00018">18</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ab239fa19108abcc70d98c39ccb514e5d" name="ab239fa19108abcc70d98c39ccb514e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab239fa19108abcc70d98c39ccb514e5d">&#9670;&#160;</a></span>realloc_func</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> realloc_func&#160;&#160;&#160;global_heap.realloc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00028">28</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a70ee66fd54cf1444186464c5dc05caf3" name="a70ee66fd54cf1444186464c5dc05caf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ee66fd54cf1444186464c5dc05caf3">&#9670;&#160;</a></span>lmmp_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> * lmmp_alloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>内存分配函数（调用lmmp_heap_alloc_fn） </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>要分配的内存字节数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>调用堆内存分配器，分配失败将触发 lmmp_abort </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>返回指向分配内存的指针（分配失败不会 return NULL，而是直接触发 lmmp_abort） </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00156">156</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>                              {</div>
+<div class="line"><span class="lineno">  157</span>    <span class="keywordflow">if</span> (size) {</div>
+<div class="line"><span class="lineno">  158</span>        <span class="keywordtype">void</span>* <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ret</a> = <a class="code hl_define" href="../../df/dd5/memory_8c.html#a432920f8a231715906b14fc6aee8ff75">heap_alloc_func</a>(size);</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ret</a> == <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>)</div>
+<div class="line"><span class="lineno">  160</span>            <a class="code hl_function" href="../../df/dd5/memory_8c.html#af02754e1eb2ea2812eb3a7b35f05e640">lmmp_chech_memory</a>(size, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__func__</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__LINE__</a>);</div>
+<div class="line"><span class="lineno">  161</span><span class="preprocessor">#if LAMMP_DEBUG_MEMORY_LEAK == 1</span></div>
+<div class="line"><span class="lineno">  162</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a>++;</div>
+<div class="line"><span class="lineno">  163</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ret</a>;</div>
+<div class="line"><span class="lineno">  165</span>    }</div>
+<div class="line"><span class="lineno">  166</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>;</div>
+<div class="line"><span class="lineno">  167</span>}</div>
+<div class="ttc" id="amemory_8c_html_a432920f8a231715906b14fc6aee8ff75"><div class="ttname"><a href="../../df/dd5/memory_8c.html#a432920f8a231715906b14fc6aee8ff75">heap_alloc_func</a></div><div class="ttdeci">#define heap_alloc_func</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00026">memory.c:26</a></div></div>
+<div class="ttc" id="amemory_8c_html_ab73435ab37e53799510770fbd50170fd"><div class="ttname"><a href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a></div><div class="ttdeci">static _Thread_local int heap_alloc_count</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00030">memory.c:30</a></div></div>
+<div class="ttc" id="amemory_8c_html_af02754e1eb2ea2812eb3a7b35f05e640"><div class="ttname"><a href="../../df/dd5/memory_8c.html#af02754e1eb2ea2812eb3a7b35f05e640">lmmp_chech_memory</a></div><div class="ttdeci">static void lmmp_chech_memory(size_t size, const char *func, int line)</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00096">memory.c:96</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../df/dd5/memory_8c_source.html#l00030">heap_alloc_count</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00026">heap_alloc_func</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00096">lmmp_chech_memory()</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l00100">lmmp_fft_memstack_()</a> , 以及 <a class="el" href="../../df/de3/mprand_8c_source.html#l00074">lmmp_strong_rng_init_()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a70ee66fd54cf1444186464c5dc05caf3_cgraph.svg" width="616" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a70ee66fd54cf1444186464c5dc05caf3_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="afc03f84d4b4786921457b7bb4da0132c" name="afc03f84d4b4786921457b7bb4da0132c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc03f84d4b4786921457b7bb4da0132c">&#9670;&#160;</a></span>lmmp_alloc_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lmmp_alloc_count </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>cnt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>堆内存分配计数器（线程局部） </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cnt</td><td>若不为0，则将堆内存计数器置为cnt </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>返回当前的heap分配计数（如果被设置，即返回旧的计数值），即目前未被释放的堆内存数量 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00105">105</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  105</span>                              {</div>
+<div class="line"><span class="lineno">  106</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cnt</a> != 0) {</div>
+<div class="line"><span class="lineno">  107</span>        <span class="keywordtype">int</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_cnt</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cnt</a>;</div>
+<div class="line"><span class="lineno">  108</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cnt</a> = <a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a>;</div>
+<div class="line"><span class="lineno">  109</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_cnt</a>;</div>
+<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cnt</a>;</div>
+<div class="line"><span class="lineno">  111</span>    }</div>
+<div class="line"><span class="lineno">  112</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a>;</div>
+<div class="line"><span class="lineno">  113</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../df/dd5/memory_8c_source.html#l00030">heap_alloc_count</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+</div>
+</div>
+<a id="af02754e1eb2ea2812eb3a7b35f05e640" name="af02754e1eb2ea2812eb3a7b35f05e640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af02754e1eb2ea2812eb3a7b35f05e640">&#9670;&#160;</a></span>lmmp_chech_memory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_chech_memory </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">const</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">char</a> *&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>line</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00096">96</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>                                                                              {</div>
+<div class="line"><span class="lineno">   97</span>    <span class="keywordtype">char</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>[64];</div>
+<div class="line"><span class="lineno">   98</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">snprintf</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>, <span class="keyword">sizeof</span>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>), <span class="stringliteral">&quot;Memory allocation failed (size: %zu bytes)&quot;</span>, size);</div>
+<div class="line"><span class="lineno">   99</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a8967c29c5f5ea6c7ce14e2baac50b72f">lmmp_abort</a>(<a class="code hl_enumvalue" href="../../dd/d90/lmmp_8h.html#ad6474f4a5d2ca323a5fbecb2bb7fd719a017d3dc73800cc1d63be695af7fea149">LAMMP_ERROR_MEMORY_ALLOC_FAILURE</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>, func, line);</div>
+<div class="line"><span class="lineno">  100</span>}</div>
+<div class="ttc" id="almmp_8h_html_a8967c29c5f5ea6c7ce14e2baac50b72f"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a8967c29c5f5ea6c7ce14e2baac50b72f">lmmp_abort</a></div><div class="ttdeci">void lmmp_abort(lmmp_error_t type, const char *msg, const char *func, int line)</div><div class="ttdoc">LAMMP 全局退出函数，内部错误或断言失败时调用，若设置了全局退出函数，则会调用该函数，否则会调用默认的退出函数。</div><div class="ttdef"><b>Definition</b> <a href="../../da/d52/abort_8c_source.html#l00042">abort.c:42</a></div></div>
+<div class="ttc" id="almmp_8h_html_ad6474f4a5d2ca323a5fbecb2bb7fd719a017d3dc73800cc1d63be695af7fea149"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#ad6474f4a5d2ca323a5fbecb2bb7fd719a017d3dc73800cc1d63be695af7fea149">LAMMP_ERROR_MEMORY_ALLOC_FAILURE</a></div><div class="ttdeci">@ LAMMP_ERROR_MEMORY_ALLOC_FAILURE</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00137">lmmp.h:137</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00137">LAMMP_ERROR_MEMORY_ALLOC_FAILURE</a>, <a class="el" href="../../da/d52/abort_8c_source.html#l00042">lmmp_abort()</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00156">lmmp_alloc()</a> , 以及 <a class="el" href="../../df/dd5/memory_8c_source.html#l00176">lmmp_realloc()</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_af02754e1eb2ea2812eb3a7b35f05e640_cgraph.svg" width="470" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_af02754e1eb2ea2812eb3a7b35f05e640_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a9addf0b27643f70bce967ca4ef842ae9" name="a9addf0b27643f70bce967ca4ef842ae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9addf0b27643f70bce967ca4ef842ae9">&#9670;&#160;</a></span>lmmp_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>内存释放函数（调用lmmp_heap_free_fn） </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td>要释放的内存指针 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00194">194</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  194</span>                          {</div>
+<div class="line"><span class="lineno">  195</span>    <span class="keywordflow">if</span> (ptr) {</div>
+<div class="line"><span class="lineno">  196</span>        <a class="code hl_define" href="../../df/dd5/memory_8c.html#abb1c7b31af40639e89385d3d7c279446">heap_free_func</a>(ptr);</div>
+<div class="line"><span class="lineno">  197</span><span class="preprocessor">#if LAMMP_DEBUG_MEMORY_LEAK == 1</span></div>
+<div class="line"><span class="lineno">  198</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a>--;</div>
+<div class="line"><span class="lineno">  199</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  200</span>    }</div>
+<div class="line"><span class="lineno">  201</span>}</div>
+<div class="ttc" id="amemory_8c_html_abb1c7b31af40639e89385d3d7c279446"><div class="ttname"><a href="../../df/dd5/memory_8c.html#abb1c7b31af40639e89385d3d7c279446">heap_free_func</a></div><div class="ttdeci">#define heap_free_func</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00027">memory.c:27</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../df/dd5/memory_8c_source.html#l00030">heap_alloc_count</a> , 以及 <a class="el" href="../../df/dd5/memory_8c_source.html#l00027">heap_free_func</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l00100">lmmp_fft_memstack_()</a>, <a class="el" href="../../d3/d81/elem__mul_8c_source.html#l00097">lmmp_limb_elem_mul_()</a>, <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l01087">lmmp_mul_fft_()</a>, <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l01143">lmmp_mul_fft_cache_()</a>, <a class="el" href="../../db/dfa/mul__fft_8c_source.html#l01206">lmmp_mul_fft_unbalance_()</a>, <a class="el" href="../../dd/d6c/mullo_8c_source.html#l00011">lmmp_mullo_fft_()</a>, <a class="el" href="../../dc/d42/ele__mul_8h_source.html#l00072">lmmp_num_heap_free_()</a>, <a class="el" href="../../db/d80/ele__mul_8c_source.html#l00078">lmmp_num_heap_mul_()</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00212">lmmp_prime_cache_free_()</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00244">lmmp_prime_int_table_free_()</a>, <a class="el" href="../../df/de3/mprand_8c_source.html#l00099">lmmp_strong_rng_free_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00015">lmmp_trialdiv_short_()</a> , 以及 <a class="el" href="../../d3/d81/elem__mul_8c_source.html#l00018">lmmp_vec_elem_mul_()</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a9addf0b27643f70bce967ca4ef842ae9_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ac2c1f6e12685755673ae478a8f99776e" name="ac2c1f6e12685755673ae478a8f99776e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2c1f6e12685755673ae478a8f99776e">&#9670;&#160;</a></span>lmmp_global_deinit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_global_deinit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>（线程局部的）全局共享的动态分配的堆内存资源释放函数 </p>
+<dl class="section note"><dt>注解</dt><dd>调用此函数将释放全局范围内的所有动态分配的堆内存资源。 此函数可重入，多次调用不会导致重复释放。如需要再次使用，请重新调用 lmmp_global_init 初始化。 部分惰性初始化的资源将在再次首次使用时再次初始化，调用此函数可能导致部分缓存失效，导致性能下降。 </dd></dl>
+<dl class="section warning"><dt>警告</dt><dd>我们建议在线程结束时或程序进程结束时调用此函数。多线程下，每个线程都会拥有独立的副本， 未调用此函数结束线程可能导致内存泄漏。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00208">208</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  208</span>                              {</div>
+<div class="line"><span class="lineno">  209</span>    <a class="code hl_function" href="../../df/dd5/memory_8c.html#a8aec0dfcf57d9d9d655f661fe134a9dc">lmmp_stack_deinit</a>();</div>
+<div class="line"><span class="lineno">  210</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a8d84fd00b81aae70f5f2817d6da415a6">lmmp_prime_int_table_free_</a>();</div>
+<div class="line"><span class="lineno">  211</span>}</div>
+<div class="ttc" id="amemory_8c_html_a8aec0dfcf57d9d9d655f661fe134a9dc"><div class="ttname"><a href="../../df/dd5/memory_8c.html#a8aec0dfcf57d9d9d655f661fe134a9dc">lmmp_stack_deinit</a></div><div class="ttdeci">int lmmp_stack_deinit(void)</div><div class="ttdoc">LAMMP 全局栈释放函数（通常不需要手动调用）</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00042">memory.c:42</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a8d84fd00b81aae70f5f2817d6da415a6"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a8d84fd00b81aae70f5f2817d6da415a6">lmmp_prime_int_table_free_</a></div><div class="ttdeci">void lmmp_prime_int_table_free_(void)</div><div class="ttdoc">释放全局素数表</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00244">prime_table.c:244</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00244">lmmp_prime_int_table_free_()</a> , 以及 <a class="el" href="../../df/dd5/memory_8c_source.html#l00042">lmmp_stack_deinit()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00085">lmmp_set_heap_allocator()</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_ac2c1f6e12685755673ae478a8f99776e_cgraph.svg" width="520" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_ac2c1f6e12685755673ae478a8f99776e_icgraph.svg" width="400" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abbd99ccfcc05a5deb0b80a6ac0c2e5d6" name="abbd99ccfcc05a5deb0b80a6ac0c2e5d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">&#9670;&#160;</a></span>lmmp_global_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_global_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>全局初始化函数（线程局部的） </p>
+<dl class="section note"><dt>注解</dt><dd>调用此函数将初始化全局范围内的所有线程局部资源，如栈式分配器等。 部分惰性初始化的资源将在首次使用时初始化。调用此函数不会进行初始化。 此函数可重入，多次调用不会导致重复初始化。 </dd></dl>
+<dl class="section warning"><dt>警告</dt><dd>我们建议在进程或线程启动时调用此函数，以保证线程安全。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00204">204</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  204</span>                            {</div>
+<div class="line"><span class="lineno">  205</span>    <a class="code hl_function" href="../../df/dd5/memory_8c.html#a9a94a3fd892d50ea4f7db71b204d6ae5">lmmp_stack_init</a>(<a class="code hl_define" href="../../d8/dd0/mparam_8h.html#afedabf551e9f94cdb8cf1649139dab06">LAMMP_POOL_SIZE</a>);</div>
+<div class="line"><span class="lineno">  206</span>}</div>
+<div class="ttc" id="amemory_8c_html_a9a94a3fd892d50ea4f7db71b204d6ae5"><div class="ttname"><a href="../../df/dd5/memory_8c.html#a9a94a3fd892d50ea4f7db71b204d6ae5">lmmp_stack_init</a></div><div class="ttdeci">int lmmp_stack_init(size_t size)</div><div class="ttdoc">LAMMP 全局栈初始化函数（通常不需要手动调用）</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00060">memory.c:60</a></div></div>
+<div class="ttc" id="amparam_8h_html_afedabf551e9f94cdb8cf1649139dab06"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#afedabf551e9f94cdb8cf1649139dab06">LAMMP_POOL_SIZE</a></div><div class="ttdeci">#define LAMMP_POOL_SIZE</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00026">mparam.h:26</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00026">LAMMP_POOL_SIZE</a> , 以及 <a class="el" href="../../df/dd5/memory_8c_source.html#l00060">lmmp_stack_init()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00085">lmmp_set_heap_allocator()</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_abbd99ccfcc05a5deb0b80a6ac0c2e5d6_cgraph.svg" width="616" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_abbd99ccfcc05a5deb0b80a6ac0c2e5d6_icgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a15395d51fa7b118d45c19dd53c5c45d0" name="a15395d51fa7b118d45c19dd53c5c45d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15395d51fa7b118d45c19dd53c5c45d0">&#9670;&#160;</a></span>lmmp_leak_tracker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_leak_tracker </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">const</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">char</a> *&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>line</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>内存泄漏检测器 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">func</td><td>泄漏发生的函数名 </td></tr>
+    <tr><td class="paramname">line</td><td>泄漏发生的行号 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>警告</dt><dd>内存计数器均是线程局部的，仅会检测单线程的内存泄漏。 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>将会同时检验堆内存和栈内存，若堆内存计数器不为0，或栈内存的栈顶不在栈底，都会触发lmmp_abort 两者同时发生则将输出两者的信息。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00115">115</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  115</span>                                                   {</div>
+<div class="line"><span class="lineno">  116</span>    <span class="keywordtype">char</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>[360] = {0};</div>
+<div class="line"><span class="lineno">  117</span>    <span class="keywordtype">int</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a> = 0;</div>
+<div class="line"><span class="lineno">  118</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">max_len</a> = <span class="keyword">sizeof</span>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>) - 1;</div>
+<div class="line"><span class="lineno">  119</span>    <span class="keywordtype">bool</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a> != 0) {</div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a> +=</div>
+<div class="line"><span class="lineno">  122</span>            <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">snprintf</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">max_len</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a>, <span class="stringliteral">&quot;Heap allocations not freed: %d block(s);\n&quot;</span>, <a class="code hl_variable" href="../../df/dd5/memory_8c.html#ab73435ab37e53799510770fbd50170fd">heap_alloc_count</a>);</div>
+<div class="line"><span class="lineno">  123</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  124</span>    }</div>
+<div class="line"><span class="lineno">  125</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a045b96b662fe1f11528f5c30a2d899bf">stack_top</a> != <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a>) {</div>
+<div class="line"><span class="lineno">  126</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">snprintf</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">max_len</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a>,</div>
+<div class="line"><span class="lineno">  127</span>                           <span class="stringliteral">&quot;Default stack allocator is not empty. top: %p, begin: %p, end: %p;\n&quot;</span>,</div>
+<div class="line"><span class="lineno">  128</span>                           <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a045b96b662fe1f11528f5c30a2d899bf">stack_top</a>, <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a>, <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a5c8426ac7379f370956795a8806662e8">stack_end</a>);</div>
+<div class="line"><span class="lineno">  129</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  130</span>    }</div>
+<div class="line"><span class="lineno">  131</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#add8a12dc78916a642b8468b397831322">pool_top</a> != <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a>) {</div>
+<div class="line"><span class="lineno">  132</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">snprintf</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">max_len</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">offset</a>,</div>
+<div class="line"><span class="lineno">  133</span>                           <span class="stringliteral">&quot;Default pool allocator is not empty. top: %p, begin: %p; remain: %zu bytes, capacity: %zu &quot;</span></div>
+<div class="line"><span class="lineno">  134</span>                           <span class="stringliteral">&quot;bytes;\n&quot;</span>,</div>
+<div class="line"><span class="lineno">  135</span>                           <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#add8a12dc78916a642b8468b397831322">pool_top</a>, <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a>, <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a9b6d69f727b25ef221dcc3bd0cc80ee5">remain</a>,</div>
+<div class="line"><span class="lineno">  136</span>                           <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a18b1a25e7375ecabdbc6499a4c189878">capacity</a>);</div>
+<div class="line"><span class="lineno">  137</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  138</span>    }</div>
+<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>) {</div>
+<div class="line"><span class="lineno">  140</span>        <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a8967c29c5f5ea6c7ce14e2baac50b72f">lmmp_abort</a>(<a class="code hl_enumvalue" href="../../dd/d90/lmmp_8h.html#ad6474f4a5d2ca323a5fbecb2bb7fd719a673f4c9dae592669f9dc2f1549a1ef8f">LAMMP_ERROR_MEMORY_LEAK</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">msg</a>, func, line);</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
+<div class="line"><span class="lineno">  142</span>}</div>
+<div class="ttc" id="almmp_8h_html_ad6474f4a5d2ca323a5fbecb2bb7fd719a673f4c9dae592669f9dc2f1549a1ef8f"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#ad6474f4a5d2ca323a5fbecb2bb7fd719a673f4c9dae592669f9dc2f1549a1ef8f">LAMMP_ERROR_MEMORY_LEAK</a></div><div class="ttdeci">@ LAMMP_ERROR_MEMORY_LEAK</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00140">lmmp.h:140</a></div></div>
+<div class="ttc" id="amemory_8c_html_a5a411fad373972dd1387cab2f18430d9"><div class="ttname"><a href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a></div><div class="ttdeci">_Thread_local lmmp_memory_ctx lmmp_tmpmem_ctx</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00032">memory.c:32</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_a1f0cf49f22a9b271d1d9e6e14609faed"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a></div><div class="ttdeci">#define t</div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a045b96b662fe1f11528f5c30a2d899bf"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a045b96b662fe1f11528f5c30a2d899bf">lmmp_memory_ctx::stack_top</a></div><div class="ttdeci">void * stack_top</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00028">tmp_alloc.h:28</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a18b1a25e7375ecabdbc6499a4c189878"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a18b1a25e7375ecabdbc6499a4c189878">lmmp_memory_ctx::capacity</a></div><div class="ttdeci">size_t capacity</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00032">tmp_alloc.h:32</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a1b26c1c9b5491cc9e33e8b4ce5e8da9e"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">lmmp_memory_ctx::pool_begin</a></div><div class="ttdeci">void * pool_begin</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00029">tmp_alloc.h:29</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a5c8426ac7379f370956795a8806662e8"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a5c8426ac7379f370956795a8806662e8">lmmp_memory_ctx::stack_end</a></div><div class="ttdeci">void * stack_end</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00027">tmp_alloc.h:27</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a9b6d69f727b25ef221dcc3bd0cc80ee5"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a9b6d69f727b25ef221dcc3bd0cc80ee5">lmmp_memory_ctx::remain</a></div><div class="ttdeci">size_t remain</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00031">tmp_alloc.h:31</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_ad81d408615ee95087f856c6cea238aab"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">lmmp_memory_ctx::stack_begin</a></div><div class="ttdeci">void * stack_begin</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00026">tmp_alloc.h:26</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_add8a12dc78916a642b8468b397831322"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#add8a12dc78916a642b8468b397831322">lmmp_memory_ctx::pool_top</a></div><div class="ttdeci">void * pool_top</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00030">tmp_alloc.h:30</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00032">lmmp_memory_ctx::capacity</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00030">heap_alloc_count</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00140">LAMMP_ERROR_MEMORY_LEAK</a>, <a class="el" href="../../da/d52/abort_8c_source.html#l00042">lmmp_abort()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00032">lmmp_tmpmem_ctx</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00029">lmmp_memory_ctx::pool_begin</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00030">lmmp_memory_ctx::pool_top</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00031">lmmp_memory_ctx::remain</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00026">lmmp_memory_ctx::stack_begin</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00027">lmmp_memory_ctx::stack_end</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00028">lmmp_memory_ctx::stack_top</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a15395d51fa7b118d45c19dd53c5c45d0_cgraph.svg" width="450" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa5f5d59e1a454e89cf7ac4801a93a6ae" name="aa5f5d59e1a454e89cf7ac4801a93a6ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5f5d59e1a454e89cf7ac4801a93a6ae">&#9670;&#160;</a></span>lmmp_realloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> * lmmp_realloc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>内存重分配函数（调用lmmp_realloc_fn） </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td>已分配的内存指针 </td></tr>
+    <tr><td class="paramname">size</td><td>新的内存大小（字节） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>调用堆内存重新分配器，分配失败将触发 lmmp_abort </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>成功返回指向新内存区域的指针（分配失败不会 return NULL，而是直接触发 lmmp_abort） </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00176">176</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>                                                  {</div>
+<div class="line"><span class="lineno">  177</span>    <span class="keywordtype">void</span>* <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ret</a> = <a class="code hl_define" href="../../df/dd5/memory_8c.html#ab239fa19108abcc70d98c39ccb514e5d">realloc_func</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">oldptr</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_size</a>);</div>
+<div class="line"><span class="lineno">  178</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ret</a> == <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>)</div>
+<div class="line"><span class="lineno">  179</span>        <a class="code hl_function" href="../../df/dd5/memory_8c.html#af02754e1eb2ea2812eb3a7b35f05e640">lmmp_chech_memory</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_size</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__func__</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__LINE__</a>);</div>
+<div class="line"><span class="lineno">  180</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ret</a>;</div>
+<div class="line"><span class="lineno">  181</span>}</div>
+<div class="ttc" id="amemory_8c_html_ab239fa19108abcc70d98c39ccb514e5d"><div class="ttname"><a href="../../df/dd5/memory_8c.html#ab239fa19108abcc70d98c39ccb514e5d">realloc_func</a></div><div class="ttdeci">#define realloc_func</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00028">memory.c:28</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../df/dd5/memory_8c_source.html#l00096">lmmp_chech_memory()</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> , 以及 <a class="el" href="../../df/dd5/memory_8c_source.html#l00028">realloc_func</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/de3/mprand_8c_source.html#l00087">lmmp_strong_rng_extern_()</a>.</p>
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_aa5f5d59e1a454e89cf7ac4801a93a6ae_cgraph.svg" width="628" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_aa5f5d59e1a454e89cf7ac4801a93a6ae_icgraph.svg" width="362" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1d7ed84bade971e6852cff99315e02ce" name="a1d7ed84bade971e6852cff99315e02ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7ed84bade971e6852cff99315e02ce">&#9670;&#160;</a></span>lmmp_set_heap_allocator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> lmmp_set_heap_allocator </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">const</a> <a class="el" href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置 LAMMP 全局堆内存分配函数 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>新的堆内存分配器，可以为NULL，此时会直接返回，而不进行任何操作。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>警告</dt><dd>由于所有共享内存都采用堆内存分配。因此，传入新的堆分配器将会首先调用 lmmp_global_deinit 函数，释放所有共享内存，以保证老旧的堆资源被释放。 然后将会自动调用 lmmp_global_init 函数，重新分配所有线程局部内存。 同时，为保证内存不泄露，将会对堆计数器和栈顶以及缓冲池顶进行检查。 若此时堆栈分配计数器不为 0，或当前栈帧不在栈底，都会触发lmmp_abort函数， 并输出相应的错误信息。 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>堆分配器是线程局部的，因此，创建新线程时，如有需要，请自行设置新的堆分配器。 同时也请自行保证分配器和释放器相匹配。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00085">85</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   85</span>                                                                {</div>
+<div class="line"><span class="lineno">   86</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">heap</a> == <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>)</div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   88</span>    <a class="code hl_function" href="../../df/dd5/memory_8c.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a>();</div>
+<div class="line"><span class="lineno">   89</span><span class="preprocessor">#if LAMMP_DEBUG_MEMORY_LEAK == 1</span></div>
+<div class="line"><span class="lineno">   90</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#af9ae583d078a23966cc292957c263f4c">lmmp_leak_tracker</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__func__</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__LINE__</a>); <span class="comment">// Check for memory leaks before setting new allocator</span></div>
+<div class="line"><span class="lineno">   91</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   92</span>    <a class="code hl_variable" href="../../df/dd5/memory_8c.html#adb417bddea17d023c7201eac94256239">global_heap</a> = *<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">heap</a>;</div>
+<div class="line"><span class="lineno">   93</span>    <a class="code hl_function" href="../../df/dd5/memory_8c.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a>();</div>
+<div class="line"><span class="lineno">   94</span>}</div>
+<div class="ttc" id="almmp_8h_html_af9ae583d078a23966cc292957c263f4c"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#af9ae583d078a23966cc292957c263f4c">lmmp_leak_tracker</a></div><div class="ttdeci">#define lmmp_leak_tracker</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00311">lmmp.h:311</a></div></div>
+<div class="ttc" id="amemory_8c_html_abbd99ccfcc05a5deb0b80a6ac0c2e5d6"><div class="ttname"><a href="../../df/dd5/memory_8c.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a></div><div class="ttdeci">void lmmp_global_init(void)</div><div class="ttdoc">全局初始化函数（线程局部的）</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00204">memory.c:204</a></div></div>
+<div class="ttc" id="amemory_8c_html_ac2c1f6e12685755673ae478a8f99776e"><div class="ttname"><a href="../../df/dd5/memory_8c.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a></div><div class="ttdeci">void lmmp_global_deinit(void)</div><div class="ttdoc">（线程局部的）全局共享的动态分配的堆内存资源释放函数</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00208">memory.c:208</a></div></div>
+<div class="ttc" id="amemory_8c_html_adb417bddea17d023c7201eac94256239"><div class="ttname"><a href="../../df/dd5/memory_8c.html#adb417bddea17d023c7201eac94256239">global_heap</a></div><div class="ttdeci">_Thread_local lmmp_heap_allocator_t global_heap</div><div class="ttdef"><b>Definition</b> <a href="../../df/dd5/memory_8c_source.html#l00020">memory.c:20</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../df/dd5/memory_8c_source.html#l00020">global_heap</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00208">lmmp_global_deinit()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00204">lmmp_global_init()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00311">lmmp_leak_tracker</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a1d7ed84bade971e6852cff99315e02ce_cgraph.svg" width="100%" height="413"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a8aec0dfcf57d9d9d655f661fe134a9dc" name="a8aec0dfcf57d9d9d655f661fe134a9dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aec0dfcf57d9d9d655f661fe134a9dc">&#9670;&#160;</a></span>lmmp_stack_deinit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lmmp_stack_deinit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LAMMP 全局栈释放函数（通常不需要手动调用） </p>
+<dl class="section warning"><dt>警告</dt><dd>请注意调用此函数后，访问之前的分配的栈空间将会导致未定义行为。在定义了 LAMMP_DEBUG_MEMORY_LEAK 宏时，会检查默认栈是否为空， 则会触发lmmp_abort函数。 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>如果此后再使用栈内存，请调用 lmmp_stack_init 函数，以重置栈空间。 </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>返回0表示成功释放，返回-1表示已经释放（并非错误）。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00042">42</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>                            {</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>) {</div>
+<div class="line"><span class="lineno">   44</span>        <a class="code hl_define" href="../../df/dd5/memory_8c.html#abb1c7b31af40639e89385d3d7c279446">heap_free_func</a>(<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a>);</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>)</div>
+<div class="line"><span class="lineno">   46</span>            <a class="code hl_define" href="../../df/dd5/memory_8c.html#abb1c7b31af40639e89385d3d7c279446">heap_free_func</a>(<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a>);</div>
+<div class="line"><span class="lineno">   47</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>;</div>
+<div class="line"><span class="lineno">   48</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a5c8426ac7379f370956795a8806662e8">stack_end</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>;</div>
+<div class="line"><span class="lineno">   49</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a045b96b662fe1f11528f5c30a2d899bf">stack_top</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>;</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>;</div>
+<div class="line"><span class="lineno">   51</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#add8a12dc78916a642b8468b397831322">pool_top</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>;</div>
+<div class="line"><span class="lineno">   52</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a9b6d69f727b25ef221dcc3bd0cc80ee5">remain</a> = 0;   <span class="comment">// Reset remain to 0</span></div>
+<div class="line"><span class="lineno">   53</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a18b1a25e7375ecabdbc6499a4c189878">capacity</a> = 0; <span class="comment">// Reset capacity to 0</span></div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   55</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><span class="lineno">   57</span>    }</div>
+<div class="line"><span class="lineno">   58</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00032">lmmp_memory_ctx::capacity</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00027">heap_free_func</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00032">lmmp_tmpmem_ctx</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00029">lmmp_memory_ctx::pool_begin</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00030">lmmp_memory_ctx::pool_top</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00031">lmmp_memory_ctx::remain</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00026">lmmp_memory_ctx::stack_begin</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00027">lmmp_memory_ctx::stack_end</a> , 以及 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00028">lmmp_memory_ctx::stack_top</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00208">lmmp_global_deinit()</a>.</p>
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a8aec0dfcf57d9d9d655f661fe134a9dc_icgraph.svg" width="595" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9a94a3fd892d50ea4f7db71b204d6ae5" name="a9a94a3fd892d50ea4f7db71b204d6ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a94a3fd892d50ea4f7db71b204d6ae5">&#9670;&#160;</a></span>lmmp_stack_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lmmp_stack_init </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LAMMP 全局栈初始化函数（通常不需要手动调用） </p>
+<dl class="section note"><dt>注解</dt><dd>初始化默认栈，并分配大小为size的额外内存池。如果已经初始化， 则会直接返回-1，表示已经初始化（并非错误），且不进行任何其他操作。 lmmp_global_init 函数会自动调用此函数，分配的额外缓冲池大小为 LAMMP_POOL_SIZE 的大小 （默认为512kb），无需手动调用。 如果你想手动设置缓冲池的大小，可以先调用 lmmp_stack_deinit 函数，再调用此函数，将 POOL_SIZE 设置为你想要的值。同时你也可以禁用缓冲池（即size为0），此时不会分配额外缓冲池。 </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>返回0表示成功初始化，返回-1表示已经初始化（并非错误）。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00060">60</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>                                 {</div>
+<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>) {</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><span class="lineno">   63</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   64</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a> = <a class="code hl_define" href="../../df/dd5/memory_8c.html#a432920f8a231715906b14fc6aee8ff75">heap_alloc_func</a>(<a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a4dc6553e0ac0994bad827b6213826c80">LAMMP_DEFAULT_STACK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a> == <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>) {</div>
+<div class="line"><span class="lineno">   66</span>            <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a8967c29c5f5ea6c7ce14e2baac50b72f">lmmp_abort</a>(<a class="code hl_enumvalue" href="../../dd/d90/lmmp_8h.html#ad6474f4a5d2ca323a5fbecb2bb7fd719a017d3dc73800cc1d63be695af7fea149">LAMMP_ERROR_MEMORY_ALLOC_FAILURE</a>, <span class="stringliteral">&quot;Failed to allocate stack memory&quot;</span>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__func__</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__LINE__</a>);</div>
+<div class="line"><span class="lineno">   67</span>        }</div>
+<div class="line"><span class="lineno">   68</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a5c8426ac7379f370956795a8806662e8">stack_end</a> = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a>*)(<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a>) + <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a4dc6553e0ac0994bad827b6213826c80">LAMMP_DEFAULT_STACK_SIZE</a>;</div>
+<div class="line"><span class="lineno">   69</span>        <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a045b96b662fe1f11528f5c30a2d899bf">stack_top</a> = <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a>;</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> (size &gt; <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a4073801b21887550d4131f3afe632ccd">LAMMP_MAX_ALIGN</a>) {</div>
+<div class="line"><span class="lineno">   71</span>            <span class="comment">// 只有当size大于最大对齐单位时，才分配缓冲池</span></div>
+<div class="line"><span class="lineno">   72</span>            <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a> = <a class="code hl_define" href="../../df/dd5/memory_8c.html#a432920f8a231715906b14fc6aee8ff75">heap_alloc_func</a>(size);</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a> == <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>) {</div>
+<div class="line"><span class="lineno">   74</span>                <a class="code hl_define" href="../../df/dd5/memory_8c.html#abb1c7b31af40639e89385d3d7c279446">heap_free_func</a>(<a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#ad81d408615ee95087f856c6cea238aab">stack_begin</a>);  <span class="comment">// Free old stack memory</span></div>
+<div class="line"><span class="lineno">   75</span>                <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a8967c29c5f5ea6c7ce14e2baac50b72f">lmmp_abort</a>(<a class="code hl_enumvalue" href="../../dd/d90/lmmp_8h.html#ad6474f4a5d2ca323a5fbecb2bb7fd719a017d3dc73800cc1d63be695af7fea149">LAMMP_ERROR_MEMORY_ALLOC_FAILURE</a>, <span class="stringliteral">&quot;Failed to allocate pool memory&quot;</span>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__func__</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">__LINE__</a>);</div>
+<div class="line"><span class="lineno">   76</span>            }</div>
+<div class="line"><span class="lineno">   77</span>            <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#add8a12dc78916a642b8468b397831322">pool_top</a> = <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a1b26c1c9b5491cc9e33e8b4ce5e8da9e">pool_begin</a>;</div>
+<div class="line"><span class="lineno">   78</span>            <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a9b6d69f727b25ef221dcc3bd0cc80ee5">remain</a> = size;</div>
+<div class="line"><span class="lineno">   79</span>            <a class="code hl_variable" href="../../df/dd5/memory_8c.html#a5a411fad373972dd1387cab2f18430d9">lmmp_tmpmem_ctx</a>.<a class="code hl_variable" href="../../d8/daa/tmp__alloc_8h.html#a18b1a25e7375ecabdbc6499a4c189878">capacity</a> = size;</div>
+<div class="line"><span class="lineno">   80</span>        }</div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   82</span>    }</div>
+<div class="line"><span class="lineno">   83</span>}</div>
+<div class="ttc" id="almmp_8h_html_a0fd36f16051f9d09180cb739e2f8a95c"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a></div><div class="ttdeci">uint8_t mp_byte_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00205">lmmp.h:205</a></div></div>
+<div class="ttc" id="almmp_8h_html_a4073801b21887550d4131f3afe632ccd"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a4073801b21887550d4131f3afe632ccd">LAMMP_MAX_ALIGN</a></div><div class="ttdeci">#define LAMMP_MAX_ALIGN</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00214">lmmp.h:214</a></div></div>
+<div class="ttc" id="amparam_8h_html_a4dc6553e0ac0994bad827b6213826c80"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#a4dc6553e0ac0994bad827b6213826c80">LAMMP_DEFAULT_STACK_SIZE</a></div><div class="ttdeci">#define LAMMP_DEFAULT_STACK_SIZE</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00023">mparam.h:23</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00032">lmmp_memory_ctx::capacity</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00026">heap_alloc_func</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00027">heap_free_func</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00023">LAMMP_DEFAULT_STACK_SIZE</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00137">LAMMP_ERROR_MEMORY_ALLOC_FAILURE</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00214">LAMMP_MAX_ALIGN</a>, <a class="el" href="../../da/d52/abort_8c_source.html#l00042">lmmp_abort()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00032">lmmp_tmpmem_ctx</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00029">lmmp_memory_ctx::pool_begin</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00030">lmmp_memory_ctx::pool_top</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00031">lmmp_memory_ctx::remain</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00026">lmmp_memory_ctx::stack_begin</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00027">lmmp_memory_ctx::stack_end</a> , 以及 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00028">lmmp_memory_ctx::stack_top</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00204">lmmp_global_init()</a>.</p>
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a9a94a3fd892d50ea4f7db71b204d6ae5_cgraph.svg" width="434" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/dd5/memory_8c_a9a94a3fd892d50ea4f7db71b204d6ae5_icgraph.svg" width="563" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="adb417bddea17d023c7201eac94256239" name="adb417bddea17d023c7201eac94256239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb417bddea17d023c7201eac94256239">&#9670;&#160;</a></span>global_heap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">_Thread_local</a> <a class="el" href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a> global_heap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>初始值:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .alloc = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">malloc</a>,</div>
+<div class="line">    .free = free,</div>
+<div class="line">    .realloc = realloc,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00020">20</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   20</span>                                                       {</div>
+<div class="line"><span class="lineno">   21</span>    .alloc = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">malloc</a>,</div>
+<div class="line"><span class="lineno">   22</span>    .free = free,</div>
+<div class="line"><span class="lineno">   23</span>    .realloc = realloc,</div>
+<div class="line"><span class="lineno">   24</span>};</div>
+</div><!-- fragment -->
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00085">lmmp_set_heap_allocator()</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00044">lmmp_temp_heap_alloc_()</a> , 以及 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00068">lmmp_temp_heap_free_()</a>.</p>
+
+</div>
+</div>
+<a id="ab73435ab37e53799510770fbd50170fd" name="ab73435ab37e53799510770fbd50170fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73435ab37e53799510770fbd50170fd">&#9670;&#160;</a></span>heap_alloc_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">_Thread_local</a> int heap_alloc_count = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00030">30</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00156">lmmp_alloc()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00105">lmmp_alloc_count()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00194">lmmp_free()</a> , 以及 <a class="el" href="../../df/dd5/memory_8c_source.html#l00115">lmmp_leak_tracker()</a>.</p>
+
+</div>
+</div>
+<a id="a5a411fad373972dd1387cab2f18430d9" name="a5a411fad373972dd1387cab2f18430d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a411fad373972dd1387cab2f18430d9">&#9670;&#160;</a></span>lmmp_tmpmem_ctx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">_Thread_local</a> <a class="el" href="../../d8/daa/tmp__alloc_8h.html#da/d9e/structlmmp__memory__ctx">lmmp_memory_ctx</a> lmmp_tmpmem_ctx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>初始值:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .stack_begin = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line">    .stack_end = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line">    .stack_top = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line">    .pool_begin = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line">    .pool_top = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line">    .remain = 0,</div>
+<div class="line">    .capacity = 0,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../df/dd5/memory_8c_source.html">memory.c</a> 第 <a class="el" href="../../df/dd5/memory_8c_source.html#l00032">32</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>                                                     {</div>
+<div class="line"><span class="lineno">   33</span>    .stack_begin = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line"><span class="lineno">   34</span>    .stack_end = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line"><span class="lineno">   35</span>    .stack_top = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line"><span class="lineno">   36</span>    .pool_begin = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line"><span class="lineno">   37</span>    .pool_top = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>,</div>
+<div class="line"><span class="lineno">   38</span>    .remain = 0,</div>
+<div class="line"><span class="lineno">   39</span>    .capacity = 0,</div>
+<div class="line"><span class="lineno">   40</span>};</div>
+</div><!-- fragment -->
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dd5/memory_8c_source.html#l00115">lmmp_leak_tracker()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00042">lmmp_stack_deinit()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00060">lmmp_stack_init()</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00109">lmmp_temp_pool_alloc_()</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00126">lmmp_temp_pool_free_()</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00079">lmmp_temp_stack_alloc_()</a> , 以及 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00104">lmmp_temp_stack_free_()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_d77cbddddf37de395302ec58cb811daa.html">lammp</a></li><li class="navelem"><a class="el" href="../../df/dd5/memory_8c.html">memory.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:36 , 为 LAMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

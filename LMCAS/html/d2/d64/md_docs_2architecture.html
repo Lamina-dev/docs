@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: LMCAS 架构设计文档</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d2/d64/md_docs_2architecture.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">LMCAS 架构设计文档</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> 本文档详细描述了 Lamina Computer Algebra System (LMCAS) 的技术架构、核心设计决策及模块交互方式。</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+1. 系统概述</h1>
+<p>LMCAS 是一个基于 C++17 标准开发的轻量级符号计算系统。其核心目标是提供一个类型安全、内存自动管理且易于扩展的代数计算引擎。系统采用分层架构，底层依赖高精度数值库 LAMMP，上层通过抽象语法树（AST）实现符号运算。</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+架构分层</h2>
+<div class="fragment"><div class="line">graph TD</div>
+<div class="line">    User[用户代码 / 测试] --&gt; API[SymbolicExpr API]</div>
+<div class="line">    API --&gt; AST[抽象语法树 (AST)]</div>
+<div class="line">    API --&gt; Visitors[访问者 (Visitors)]</div>
+<div class="line">    </div>
+<div class="line">    AST --&gt; Nodes[SymbolicNode 及其子类]</div>
+<div class="line">    Visitors --&gt; Algorithm[核心算法 (Simplify, Solve, Integrate)]</div>
+<div class="line">    </div>
+<div class="line">    Algorithm --&gt; Poly[多项式系统 (Polynomial Bridge)]</div>
+<div class="line">    Algorithm --&gt; Matrix[线性代数模块]</div>
+<div class="line">    </div>
+<div class="line">    Poly --&gt; LAMMP[LAMMP (BigInt, Rational)]</div>
+<div class="line">    Nodes --&gt; LAMMP</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+2. 核心设计原则</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+2.1 不可变性 (Immutability)</h2>
+<p>LMCAS 中的符号表达式是**不可变**的。</p><ul>
+<li>所有的代数操作（如 <code>add</code>, <code>multiply</code>, <code>sin</code>）都不会修改现有对象，而是返回一个新的 <code><a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a></code> 实例。</li>
+<li>**优势**：<ul>
+<li>线程安全：无锁即可在多线程环境共享表达式。</li>
+<li>结构共享：子表达式（如 <code>x</code>）可以在多个父表达式中被复用，显著降低内存占用。</li>
+<li>调试友好：表达式状态不会在某个深层函数调用中被意外篡改。</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md5"></a>
+2.2 自动内存管理 (RAII)</h2>
+<p>系统广泛使用 <code>std::shared_ptr&lt;<a class="el" href="../../dc/dc3/classSymbolicNode.html" title="符号表达式 AST 节点基类。">SymbolicNode</a>&gt;</code> 管理节点生命周期。</p><ul>
+<li><code><a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a></code> 本质上是一个轻量级的智能指针包装器。</li>
+<li>当没有任何表达式引用某个子树时，该子树的内存会自动释放。</li>
+<li>通过 <code>std::enable_shared_from_this</code> 支持安全的内部引用传递。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md6"></a>
+2.3 访问者模式 (Visitor Pattern)</h2>
+<p>为了解决表达式类型扩展与操作扩展的冲突，LMCAS 采用访问者模式将**数据结构**与**算法**解耦。</p><ul>
+<li><b><a class="el" href="../../dc/dc3/classSymbolicNode.html" title="符号表达式 AST 节点基类。">SymbolicNode</a></b> 定义了数据结构（数值、变量、加法、乘法等）。</li>
+<li><b><a class="el" href="../../da/dcb/classSymbolicVisitor.html" title="AST 访问者基类（Visitor 模式）。">SymbolicVisitor</a></b> 定义了操作接口（求值、打印、微分、化简等）。</li>
+<li>新增算法只需实现一个新的 Visitor，无需修改现有的 Node 类。</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md7"></a>
+3. 符号表达层 (Symbolic Layer)</h1>
+<h2><a class="anchor" id="autotoc_md8"></a>
+3.1 类层次结构</h2>
+<p>核心类位于 <code><a class="el" href="../../d9/d89/symbolic__ast_8hpp.html" title="AST 节点定义：NumberNode, VariableNode, AddNode, MultiplyNode, PowerNode, FunctionNode,...">include/symbolic_ast.hpp</a></code> 和 <code><a class="el" href="../../d5/df2/symbolic_8hpp.html" title="符号表达式主类 SymbolicExpr 及其工厂方法、运算接口。">include/symbolic.hpp</a></code>。</p>
+<ul>
+<li><b><a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a></b>: 用户面临的主要接口类。不包含虚函数，持有一个指向 <code><a class="el" href="../../dc/dc3/classSymbolicNode.html" title="符号表达式 AST 节点基类。">SymbolicNode</a></code> 的 <code>shared_ptr</code>。</li>
+<li><b><a class="el" href="../../dc/dc3/classSymbolicNode.html" title="符号表达式 AST 节点基类。">SymbolicNode</a></b>: 所有 AST 节点的抽象基类。<ul>
+<li><b>原子节点 (Leaf Nodes)</b>:<ul>
+<li><code><a class="el" href="../../dc/dea/classNumberNode.html" title="数值节点，存储 BigInt、Rational 或浮点数。">NumberNode</a></code>: 存储数值（<code>double</code>, <code><a class="el" href="../../da/d5b/classBigInt.html" title="任意精度整数类，底层使用 LAMMP 多精度库">BigInt</a></code>, <code><a class="el" href="../../d8/da7/classRational.html" title="精确有理数类，以 BigInt 分子/分母表示，构造时自动约分">Rational</a></code>）。</li>
+<li><code><a class="el" href="../../d5/d93/classVariableNode.html" title="变量节点，表示一个符号变量。">VariableNode</a></code>: 存储变量名（字符串）。</li>
+</ul>
+</li>
+<li><b>复合节点 (Composite Nodes)</b>:<ul>
+<li><code><a class="el" href="../../d8/d2e/classAddNode.html" title="加法节点，表示多个操作数的求和。">AddNode</a></code>: N 元加法。</li>
+<li><code><a class="el" href="../../dd/dce/classMultiplyNode.html" title="乘法节点，表示多个操作数的乘积。">MultiplyNode</a></code>: N 元乘法。</li>
+<li><code><a class="el" href="../../d5/d72/classPowerNode.html" title="幂运算节点，表示 base^exponent。">PowerNode</a></code>: 幂运算 (<code>base ^ exponent</code>)。</li>
+<li><code><a class="el" href="../../d7/d06/classFunctionNode.html" title="函数节点，表示数学函数调用（三角函数、对数、特殊函数等）。">FunctionNode</a></code>: 标准数学函数 (<code>sin</code>, <code>cos</code>, <code>exp</code>, <code>log</code> 等)。</li>
+<li><code><a class="el" href="../../d3/d86/classMatrixNode.html" title="矩阵节点，支持稠密和稀疏两种存储方式。">MatrixNode</a></code>: 符号矩阵。</li>
+<li><code><a class="el" href="../../d7/d58/classRelationalNode.html" title="关系运算节点，表示两个表达式之间的比较关系。">RelationalNode</a></code>: 关系表达式 (<code>=</code>, <code>&lt;</code>, <code>&gt;</code>)，用于方程和不等式。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md9"></a>
+3.2 规范化 (Canonical Form)</h2>
+<p>为了简化比较和化简逻辑，LMCAS 在构造表达式时会自动应用规范化规则（主要通过 <code><a class="el" href="../../d3/da1/classNormalizationVisitor.html" title="规范化访问器，合并同类项、化简数值运算、处理矩阵算术和三角函数特殊值">NormalizationVisitor</a></code>）：</p><ul>
+<li><b>扁平化</b>: <code>(a + b) + c</code> 会被自动转化为 <code>a + b + c</code>。</li>
+<li><b>排序</b>: 加法和乘法操作数会根据哈希值与度数（Degree）进行确定性排序。<ul>
+<li>例如：<code>y + x + 2</code> 总是被存储为 <code>2 + x + y</code>。</li>
+</ul>
+</li>
+<li><b>合并</b>: <code>x + x</code> 自动转化为 <code>2*x</code>；<code>x * x</code> 自动转化为 <code>x^2</code>。</li>
+<li><b>常数折叠</b>: <code>2 + 3</code> 自动计算为 <code>5</code>。</li>
+</ul>
+<p>这确保了数学上等价的表达式（如 <code>a+b</code> 和 <code>b+a</code>）在内存中拥有相同的结构，可以直接通过结构比较判断相等性。</p>
+<h1><a class="anchor" id="autotoc_md10"></a>
+4. 核心算法实现机制</h1>
+<h2><a class="anchor" id="autotoc_md11"></a>
+4.1 多项式桥接 (Polynomial Bridge)</h2>
+<p>为了利用高效的多项式算法（如 GCD、因式分解、求根），LMCAS 实现了一个独特的抽象层：<code>Polynomial&lt;T&gt;</code>。</p>
+<p>通常多项式系数是数字，但在 LMCAS 中，我们定义了 **<code>SymbolicPolyCoeff</code>**。 这意味着我们可以将任意表达式视为关于变量 $x$ 的多项式，其系数本身可以是包含其他变量（$y, z$）的复杂符号表达式。</p>
+<p>**工作流**：</p><ol type="1">
+<li>用户求解方程 <code>ax^2 + bx + c = 0</code>。</li>
+<li><code>symbolic_to_poly(expr, "x")</code> 将表达式树转换为 <code>Polynomial&lt;SymbolicPolyCoeff&gt;</code>。</li>
+<li>系统识别出系数 $a, b, c$。</li>
+<li>调用通用多项式求解器（利用求根公式或数值方法）。</li>
+<li>结果被重新包装为 <code><a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a></code> 返回。</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md12"></a>
+4.2 模式匹配 (Pattern Matcher)</h2>
+<p><code>Matcher</code> 模块允许基于规则的重写。它支持通配符匹配。</p><ul>
+<li>规则：<code>sin(x)^2 + cos(x)^2 -&gt; 1</code></li>
+<li>匹配器会遍历 AST，寻找结构匹配的子树，并将通配符绑定到实际子表达式上，然后应用变换。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
+4.3 方程求解 (Solver)</h2>
+<p>求解器采用混合策略：</p><ol type="1">
+<li><b>隔离变量</b>: 对于简单的 $f(x) = c$，尝试逆运算（如 $e^x = 5 \implies x = \ln 5$）。</li>
+<li><b>多项式转换</b>: 将方程视为多项式，求解根。</li>
+<li><b>线性系统</b>: 对于线性方程组，提取系数矩阵并进行高斯消元。</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md14"></a>
+5. 构建与扩展</h1>
+<p>项目使用 CMake 构建系统。</p><ul>
+<li>核心库编译为 <code>lmcas.dll</code> / <code>liblmcas.so</code>。</li>
+<li>添加新函数的步骤：<ol type="1">
+<li>在 <code><a class="el" href="../../dc/dc3/classSymbolicNode.html" title="符号表达式 AST 节点基类。">SymbolicNode</a></code> 中定义新类型（或复用 <code><a class="el" href="../../d7/d06/classFunctionNode.html" title="函数节点，表示数学函数调用（三角函数、对数、特殊函数等）。">FunctionNode</a></code>）。</li>
+<li>在 <code>Extension</code> 模块注册导数规则。</li>
+<li>在 <code><a class="el" href="../../d3/da1/classNormalizationVisitor.html" title="规范化访问器，合并同类项、化简数值运算、处理矩阵算术和三角函数特殊值">NormalizationVisitor</a></code> 添加化简规则。 </li>
+</ol>
+</li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

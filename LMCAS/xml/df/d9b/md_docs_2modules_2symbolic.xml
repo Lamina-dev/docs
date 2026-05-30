@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="df/d9b/md_docs_2modules_2symbolic" kind="page">
+    <compoundname>md_docs_2modules_2symbolic</compoundname>
+    <title>符号表达式模块</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md76"/> 主要头文件：include/symbolic.hpp</para>
+<sect1 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md79">
+<title>概览</title>
+<para><ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 是 LMCAS 中的核心类，用于包装符号表达式树（AST）。它通过 std::shared_ptr 持有 <ref refid="dc/dc3/classSymbolicNode" kindref="compound">SymbolicNode</ref> 根节点，提供了包括内存管理、表达式创建、数学运算等核心功能。</para>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md80">
+<title>核心特性</title>
+<para><itemizedlist>
+<listitem><para>**不可变性 (Immutability)**：所有的修改操作（如展开、求导）均返回新的 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 实例，保证线程安全与引用透明。</para>
+</listitem><listitem><para>**自动内存管理**：使用 std::shared_ptr 进行引用计数，当表达式不再被引用时自动释放内存。</para>
+</listitem><listitem><para>**类型安全**：通过 <ref refid="dc/d25/classSymbolicExpr_1ae6a2355ea39a320408c74b8fcae6d371" kindref="member">SymbolicExpr::Type</ref> 枚举和动态类型检查确保操作的合法性。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md81">
+<title>成员函数 (Member Functions)</title>
+<para>以下方法需在 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 实例上调用：</para>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md82">
+<title>xpand()</title>
+<para><itemizedlist>
+<listitem><para>**描述**：对表达式进行代数展开，应用乘法分配律并合并同类项。</para>
+</listitem><listitem><para>**算法**：递归遍历 AST，将 <ref refid="dc/dea/classNumberNode" kindref="compound">NumberNode</ref> 与 <ref refid="d5/d93/classVariableNode" kindref="compound">VariableNode</ref> 视为基础，将 <ref refid="dd/dce/classMultiplyNode" kindref="compound">MultiplyNode</ref> 分配到 <ref refid="d8/d2e/classAddNode" kindref="compound">AddNode</ref> 上。</para>
+</listitem><listitem><para>**示例**：(a+b)^2 -&gt; ^2 + 2ab + b^2</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md84">
+<title>substitute(var, value)</title>
+<para><itemizedlist>
+<listitem><para>**描述**：将表达式中的指定符号变量替换为另一个表达式。</para>
+</listitem><listitem><para>**参数**：<itemizedlist>
+<listitem><para>ar: 目标变量名 (std::string)</para>
+</listitem><listitem><para>alue: 用于替换的表达式 (std::shared_ptr&lt;SymbolicExpr&gt;)</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>**算法**：Visitor 模式遍历，匹配 <ref refid="d5/d93/classVariableNode" kindref="compound">VariableNode</ref> 名称。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md86">
+<title>differentiate(var)</title>
+<para><itemizedlist>
+<listitem><para>**描述**：对指定变量求导。</para>
+</listitem><listitem><para>**算法**：依据求导法则（链式法则、乘积法则等）递归构建导数表达式。</para>
+</listitem><listitem><para>**支持**：多项式、三角函数、指数对数等基本初等函数的求导。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md88">
+<title>integrate(var)</title>
+<para><itemizedlist>
+<listitem><para>**描述**：对指定变量进行符号积分。</para>
+</listitem><listitem><para>**算法**：调用 integration 模块，使用启发式策略（由于 Risch 算法过于复杂，目前采用模式匹配与分部积分结合的策略）。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md90">
+<title>series(var, point, order)</title>
+<para><itemizedlist>
+<listitem><para>**描述**：计算泰勒 (Taylor) 或麦克劳林 (Maclaurin) 级数展开。</para>
+</listitem><listitem><para>**参数**：<itemizedlist>
+<listitem><para>ar: 展开变量。</para>
+</listitem><listitem><para>point: 展开点 (<ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref>)。</para>
+</listitem><listitem><para>order: 展开阶数 (int)。</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md92">
+<title>simplify()</title>
+<para><itemizedlist>
+<listitem><para>**描述**：对表达式进行化简。</para>
+</listitem><listitem><para>**算法**：综合运用常数折叠、恒等式变换（如 sin^2 + cos^2 = 1）、最大公约数提取等策略。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md94">
+<title>静态算法 (Static Methods)</title>
+<para>以下算法为 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 类的静态成员函数，主要用于多项式与矩阵运算：</para>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md96">
+<title>多项式</title>
+<para><itemizedlist>
+<listitem><para><bold>SymbolicExpr::poly_gcd(a, b)</bold>: 计算两个多项式的最大公约数（GCD）。</para>
+</listitem><listitem><para><bold>SymbolicExpr::poly_resultant(a, b, var)</bold>: 计算两个多项式的结式（Resultant）。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md98">
+<title>线性代数 (Matrix)</title>
+<para><itemizedlist>
+<listitem><para><bold>SymbolicExpr::determinant(mat)</bold>: 计算矩阵行列式。支持递归展开与 LU 分解。</para>
+</listitem><listitem><para><bold>SymbolicExpr::inverse(mat)</bold>: 计算逆矩阵。</para>
+</listitem><listitem><para><bold>SymbolicExpr::eigenvalues(mat)</bold>: 计算特征值（通过特征多项式）。</para>
+</listitem><listitem><para><bold>SymbolicExpr::solve_system(eqs, vars)</bold>: 求解线性方程组。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md103">
+<title>模式匹配逻辑</title>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md104">
+<title>实现原理</title>
+<para>LMCAS 的模式匹配基于 AST 的结构比对，支持：<itemizedlist>
+<listitem><para>**通配符 (Wildcards)**：匹配任意子树。</para>
+</listitem><listitem><para>**交换律 (Commutativity)**： + b 可匹配  + a。</para>
+</listitem><listitem><para>**结合律 (Associativity)**：(a + b) + c 可匹配  + b + c。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md106">
+<title>算法细节</title>
+<para><orderedlist>
+<listitem><para>**类型检查**：优先比对节点类型（Add, Multiply, Function 等）。</para>
+</listitem><listitem><para>**递归比对**：对子节点进行递归匹配。</para>
+</listitem><listitem><para>**哈希剪枝**：利用节点缓存哈希值快速判断是否可能匹配（详见 <ref refid="dc/dc3/classSymbolicNode_1aec3226d6d7624165b0589c9240d65af8" kindref="member">SymbolicNode::hash()</ref>）。</para>
+</listitem><listitem><para>**全排列尝试**：对于满足交换律的节点（如加法、乘法），在匹配时尝试子节点的全排列组合（注：这是性能瓶颈之一）。</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md108">
+<title>节点类型 (SymbolicNode)</title>
+<para><itemizedlist>
+<listitem><para><bold><ref refid="dc/dea/classNumberNode" kindref="compound">NumberNode</ref></bold>: 存储数值 (<ref refid="da/d5b/classBigInt" kindref="compound">BigInt</ref>, <ref refid="d8/da7/classRational" kindref="compound">Rational</ref>, double)。</para>
+</listitem><listitem><para><bold><ref refid="d5/d93/classVariableNode" kindref="compound">VariableNode</ref></bold>: 存储变量名。</para>
+</listitem><listitem><para><bold><ref refid="d8/d2e/classAddNode" kindref="compound">AddNode</ref> / <ref refid="dd/dce/classMultiplyNode" kindref="compound">MultiplyNode</ref></bold>: n元运算节点。</para>
+</listitem><listitem><para><bold><ref refid="d5/d72/classPowerNode" kindref="compound">PowerNode</ref></bold>: 幂运算。</para>
+</listitem><listitem><para><bold><ref refid="d7/d06/classFunctionNode" kindref="compound">FunctionNode</ref></bold>: 通用函数节点 (sin, cos, exp, ln, lambertw, rootof 等)。</para>
+</listitem><listitem><para><bold><ref refid="d3/d86/classMatrixNode" kindref="compound">MatrixNode</ref></bold>: 矩阵容器。</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="df/d9b/md_docs_2modules_2symbolic_1autotoc_md110">
+<title>已知问题与局限</title>
+<para><itemizedlist>
+<listitem><para>**大表达式性能**：深层嵌套的递归化简可能导致栈溢出或性能显著下降。</para>
+</listitem><listitem><para>**特殊函数积分**：目前的积分器对非初等积分的支持有限。</para>
+</listitem><listitem><para>**非线性方程组**：solve_system 主要针对线性系统，非线性支持较弱。 </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="docs/modules/symbolic.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/integration.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d9/d15/integration_8hpp_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">integration.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d9/d15/integration_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file integration.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 符号积分引擎：策略模式，支持查表、幂律、换元、部分分式、分部积分。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/da4/matcher_8hpp.html">matcher.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/d3e/polynomial_8hpp.html">polynomial.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/de8/rational_8hpp.html">rational.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"></span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">/** @brief 积分表条目，描述一条积分规则（模式 → 结果） */</span></div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html">   19</a></span><span class="keyword">struct </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_struct" href="../../d4/d48/structlamina_1_1IntegrationEntry.html">IntegrationEntry</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a5f759571ef6d0829c74d5ece1f375c2d">   21</a></span>    std::string <a class="code hl_variable" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a5f759571ef6d0829c74d5ece1f375c2d">name</a>;                    <span class="comment">///&lt; 规则名称</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#af4bca40836f815659c9c62a36bbb9374">   23</a></span>    <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> <a class="code hl_variable" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#af4bca40836f815659c9c62a36bbb9374">pattern</a>;                <span class="comment">///&lt; 被积表达式的匹配模式</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a6c3975ae3e7113ac9166438118f181c8">   25</a></span>    <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> <a class="code hl_variable" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a6c3975ae3e7113ac9166438118f181c8">result</a>;                 <span class="comment">///&lt; 积分结果模板</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a98e9c6b12a9538a2a8dbca8851688638">   27</a></span>    std::unordered_set&lt;std::string&gt; <a class="code hl_variable" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a98e9c6b12a9538a2a8dbca8851688638">wildcards</a>; <span class="comment">///&lt; 模式中的通配符集合</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a82e923ba35e2306bc6d1d43b2f6e87da">   29</a></span>    std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#af06791ad67a1e527fbb6fc12dab4e93f">MatchMap</a>&amp;, <span class="keyword">const</span> std::string&amp; var)&gt; <a class="code hl_variable" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a82e923ba35e2306bc6d1d43b2f6e87da">condition</a>; <span class="comment">///&lt; 附加匹配条件</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a3870fc8d2c58f952b829abae02348c56">   31</a></span>    <span class="keywordtype">int</span> priority = 100;                  <span class="comment">///&lt; 优先级，数值越小越优先</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#ad77fb2f4ab7cfd9115115567e3bff022">   33</a></span>    <a class="code hl_function" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#ad77fb2f4ab7cfd9115115567e3bff022">IntegrationEntry</a>() = <span class="keywordflow">default</span>;</div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a5cfea6d6cb491c7769cc16ca171f335d">   34</a></span>    <a class="code hl_function" href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a5cfea6d6cb491c7769cc16ca171f335d">IntegrationEntry</a>(std::string name, <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> pat, <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> res,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                     std::unordered_set&lt;std::string&gt; wc,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                     std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#af06791ad67a1e527fbb6fc12dab4e93f">MatchMap</a>&amp;, <span class="keyword">const</span> std::string&amp; var)&gt; cond = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                     <span class="keywordtype">int</span> prio = 100)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        : name(std::move(name)), pattern(std::move(pat)), result(std::move(res)),</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>          wildcards(std::move(wc)), condition(std::move(cond)), priority(prio) {}</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/** @brief 积分查找表，按类别管理积分规则 */</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../dd/d53/classlamina_1_1IntegrationTable.html">   43</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../dd/d53/classlamina_1_1IntegrationTable.html">IntegrationTable</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">    /** @brief 积分规则类别 */</span></div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="};">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../dd/d53/classlamina_1_1IntegrationTable.html#aa50693589df0dde778e1c8e4c4bf42bb">   46</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="../../dd/d53/classlamina_1_1IntegrationTable.html#aa50693589df0dde778e1c8e4c4bf42bb">Category</a> {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>,    <span class="comment">///&lt; 多项式</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        Exponential,   <span class="comment">///&lt; 指数函数</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        Logarithmic,   <span class="comment">///&lt; 对数函数</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        Trigonometric, <span class="comment">///&lt; 三角函数</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        InverseTrig,   <span class="comment">///&lt; 反三角函数</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        Hyperbolic,    <span class="comment">///&lt; 双曲函数</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        Algebraic,     <span class="comment">///&lt; 代数函数</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        Special,       <span class="comment">///&lt; 特殊函数</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        UserDefined    <span class="comment">///&lt; 用户自定义</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    };</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="../../dd/d53/classlamina_1_1IntegrationTable.html">IntegrationTable</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"></span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">     * @brief 向指定类别添加积分规则</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">     * @param cat 规则类别</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">     * @param entry 积分条目</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> add_entry(Category cat, <span class="keyword">const</span> <a class="code hl_struct" href="../../d4/d48/structlamina_1_1IntegrationEntry.html">IntegrationEntry</a>&amp; entry);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"></span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">     * @brief 清空指定类别的所有规则</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">     * @param cat 规则类别</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">void</span> clear_category(Category cat);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"></span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">     * @brief 获取指定类别的所有规则</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">     * @param cat 规则类别</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">     * @return 该类别下的积分条目列表</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">const</span> std::vector&lt;IntegrationEntry&gt;&amp; get_entries(Category cat) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"></span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">     * @brief 获取所有规则，按优先级排序</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">     * @return 排序后的积分条目指针列表</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    std::vector&lt;const IntegrationEntry*&gt; get_all_sorted() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"></span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">    /** @brief 加载默认积分规则表 */</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">void</span> load_defaults();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../dd/d53/classlamina_1_1IntegrationTable.html#acc8a2d82f1c6851885c2d1d58381a9c1">   90</a></span>    std::unordered_map&lt;int, std::vector&lt;IntegrationEntry&gt;&gt; <a class="code hl_variable" href="../../dd/d53/classlamina_1_1IntegrationTable.html#acc8a2d82f1c6851885c2d1d58381a9c1">entries_</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="../../dd/d53/classlamina_1_1IntegrationTable.html#af2848920f54156a379aa7afa23d69ac1">   91</a></span>    <span class="keyword">static</span> <span class="keyword">const</span> std::vector&lt;IntegrationEntry&gt; <a class="code hl_variable" href="../../dd/d53/classlamina_1_1IntegrationTable.html#af2848920f54156a379aa7afa23d69ac1">empty_entries_</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">class </span><a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"></span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">/** @brief 积分策略基类，定义策略接口 */</span></div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="};">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">   97</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a7da64af3365644693d1435be4d6bbc2b">   99</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a7da64af3365644693d1435be4d6bbc2b">~IntegrationStrategy</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"></span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">     * @brief 尝试对表达式进行积分</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">     * @param ctx 积分器上下文</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">     * @param depth 当前递归深度</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">     * @return 积分结果，失败返回 nullptr</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a4bf6038755e9068d78e38b06694bf071">  109</a></span>    <span class="keyword">virtual</span> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a4bf6038755e9068d78e38b06694bf071">try_integrate</a>(</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">int</span> depth = 0) = 0;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"></span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">     * @brief 获取策略名称</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">     * @return 策略名称字符串</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a1a0648b428cf985dd45fd09565504e54">  119</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a1a0648b428cf985dd45fd09565504e54">name</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>};</div>
+</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"></span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">/** @brief 查表积分策略 */</span></div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="};">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../de/d21/classlamina_1_1TableLookupStrategy.html">  123</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../de/d21/classlamina_1_1TableLookupStrategy.html">TableLookupStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="../../de/d21/classlamina_1_1TableLookupStrategy.html#a49bb4d199264aef657b13113880a6f9c">  127</a></span>    std::string <a class="code hl_function" href="../../de/d21/classlamina_1_1TableLookupStrategy.html#a49bb4d199264aef657b13113880a6f9c">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;TableLookup&quot;</span>; }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>};</div>
+</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"></span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">/** @brief 幂律积分策略 */</span></div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="};">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="../../d0/df8/classlamina_1_1PowerRuleStrategy.html">  131</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d0/df8/classlamina_1_1PowerRuleStrategy.html">PowerRuleStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="../../d0/df8/classlamina_1_1PowerRuleStrategy.html#a4bbfb87037b8c96c2aa5e171ba9d19b4">  135</a></span>    std::string <a class="code hl_function" href="../../d0/df8/classlamina_1_1PowerRuleStrategy.html#a4bbfb87037b8c96c2aa5e171ba9d19b4">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;PowerRule&quot;</span>; }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>};</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment"></span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">/** @brief 换元积分策略 */</span></div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="};">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="../../d5/df5/classlamina_1_1SubstitutionStrategy.html">  139</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d5/df5/classlamina_1_1SubstitutionStrategy.html">SubstitutionStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="../../d5/df5/classlamina_1_1SubstitutionStrategy.html#ab060632ef49fadfebc8baead42a0d9e4">  143</a></span>    std::string <a class="code hl_function" href="../../d5/df5/classlamina_1_1SubstitutionStrategy.html#ab060632ef49fadfebc8baead42a0d9e4">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;Substitution&quot;</span>; }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>};</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment"></span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment"> * @brief 线性换元积分策略：识别 f(a*x + b) 形式并归约到表项。</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment"> * 当被积函数形如 FunctionNode(arg) 或 PowerNode(base, exp)，且其内部参数可拆解为</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment"> * a*var + b（其中 a、b 关于 var 为常数且 a ≠ 0）时，将参数替换为 var 进行查表，</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment"> * 再代回 a*var + b 并乘以 1/a 得到结果。该策略仅依赖积分表（TableLookupStrategy），</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment"> * 不再次进入完整的策略链，避免与一般换元策略产生递归。</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="};">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="../../d6/d86/classlamina_1_1LinearSubstitutionStrategy.html">  154</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d6/d86/classlamina_1_1LinearSubstitutionStrategy.html">LinearSubstitutionStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="../../d6/d86/classlamina_1_1LinearSubstitutionStrategy.html#ac65163ad07a83480658d8b739d0be7ed">  158</a></span>    std::string <a class="code hl_function" href="../../d6/d86/classlamina_1_1LinearSubstitutionStrategy.html#ac65163ad07a83480658d8b739d0be7ed">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;LinearSubstitution&quot;</span>; }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment"></span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">     * @brief 将表达式 arg 解析为 a*var + b 的线性形式。</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">     * @param arg 被解析的表达式</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">     * @param a_out 输出参数：线性系数（关于 var 为常数且非零）</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">     * @param b_out 输出参数：常数项（关于 var 为常数）</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">     * @return 解析成功返回 true；若 arg 不依赖 var、依赖关系为非线性、或 a 为零则返回 false</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordtype">bool</span> extract_linear_arg(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; arg,</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                            <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                            std::shared_ptr&lt;SymbolicExpr&gt;&amp; a_out,</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                            std::shared_ptr&lt;SymbolicExpr&gt;&amp; b_out);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>};</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment"></span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"> * @brief 三角组合积分策略：处理 sin^m(x)·cos^n(x)、tan^n(x)、sec^n(x) 形式。</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment"> * 当被积函数形如：</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment"> *   - sin^m(var)·cos^n(var)（m,n 为非负整数，m+n ≤ 8），或</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment"> *   - tan^n(var)（n 为整数，2 ≤ n ≤ 8），或</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"> *   - sec^n(var)（n 为偶数，2 ≤ n ≤ 8）</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment"> * 时，使用 Pythagorean 恒等式与降幂公式得到闭式原函数：</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> *   - 奇数次幂情形（m 或 n 为奇数）通过 u = cos(x) 或 u = sin(x) 换元求解；</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> *   - 双偶数情形（m,n 均为偶数）通过半角恒等式 sin² = (1-cos2x)/2 / cos² = (1+cos2x)/2 递归降阶；</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> *   - tan^n 通过 tan^n = tan^(n-2)·(sec²-1) 递归化简；</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment"> *   - 偶数 sec^n 通过分部积分得到的递推公式化简。</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment"> * sin/cos/tan/sec 的内部参数必须恰为积分变量本身（如 sin(2x) 由 LinearSubstitutionStrategy 处理）。</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> * 若指数为非整数、负数或超出 m+n &gt; 8 的总度数限制，则返回 nullptr 让链上后续策略尝试。</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="};">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="../../dd/ddb/classlamina_1_1TrigCombinationStrategy.html">  190</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../dd/ddb/classlamina_1_1TrigCombinationStrategy.html">TrigCombinationStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="../../dd/ddb/classlamina_1_1TrigCombinationStrategy.html#a25754f2848145b34bb9a3dc53ce8d592">  194</a></span>    std::string <a class="code hl_function" href="../../dd/ddb/classlamina_1_1TrigCombinationStrategy.html#a25754f2848145b34bb9a3dc53ce8d592">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;TrigCombination&quot;</span>; }</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment"></span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">     * @brief 检测被积表达式是否为 sin^m(var)·cos^n(var) 形式。</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment">     * @param m_out sin 的幂次（非负整数）</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment">     * @param n_out cos 的幂次（非负整数）</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment">     * @return 匹配成功返回 true；若包含其他因子、参数不为 var、或幂次为非整数/负数则返回 false</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordtype">bool</span> extract_sin_cos_powers(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr,</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                                <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                                <span class="keywordtype">int</span>&amp; m_out, <span class="keywordtype">int</span>&amp; n_out);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"></span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">     * @brief 检测被积表达式是否为 tan^n(var) 形式。</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">     * @param n_out tan 的幂次（正整数）</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">     * @return 匹配成功返回 true</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordtype">bool</span> extract_tan_power(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr,</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>                           <span class="keyword">const</span> std::string&amp; var, <span class="keywordtype">int</span>&amp; n_out);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment"></span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">     * @brief 检测被积表达式是否为 sec^n(var) 形式。</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment">     * @param n_out sec 的幂次（正整数）</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment">     * @return 匹配成功返回 true</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">bool</span> extract_sec_power(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr,</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                           <span class="keyword">const</span> std::string&amp; var, <span class="keywordtype">int</span>&amp; n_out);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">     * @brief 根据 m,n 奇偶性分派到 odd / even 情形的内部分发器（带尺度参数）。</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">     * @param m sin 幂次</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">     * @param n cos 幂次</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">     * @param scale sin/cos 内部的尺度系数 c，使被积表达式为 sin^m(c·var)·cos^n(c·var)。</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">     *              顶层调用使用 scale=1，半角恒等式递归时变为 2、4、8。</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_sin_m_cos_n(</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordtype">int</span> m, <span class="keywordtype">int</span> n, <span class="keywordtype">long</span> <span class="keywordtype">long</span> scale,</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment"></span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment">     * @brief 处理 m 或 n 为奇数的情形：剥离一个 sin/cos，使用毕达哥拉斯恒等式</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment">     *        与 u=cos(c·x) 或 u=sin(c·x) 换元，展开成 u 的多项式后逐项积分。</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_odd_case(</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordtype">int</span> m, <span class="keywordtype">int</span> n, <span class="keywordtype">long</span> <span class="keywordtype">long</span> scale,</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment"></span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">     * @brief 处理 m,n 均为偶数的情形：使用半角恒等式</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment">     *        sin²(c·x) = (1 - cos(2c·x))/2，cos²(c·x) = (1 + cos(2c·x))/2，</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">     *        将被积函数展开为 cos^k(2c·x) 的多项式，并对每个 k 递归调用</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment">     *        integrate_sin_m_cos_n(0, k, 2·scale, ...)。每次递归总度数减半。</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_even_case(</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="keywordtype">int</span> m, <span class="keywordtype">int</span> n, <span class="keywordtype">long</span> <span class="keywordtype">long</span> scale,</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment"></span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment">     * @brief 处理 tan^n(var) 形式：递归地应用 tan^n = tan^(n-2)·(sec²-1)。</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment">     *        基础情形：n=0 → x，n=1 → -ln(cos(x))。</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_tan_power(</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordtype">int</span> n, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment"></span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="comment">     * @brief 处理 sec^n(var)（偶数 n）形式：使用归约公式</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment">     *        ∫sec^n = sec^(n-2)·tan/(n-1) + (n-2)/(n-1)·∫sec^(n-2)。</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">     *        基础情形：n=2 → tan(x)。奇数 n 不在本策略范围内，返回 nullptr。</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_sec_power(</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordtype">int</span> n, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>};</div>
+</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="comment"></span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment"> * @brief 高次有理函数部分分式积分策略：处理分母次数 ≥ 3 的有理函数 P(x)/Q(x)。</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment"> * 工作流程：</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="comment"> *   1. extract_rational：将被积表达式分解为 P(x)/Q(x)，要求 P、Q 均为关于积分变量</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="comment"> *      的多项式，系数为有理数；非有理形式时返回 false。</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="comment"> *   2. poly_divide：当 deg(P) ≥ deg(Q) 时进行多项式长除法，得到商和余式；商部分用幂律</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment"> *      逐项积分，剩余的真分式进入部分分式分解。</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment"> *   3. factor_denominator：用 square_free_factorization 加上有理根定理，把 Q 分解为</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="comment"> *      线性因子和不可约二次因子（在有理数域上）。无法在有理数上完成分解时返回 false。</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="comment"> *   4. solve_coefficients：对每个因子按重数引入待定系数（线性因子贡献 A_l/(x-r)^l，</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment"> *      二次因子贡献 (B_l·x + C_l)/q(x)^l），通过比较多项式系数列出线性方程组，使用</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment"> *      gaussian_eliminate 求解。</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment"> *   5. integrate_term：逐项积分：</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment"> *        - A/(x-r)：A·ln|x-r|；A/(x-r)^l (l≥2)：-A/((l-1)(x-r)^(l-1))；</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment"> *        - (Bx+C)/q(x)：分裂为 ln 和 arctan 两部分（完全平方）；</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment"> *        - 不可约二次因子的高次幂 q^l (l≥2) 暂以未求值积分节点保留。</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment"> * 失败保护：</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="comment"> *   - 分母 Q 为零多项式时直接返回未求值积分节点；</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="comment"> *   - 表达式不是有理函数时返回 nullptr，让链上后续策略尝试；</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="comment"> *   - 因式分解或线性方程组无解时返回未求值积分节点保留原积分形式。</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00297" data-start="{" data-end="};">
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="../../de/d78/classlamina_1_1RationalDecompositionStrategy.html">  297</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../de/d78/classlamina_1_1RationalDecompositionStrategy.html">RationalDecompositionStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno"><a class="line" href="../../de/d78/classlamina_1_1RationalDecompositionStrategy.html#a860f6ea1b8aef14ece0784ed7e04f932">  301</a></span>    std::string <a class="code hl_function" href="../../de/d78/classlamina_1_1RationalDecompositionStrategy.html#a860f6ea1b8aef14ece0784ed7e04f932">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;RationalDecomposition&quot;</span>; }</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="comment"></span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="comment">     * @brief 把被积表达式拆解为 P(x)/Q(x)（P、Q 均为有理系数多项式）。</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="comment">     * @param P_out 输出参数：分子多项式</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="comment">     * @param Q_out 输出参数：分母多项式</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="comment">     * @return 成功识别为有理函数返回 true；表达式含 sin/exp/log/非整数指数等</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="comment">     *         非多项式部分时返回 false</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keywordtype">bool</span> extract_rational(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                          <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; P_out,</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                          <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; Q_out);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="comment"></span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment">     * @brief 多项式长除法：P = Q·quotient + remainder。</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="comment">     * @param P 被除多项式</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="comment">     * @param Q 除多项式（不能为零）</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="comment">     * @param quotient_out 输出：商多项式</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="comment">     * @param remainder_out 输出：余式多项式（deg(remainder) &lt; deg(Q)）</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordtype">void</span> poly_divide(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; P, <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; Q,</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>                     <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; quotient_out,</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>                     <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; remainder_out);</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="comment"></span> </div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment">     * @brief 把 Q 分解为线性 (x-r) 与不可约二次 (x²+px+q) 因子的集合。</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="comment">     * @param Q 分母多项式</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="comment">     * @param factors_out 输出：(因子, 重数) 列表；每个因子是首一线性或首一不可约二次</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="comment">     * @return 全部分解为线性/不可约二次因子返回 true；含有更高次不可约因子或</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="comment">     *         有理根定理无法穷尽线性因子时返回 false</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <span class="keywordtype">bool</span> factor_denominator(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; Q,</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                            std::vector&lt;std::pair&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>, <span class="keywordtype">int</span>&gt;&gt;&amp; factors_out);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="comment"></span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="comment">     * @brief 求解部分分式各项的待定系数。</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="comment">     * 对线性因子 (x-r) 重数 m，引入 m 个常数系数 A_1..A_m；对不可约二次因子 q(x)</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="comment">     * 重数 m，引入 m 对线性系数 (B_l, C_l)。通过比较多项式系数构造方阵并用</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="comment">     * gaussian_eliminate 求解。</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="comment">     * @param P 部分分式分解的目标多项式（真分式的分子，deg(P) &lt; deg(Q)）</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="comment">     * @param Q 部分分式分解的目标分母</span></div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="comment">     * @param factors 因子分解（来自 factor_denominator）</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="comment">     * @param numerators_out 输出：与 (factor_index, l) 一一对应的分子多项式列表，</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="comment">     *        每个分子要么是常数 (A)，要么是一次多项式 (B·x + C)</span></div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="comment">     * @return 系数解唯一存在时返回 true；系统无解或退化时返回 false</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keywordtype">bool</span> solve_coefficients(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; P,</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>                            <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; Q,</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                            <span class="keyword">const</span> std::vector&lt;std::pair&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>, <span class="keywordtype">int</span>&gt;&gt;&amp; factors,</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                            std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&gt;&amp; numerators_out);</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="comment"></span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span><span class="comment">     * @brief 对单个部分分式项 numerator(x)/factor(x)^power 求积分。</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="comment">     * 支持的形式：</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="comment">     *   - factor 是 x-r：power=1 → A·ln(x-r)；power≥2 → -A/((power-1)·(x-r)^(power-1))</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="comment">     *   - factor 是不可约二次 x²+px+q：power=1 → 拆为 (B/2)·ln(q(x)) +</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="comment">     *     (D-Bp/2)·(2/√(4q-p²))·arctan((2x+p)/√(4q-p²))；power≥2 暂以未求值积分节点返回</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="comment">     * @param numerator 分子多项式（线性因子时为常数；二次因子时为 B·x+C）</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span><span class="comment">     * @param factor 单个因子多项式（首一线性或首一不可约二次）</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="comment">     * @param power 因子的幂指数（≥1）</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="comment">     * @return 该项的原函数表达式</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_term(</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; numerator,</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; factor,</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        <span class="keywordtype">int</span> power, <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>};</div>
+</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span><span class="comment"></span> </div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="comment"> * @brief 特殊函数积分策略：识别原函数为非初等函数的常见形式。</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span><span class="comment"> * 当被积表达式匹配下列模式之一时，返回以特殊函数（erf, Ei, Si, Ci, Li）表示的结果：</span></div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span><span class="comment"> *   - exp(-x²)        → (√π/2)·erf(x)</span></div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span><span class="comment"> *   - exp(-a·x²)      → (√π/(2·√a))·erf(√a·x)，其中 a 是不依赖积分变量的正常数</span></div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span><span class="comment"> *   - exp(x)/x        → Ei(x)</span></div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span><span class="comment"> *   - sin(x)/x        → Si(x)</span></div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="comment"> *   - cos(x)/x        → Ci(x)</span></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="comment"> *   - 1/ln(x)         → Li(x)</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="comment"> * 内部参数严格要求为积分变量本身（exp(-x²) 中的 x 必须就是 var；含尺度的二次幂</span></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="comment"> * 通过提取 var 的多项式系数识别），其他形式由换元/线性代换等策略处理。</span></div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="comment"> * 任何无法匹配的输入返回 nullptr，让策略链上的后续策略尝试。</span></div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00392" data-start="{" data-end="};">
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno"><a class="line" href="../../df/d67/classlamina_1_1SpecialFunctionStrategy.html">  392</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../df/d67/classlamina_1_1SpecialFunctionStrategy.html">SpecialFunctionStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno"><a class="line" href="../../df/d67/classlamina_1_1SpecialFunctionStrategy.html#a282c84ee1ed8fe95c2bdcdb0c165d0b2">  396</a></span>    std::string <a class="code hl_function" href="../../df/d67/classlamina_1_1SpecialFunctionStrategy.html#a282c84ee1ed8fe95c2bdcdb0c165d0b2">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;SpecialFunction&quot;</span>; }</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>};</div>
+</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span><span class="comment"></span> </div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span><span class="comment">/** @brief 部分分式积分策略 */</span></div>
+<div class="foldopen" id="foldopen00400" data-start="{" data-end="};">
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno"><a class="line" href="../../d6/d58/classlamina_1_1PartialFractionStrategy.html">  400</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d6/d58/classlamina_1_1PartialFractionStrategy.html">PartialFractionStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno"><a class="line" href="../../d6/d58/classlamina_1_1PartialFractionStrategy.html#a9f591495ca56b206c25a9124f5028414">  404</a></span>    std::string <a class="code hl_function" href="../../d6/d58/classlamina_1_1PartialFractionStrategy.html#a9f591495ca56b206c25a9124f5028414">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;PartialFraction&quot;</span>; }</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>};</div>
+</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span><span class="comment"></span> </div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span><span class="comment">/** @brief 分部积分策略 */</span></div>
+<div class="foldopen" id="foldopen00408" data-start="{" data-end="};">
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno"><a class="line" href="../../d1/d83/classlamina_1_1IBPStrategy.html">  408</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d1/d83/classlamina_1_1IBPStrategy.html">IBPStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">IntegrationStrategy</a> {</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    std::shared_ptr&lt;SymbolicExpr&gt; try_integrate(</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; ctx, <span class="keywordtype">int</span> depth = 0) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno"><a class="line" href="../../d1/d83/classlamina_1_1IBPStrategy.html#a633e7b3800d9cef2f2f9716385f979b5">  412</a></span>    std::string <a class="code hl_function" href="../../d1/d83/classlamina_1_1IBPStrategy.html#a633e7b3800d9cef2f2f9716385f979b5">name</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;IntegrationByParts&quot;</span>; }</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>};</div>
+</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="comment"></span> </div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span><span class="comment">/** @brief 符号积分器，协调各策略完成积分运算 */</span></div>
+<div class="foldopen" id="foldopen00416" data-start="{" data-end="};">
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html">  416</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a> {</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>();</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span><span class="comment"></span> </div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span><span class="comment">     * @brief 计算不定积分</span></div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span><span class="comment">     * @param var_name 积分变量名</span></div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span><span class="comment">     * @return 积分结果表达式</span></div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> integrate(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var_name);</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span><span class="comment"></span> </div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span><span class="comment">     * @brief 计算定积分</span></div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span><span class="comment">     * @param var_name 积分变量名</span></div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span><span class="comment">     * @param lower 积分下限</span></div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span><span class="comment">     * @param upper 积分上限</span></div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span><span class="comment">     * @return 定积分结果表达式</span></div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> integrate_def(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var_name,</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>                               <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; lower, <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; upper);</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span><span class="comment"></span> </div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span><span class="comment">     * @brief 添加积分策略</span></div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span><span class="comment">     * @param strategy 策略对象</span></div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span><span class="comment">     * @param position 插入位置，-1 表示追加到末尾</span></div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    <span class="keywordtype">void</span> add_strategy(std::unique_ptr&lt;IntegrationStrategy&gt; strategy, <span class="keywordtype">int</span> position = -1);</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span><span class="comment"></span> </div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span><span class="comment">    /** @brief 获取积分表（可修改） */</span></div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#ac0772028ee309ad4adfaae43bed31172">  447</a></span>    <a class="code hl_class" href="../../dd/d53/classlamina_1_1IntegrationTable.html">IntegrationTable</a>&amp; <a class="code hl_function" href="../../d8/dbb/classlamina_1_1Integrator.html#ac0772028ee309ad4adfaae43bed31172">table</a>() { <span class="keywordflow">return</span> table_; }<span class="comment"></span></div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span><span class="comment">    /** @brief 获取积分表（只读） */</span></div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#a8489446f75348d0d90295daaeaa07f0e">  449</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="../../dd/d53/classlamina_1_1IntegrationTable.html">IntegrationTable</a>&amp; <a class="code hl_function" href="../../d8/dbb/classlamina_1_1Integrator.html#a8489446f75348d0d90295daaeaa07f0e">table</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> table_; }</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span><span class="comment"></span> </div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="comment">     * @brief 递归积分入口</span></div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span><span class="comment">     * @param expr 被积表达式</span></div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span><span class="comment">     * @param var 积分变量名</span></div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span><span class="comment">     * @param depth 当前递归深度</span></div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span><span class="comment">     * @return 积分结果，失败返回 nullptr</span></div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    std::shared_ptr&lt;SymbolicExpr&gt; integrate_recursive(</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <span class="keywordtype">int</span> depth = 0);</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span><span class="comment"></span> </div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span><span class="comment">     * @brief 判断表达式是否依赖指定变量</span></div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span><span class="comment">     * @param expr 表达式</span></div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span><span class="comment">     * @param var 变量名</span></div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span><span class="comment">     * @return 依赖返回 true</span></div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> depends_on(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span><span class="comment"></span> </div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span><span class="comment">    /** @brief 获取最大递归深度 */</span></div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#aa929cea6e8170c86885e6a3bee936f9a">  470</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/dbb/classlamina_1_1Integrator.html#aa929cea6e8170c86885e6a3bee936f9a">max_depth</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> max_depth_; }<span class="comment"></span></div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span><span class="comment">     * @brief 设置最大递归深度</span></div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span><span class="comment">     * @param d 深度值</span></div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#abe241bcc3b066d935ca84fc49d652610">  475</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d8/dbb/classlamina_1_1Integrator.html#abe241bcc3b066d935ca84fc49d652610">set_max_depth</a>(<span class="keywordtype">int</span> d) { max_depth_ = d; }</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span> </div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#a48d9d8027ad041e68fd88290acb37c1b">  478</a></span>    <a class="code hl_class" href="../../dd/d53/classlamina_1_1IntegrationTable.html">IntegrationTable</a> <a class="code hl_variable" href="../../d8/dbb/classlamina_1_1Integrator.html#a48d9d8027ad041e68fd88290acb37c1b">table_</a>;</div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#ab6611f8fbc3847e3bf0e7be25f1931ba">  479</a></span>    std::vector&lt;std::unique_ptr&lt;IntegrationStrategy&gt;&gt; <a class="code hl_variable" href="../../d8/dbb/classlamina_1_1Integrator.html#ab6611f8fbc3847e3bf0e7be25f1931ba">strategies_</a>;</div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span> </div>
+<div class="foldopen" id="foldopen00481" data-start="{" data-end="};">
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html">  481</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="../../d8/dbb/classlamina_1_1Integrator.html#dc/dbf/structlamina_1_1Integrator_1_1CycleState">CycleState</a> {</div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#a6306f309bf438cb859f53da313ad84cc">  482</a></span>        std::vector&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d8/dbb/classlamina_1_1Integrator.html#a6306f309bf438cb859f53da313ad84cc">history</a>;</div>
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>    };</div>
+</div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#ac9f3c60227a684db760efd6f734b5c4e">  484</a></span>    <a class="code hl_struct" href="../../d8/dbb/classlamina_1_1Integrator.html#dc/dbf/structlamina_1_1Integrator_1_1CycleState">CycleState</a> <a class="code hl_variable" href="../../d8/dbb/classlamina_1_1Integrator.html#ac9f3c60227a684db760efd6f734b5c4e">cycle_state_</a>;</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span> </div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno"><a class="line" href="../../d8/dbb/classlamina_1_1Integrator.html#a9ffdb8d2f025516e22802455f57e9546">  486</a></span>    <span class="keywordtype">int</span> max_depth_ = 8;</div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span> </div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>    std::shared_ptr&lt;SymbolicExpr&gt; apply_linearity(</div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span> </div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>    std::shared_ptr&lt;SymbolicExpr&gt; dispatch_strategies(</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span> </div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>    <span class="keyword">static</span> std::shared_ptr&lt;SymbolicExpr&gt; make_integral_node(</div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span> </div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>    std::shared_ptr&lt;SymbolicExpr&gt; check_cycle(</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr, <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>    <span class="keywordtype">void</span> resolve_cycle(std::shared_ptr&lt;SymbolicExpr&gt;&amp; result, <span class="keywordtype">size_t</span> cycle_idx);</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>};</div>
+</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span><span class="comment"></span> </div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span><span class="comment"> * @brief 多重（迭代）积分引擎：按由内到外的顺序依次对若干积分变量求积分。</span></div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span><span class="comment"> * 给定一个被积表达式和一组按内层（index 0）到外层（最后一个 index）排序的</span></div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span><span class="comment"> * IntegrationStep（每一步包含变量名、可选的下界与上界），引擎会依次对每个</span></div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span><span class="comment"> * 变量调用 Integrator::integrate（不定积分，下/上界均为 nullptr）或</span></div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span><span class="comment"> * Integrator::integrate_def（定积分，下/上界均给出）。如果某一步产生未求值</span></div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span><span class="comment"> * 的积分节点（Calculus_Integral），引擎会停止后续步骤，返回当前的部分结果。</span></div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span><span class="comment"> * 当被积表达式不依赖于某个具有定积分边界 [a,b] 的变量时，引擎会直接将当前</span></div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span><span class="comment"> * 表达式乘以 (b - a)，避免不必要的形式积分。</span></div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span><span class="comment"> * 输入约束：步骤数为 1~3；变量名不能重复；每一步的 lower/upper 必须同时为</span></div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span><span class="comment"> * nullptr（不定积分）或同时非空（定积分）。任何违反约束的输入返回 nullptr。</span></div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00517" data-start="{" data-end="};">
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno"><a class="line" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html">  517</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html">MultipleIntegralEngine</a> {</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span><span class="comment">    /** @brief 单步迭代积分参数：变量与可选的定积分上下界。 */</span></div>
+<div class="foldopen" id="foldopen00520" data-start="{" data-end="};">
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno"><a class="line" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html">  520</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#d5/de6/structlamina_1_1MultipleIntegralEngine_1_1IntegrationStep">IntegrationStep</a> {</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno"><a class="line" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a6324723d66fba98d11d878e9831d94d4">  521</a></span>        std::string <a class="code hl_variable" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a6324723d66fba98d11d878e9831d94d4">variable</a>;                <span class="comment">///&lt; 积分变量名</span></div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno"><a class="line" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a1dd8cf10b4262214b22a265c2a152a5c">  522</a></span>        std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a1dd8cf10b4262214b22a265c2a152a5c">lower</a>; <span class="comment">///&lt; 下界，nullptr 表示不定积分</span></div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno"><a class="line" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a38d08562ac679cdd158b3ef028632d70">  523</a></span>        std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a38d08562ac679cdd158b3ef028632d70">upper</a>; <span class="comment">///&lt; 上界，nullptr 表示不定积分</span></div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    };</div>
+</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span><span class="comment"></span> </div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span><span class="comment">     * @brief 计算迭代积分。</span></div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span><span class="comment">     * @param integrand 被积表达式</span></div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span><span class="comment">     * @param steps 由内层到外层的积分步骤列表（1~3 个，无重复变量）</span></div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span><span class="comment">     * @param integrator 用于实际执行单变量积分的 Integrator 实例</span></div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span><span class="comment">     * @return 迭代积分结果；若输入非法或任一步骤未能求值则可能返回 nullptr 或</span></div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span><span class="comment">     *         保留未求值积分节点的部分结果</span></div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    std::shared_ptr&lt;SymbolicExpr&gt; evaluate(</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; integrand,</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>        <span class="keyword">const</span> std::vector&lt;IntegrationStep&gt;&amp; steps,</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>        <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">Integrator</a>&amp; integrator);</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span> </div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span><span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="comment">     * @brief 校验步骤列表是否合法。</span></div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="comment">     * 当满足以下全部条件时返回 true：</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="comment">     *   - 步骤数为 1~3；</span></div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="comment">     *   - 变量名互不相同；</span></div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span><span class="comment">     *   - 每一步的 lower 和 upper 同时为 nullptr 或同时非空。</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    <span class="keywordtype">bool</span> validate(<span class="keyword">const</span> std::vector&lt;IntegrationStep&gt;&amp; steps) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>};</div>
+</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span> </div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>}</div>
+<div class="ttc" id="aclassSymbolicExpr_html"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a></div><div class="ttdoc">符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00077">symbolic.hpp:77</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IBPStrategy_html"><div class="ttname"><a href="../../d1/d83/classlamina_1_1IBPStrategy.html">lamina::IBPStrategy</a></div><div class="ttdoc">分部积分策略</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00408">integration.hpp:408</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IBPStrategy_html_a633e7b3800d9cef2f2f9716385f979b5"><div class="ttname"><a href="../../d1/d83/classlamina_1_1IBPStrategy.html#a633e7b3800d9cef2f2f9716385f979b5">lamina::IBPStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00412">integration.hpp:412</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationStrategy_html"><div class="ttname"><a href="../../d3/d27/classlamina_1_1IntegrationStrategy.html">lamina::IntegrationStrategy</a></div><div class="ttdoc">积分策略基类，定义策略接口</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00097">integration.hpp:97</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationStrategy_html_a1a0648b428cf985dd45fd09565504e54"><div class="ttname"><a href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a1a0648b428cf985dd45fd09565504e54">lamina::IntegrationStrategy::name</a></div><div class="ttdeci">virtual std::string name() const =0</div><div class="ttdoc">获取策略名称</div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationStrategy_html_a4bf6038755e9068d78e38b06694bf071"><div class="ttname"><a href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a4bf6038755e9068d78e38b06694bf071">lamina::IntegrationStrategy::try_integrate</a></div><div class="ttdeci">virtual std::shared_ptr&lt; SymbolicExpr &gt; try_integrate(const SymbolicExpr &amp;expr, const std::string &amp;var, Integrator &amp;ctx, int depth=0)=0</div><div class="ttdoc">尝试对表达式进行积分</div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationStrategy_html_a7da64af3365644693d1435be4d6bbc2b"><div class="ttname"><a href="../../d3/d27/classlamina_1_1IntegrationStrategy.html#a7da64af3365644693d1435be4d6bbc2b">lamina::IntegrationStrategy::~IntegrationStrategy</a></div><div class="ttdeci">virtual ~IntegrationStrategy()=default</div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationTable_html"><div class="ttname"><a href="../../dd/d53/classlamina_1_1IntegrationTable.html">lamina::IntegrationTable</a></div><div class="ttdoc">积分查找表，按类别管理积分规则</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00043">integration.hpp:43</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationTable_html_aa50693589df0dde778e1c8e4c4bf42bb"><div class="ttname"><a href="../../dd/d53/classlamina_1_1IntegrationTable.html#aa50693589df0dde778e1c8e4c4bf42bb">lamina::IntegrationTable::Category</a></div><div class="ttdeci">Category</div><div class="ttdoc">积分规则类别</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00046">integration.hpp:46</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationTable_html_acc8a2d82f1c6851885c2d1d58381a9c1"><div class="ttname"><a href="../../dd/d53/classlamina_1_1IntegrationTable.html#acc8a2d82f1c6851885c2d1d58381a9c1">lamina::IntegrationTable::entries_</a></div><div class="ttdeci">std::unordered_map&lt; int, std::vector&lt; IntegrationEntry &gt; &gt; entries_</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00090">integration.hpp:90</a></div></div>
+<div class="ttc" id="aclasslamina_1_1IntegrationTable_html_af2848920f54156a379aa7afa23d69ac1"><div class="ttname"><a href="../../dd/d53/classlamina_1_1IntegrationTable.html#af2848920f54156a379aa7afa23d69ac1">lamina::IntegrationTable::empty_entries_</a></div><div class="ttdeci">static const std::vector&lt; IntegrationEntry &gt; empty_entries_</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00091">integration.hpp:91</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html">lamina::Integrator</a></div><div class="ttdoc">符号积分器，协调各策略完成积分运算</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00416">integration.hpp:416</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_a48d9d8027ad041e68fd88290acb37c1b"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#a48d9d8027ad041e68fd88290acb37c1b">lamina::Integrator::table_</a></div><div class="ttdeci">IntegrationTable table_</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00478">integration.hpp:478</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_a6306f309bf438cb859f53da313ad84cc"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#a6306f309bf438cb859f53da313ad84cc">lamina::Integrator::CycleState::history</a></div><div class="ttdeci">std::vector&lt; SymbolicExpr &gt; history</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00482">integration.hpp:482</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_a8489446f75348d0d90295daaeaa07f0e"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#a8489446f75348d0d90295daaeaa07f0e">lamina::Integrator::table</a></div><div class="ttdeci">const IntegrationTable &amp; table() const</div><div class="ttdoc">获取积分表（只读）</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00449">integration.hpp:449</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_aa929cea6e8170c86885e6a3bee936f9a"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#aa929cea6e8170c86885e6a3bee936f9a">lamina::Integrator::max_depth</a></div><div class="ttdeci">int max_depth() const</div><div class="ttdoc">获取最大递归深度</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00470">integration.hpp:470</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_ab6611f8fbc3847e3bf0e7be25f1931ba"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#ab6611f8fbc3847e3bf0e7be25f1931ba">lamina::Integrator::strategies_</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; IntegrationStrategy &gt; &gt; strategies_</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00479">integration.hpp:479</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_abe241bcc3b066d935ca84fc49d652610"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#abe241bcc3b066d935ca84fc49d652610">lamina::Integrator::set_max_depth</a></div><div class="ttdeci">void set_max_depth(int d)</div><div class="ttdoc">设置最大递归深度</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00475">integration.hpp:475</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_ac0772028ee309ad4adfaae43bed31172"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#ac0772028ee309ad4adfaae43bed31172">lamina::Integrator::table</a></div><div class="ttdeci">IntegrationTable &amp; table()</div><div class="ttdoc">获取积分表（可修改）</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00447">integration.hpp:447</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_ac9f3c60227a684db760efd6f734b5c4e"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#ac9f3c60227a684db760efd6f734b5c4e">lamina::Integrator::cycle_state_</a></div><div class="ttdeci">CycleState cycle_state_</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00484">integration.hpp:484</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_dc/dbf/structlamina_1_1Integrator_1_1CycleState"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#dc/dbf/structlamina_1_1Integrator_1_1CycleState">lamina::Integrator::CycleState</a></div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00481">integration.hpp:481</a></div></div>
+<div class="ttc" id="aclasslamina_1_1LinearSubstitutionStrategy_html"><div class="ttname"><a href="../../d6/d86/classlamina_1_1LinearSubstitutionStrategy.html">lamina::LinearSubstitutionStrategy</a></div><div class="ttdoc">线性换元积分策略：识别 f(a*x + b) 形式并归约到表项。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00154">integration.hpp:154</a></div></div>
+<div class="ttc" id="aclasslamina_1_1LinearSubstitutionStrategy_html_ac65163ad07a83480658d8b739d0be7ed"><div class="ttname"><a href="../../d6/d86/classlamina_1_1LinearSubstitutionStrategy.html#ac65163ad07a83480658d8b739d0be7ed">lamina::LinearSubstitutionStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00158">integration.hpp:158</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultipleIntegralEngine_html"><div class="ttname"><a href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html">lamina::MultipleIntegralEngine</a></div><div class="ttdoc">多重（迭代）积分引擎：按由内到外的顺序依次对若干积分变量求积分。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00517">integration.hpp:517</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultipleIntegralEngine_html_a1dd8cf10b4262214b22a265c2a152a5c"><div class="ttname"><a href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a1dd8cf10b4262214b22a265c2a152a5c">lamina::MultipleIntegralEngine::IntegrationStep::lower</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; lower</div><div class="ttdoc">下界，nullptr 表示不定积分</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00522">integration.hpp:522</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultipleIntegralEngine_html_a38d08562ac679cdd158b3ef028632d70"><div class="ttname"><a href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a38d08562ac679cdd158b3ef028632d70">lamina::MultipleIntegralEngine::IntegrationStep::upper</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; upper</div><div class="ttdoc">上界，nullptr 表示不定积分</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00523">integration.hpp:523</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultipleIntegralEngine_html_a6324723d66fba98d11d878e9831d94d4"><div class="ttname"><a href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#a6324723d66fba98d11d878e9831d94d4">lamina::MultipleIntegralEngine::IntegrationStep::variable</a></div><div class="ttdeci">std::string variable</div><div class="ttdoc">积分变量名</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00521">integration.hpp:521</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultipleIntegralEngine_html_d5/de6/structlamina_1_1MultipleIntegralEngine_1_1IntegrationStep"><div class="ttname"><a href="../../d0/d72/classlamina_1_1MultipleIntegralEngine.html#d5/de6/structlamina_1_1MultipleIntegralEngine_1_1IntegrationStep">lamina::MultipleIntegralEngine::IntegrationStep</a></div><div class="ttdoc">单步迭代积分参数：变量与可选的定积分上下界。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00520">integration.hpp:520</a></div></div>
+<div class="ttc" id="aclasslamina_1_1PartialFractionStrategy_html"><div class="ttname"><a href="../../d6/d58/classlamina_1_1PartialFractionStrategy.html">lamina::PartialFractionStrategy</a></div><div class="ttdoc">部分分式积分策略</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00400">integration.hpp:400</a></div></div>
+<div class="ttc" id="aclasslamina_1_1PartialFractionStrategy_html_a9f591495ca56b206c25a9124f5028414"><div class="ttname"><a href="../../d6/d58/classlamina_1_1PartialFractionStrategy.html#a9f591495ca56b206c25a9124f5028414">lamina::PartialFractionStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00404">integration.hpp:404</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html">lamina::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00048">polynomial.hpp:48</a></div></div>
+<div class="ttc" id="aclasslamina_1_1PowerRuleStrategy_html"><div class="ttname"><a href="../../d0/df8/classlamina_1_1PowerRuleStrategy.html">lamina::PowerRuleStrategy</a></div><div class="ttdoc">幂律积分策略</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00131">integration.hpp:131</a></div></div>
+<div class="ttc" id="aclasslamina_1_1PowerRuleStrategy_html_a4bbfb87037b8c96c2aa5e171ba9d19b4"><div class="ttname"><a href="../../d0/df8/classlamina_1_1PowerRuleStrategy.html#a4bbfb87037b8c96c2aa5e171ba9d19b4">lamina::PowerRuleStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00135">integration.hpp:135</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RationalDecompositionStrategy_html"><div class="ttname"><a href="../../de/d78/classlamina_1_1RationalDecompositionStrategy.html">lamina::RationalDecompositionStrategy</a></div><div class="ttdoc">高次有理函数部分分式积分策略：处理分母次数 ≥ 3 的有理函数 P(x)/Q(x)。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00297">integration.hpp:297</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RationalDecompositionStrategy_html_a860f6ea1b8aef14ece0784ed7e04f932"><div class="ttname"><a href="../../de/d78/classlamina_1_1RationalDecompositionStrategy.html#a860f6ea1b8aef14ece0784ed7e04f932">lamina::RationalDecompositionStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00301">integration.hpp:301</a></div></div>
+<div class="ttc" id="aclasslamina_1_1SpecialFunctionStrategy_html"><div class="ttname"><a href="../../df/d67/classlamina_1_1SpecialFunctionStrategy.html">lamina::SpecialFunctionStrategy</a></div><div class="ttdoc">特殊函数积分策略：识别原函数为非初等函数的常见形式。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00392">integration.hpp:392</a></div></div>
+<div class="ttc" id="aclasslamina_1_1SpecialFunctionStrategy_html_a282c84ee1ed8fe95c2bdcdb0c165d0b2"><div class="ttname"><a href="../../df/d67/classlamina_1_1SpecialFunctionStrategy.html#a282c84ee1ed8fe95c2bdcdb0c165d0b2">lamina::SpecialFunctionStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00396">integration.hpp:396</a></div></div>
+<div class="ttc" id="aclasslamina_1_1SubstitutionStrategy_html"><div class="ttname"><a href="../../d5/df5/classlamina_1_1SubstitutionStrategy.html">lamina::SubstitutionStrategy</a></div><div class="ttdoc">换元积分策略</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00139">integration.hpp:139</a></div></div>
+<div class="ttc" id="aclasslamina_1_1SubstitutionStrategy_html_ab060632ef49fadfebc8baead42a0d9e4"><div class="ttname"><a href="../../d5/df5/classlamina_1_1SubstitutionStrategy.html#ab060632ef49fadfebc8baead42a0d9e4">lamina::SubstitutionStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00143">integration.hpp:143</a></div></div>
+<div class="ttc" id="aclasslamina_1_1TableLookupStrategy_html"><div class="ttname"><a href="../../de/d21/classlamina_1_1TableLookupStrategy.html">lamina::TableLookupStrategy</a></div><div class="ttdoc">查表积分策略</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00123">integration.hpp:123</a></div></div>
+<div class="ttc" id="aclasslamina_1_1TableLookupStrategy_html_a49bb4d199264aef657b13113880a6f9c"><div class="ttname"><a href="../../de/d21/classlamina_1_1TableLookupStrategy.html#a49bb4d199264aef657b13113880a6f9c">lamina::TableLookupStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00127">integration.hpp:127</a></div></div>
+<div class="ttc" id="aclasslamina_1_1TrigCombinationStrategy_html"><div class="ttname"><a href="../../dd/ddb/classlamina_1_1TrigCombinationStrategy.html">lamina::TrigCombinationStrategy</a></div><div class="ttdoc">三角组合积分策略：处理 sin^m(x)·cos^n(x)、tan^n(x)、sec^n(x) 形式。</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00190">integration.hpp:190</a></div></div>
+<div class="ttc" id="aclasslamina_1_1TrigCombinationStrategy_html_a25754f2848145b34bb9a3dc53ce8d592"><div class="ttname"><a href="../../dd/ddb/classlamina_1_1TrigCombinationStrategy.html#a25754f2848145b34bb9a3dc53ce8d592">lamina::TrigCombinationStrategy::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">获取策略名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00194">integration.hpp:194</a></div></div>
+<div class="ttc" id="amatcher_8hpp_html"><div class="ttname"><a href="../../d1/da4/matcher_8hpp.html">matcher.hpp</a></div><div class="ttdoc">模式匹配引擎 Matcher 与重写规则系统 RewriteEngine。</div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_af06791ad67a1e527fbb6fc12dab4e93f"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#af06791ad67a1e527fbb6fc12dab4e93f">lamina::MatchMap</a></div><div class="ttdeci">std::unordered_map&lt; std::string, SymbolicExpr &gt; MatchMap</div><div class="ttdoc">匹配结果映射，通配符名称 → 绑定的表达式</div><div class="ttdef"><b>Definition</b> <a href="../../d1/da4/matcher_8hpp_source.html#l00015">matcher.hpp:15</a></div></div>
+<div class="ttc" id="apolynomial_8hpp_html"><div class="ttname"><a href="../../d0/d3e/polynomial_8hpp.html">polynomial.hpp</a></div><div class="ttdoc">一元多项式模板类 Polynomial&lt;T&gt;，支持四则运算、GCD、求导、求值。</div></div>
+<div class="ttc" id="arational_8hpp_html"><div class="ttname"><a href="../../d1/de8/rational_8hpp.html">rational.hpp</a></div><div class="ttdoc">精确有理数 Rational，基于 BigInt 分子/分母表示，自动约分。</div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html">lamina::IntegrationEntry</a></div><div class="ttdoc">积分表条目，描述一条积分规则（模式 → 结果）</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00019">integration.hpp:19</a></div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_a5cfea6d6cb491c7769cc16ca171f335d"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a5cfea6d6cb491c7769cc16ca171f335d">lamina::IntegrationEntry::IntegrationEntry</a></div><div class="ttdeci">IntegrationEntry(std::string name, SymbolicExpr pat, SymbolicExpr res, std::unordered_set&lt; std::string &gt; wc, std::function&lt; bool(const MatchMap &amp;, const std::string &amp;var)&gt; cond=nullptr, int prio=100)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00034">integration.hpp:34</a></div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_a5f759571ef6d0829c74d5ece1f375c2d"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a5f759571ef6d0829c74d5ece1f375c2d">lamina::IntegrationEntry::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">规则名称</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00021">integration.hpp:21</a></div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_a6c3975ae3e7113ac9166438118f181c8"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a6c3975ae3e7113ac9166438118f181c8">lamina::IntegrationEntry::result</a></div><div class="ttdeci">SymbolicExpr result</div><div class="ttdoc">积分结果模板</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00025">integration.hpp:25</a></div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_a82e923ba35e2306bc6d1d43b2f6e87da"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a82e923ba35e2306bc6d1d43b2f6e87da">lamina::IntegrationEntry::condition</a></div><div class="ttdeci">std::function&lt; bool(const MatchMap &amp;, const std::string &amp;var)&gt; condition</div><div class="ttdoc">附加匹配条件</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00029">integration.hpp:29</a></div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_a98e9c6b12a9538a2a8dbca8851688638"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#a98e9c6b12a9538a2a8dbca8851688638">lamina::IntegrationEntry::wildcards</a></div><div class="ttdeci">std::unordered_set&lt; std::string &gt; wildcards</div><div class="ttdoc">模式中的通配符集合</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00027">integration.hpp:27</a></div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_ad77fb2f4ab7cfd9115115567e3bff022"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#ad77fb2f4ab7cfd9115115567e3bff022">lamina::IntegrationEntry::IntegrationEntry</a></div><div class="ttdeci">IntegrationEntry()=default</div></div>
+<div class="ttc" id="astructlamina_1_1IntegrationEntry_html_af4bca40836f815659c9c62a36bbb9374"><div class="ttname"><a href="../../d4/d48/structlamina_1_1IntegrationEntry.html#af4bca40836f815659c9c62a36bbb9374">lamina::IntegrationEntry::pattern</a></div><div class="ttdeci">SymbolicExpr pattern</div><div class="ttdoc">被积表达式的匹配模式</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d15/integration_8hpp_source.html#l00023">integration.hpp:23</a></div></div>
+<div class="ttc" id="asymbolic_8hpp_html"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a></div><div class="ttdoc">符号表达式主类 SymbolicExpr 及其工厂方法、运算接口。</div></div>
+<div class="ttc" id="asymbolic_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00032">symbolic.hpp:32</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../d9/d15/integration_8hpp.html">integration.hpp</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

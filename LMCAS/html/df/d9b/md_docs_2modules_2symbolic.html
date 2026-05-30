@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: 符号表达式模块</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('df/d9b/md_docs_2modules_2symbolic.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">符号表达式模块</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="autotoc_md76"></a> 主要头文件：include/symbolic.hpp</p>
+<h1><a class="anchor" id="autotoc_md79"></a>
+概览</h1>
+<p><a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a> 是 LMCAS 中的核心类，用于包装符号表达式树（AST）。它通过 std::shared_ptr 持有 <a class="el" href="../../dc/dc3/classSymbolicNode.html" title="符号表达式 AST 节点基类。">SymbolicNode</a> 根节点，提供了包括内存管理、表达式创建、数学运算等核心功能。</p>
+<h2><a class="anchor" id="autotoc_md80"></a>
+核心特性</h2>
+<ul>
+<li>**不可变性 (Immutability)**：所有的修改操作（如展开、求导）均返回新的 <a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a> 实例，保证线程安全与引用透明。</li>
+<li>**自动内存管理**：使用 std::shared_ptr 进行引用计数，当表达式不再被引用时自动释放内存。</li>
+<li>**类型安全**：通过 <a class="el" href="../../dc/d25/classSymbolicExpr.html#ae6a2355ea39a320408c74b8fcae6d371" title="表达式类型枚举（已废弃，保留用于兼容）">SymbolicExpr::Type</a> 枚举和动态类型检查确保操作的合法性。</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md81"></a>
+成员函数 (Member Functions)</h1>
+<p>以下方法需在 <a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a> 实例上调用：</p>
+<h2><a class="anchor" id="autotoc_md82"></a>
+&#x241B;xpand()</h2>
+<ul>
+<li>**描述**：对表达式进行代数展开，应用乘法分配律并合并同类项。</li>
+<li>**算法**：递归遍历 AST，将 <a class="el" href="../../dc/dea/classNumberNode.html" title="数值节点，存储 BigInt、Rational 或浮点数。">NumberNode</a> 与 <a class="el" href="../../d5/d93/classVariableNode.html" title="变量节点，表示一个符号变量。">VariableNode</a> 视为基础，将 <a class="el" href="../../dd/dce/classMultiplyNode.html" title="乘法节点，表示多个操作数的乘积。">MultiplyNode</a> 分配到 <a class="el" href="../../d8/d2e/classAddNode.html" title="加法节点，表示多个操作数的求和。">AddNode</a> 上。</li>
+<li>**示例**：(a+b)^2 -&gt; &#x2407;^2 + 2ab + b^2</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md84"></a>
+substitute(var, value)</h2>
+<ul>
+<li>**描述**：将表达式中的指定符号变量替换为另一个表达式。</li>
+<li>**参数**：<ul>
+<li>ar: 目标变量名 (std::string)</li>
+<li>alue: 用于替换的表达式 (std::shared_ptr&lt;SymbolicExpr&gt;)</li>
+</ul>
+</li>
+<li>**算法**：Visitor 模式遍历，匹配 <a class="el" href="../../d5/d93/classVariableNode.html" title="变量节点，表示一个符号变量。">VariableNode</a> 名称。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md86"></a>
+differentiate(var)</h2>
+<ul>
+<li>**描述**：对指定变量求导。</li>
+<li>**算法**：依据求导法则（链式法则、乘积法则等）递归构建导数表达式。</li>
+<li>**支持**：多项式、三角函数、指数对数等基本初等函数的求导。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md88"></a>
+integrate(var)</h2>
+<ul>
+<li>**描述**：对指定变量进行符号积分。</li>
+<li>**算法**：调用 integration 模块，使用启发式策略（由于 Risch 算法过于复杂，目前采用模式匹配与分部积分结合的策略）。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md90"></a>
+series(var, point, order)</h2>
+<ul>
+<li>**描述**：计算泰勒 (Taylor) 或麦克劳林 (Maclaurin) 级数展开。</li>
+<li>**参数**：<ul>
+<li>ar: 展开变量。</li>
+<li>point: 展开点 (<a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a>)。</li>
+<li>order: 展开阶数 (int)。</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md92"></a>
+simplify()</h2>
+<ul>
+<li>**描述**：对表达式进行化简。</li>
+<li>**算法**：综合运用常数折叠、恒等式变换（如 sin^2 + cos^2 = 1）、最大公约数提取等策略。</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md94"></a>
+静态算法 (Static Methods)</h1>
+<p>以下算法为 <a class="el" href="../../dc/d25/classSymbolicExpr.html" title="符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。">SymbolicExpr</a> 类的静态成员函数，主要用于多项式与矩阵运算：</p>
+<h2><a class="anchor" id="autotoc_md96"></a>
+多项式</h2>
+<ul>
+<li><b>SymbolicExpr::poly_gcd(a, b)</b>: 计算两个多项式的最大公约数（GCD）。</li>
+<li><b>SymbolicExpr::poly_resultant(a, b, var)</b>: 计算两个多项式的结式（Resultant）。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md98"></a>
+线性代数 (Matrix)</h2>
+<ul>
+<li><b>SymbolicExpr::determinant(mat)</b>: 计算矩阵行列式。支持递归展开与 LU 分解。</li>
+<li><b>SymbolicExpr::inverse(mat)</b>: 计算逆矩阵。</li>
+<li><b>SymbolicExpr::eigenvalues(mat)</b>: 计算特征值（通过特征多项式）。</li>
+<li><b>SymbolicExpr::solve_system(eqs, vars)</b>: 求解线性方程组。</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md103"></a>
+模式匹配逻辑</h1>
+<h2><a class="anchor" id="autotoc_md104"></a>
+实现原理</h2>
+<p>LMCAS 的模式匹配基于 AST 的结构比对，支持：</p><ul>
+<li>**通配符 (Wildcards)**：匹配任意子树。</li>
+<li>**交换律 (Commutativity)**：&#x2407; + b 可匹配 &#x2408; + a。</li>
+<li>**结合律 (Associativity)**：(a + b) + c 可匹配 &#x2407; + b + c。</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md106"></a>
+算法细节</h2>
+<ol type="1">
+<li>**类型检查**：优先比对节点类型（Add, Multiply, Function 等）。</li>
+<li>**递归比对**：对子节点进行递归匹配。</li>
+<li>**哈希剪枝**：利用节点缓存哈希值快速判断是否可能匹配（详见 <a class="el" href="../../dc/dc3/classSymbolicNode.html#aec3226d6d7624165b0589c9240d65af8" title="获取节点哈希值（带缓存）。">SymbolicNode::hash()</a>）。</li>
+<li>**全排列尝试**：对于满足交换律的节点（如加法、乘法），在匹配时尝试子节点的全排列组合（注：这是性能瓶颈之一）。</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md108"></a>
+节点类型 (SymbolicNode)</h1>
+<ul>
+<li><b><a class="el" href="../../dc/dea/classNumberNode.html" title="数值节点，存储 BigInt、Rational 或浮点数。">NumberNode</a></b>: 存储数值 (<a class="el" href="../../da/d5b/classBigInt.html" title="任意精度整数类，底层使用 LAMMP 多精度库">BigInt</a>, <a class="el" href="../../d8/da7/classRational.html" title="精确有理数类，以 BigInt 分子/分母表示，构造时自动约分">Rational</a>, double)。</li>
+<li><b><a class="el" href="../../d5/d93/classVariableNode.html" title="变量节点，表示一个符号变量。">VariableNode</a></b>: 存储变量名。</li>
+<li><b><a class="el" href="../../d8/d2e/classAddNode.html" title="加法节点，表示多个操作数的求和。">AddNode</a> / <a class="el" href="../../dd/dce/classMultiplyNode.html" title="乘法节点，表示多个操作数的乘积。">MultiplyNode</a></b>: n元运算节点。</li>
+<li><b><a class="el" href="../../d5/d72/classPowerNode.html" title="幂运算节点，表示 base^exponent。">PowerNode</a></b>: 幂运算。</li>
+<li><b><a class="el" href="../../d7/d06/classFunctionNode.html" title="函数节点，表示数学函数调用（三角函数、对数、特殊函数等）。">FunctionNode</a></b>: 通用函数节点 (sin, cos, exp, ln, lambertw, rootof 等)。</li>
+<li><b><a class="el" href="../../d3/d86/classMatrixNode.html" title="矩阵节点，支持稠密和稀疏两种存储方式。">MatrixNode</a></b>: 矩阵容器。</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md110"></a>
+已知问题与局限</h1>
+<ul>
+<li>**大表达式性能**：深层嵌套的递归化简可能导致栈溢出或性能显著下降。</li>
+<li>**特殊函数积分**：目前的积分器对非初等积分的支持有限。</li>
+<li>**非线性方程组**：solve_system 主要针对线性系统，非线性支持较弱。 </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

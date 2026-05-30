@@ -1,0 +1,1312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/random.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('random_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">结构体</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">random.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>伪随机数发生器与常用分布实现。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;stdatomic.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="memory__bridge_8h_source.html">memory_bridge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">lmmc/config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="random_8h_source.html">lmmc/random.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="status_8h_source.html">lmmc/status.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> random.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="random_8c__incl.svg" width="100%" height="503"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="random_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+结构体</h2></td></tr>
+<tr class="memitem:structlmmc__rng__t" id="r_structlmmc__rng__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a></td></tr>
+<tr class="memdesc:structlmmc__rng__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">随机数发生器（不透明类型）。  <a href="random_8c.html#structlmmc__rng__t">更多...</a><br /></td></tr>
+<tr class="separator:structlmmc__rng__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a188abdab274af238fe3d3e66fc78b0fb" id="r_a188abdab274af238fe3d3e66fc78b0fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a188abdab274af238fe3d3e66fc78b0fb">ZIG_N</a>&#160;&#160;&#160;256</td></tr>
+<tr class="separator:a188abdab274af238fe3d3e66fc78b0fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e94e8906433275f0001ce55216cab95" id="r_a1e94e8906433275f0001ce55216cab95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a1e94e8906433275f0001ce55216cab95">ZIG_R</a>&#160;&#160;&#160;3.6541528853610088</td></tr>
+<tr class="separator:a1e94e8906433275f0001ce55216cab95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0900576f15d2a5a69cfb24f1755147d8" id="r_a0900576f15d2a5a69cfb24f1755147d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a0900576f15d2a5a69cfb24f1755147d8">ZIG_V</a>&#160;&#160;&#160;0.00492867323399</td></tr>
+<tr class="separator:a0900576f15d2a5a69cfb24f1755147d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aa585cc12e0dc56517ed4c318fb164d59" id="r_aa585cc12e0dc56517ed4c318fb164d59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#aa585cc12e0dc56517ed4c318fb164d59">lmmc_rng_create</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> **out_rng)</td></tr>
+<tr class="memdesc:aa585cc12e0dc56517ed4c318fb164d59"><td class="mdescLeft">&#160;</td><td class="mdescRight">创建随机数发生器实例。  <br /></td></tr>
+<tr class="separator:aa585cc12e0dc56517ed4c318fb164d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdb65c24d5690d239eacdcf0338774e5" id="r_afdb65c24d5690d239eacdcf0338774e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#afdb65c24d5690d239eacdcf0338774e5">lmmc_rng_seed</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, uint64_t seed)</td></tr>
+<tr class="memdesc:afdb65c24d5690d239eacdcf0338774e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">重新设定种子。  <br /></td></tr>
+<tr class="separator:afdb65c24d5690d239eacdcf0338774e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5113cf91a73ad7e606e6fcf40008c1d" id="r_af5113cf91a73ad7e606e6fcf40008c1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#af5113cf91a73ad7e606e6fcf40008c1d">lmmc_rng_destroy</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng)</td></tr>
+<tr class="memdesc:af5113cf91a73ad7e606e6fcf40008c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">销毁发生器，释放内部分配的所有内存。  <br /></td></tr>
+<tr class="separator:af5113cf91a73ad7e606e6fcf40008c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e362162510c48be3d762cce6b503b10" id="r_a7e362162510c48be3d762cce6b503b10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a7e362162510c48be3d762cce6b503b10">lmmc_rng_clone</a> (const <a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *src, <a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> **out_rng)</td></tr>
+<tr class="memdesc:a7e362162510c48be3d762cce6b503b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">深拷贝 RNG 状态。  <br /></td></tr>
+<tr class="separator:a7e362162510c48be3d762cce6b503b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a502373878c25a166be5dca923da4be07" id="r_a502373878c25a166be5dca923da4be07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a502373878c25a166be5dca923da4be07">lmmc_rng_jump</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng)</td></tr>
+<tr class="memdesc:a502373878c25a166be5dca923da4be07"><td class="mdescLeft">&#160;</td><td class="mdescRight">将 RNG 状态前进 2^128 步（xoshiro256** jump 多项式）。  <br /></td></tr>
+<tr class="separator:a502373878c25a166be5dca923da4be07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e17edddca9a778d54724b99e7e60d2f" id="r_a2e17edddca9a778d54724b99e7e60d2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a2e17edddca9a778d54724b99e7e60d2f">lmmc_rng_long_jump</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng)</td></tr>
+<tr class="memdesc:a2e17edddca9a778d54724b99e7e60d2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">将 RNG 状态前进 2^192 步（xoshiro256** long_jump 多项式）。  <br /></td></tr>
+<tr class="separator:a2e17edddca9a778d54724b99e7e60d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae72ba497c4f4c3e63a688e09a4ac935c" id="r_ae72ba497c4f4c3e63a688e09a4ac935c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#ae72ba497c4f4c3e63a688e09a4ac935c">lmmc_rng_next_u64</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng)</td></tr>
+<tr class="memdesc:ae72ba497c4f4c3e63a688e09a4ac935c"><td class="mdescLeft">&#160;</td><td class="mdescRight">直接获取下一个 64 位均匀整数。  <br /></td></tr>
+<tr class="separator:ae72ba497c4f4c3e63a688e09a4ac935c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab46af8d627fb5c235459f9d0ba54b2a" id="r_aab46af8d627fb5c235459f9d0ba54b2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#aab46af8d627fb5c235459f9d0ba54b2a">lmmc_rng_uniform</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> b, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_value)</td></tr>
+<tr class="memdesc:aab46af8d627fb5c235459f9d0ba54b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">在 \([a,b)\) 区间内生成均匀分布样本。  <br /></td></tr>
+<tr class="separator:aab46af8d627fb5c235459f9d0ba54b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ead1943079d09ea8bd6a928c37443f7" id="r_a5ead1943079d09ea8bd6a928c37443f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a5ead1943079d09ea8bd6a928c37443f7">lmmc_rng_normal</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> mean, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> stddev, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_value)</td></tr>
+<tr class="memdesc:a5ead1943079d09ea8bd6a928c37443f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成正态分布 \(\mathcal{N}(\mu, \sigma^2)\) 样本。  <br /></td></tr>
+<tr class="separator:a5ead1943079d09ea8bd6a928c37443f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d07edf91905ce01c4e539f4a364285a" id="r_a8d07edf91905ce01c4e539f4a364285a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a8d07edf91905ce01c4e539f4a364285a">lmmc_rng_exponential</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> rate, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_value)</td></tr>
+<tr class="memdesc:a8d07edf91905ce01c4e539f4a364285a"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成参数为 <code>rate</code> 的指数分布样本。  <br /></td></tr>
+<tr class="separator:a8d07edf91905ce01c4e539f4a364285a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1d6da44ee2b16b9ab1c8c6f6453e0f3" id="r_ae1d6da44ee2b16b9ab1c8c6f6453e0f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#ae1d6da44ee2b16b9ab1c8c6f6453e0f3">lmmc_rng_fill_uniform</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> b, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *array, size_t count)</td></tr>
+<tr class="memdesc:ae1d6da44ee2b16b9ab1c8c6f6453e0f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">批量填充均匀分布样本到 <code>array</code> 。  <br /></td></tr>
+<tr class="separator:ae1d6da44ee2b16b9ab1c8c6f6453e0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad59005797cfbdcbe8f876fe1982abca8" id="r_ad59005797cfbdcbe8f876fe1982abca8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#ad59005797cfbdcbe8f876fe1982abca8">lmmc_rng_shuffle</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, void *array, size_t count, size_t elem_size)</td></tr>
+<tr class="memdesc:ad59005797cfbdcbe8f876fe1982abca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fisher-Yates 洗牌：就地随机重排 <code>array</code> 中的 <code>count</code> 个元素。  <br /></td></tr>
+<tr class="separator:ad59005797cfbdcbe8f876fe1982abca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1e028ef26841ce5c10a49affebf22f1" id="r_ab1e028ef26841ce5c10a49affebf22f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#ab1e028ef26841ce5c10a49affebf22f1">lmmc_rng_gamma</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> shape, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> scale, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out)</td></tr>
+<tr class="memdesc:ab1e028ef26841ce5c10a49affebf22f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成 Gamma 分布样本 \(\mathrm{Gamma}(\alpha, \beta)\) 。  <br /></td></tr>
+<tr class="separator:ab1e028ef26841ce5c10a49affebf22f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc8f2f5dda0c6244a130dfa863de4946" id="r_afc8f2f5dda0c6244a130dfa863de4946"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#afc8f2f5dda0c6244a130dfa863de4946">lmmc_rng_beta</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> alpha, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> beta_param, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out)</td></tr>
+<tr class="memdesc:afc8f2f5dda0c6244a130dfa863de4946"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成 Beta 分布样本 Beta(alpha, beta)。  <br /></td></tr>
+<tr class="separator:afc8f2f5dda0c6244a130dfa863de4946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82595b3e923ba96f04ad8aa7a0ffff5d" id="r_a82595b3e923ba96f04ad8aa7a0ffff5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a82595b3e923ba96f04ad8aa7a0ffff5d">lmmc_rng_chi_squared</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> df, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out)</td></tr>
+<tr class="memdesc:a82595b3e923ba96f04ad8aa7a0ffff5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成卡方分布样本 Chi-squared(df)。  <br /></td></tr>
+<tr class="separator:a82595b3e923ba96f04ad8aa7a0ffff5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57f9bb43e7846e3bd71ea2c656ddb38c" id="r_a57f9bb43e7846e3bd71ea2c656ddb38c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a57f9bb43e7846e3bd71ea2c656ddb38c">lmmc_rng_student_t</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> df, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out)</td></tr>
+<tr class="memdesc:a57f9bb43e7846e3bd71ea2c656ddb38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成 Student-t 分布样本 t(df)。  <br /></td></tr>
+<tr class="separator:a57f9bb43e7846e3bd71ea2c656ddb38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa592dfda4aba30e69de7ebf560863479" id="r_aa592dfda4aba30e69de7ebf560863479"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#aa592dfda4aba30e69de7ebf560863479">lmmc_rng_f</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> df1, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> df2, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out)</td></tr>
+<tr class="memdesc:aa592dfda4aba30e69de7ebf560863479"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成 F 分布样本 F(df1, df2)。  <br /></td></tr>
+<tr class="separator:aa592dfda4aba30e69de7ebf560863479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a97d336e98516847cb1c1bc0478a766" id="r_a8a97d336e98516847cb1c1bc0478a766"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a8a97d336e98516847cb1c1bc0478a766">lmmc_rng_poisson</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> lambda, size_t *out)</td></tr>
+<tr class="memdesc:a8a97d336e98516847cb1c1bc0478a766"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成 Poisson 分布样本 \(\mathrm{Poisson}(\lambda)\) 。  <br /></td></tr>
+<tr class="separator:a8a97d336e98516847cb1c1bc0478a766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab49583a554105dd99e546b17f76391f6" id="r_ab49583a554105dd99e546b17f76391f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#ab49583a554105dd99e546b17f76391f6">lmmc_rng_binomial</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, size_t n, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> p, size_t *out)</td></tr>
+<tr class="memdesc:ab49583a554105dd99e546b17f76391f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成二项分布样本 Binomial(n, p)。  <br /></td></tr>
+<tr class="separator:ab49583a554105dd99e546b17f76391f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8da21b2c64490afa3a08a568a58c2d64" id="r_a8da21b2c64490afa3a08a568a58c2d64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8c.html#a8da21b2c64490afa3a08a568a58c2d64">lmmc_rng_int_uniform</a> (<a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *rng, int64_t lo, int64_t hi, int64_t *out)</td></tr>
+<tr class="memdesc:a8da21b2c64490afa3a08a568a58c2d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">在 [lo, hi] 闭区间内生成均匀整数分布样本。  <br /></td></tr>
+<tr class="separator:a8da21b2c64490afa3a08a568a58c2d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>伪随机数发生器与常用分布实现。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 中定义.</p>
+</div><hr/><h2 class="groupheader">结构体说明</h2>
+<a name="structlmmc__rng__t" id="structlmmc__rng__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structlmmc__rng__t">&#9670;&#160;</a></span>lmmc_rng_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lmmc_rng_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>随机数发生器（不透明类型）。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00015">15</a> 行定义.</p>
+</div><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> lmmc_rng_t 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structlmmc__rng__t__coll__graph.svg" width="106" height="204"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="ae741cc6999f51903f5e91a70a863d05c" name="ae741cc6999f51903f5e91a70a863d05c"></a>uint64_t</td>
+<td class="fieldname">
+state[4]</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a188abdab274af238fe3d3e66fc78b0fb" name="a188abdab274af238fe3d3e66fc78b0fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a188abdab274af238fe3d3e66fc78b0fb">&#9670;&#160;</a></span>ZIG_N</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ZIG_N&#160;&#160;&#160;256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00255">255</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1e94e8906433275f0001ce55216cab95" name="a1e94e8906433275f0001ce55216cab95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e94e8906433275f0001ce55216cab95">&#9670;&#160;</a></span>ZIG_R</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ZIG_R&#160;&#160;&#160;3.6541528853610088</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00256">256</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0900576f15d2a5a69cfb24f1755147d8" name="a0900576f15d2a5a69cfb24f1755147d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0900576f15d2a5a69cfb24f1755147d8">&#9670;&#160;</a></span>ZIG_V</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ZIG_V&#160;&#160;&#160;0.00492867323399</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00257">257</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="aa585cc12e0dc56517ed4c318fb164d59" name="aa585cc12e0dc56517ed4c318fb164d59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa585cc12e0dc56517ed4c318fb164d59">&#9670;&#160;</a></span>lmmc_rng_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> **&#160;</td>
+          <td class="paramname"><em>out_rng</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>创建随机数发生器实例。 </p>
+<p>分配并初始化一个 xoshiro256** 发生器，初始种子由系统时间或固定值确定 （具体取决于编译配置）。生成器为线程不安全，多线程环境下每个线程应 独立创建或使用 <a class="el" href="random_8h.html#a7e362162510c48be3d762cce6b503b10" title="深拷贝 RNG 状态。">lmmc_rng_clone</a> + <a class="el" href="random_8h.html#a502373878c25a166be5dca923da4be07" title="将 RNG 状态前进 2^128 步（xoshiro256** jump 多项式）。">lmmc_rng_jump</a> 拆分子流。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_rng</td><td>输出新创建的 RNG 句柄。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若 out_rng 为 NULL； ::LMMC_STATUS_ALLOC_FAILED 若内存分配失败。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存存储 RNG 内部状态，调用方必须调用 <a class="el" href="random_8h.html#af5113cf91a73ad7e606e6fcf40008c1d" title="销毁发生器，释放内部分配的所有内存。">lmmc_rng_destroy</a> 释放。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00068">68</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="random_8c_source.html#l00088">lmmc_rng_seed()</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a> , 以及 <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_aa585cc12e0dc56517ed4c318fb164d59_cgraph.svg" width="319" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afdb65c24d5690d239eacdcf0338774e5" name="afdb65c24d5690d239eacdcf0338774e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdb65c24d5690d239eacdcf0338774e5">&#9670;&#160;</a></span>lmmc_rng_seed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_seed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>seed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>重新设定种子。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00088">88</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="random_8c_source.html#l00068">lmmc_rng_create()</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_afdb65c24d5690d239eacdcf0338774e5_icgraph.svg" width="319" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af5113cf91a73ad7e606e6fcf40008c1d" name="af5113cf91a73ad7e606e6fcf40008c1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5113cf91a73ad7e606e6fcf40008c1d">&#9670;&#160;</a></span>lmmc_rng_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_rng_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>销毁发生器，释放内部分配的所有内存。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00104">104</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="a7e362162510c48be3d762cce6b503b10" name="a7e362162510c48be3d762cce6b503b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e362162510c48be3d762cce6b503b10">&#9670;&#160;</a></span>lmmc_rng_clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_clone </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> **&#160;</td>
+          <td class="paramname"><em>out_rng</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>深拷贝 RNG 状态。 </p>
+<p>调用方可对副本调用 lmmc_rng_jump 以获得独立的并行流。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>源 RNG（不可为 NULL）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_rng</td><td>输出新分配的 RNG 副本。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功；LMMC_STATUS_INVALID_ARGUMENT 若 src 或 out_rng 为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存存储副本状态，调用方必须调用 <a class="el" href="random_8h.html#af5113cf91a73ad7e606e6fcf40008c1d" title="销毁发生器，释放内部分配的所有内存。">lmmc_rng_destroy</a> 释放。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00112">112</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="a502373878c25a166be5dca923da4be07" name="a502373878c25a166be5dca923da4be07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a502373878c25a166be5dca923da4be07">&#9670;&#160;</a></span>lmmc_rng_jump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_jump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>将 RNG 状态前进 2^128 步（xoshiro256** jump 多项式）。 </p>
+<p>用于将一个 RNG 流拆分为多个不重叠的子流。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">rng</td><td>已初始化的 RNG（不可为 NULL）。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功；LMMC_STATUS_INVALID_ARGUMENT 若 rng 为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>rng</code> 的内部状态。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00182">182</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="a2e17edddca9a778d54724b99e7e60d2f" name="a2e17edddca9a778d54724b99e7e60d2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e17edddca9a778d54724b99e7e60d2f">&#9670;&#160;</a></span>lmmc_rng_long_jump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_long_jump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>将 RNG 状态前进 2^192 步（xoshiro256** long_jump 多项式）。 </p>
+<p>用于在更大尺度上拆分并行流。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">rng</td><td>已初始化的 RNG（不可为 NULL）。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功；LMMC_STATUS_INVALID_ARGUMENT 若 rng 为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>rng</code> 的内部状态。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00192">192</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="ae72ba497c4f4c3e63a688e09a4ac935c" name="ae72ba497c4f4c3e63a688e09a4ac935c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae72ba497c4f4c3e63a688e09a4ac935c">&#9670;&#160;</a></span>lmmc_rng_next_u64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t lmmc_rng_next_u64 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>直接获取下一个 64 位均匀整数。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00202">202</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="aab46af8d627fb5c235459f9d0ba54b2a" name="aab46af8d627fb5c235459f9d0ba54b2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab46af8d627fb5c235459f9d0ba54b2a">&#9670;&#160;</a></span>lmmc_rng_uniform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_uniform </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>在 \([a,b)\) 区间内生成均匀分布样本。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00215">215</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="a5ead1943079d09ea8bd6a928c37443f7" name="a5ead1943079d09ea8bd6a928c37443f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ead1943079d09ea8bd6a928c37443f7">&#9670;&#160;</a></span>lmmc_rng_normal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_normal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>mean</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>stddev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成正态分布 \(\mathcal{N}(\mu, \sigma^2)\) 样本。 </p>
+<p>使用 Box-Muller 或 Ziggurat 方法生成标准正态样本后进行仿射变换。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mean</td><td>均值 \(\mu\) 。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stddev</td><td>标准差 \(\sigma\) ，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_value</td><td>输出样本值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若 stddev &lt;= 0 或指针为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>rng</code> 的内部状态（消耗随机数）。</li>
+<li>不分配堆内存。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00365">365</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="a8d07edf91905ce01c4e539f4a364285a" name="a8d07edf91905ce01c4e539f4a364285a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d07edf91905ce01c4e539f4a364285a">&#9670;&#160;</a></span>lmmc_rng_exponential()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_exponential </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>rate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成参数为 <code>rate</code> 的指数分布样本。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00382">382</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="ae1d6da44ee2b16b9ab1c8c6f6453e0f3" name="ae1d6da44ee2b16b9ab1c8c6f6453e0f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1d6da44ee2b16b9ab1c8c6f6453e0f3">&#9670;&#160;</a></span>lmmc_rng_fill_uniform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_fill_uniform </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>批量填充均匀分布样本到 <code>array</code> 。 </p>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00405">405</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="ad59005797cfbdcbe8f876fe1982abca8" name="ad59005797cfbdcbe8f876fe1982abca8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad59005797cfbdcbe8f876fe1982abca8">&#9670;&#160;</a></span>lmmc_rng_shuffle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_shuffle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>elem_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fisher-Yates 洗牌：就地随机重排 <code>array</code> 中的 <code>count</code> 个元素。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">array</td><td>待洗牌的数组，就地重排。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>元素个数。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">elem_size</td><td>每个元素的字节大小。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>array</code> 中元素的顺序。</li>
+<li>就地修改 <code>rng</code> 的内部状态。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00430">430</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="ab1e028ef26841ce5c10a49affebf22f1" name="ab1e028ef26841ce5c10a49affebf22f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1e028ef26841ce5c10a49affebf22f1">&#9670;&#160;</a></span>lmmc_rng_gamma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_gamma </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>scale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成 Gamma 分布样本 \(\mathrm{Gamma}(\alpha, \beta)\) 。 </p>
+<p>使用 Marsaglia-Tsang 方法（shape &gt;= 1），shape &lt; 1 时使用 \(X = Y \cdot U^{1/\alpha}\) 变换法（Y ~ Gamma(1+α, β)）。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">shape</td><td>形状参数 \(\alpha\) （&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">scale</td><td>尺度参数 \(\beta\) （&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若 shape &lt;= 0、scale &lt;= 0 或指针为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>rng</code> 的内部状态（消耗多个随机数，次数不确定）。</li>
+<li>不分配堆内存。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00484">484</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="random_8c_source.html#l00484">lmmc_rng_gamma()</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="random_8c_source.html#l00545">lmmc_rng_beta()</a>, <a class="el" href="random_8c_source.html#l00576">lmmc_rng_chi_squared()</a> , 以及 <a class="el" href="random_8c_source.html#l00484">lmmc_rng_gamma()</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_ab1e028ef26841ce5c10a49affebf22f1_cgraph.svg" width="155" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_ab1e028ef26841ce5c10a49affebf22f1_icgraph.svg" width="578" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afc8f2f5dda0c6244a130dfa863de4946" name="afc8f2f5dda0c6244a130dfa863de4946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc8f2f5dda0c6244a130dfa863de4946">&#9670;&#160;</a></span>lmmc_rng_beta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_beta </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>beta_param</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成 Beta 分布样本 Beta(alpha, beta)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">alpha</td><td>参数 alpha（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">beta_param</td><td>参数 beta（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00545">545</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="random_8c_source.html#l00484">lmmc_rng_gamma()</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a> , 以及 <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_afc8f2f5dda0c6244a130dfa863de4946_cgraph.svg" width="326" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a82595b3e923ba96f04ad8aa7a0ffff5d" name="a82595b3e923ba96f04ad8aa7a0ffff5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82595b3e923ba96f04ad8aa7a0ffff5d">&#9670;&#160;</a></span>lmmc_rng_chi_squared()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_chi_squared </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>df</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成卡方分布样本 Chi-squared(df)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">df</td><td>自由度（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00576">576</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="random_8c_source.html#l00484">lmmc_rng_gamma()</a> , 以及 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="random_8c_source.html#l00625">lmmc_rng_f()</a> , 以及 <a class="el" href="random_8c_source.html#l00596">lmmc_rng_student_t()</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_a82595b3e923ba96f04ad8aa7a0ffff5d_cgraph.svg" width="375" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_a82595b3e923ba96f04ad8aa7a0ffff5d_icgraph.svg" width="386" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a57f9bb43e7846e3bd71ea2c656ddb38c" name="a57f9bb43e7846e3bd71ea2c656ddb38c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57f9bb43e7846e3bd71ea2c656ddb38c">&#9670;&#160;</a></span>lmmc_rng_student_t()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_student_t </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>df</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成 Student-t 分布样本 t(df)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">df</td><td>自由度（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00596">596</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="random_8c_source.html#l00576">lmmc_rng_chi_squared()</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_a57f9bb43e7846e3bd71ea2c656ddb38c_cgraph.svg" width="578" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa592dfda4aba30e69de7ebf560863479" name="aa592dfda4aba30e69de7ebf560863479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa592dfda4aba30e69de7ebf560863479">&#9670;&#160;</a></span>lmmc_rng_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_f </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>df1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>df2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成 F 分布样本 F(df1, df2)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">df1</td><td>分子自由度（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">df2</td><td>分母自由度（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00625">625</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="random_8c_source.html#l00576">lmmc_rng_chi_squared()</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a> , 以及 <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8c_aa592dfda4aba30e69de7ebf560863479_cgraph.svg" width="522" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8a97d336e98516847cb1c1bc0478a766" name="a8a97d336e98516847cb1c1bc0478a766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a97d336e98516847cb1c1bc0478a766">&#9670;&#160;</a></span>lmmc_rng_poisson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_poisson </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>lambda</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成 Poisson 分布样本 \(\mathrm{Poisson}(\lambda)\) 。 </p>
+<p>lambda &gt;= 10 使用 PTRD（Hörmann）算法（接受-拒绝）， lambda &lt; 10 使用逆变换法（Knuth 方法）。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lambda</td><td>期望值（&gt; 0）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值（非负整数）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若 lambda &lt;= 0 或指针为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>rng</code> 的内部状态（消耗随机数次数不确定，取决于接受-拒绝过程）。</li>
+<li>不分配堆内存。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00722">722</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="ab49583a554105dd99e546b17f76391f6" name="ab49583a554105dd99e546b17f76391f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab49583a554105dd99e546b17f76391f6">&#9670;&#160;</a></span>lmmc_rng_binomial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_binomial </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>生成二项分布样本 Binomial(n, p)。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>试验次数。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>成功概率（0 &lt;= p &lt;= 1）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00750">750</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+<a id="a8da21b2c64490afa3a08a568a58c2d64" name="a8da21b2c64490afa3a08a568a58c2d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8da21b2c64490afa3a08a568a58c2d64">&#9670;&#160;</a></span>lmmc_rng_int_uniform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_rng_int_uniform </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="random_8c.html#structlmmc__rng__t">lmmc_rng_t</a> *&#160;</td>
+          <td class="paramname"><em>rng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>lo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>hi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>在 [lo, hi] 闭区间内生成均匀整数分布样本。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rng</td><td>已初始化的 RNG。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lo</td><td>下界（含）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hi</td><td>上界（含）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>输出样本值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>LMMC_STATUS_OK 成功；LMMC_STATUS_INVALID_ARGUMENT 若 lo &gt; hi。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="random_8c_source.html">random.c</a> 第 <a class="el" href="random_8c_source.html#l00826">826</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a> , 以及 <a class="el" href="random_8c_source.html#l00016">lmmc_rng_t::state</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="random_8c.html">random.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:52 , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

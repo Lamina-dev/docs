@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="da/d08/md_docs_2quickstart" kind="page">
+    <compoundname>md_docs_2quickstart</compoundname>
+    <title>快速入门 (Quick Start)</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="da/d08/md_docs_2quickstart_1autotoc_md78"/> 本文档将指导你如何快速集成 LMCAS 到你的 C++ 项目中。</para>
+<sect1 id="da/d08/md_docs_2quickstart_1autotoc_md93">
+<title>1. 环境准备</title>
+<para>确保你的系统已安装：<itemizedlist>
+<listitem><para><bold>CMake</bold> (3.14 或更高版本)</para>
+</listitem><listitem><para><bold>C++ 编译器</bold> (支持 C++17，如 GCC 9+, Clang 10+, MSVC 2019+)</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="da/d08/md_docs_2quickstart_1autotoc_md95">
+<title>2. 获取代码与构建</title>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/your-username/LMCAS.git</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>LMCAS</highlight></codeline>
+<codeline><highlight class="normal">mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>..</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.<sp/>--config<sp/>Release</highlight></codeline>
+</programlisting></para>
+<para>构建完成后，你会得到 <computeroutput>lmcas</computeroutput> 动态库（或静态库）以及 <computeroutput>LammpCore</computeroutput> 依赖库。</para>
+</sect1>
+<sect1 id="da/d08/md_docs_2quickstart_1autotoc_md97">
+<title>3. 编写第一个程序</title>
+<para>创建一个名为 <computeroutput>demo.cpp</computeroutput> 的文件：</para>
+<para><programlisting filename=".cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;lmcas/include/symbolic.hpp&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>请根据你的<sp/>include<sp/>路径调整</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">lmcas;<sp/></highlight><highlight class="comment">//<sp/>假设所有类都在<sp/>lmcas<sp/>或默认命名空间下（实际请检查<sp/>symbolic.hpp）</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>创建变量<sp/>x</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x<sp/>=<sp/><ref refid="dc/d25/classSymbolicExpr_1a1718e8c497b928507b31acb089cc64ff" kindref="member">SymbolicExpr::variable</ref>(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>构建表达式:<sp/>f(x)<sp/>=<sp/>x^2<sp/>+<sp/>sin(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>注意：LMCAS<sp/>目前主要通过静态工厂方法构建</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>expr<sp/>=<sp/><ref refid="dc/d25/classSymbolicExpr_1ac8782568f037f8055277e5d8b80ec6d6" kindref="member">SymbolicExpr::add</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="dc/d25/classSymbolicExpr_1ab03922681e30190ba7c73d2c1e58aa40" kindref="member">SymbolicExpr::power</ref>(x,<sp/><ref refid="dc/d25/classSymbolicExpr_1adeb760bb6f4f28879108394537eca293" kindref="member">SymbolicExpr::number</ref>(2)),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="dc/d25/classSymbolicExpr_1acf968244f234151f7a9718921733fd04" kindref="member">SymbolicExpr::sin</ref>(x)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Original:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>expr-&gt;to_string()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>3.<sp/>求导:<sp/>f&apos;(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>deriv<sp/>=<sp/>expr-&gt;differentiate(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Derivative:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>deriv-&gt;to_string()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>4.<sp/>化简导数<sp/>(可选)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>simplified<sp/>=<sp/>deriv-&gt;simplify();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Simplified:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>simplified-&gt;to_string()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="da/d08/md_docs_2quickstart_1autotoc_md100">
+<title>4. 链接与运行</title>
+<para>在 <computeroutput>CMakeLists.txt</computeroutput> 中链接 <computeroutput>lmcas</computeroutput>：</para>
+<para><programlisting filename=".cmake"><codeline><highlight class="normal">add_executable(my_demo<sp/>demo.cpp)</highlight></codeline>
+<codeline><highlight class="normal">target_link_libraries(my_demo<sp/>PRIVATE<sp/>lmcas)</highlight></codeline>
+</programlisting></para>
+<para>运行程序，预期输出： <programlisting filename=".text"><codeline><highlight class="normal">Original:<sp/>(x^2<sp/>+<sp/>sin(x))</highlight></codeline>
+<codeline><highlight class="normal">Derivative:<sp/>((2<sp/>*<sp/>x)<sp/>+<sp/>cos(x))</highlight></codeline>
+<codeline><highlight class="normal">Simplified:<sp/>2*x<sp/>+<sp/>cos(x)</highlight></codeline>
+</programlisting> </para>
+</sect1>
+    </detaileddescription>
+    <location file="docs/quickstart.md"/>
+  </compounddef>
+</doxygen>

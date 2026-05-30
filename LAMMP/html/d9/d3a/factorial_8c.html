@@ -1,0 +1,921 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAMMP: src/lammp/NumTh/factorial.c 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LAMMP<span id="projectnumber">&#160;4.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d9/d3a/factorial_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">factorial.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../dc/d42/ele__mul_8h_source.html">../../../include/lammp/impl/ele_mul.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/de6/inlines_8h_source.html">../../../include/lammp/impl/inlines.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/dd0/mparam_8h_source.html">../../../include/lammp/impl/mparam.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/d98/prime__table_8h_source.html">../../../include/lammp/impl/prime_table.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/daa/tmp__alloc_8h_source.html">../../../include/lammp/impl/tmp_alloc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d39/lmmpn_8h_source.html">../../../include/lammp/lmmpn.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/da4/numth_8h_source.html">../../../include/lammp/numth.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> factorial.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/dd7/factorial_8c__incl.svg" width="666" height="344"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="../../d9/d3a/factorial_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a148762991fbf1e72da992a34d685fb37" id="r_a148762991fbf1e72da992a34d685fb37"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#a148762991fbf1e72da992a34d685fb37">MUL</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>,  <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>,  <a class="el" href="../../d6/dfd/gcd__basecase_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>,  <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bp</a>,  <a class="el" href="../../d6/dfd/gcd__basecase_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>)</td></tr>
+<tr class="separator:a148762991fbf1e72da992a34d685fb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9931dd5a570d29e16582070027bc72f" id="r_af9931dd5a570d29e16582070027bc72f"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>,  <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>,  <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">value</a>)</td></tr>
+<tr class="separator:af9931dd5a570d29e16582070027bc72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aac1a569d5754e74d909aef7a83a1f4a8" id="r_aac1a569d5754e74d909aef7a83a1f4a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#aac1a569d5754e74d909aef7a83a1f4a8">count_factors</a> (<a class="el" href="../../dc/d42/ele__mul_8h.html#a6560b70673404936491a68c7c9fa6744">fac_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>, <a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> p)</td></tr>
+<tr class="separator:aac1a569d5754e74d909aef7a83a1f4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd11bd3b5c525a0307a4528ff30bd03" id="r_a0cd11bd3b5c525a0307a4528ff30bd03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#a0cd11bd3b5c525a0307a4528ff30bd03">lmmp_factorial_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="separator:a0cd11bd3b5c525a0307a4528ff30bd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeec11fecff9b1649a5e243459aca32f6" id="r_aeec11fecff9b1649a5e243459aca32f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#aeec11fecff9b1649a5e243459aca32f6">lmmp_factorial_size_</a> (<a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> *<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a>)</td></tr>
+<tr class="separator:aeec11fecff9b1649a5e243459aca32f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afca38bfa93879194801efa5dc91d214f" id="r_afca38bfa93879194801efa5dc91d214f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="el" href="../../dc/d42/ele__mul_8h.html#a6560b70673404936491a68c7c9fa6744">fac_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>)</td></tr>
+<tr class="separator:afca38bfa93879194801efa5dc91d214f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9608ffdc19b75bf43b36242eb277cec4" id="r_a9608ffdc19b75bf43b36242eb277cec4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3a/factorial_8c.html#a9608ffdc19b75bf43b36242eb277cec4">lmmp_odd_factorial_uint_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="separator:a9608ffdc19b75bf43b36242eb277cec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a148762991fbf1e72da992a34d685fb37" name="a148762991fbf1e72da992a34d685fb37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a148762991fbf1e72da992a34d685fb37">&#9670;&#160;</a></span>MUL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> MUL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d6/dfd/gcd__basecase_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bp</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d6/dfd/gcd__basecase_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d6/dfd/gcd__basecase_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> &gt;= <a class="code hl_define" href="../../d6/dfd/gcd__basecase_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>)                       <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">\</a></div>
+<div class="line"><a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">        lmmp_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>, <a class="code hl_define" href="../../d6/dfd/gcd__basecase_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bp</a>, <a class="code hl_define" href="../../d6/dfd/gcd__basecase_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>); <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">\</a></div>
+<div class="line"><a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">    else                                \</a></div>
+<div class="line"><a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">        lmmp_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bp</a>, <a class="code hl_define" href="../../d6/dfd/gcd__basecase_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ap</a>, <a class="code hl_define" href="../../d6/dfd/gcd__basecase_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>)</div>
+<div class="ttc" id="agcd__basecase_8c_html_ab6046b175919e8bb86671d50e1e1c0b1"><div class="ttname"><a href="../../d6/dfd/gcd__basecase_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a></div><div class="ttdeci">#define an</div></div>
+<div class="ttc" id="agcd__basecase_8c_html_addc824dd84cd6194b18fa4b6d2fc120d"><div class="ttname"><a href="../../d6/dfd/gcd__basecase_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a></div><div class="ttdeci">#define bn</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00016">16</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>                                                                   {</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordtype">double</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ln_fact</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">lgamma</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> + 1.0);</div>
+<div class="line"><span class="lineno">   29</span>    <span class="keywordtype">double</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">log2_fact</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ln_fact</a> / <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a9fae1d9dbe751d5ac015e8a6e7c3fae6">LOG2_</a>;</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ceil</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">log2_fact</a> / <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>) + 2; <span class="comment">/* more two limbs */</span></div>
+<div class="line"><span class="lineno">   31</span>    *<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a69873523fccd682a951c643a5a4fa871">lmmp_limb_popcnt_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">   33</span>}</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span><span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   36</span><span class="comment">     N                      N/2                              N</span></div>
+<div class="line"><span class="lineno">   37</span><span class="comment">    +--+                /  +--+                  \ 2     /  +--+                     \</span></div>
+<div class="line"><span class="lineno">   38</span><span class="comment">    |  |  P_i ^ (e_i) = |  |  | P_i ^ (e_i / 2)  |    *  |  |  |  P_i ^ ( e_i mod 2) |  </span></div>
+<div class="line"><span class="lineno">   39</span><span class="comment">    |  |                \  |  |                  /       \  |  |                     /</span></div>
+<div class="line"><span class="lineno">   40</span><span class="comment">    i=0                    i=0                              i=0</span></div>
+<div class="line"><span class="lineno">   41</span><span class="comment">*/</span></div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_struct" href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>) {</div>
+<div class="line"><span class="lineno">   44</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a> &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>);</div>
+<div class="line"><span class="lineno">   45</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt; 0 &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> &gt; 0);</div>
+<div class="line"><span class="lineno">   46</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a134393f733fa70308a5865b6dce4f346">FACTORS_MUL_N_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">   47</span>        <span class="comment">// 绝大多数情况下，大的质因数的指数都很小，所以这里只需要考虑小的质因数。</span></div>
+<div class="line"><span class="lineno">   48</span>        <span class="comment">// 且随着递归的进行，进入这一步的质因数通常都很小。几乎不可能触发debug_assert</span></div>
+<div class="line"><span class="lineno">   49</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[0] = 1;</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = 1;</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>++) {</div>
+<div class="line"><span class="lineno">   52</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> f = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].f;</div>
+<div class="line"><span class="lineno">   53</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> j = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].j;</div>
+<div class="line"><span class="lineno">   54</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(j != 0);</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">switch</span> (j) {</div>
+<div class="line"><span class="lineno">   56</span>                <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">   57</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f);</div>
+<div class="line"><span class="lineno">   58</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   59</span>                <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">   60</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a>);</div>
+<div class="line"><span class="lineno">   61</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f * f);</div>
+<div class="line"><span class="lineno">   62</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   63</span>                <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">   64</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= 2642245);  <span class="comment">// 2642245 = floor(B^(1/3))</span></div>
+<div class="line"><span class="lineno">   65</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f * f * f);</div>
+<div class="line"><span class="lineno">   66</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   67</span>                <span class="keywordflow">case</span> 4:</div>
+<div class="line"><span class="lineno">   68</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a7c85e5a949685450529163b9617dc06b">MP_USHORT_MAX</a>);</div>
+<div class="line"><span class="lineno">   69</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f * f * f * f);</div>
+<div class="line"><span class="lineno">   70</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   72</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a7c85e5a949685450529163b9617dc06b">MP_USHORT_MAX</a>);</div>
+<div class="line"><span class="lineno">   73</span>                    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a> = f * f;</div>
+<div class="line"><span class="lineno">   74</span>                    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#af761b4737979b5efa102cc5d6f95753e">p4</a> = <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a> * <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a>;</div>
+<div class="line"><span class="lineno">   75</span>                    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; j - 3; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> += 4) {</div>
+<div class="line"><span class="lineno">   76</span>                        <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#af761b4737979b5efa102cc5d6f95753e">p4</a>);</div>
+<div class="line"><span class="lineno">   77</span>                    }</div>
+<div class="line"><span class="lineno">   78</span>                    <span class="keywordflow">switch</span> (j % 4) {</div>
+<div class="line"><span class="lineno">   79</span>                        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">   80</span>                            <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f);</div>
+<div class="line"><span class="lineno">   81</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   82</span>                        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">   83</span>                            <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a>);</div>
+<div class="line"><span class="lineno">   84</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   85</span>                        <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">   86</span>                            <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a> * f);</div>
+<div class="line"><span class="lineno">   87</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   88</span>                        <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   89</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   90</span>                    }</div>
+<div class="line"><span class="lineno">   91</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   92</span>            }</div>
+<div class="line"><span class="lineno">   93</span>        }</div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">   95</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a>;</div>
+<div class="line"><span class="lineno">   97</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a> = 0;</div>
+<div class="line"><span class="lineno">   98</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4e69d1439259c42f90af3f5aeff55727">ulongp</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> / 2 + 1, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>);</div>
+<div class="line"><span class="lineno">   99</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = 1;</div>
+<div class="line"><span class="lineno">  100</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> = 0;</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>; ++<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>) {</div>
+<div class="line"><span class="lineno">  102</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> f = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].f;</div>
+<div class="line"><span class="lineno">  103</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> j = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].j;</div>
+<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">if</span> (j &gt; 1) {</div>
+<div class="line"><span class="lineno">  105</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>].f = f;</div>
+<div class="line"><span class="lineno">  106</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>++].j = j &gt;&gt; 1;</div>
+<div class="line"><span class="lineno">  107</span>            }</div>
+<div class="line"><span class="lineno">  108</span>            <span class="keywordflow">if</span> (j &amp; 1) {</div>
+<div class="line"><span class="lineno">  109</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> *= f;</div>
+<div class="line"><span class="lineno">  110</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> &gt; <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a>) {</div>
+<div class="line"><span class="lineno">  111</span>                    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>++] = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>;</div>
+<div class="line"><span class="lineno">  112</span>                    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = 1;</div>
+<div class="line"><span class="lineno">  113</span>                }</div>
+<div class="line"><span class="lineno">  114</span>            }</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> != 1) {</div>
+<div class="line"><span class="lineno">  117</span>            <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>++] = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>;</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> mp = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> * 2, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a> = 0;</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  124</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  125</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a> = <a class="code hl_function" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a>(mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>, mp + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>);</div>
+<div class="line"><span class="lineno">  126</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt;= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>);</div>
+<div class="line"><span class="lineno">  127</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn = ((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>) &gt;&gt; 1) + 1;</div>
+<div class="line"><span class="lineno">  128</span>                <span class="comment">// 这里根据mpn的大小估计剩余因子乘积的长度，额外分配两倍的tn，以进行平方。</span></div>
+<div class="line"><span class="lineno">  129</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>(3 * tn + 3, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  130</span>                tn = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>);</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + tn + 1;</div>
+<div class="line"><span class="lineno">  133</span>                <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn);</div>
+<div class="line"><span class="lineno">  134</span>                tn &lt;&lt;= 1;</div>
+<div class="line"><span class="lineno">  135</span>                tn -= <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>[tn - 1] == 0;</div>
+<div class="line"><span class="lineno">  136</span>                <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#a148762991fbf1e72da992a34d685fb37">MUL</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>, tn, mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>);</div>
+<div class="line"><span class="lineno">  137</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = tn + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>;</div>
+<div class="line"><span class="lineno">  138</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0;</div>
+<div class="line"><span class="lineno">  139</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  140</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn = (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt;&gt; 1) + 1;</div>
+<div class="line"><span class="lineno">  141</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(tn, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  142</span>                tn = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>);</div>
+<div class="line"><span class="lineno">  143</span>                <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn);</div>
+<div class="line"><span class="lineno">  144</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = tn &lt;&lt; 1;</div>
+<div class="line"><span class="lineno">  145</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0;</div>
+<div class="line"><span class="lineno">  146</span>            }</div>
+<div class="line"><span class="lineno">  147</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  148</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> &gt; 0);</div>
+<div class="line"><span class="lineno">  149</span>            <span class="comment">// 这里不能直接乘入dst，因为dst的大小可能小于limbn，导致溢出</span></div>
+<div class="line"><span class="lineno">  150</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt;= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>) {</div>
+<div class="line"><span class="lineno">  151</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>, mp);</div>
+<div class="line"><span class="lineno">  152</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  153</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a>(mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>, mp + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>);</div>
+<div class="line"><span class="lineno">  154</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>);</div>
+<div class="line"><span class="lineno">  155</span>            }</div>
+<div class="line"><span class="lineno">  156</span>        }</div>
+<div class="line"><span class="lineno">  157</span>        <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a>;</div>
+<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">  159</span>    }</div>
+<div class="line"><span class="lineno">  160</span>}</div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#aac1a569d5754e74d909aef7a83a1f4a8">count_factors</a>(<a class="code hl_struct" href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> p) {</div>
+<div class="line"><span class="lineno">  163</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><span class="lineno">  164</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">e</a> = 0;</div>
+<div class="line"><span class="lineno">  165</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  166</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a> /= p;</div>
+<div class="line"><span class="lineno">  167</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">e</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a>;</div>
+<div class="line"><span class="lineno">  168</span>    }</div>
+<div class="line"><span class="lineno">  169</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>].f = p;</div>
+<div class="line"><span class="lineno">  170</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>].j = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">e</a>;</div>
+<div class="line"><span class="lineno">  171</span>}</div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#a9608ffdc19b75bf43b36242eb277cec4">lmmp_odd_factorial_uint_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><span class="lineno">  174</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#ae15572db81682838454d6fdf65ad64b6">lmmp_prime_int_table_init_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  175</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a8c7d2f554a0d517ab3247c1a1f4c0b56">TEMP_B_DECL</a>;</div>
+<div class="line"><span class="lineno">  176</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> = <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#abe42e35d952690561e872515a36de632">lmmp_prime_size_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  177</span>    <a class="code hl_struct" href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>, <a class="code hl_struct" href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_t</a>);</div>
+<div class="line"><span class="lineno">  178</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> = 0;</div>
+<div class="line"><span class="lineno">  179</span>    </div>
+<div class="line"><span class="lineno">  180</span>    <a class="code hl_struct" href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>;</div>
+<div class="line"><span class="lineno">  181</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#afe62da8724ab642c14401be9bab13c5f">lmmp_prime_cache_init_</a>(&amp;<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  182</span>    <span class="keywordflow">while</span>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>.is_end == 0) {</div>
+<div class="line"><span class="lineno">  183</span>        <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a6b0071d242388d9ed82ccae17a240fb7">lmmp_prime_cache_next_</a>(&amp;<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>);</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>.size; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>++) {</div>
+<div class="line"><span class="lineno">  185</span>            <span class="comment">// 对于阶乘n!，对于所有小于等于n的质数，贡献都至少为1</span></div>
+<div class="line"><span class="lineno">  186</span>            <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#aac1a569d5754e74d909aef7a83a1f4a8">count_factors</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>++, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>.pp[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>]);</div>
+<div class="line"><span class="lineno">  187</span>        }</div>
+<div class="line"><span class="lineno">  188</span>    }</div>
+<div class="line"><span class="lineno">  189</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a0cc98f86f82fe1e5696a2fec6da664c5">lmmp_prime_cache_free_</a>(&amp;<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>);</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>);</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a>;</div>
+<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">  195</span>}</div>
+<div class="line"><span class="lineno">  196</span> </div>
+<div class="line"><span class="lineno">  197</span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#a0cd11bd3b5c525a0307a4528ff30bd03">lmmp_factorial_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><span class="lineno">  198</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> / <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>;</div>
+<div class="line"><span class="lineno">  199</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> %= <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>;</div>
+<div class="line"><span class="lineno">  200</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>);</div>
+<div class="line"><span class="lineno">  201</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a001e2faf9897f765f67c58a8f27fbc54">NPR_SHORT_LIMIT</a>)</div>
+<div class="line"><span class="lineno">  202</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../de/da4/numth_8h.html#a2b68a8ccfa2cc3ce2dc08111560fd87b">lmmp_odd_nPr_ushort_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  203</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  204</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#a9608ffdc19b75bf43b36242eb277cec4">lmmp_odd_factorial_uint_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  205</span>    </div>
+<div class="line"><span class="lineno">  206</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  207</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>] = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a>);</div>
+<div class="line"><span class="lineno">  208</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a> + 1;</div>
+<div class="line"><span class="lineno">  209</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0;</div>
+<div class="line"><span class="lineno">  210</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  211</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>;</div>
+<div class="line"><span class="lineno">  212</span>    }</div>
+<div class="line"><span class="lineno">  213</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">  214</span>}</div>
+<div class="ttc" id="aele__mul_8h_html_a0ab42521fd450b4c0b0668d967d81d77"><div class="ttname"><a href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a></div><div class="ttdeci">mp_size_t lmmp_elem_mul_ulong_(mp_ptr dst, const ulongp limbs, mp_size_t n, mp_ptr tp)</div><div class="ttdoc">计算limbs数组的累乘积</div></div>
+<div class="ttc" id="aele__mul_8h_html_d4/de1/structfac__t"><div class="ttname"><a href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_t</a></div><div class="ttdef"><b>Definition</b> <a href="../../dc/d42/ele__mul_8h_source.html#l00117">ele_mul.h:117</a></div></div>
+<div class="ttc" id="afactorial_8c_html_a0cd11bd3b5c525a0307a4528ff30bd03"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#a0cd11bd3b5c525a0307a4528ff30bd03">lmmp_factorial_</a></div><div class="ttdeci">mp_size_t lmmp_factorial_(mp_ptr restrict dst, mp_bitcnt_t bits, mp_size_t rn, uint n)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/factorial_8c_source.html#l00197">factorial.c:197</a></div></div>
+<div class="ttc" id="afactorial_8c_html_a148762991fbf1e72da992a34d685fb37"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#a148762991fbf1e72da992a34d685fb37">MUL</a></div><div class="ttdeci">#define MUL(dst, ap, an, bp, bn)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/factorial_8c_source.html#l00016">factorial.c:16</a></div></div>
+<div class="ttc" id="afactorial_8c_html_a9608ffdc19b75bf43b36242eb277cec4"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#a9608ffdc19b75bf43b36242eb277cec4">lmmp_odd_factorial_uint_</a></div><div class="ttdeci">mp_size_t lmmp_odd_factorial_uint_(mp_ptr restrict dst, mp_size_t rn, uint n)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/factorial_8c_source.html#l00173">factorial.c:173</a></div></div>
+<div class="ttc" id="afactorial_8c_html_aac1a569d5754e74d909aef7a83a1f4a8"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#aac1a569d5754e74d909aef7a83a1f4a8">count_factors</a></div><div class="ttdeci">static void count_factors(fac_ptr fac, uint nfactors, uint n, uint p)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/factorial_8c_source.html#l00162">factorial.c:162</a></div></div>
+<div class="ttc" id="afactorial_8c_html_af9931dd5a570d29e16582070027bc72f"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a></div><div class="ttdeci">#define mul_1(dst, rn, value)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/factorial_8c_source.html#l00022">factorial.c:22</a></div></div>
+<div class="ttc" id="afactorial_8c_html_afca38bfa93879194801efa5dc91d214f"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a></div><div class="ttdeci">mp_size_t lmmp_factors_mul_(mp_ptr restrict dst, mp_size_t rn, fac_ptr restrict fac, uint nfactors)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/factorial_8c_source.html#l00043">factorial.c:43</a></div></div>
+<div class="ttc" id="ainlines_8h_html_a3a90a8260131e93bfcf1f8959607e872"><div class="ttname"><a href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a></div><div class="ttdeci">#define lmmp_sqr_</div><div class="ttdef"><b>Definition</b> <a href="../../d1/de6/inlines_8h_source.html#l00169">inlines.h:169</a></div></div>
+<div class="ttc" id="ainlines_8h_html_a69873523fccd682a951c643a5a4fa871"><div class="ttname"><a href="../../d1/de6/inlines_8h.html#a69873523fccd682a951c643a5a4fa871">lmmp_limb_popcnt_</a></div><div class="ttdeci">#define lmmp_limb_popcnt_</div><div class="ttdef"><b>Definition</b> <a href="../../d1/de6/inlines_8h_source.html#l00166">inlines.h:166</a></div></div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00210">lmmp.h:210</a></div></div>
+<div class="ttc" id="almmp_8h_html_a1e058c47a192be811139a760f7dc99c3"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a></div><div class="ttdeci">#define lmmp_copy(dst, src, n)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00333">lmmp.h:333</a></div></div>
+<div class="ttc" id="almmp_8h_html_a3fabf66f2aa6e968f9a29a0b85be2e86"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a></div><div class="ttdeci">#define lmmp_zero(dst, n)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00335">lmmp.h:335</a></div></div>
+<div class="ttc" id="almmp_8h_html_a56546655f77216fbe0fa5f906c686787"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a></div><div class="ttdeci">size_t mp_bitcnt_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00212">lmmp.h:212</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00207">lmmp.h:207</a></div></div>
+<div class="ttc" id="almmp_8h_html_a615856ce29bb791b82c2c8271aa829da"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a></div><div class="ttdeci">#define lmmp_debug_assert(x)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00356">lmmp.h:356</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00206">lmmp.h:206</a></div></div>
+<div class="ttc" id="almmp_8h_html_adda5c1e66c2b1099eee5706f3550ae07"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a></div><div class="ttdeci">#define LIMB_BITS</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00216">lmmp.h:216</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00367">lmmp.h:367</a></div></div>
+<div class="ttc" id="almmpn_8h_html_ab4ccd1983f4e30251d638f089275892e"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a></div><div class="ttdeci">mp_limb_t lmmp_shl_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_size_t shl)</div><div class="ttdoc">大数左移操作 [dst,na] = [numa,na]&lt;&lt;shl，dst的低shl位填充0</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d49/shl_8c_source.html#l00009">shl.c:9</a></div></div>
+<div class="ttc" id="amat22__mul_8c_html_a938e6a2861f684cc1f7e2de661446e35"><div class="ttname"><a href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a></div><div class="ttdeci">#define p2</div></div>
+<div class="ttc" id="amat22__mul_8c_html_af761b4737979b5efa102cc5d6f95753e"><div class="ttname"><a href="../../d5/d59/mat22__mul_8c.html#af761b4737979b5efa102cc5d6f95753e">p4</a></div><div class="ttdeci">#define p4</div></div>
+<div class="ttc" id="amparam_8h_html_a001e2faf9897f765f67c58a8f27fbc54"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#a001e2faf9897f765f67c58a8f27fbc54">NPR_SHORT_LIMIT</a></div><div class="ttdeci">#define NPR_SHORT_LIMIT</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00160">mparam.h:160</a></div></div>
+<div class="ttc" id="amparam_8h_html_a134393f733fa70308a5865b6dce4f346"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#a134393f733fa70308a5865b6dce4f346">FACTORS_MUL_N_THRESHOLD</a></div><div class="ttdeci">#define FACTORS_MUL_N_THRESHOLD</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00116">mparam.h:116</a></div></div>
+<div class="ttc" id="amparam_8h_html_a413754f5a92a5e59b24f924236f12a88"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a></div><div class="ttdeci">#define MP_UINT_MAX</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00145">mparam.h:145</a></div></div>
+<div class="ttc" id="amparam_8h_html_a7c85e5a949685450529163b9617dc06b"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#a7c85e5a949685450529163b9617dc06b">MP_USHORT_MAX</a></div><div class="ttdeci">#define MP_USHORT_MAX</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00144">mparam.h:144</a></div></div>
+<div class="ttc" id="amparam_8h_html_a9fae1d9dbe751d5ac015e8a6e7c3fae6"><div class="ttname"><a href="../../d8/dd0/mparam_8h.html#a9fae1d9dbe751d5ac015e8a6e7c3fae6">LOG2_</a></div><div class="ttdeci">#define LOG2_</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dd0/mparam_8h_source.html#l00171">mparam.h:171</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_a1f0cf49f22a9b271d1d9e6e14609faed"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a></div><div class="ttdeci">#define t</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ab025e87040bd241c89f5a880c12fc80c"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a></div><div class="ttdeci">#define tp</div></div>
+<div class="ttc" id="amullo_8c_html_a7a96cf569df70b54ad34b471c27d08e7"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a></div><div class="ttdeci">#define tp2</div></div>
+<div class="ttc" id="anumth_8h_html_a2b68a8ccfa2cc3ce2dc08111560fd87b"><div class="ttname"><a href="../../de/da4/numth_8h.html#a2b68a8ccfa2cc3ce2dc08111560fd87b">lmmp_odd_nPr_ushort_</a></div><div class="ttdeci">mp_size_t lmmp_odd_nPr_ushort_(mp_ptr dst, mp_size_t rn, ulong n, ulong r)</div><div class="ttdoc">计算 nPr 排列数的奇数部分</div></div>
+<div class="ttc" id="anumth_8h_html_a4e69d1439259c42f90af3f5aeff55727"><div class="ttname"><a href="../../de/da4/numth_8h.html#a4e69d1439259c42f90af3f5aeff55727">ulongp</a></div><div class="ttdeci">uint64_t * ulongp</div><div class="ttdef"><b>Definition</b> <a href="../../de/da4/numth_8h_source.html#l00045">numth.h:45</a></div></div>
+<div class="ttc" id="anumth_8h_html_a4f5fce8c1ef282264f9214809524d836"><div class="ttname"><a href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a></div><div class="ttdeci">uint32_t uint</div><div class="ttdef"><b>Definition</b> <a href="../../de/da4/numth_8h_source.html#l00035">numth.h:35</a></div></div>
+<div class="ttc" id="anumth_8h_html_ab46637ef82283186e57f54756fe67203"><div class="ttname"><a href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></div><div class="ttdeci">uint64_t ulong</div><div class="ttdef"><b>Definition</b> <a href="../../de/da4/numth_8h_source.html#l00036">numth.h:36</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a0cc98f86f82fe1e5696a2fec6da664c5"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a0cc98f86f82fe1e5696a2fec6da664c5">lmmp_prime_cache_free_</a></div><div class="ttdeci">void lmmp_prime_cache_free_(prime_cache_t *cache)</div><div class="ttdoc">释放素数表缓存</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00212">prime_table.c:212</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a6b0071d242388d9ed82ccae17a240fb7"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a6b0071d242388d9ed82ccae17a240fb7">lmmp_prime_cache_next_</a></div><div class="ttdeci">void lmmp_prime_cache_next_(prime_cache_t *cache)</div><div class="ttdoc">素数表缓存更新（从小到大遍历全局质数表）</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00116">prime_table.c:116</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_abe42e35d952690561e872515a36de632"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#abe42e35d952690561e872515a36de632">lmmp_prime_size_</a></div><div class="ttdeci">static ulong lmmp_prime_size_(ulong n)</div><div class="ttdoc">估计 n 范围内的素数数量</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d98/prime__table_8h_source.html#l00060">prime_table.h:60</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ae15572db81682838454d6fdf65ad64b6"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ae15572db81682838454d6fdf65ad64b6">lmmp_prime_int_table_init_</a></div><div class="ttdeci">void lmmp_prime_int_table_init_(uint n)</div><div class="ttdoc">初始化全局素数表</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00029">prime_table.c:29</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_afe62da8724ab642c14401be9bab13c5f"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#afe62da8724ab642c14401be9bab13c5f">lmmp_prime_cache_init_</a></div><div class="ttdeci">void lmmp_prime_cache_init_(prime_cache_t *cache, uint n)</div><div class="ttdoc">初始化素数表缓存</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00108">prime_table.c:108</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_d8/d94/structprime__cache__t"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a></div><div class="ttdef"><b>Definition</b> <a href="../../d1/d98/prime__table_8h_source.html#l00113">prime_table.h:113</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a2cdfd912649d3b47e211733cee82105c"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a></div><div class="ttdeci">#define TEMP_DECL</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00134">tmp_alloc.h:134</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a6a24d6c991fa35bcb5ed6a0c015b636b"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a></div><div class="ttdeci">#define TEMP_FREE</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00153">tmp_alloc.h:153</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a89accda8969763fd5645da4171590502"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a></div><div class="ttdeci">#define TALLOC_TYPE(n, type)</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00151">tmp_alloc.h:151</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a8c7d2f554a0d517ab3247c1a1f4c0b56"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a8c7d2f554a0d517ab3247c1a1f4c0b56">TEMP_B_DECL</a></div><div class="ttdeci">#define TEMP_B_DECL</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00135">tmp_alloc.h:135</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_ac5513b439318f5921c3f467b478eaf71"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a></div><div class="ttdeci">#define BALLOC_TYPE(n, type)</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00149">tmp_alloc.h:149</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_aeea3976838b21a1af4ede1096adc90aa"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a></div><div class="ttdeci">#define TEMP_B_FREE</div><div class="ttdef"><b>Definition</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00162">tmp_alloc.h:162</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af9931dd5a570d29e16582070027bc72f" name="af9931dd5a570d29e16582070027bc72f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9931dd5a570d29e16582070027bc72f">&#9670;&#160;</a></span>mul_1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">define</a> mul_1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">value</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>] = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">value</a>); \</div>
+<div class="line">    ++<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;                                       \</div>
+<div class="line">    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0</div>
+<div class="ttc" id="almmpn_8h_html_ac837c3ce41191aecaaa2f226de50331c"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a></div><div class="ttdeci">mp_limb_t lmmp_mul_1_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_limb_t x)</div><div class="ttdoc">大数乘以单limb操作 [dst,na] = [numa,na] * x</div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00022">22</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="aac1a569d5754e74d909aef7a83a1f4a8" name="aac1a569d5754e74d909aef7a83a1f4a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac1a569d5754e74d909aef7a83a1f4a8">&#9670;&#160;</a></span>count_factors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">static</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">void</a> count_factors </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d42/ele__mul_8h.html#a6560b70673404936491a68c7c9fa6744">fac_ptr</a>&#160;</td>
+          <td class="paramname"><em>fac</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>nfactors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00162">162</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span>                                                                             {</div>
+<div class="line"><span class="lineno">  163</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><span class="lineno">  164</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">e</a> = 0;</div>
+<div class="line"><span class="lineno">  165</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  166</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a> /= p;</div>
+<div class="line"><span class="lineno">  167</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">e</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">pn</a>;</div>
+<div class="line"><span class="lineno">  168</span>    }</div>
+<div class="line"><span class="lineno">  169</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>].f = p;</div>
+<div class="line"><span class="lineno">  170</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>].j = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">e</a>;</div>
+<div class="line"><span class="lineno">  171</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00173">lmmp_odd_factorial_uint_()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d3a/factorial_8c_aac1a569d5754e74d909aef7a83a1f4a8_icgraph.svg" width="498" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0cd11bd3b5c525a0307a4528ff30bd03" name="a0cd11bd3b5c525a0307a4528ff30bd03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd11bd3b5c525a0307a4528ff30bd03">&#9670;&#160;</a></span>lmmp_factorial_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> lmmp_factorial_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a>&#160;</td>
+          <td class="paramname"><em>bits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>rn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00197">197</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  197</span>                                                                                       {</div>
+<div class="line"><span class="lineno">  198</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> / <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>;</div>
+<div class="line"><span class="lineno">  199</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> %= <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>;</div>
+<div class="line"><span class="lineno">  200</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>);</div>
+<div class="line"><span class="lineno">  201</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a001e2faf9897f765f67c58a8f27fbc54">NPR_SHORT_LIMIT</a>)</div>
+<div class="line"><span class="lineno">  202</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../de/da4/numth_8h.html#a2b68a8ccfa2cc3ce2dc08111560fd87b">lmmp_odd_nPr_ushort_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  203</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  204</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#a9608ffdc19b75bf43b36242eb277cec4">lmmp_odd_factorial_uint_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  205</span>    </div>
+<div class="line"><span class="lineno">  206</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  207</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>] = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a>);</div>
+<div class="line"><span class="lineno">  208</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a> + 1;</div>
+<div class="line"><span class="lineno">  209</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0;</div>
+<div class="line"><span class="lineno">  210</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  211</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> += <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">shw</a>;</div>
+<div class="line"><span class="lineno">  212</span>    }</div>
+<div class="line"><span class="lineno">  213</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">  214</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00216">LIMB_BITS</a>, <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00173">lmmp_odd_factorial_uint_()</a>, <a class="el" href="../../de/da4/numth_8h.html#a2b68a8ccfa2cc3ce2dc08111560fd87b">lmmp_odd_nPr_ushort_()</a>, <a class="el" href="../../d1/d49/shl_8c_source.html#l00009">lmmp_shl_()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00335">lmmp_zero</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> , 以及 <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00160">NPR_SHORT_LIMIT</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d9/d3a/factorial_8c_a0cd11bd3b5c525a0307a4528ff30bd03_cgraph.svg" width="100%" height="579"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aeec11fecff9b1649a5e243459aca32f6" name="aeec11fecff9b1649a5e243459aca32f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeec11fecff9b1649a5e243459aca32f6">&#9670;&#160;</a></span>lmmp_factorial_size_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> lmmp_factorial_size_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> *<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>bits</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00027">27</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>                                                                   {</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordtype">double</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ln_fact</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">lgamma</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> + 1.0);</div>
+<div class="line"><span class="lineno">   29</span>    <span class="keywordtype">double</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">log2_fact</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ln_fact</a> / <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a9fae1d9dbe751d5ac015e8a6e7c3fae6">LOG2_</a>;</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">ceil</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">log2_fact</a> / <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>) + 2; <span class="comment">/* more two limbs */</span></div>
+<div class="line"><span class="lineno">   31</span>    *<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">bits</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a69873523fccd682a951c643a5a4fa871">lmmp_limb_popcnt_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">   33</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00216">LIMB_BITS</a>, <a class="el" href="../../d1/de6/inlines_8h_source.html#l00166">lmmp_limb_popcnt_</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00171">LOG2_</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+</div>
+</div>
+<a id="afca38bfa93879194801efa5dc91d214f" name="afca38bfa93879194801efa5dc91d214f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afca38bfa93879194801efa5dc91d214f">&#9670;&#160;</a></span>lmmp_factors_mul_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> lmmp_factors_mul_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>rn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/d42/ele__mul_8h.html#a6560b70673404936491a68c7c9fa6744">fac_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>fac</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>nfactors</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00043">43</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>                                                                                                    {</div>
+<div class="line"><span class="lineno">   44</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a> &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a> != <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">NULL</a>);</div>
+<div class="line"><span class="lineno">   45</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt; 0 &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> &gt; 0);</div>
+<div class="line"><span class="lineno">   46</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a134393f733fa70308a5865b6dce4f346">FACTORS_MUL_N_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">   47</span>        <span class="comment">// 绝大多数情况下，大的质因数的指数都很小，所以这里只需要考虑小的质因数。</span></div>
+<div class="line"><span class="lineno">   48</span>        <span class="comment">// 且随着递归的进行，进入这一步的质因数通常都很小。几乎不可能触发debug_assert</span></div>
+<div class="line"><span class="lineno">   49</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[0] = 1;</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = 1;</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>++) {</div>
+<div class="line"><span class="lineno">   52</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> f = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].f;</div>
+<div class="line"><span class="lineno">   53</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> j = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].j;</div>
+<div class="line"><span class="lineno">   54</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(j != 0);</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">switch</span> (j) {</div>
+<div class="line"><span class="lineno">   56</span>                <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">   57</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f);</div>
+<div class="line"><span class="lineno">   58</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   59</span>                <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">   60</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a>);</div>
+<div class="line"><span class="lineno">   61</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f * f);</div>
+<div class="line"><span class="lineno">   62</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   63</span>                <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">   64</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= 2642245);  <span class="comment">// 2642245 = floor(B^(1/3))</span></div>
+<div class="line"><span class="lineno">   65</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f * f * f);</div>
+<div class="line"><span class="lineno">   66</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   67</span>                <span class="keywordflow">case</span> 4:</div>
+<div class="line"><span class="lineno">   68</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a7c85e5a949685450529163b9617dc06b">MP_USHORT_MAX</a>);</div>
+<div class="line"><span class="lineno">   69</span>                    <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f * f * f * f);</div>
+<div class="line"><span class="lineno">   70</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   72</span>                    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(f &lt;= <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a7c85e5a949685450529163b9617dc06b">MP_USHORT_MAX</a>);</div>
+<div class="line"><span class="lineno">   73</span>                    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a> = f * f;</div>
+<div class="line"><span class="lineno">   74</span>                    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#af761b4737979b5efa102cc5d6f95753e">p4</a> = <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a> * <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a>;</div>
+<div class="line"><span class="lineno">   75</span>                    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; j - 3; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> += 4) {</div>
+<div class="line"><span class="lineno">   76</span>                        <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#af761b4737979b5efa102cc5d6f95753e">p4</a>);</div>
+<div class="line"><span class="lineno">   77</span>                    }</div>
+<div class="line"><span class="lineno">   78</span>                    <span class="keywordflow">switch</span> (j % 4) {</div>
+<div class="line"><span class="lineno">   79</span>                        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">   80</span>                            <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, f);</div>
+<div class="line"><span class="lineno">   81</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   82</span>                        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">   83</span>                            <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a>);</div>
+<div class="line"><span class="lineno">   84</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   85</span>                        <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">   86</span>                            <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#af9931dd5a570d29e16582070027bc72f">mul_1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a> * f);</div>
+<div class="line"><span class="lineno">   87</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   88</span>                        <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   89</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   90</span>                    }</div>
+<div class="line"><span class="lineno">   91</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   92</span>            }</div>
+<div class="line"><span class="lineno">   93</span>        }</div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">   95</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a>;</div>
+<div class="line"><span class="lineno">   97</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a> = 0;</div>
+<div class="line"><span class="lineno">   98</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4e69d1439259c42f90af3f5aeff55727">ulongp</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> / 2 + 1, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>);</div>
+<div class="line"><span class="lineno">   99</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = 1;</div>
+<div class="line"><span class="lineno">  100</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> = 0;</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>; ++<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>) {</div>
+<div class="line"><span class="lineno">  102</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> f = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].f;</div>
+<div class="line"><span class="lineno">  103</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> j = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>].j;</div>
+<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">if</span> (j &gt; 1) {</div>
+<div class="line"><span class="lineno">  105</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>].f = f;</div>
+<div class="line"><span class="lineno">  106</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>++].j = j &gt;&gt; 1;</div>
+<div class="line"><span class="lineno">  107</span>            }</div>
+<div class="line"><span class="lineno">  108</span>            <span class="keywordflow">if</span> (j &amp; 1) {</div>
+<div class="line"><span class="lineno">  109</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> *= f;</div>
+<div class="line"><span class="lineno">  110</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> &gt; <a class="code hl_define" href="../../d8/dd0/mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a>) {</div>
+<div class="line"><span class="lineno">  111</span>                    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>++] = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>;</div>
+<div class="line"><span class="lineno">  112</span>                    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = 1;</div>
+<div class="line"><span class="lineno">  113</span>                }</div>
+<div class="line"><span class="lineno">  114</span>            }</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> != 1) {</div>
+<div class="line"><span class="lineno">  117</span>            <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>++] = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>;</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> mp = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> * 2, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  121</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a> = 0;</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  124</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> &gt; 0) {</div>
+<div class="line"><span class="lineno">  125</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a> = <a class="code hl_function" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a>(mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>, mp + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>);</div>
+<div class="line"><span class="lineno">  126</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt;= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>);</div>
+<div class="line"><span class="lineno">  127</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn = ((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>) &gt;&gt; 1) + 1;</div>
+<div class="line"><span class="lineno">  128</span>                <span class="comment">// 这里根据mpn的大小估计剩余因子乘积的长度，额外分配两倍的tn，以进行平方。</span></div>
+<div class="line"><span class="lineno">  129</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>(3 * tn + 3, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  130</span>                tn = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>);</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + tn + 1;</div>
+<div class="line"><span class="lineno">  133</span>                <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn);</div>
+<div class="line"><span class="lineno">  134</span>                tn &lt;&lt;= 1;</div>
+<div class="line"><span class="lineno">  135</span>                tn -= <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>[tn - 1] == 0;</div>
+<div class="line"><span class="lineno">  136</span>                <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#a148762991fbf1e72da992a34d685fb37">MUL</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>, tn, mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>);</div>
+<div class="line"><span class="lineno">  137</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = tn + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">mpn</a>;</div>
+<div class="line"><span class="lineno">  138</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0;</div>
+<div class="line"><span class="lineno">  139</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  140</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn = (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt;&gt; 1) + 1;</div>
+<div class="line"><span class="lineno">  141</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(tn, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  142</span>                tn = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">new_nfactors</a>);</div>
+<div class="line"><span class="lineno">  143</span>                <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, tn);</div>
+<div class="line"><span class="lineno">  144</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = tn &lt;&lt; 1;</div>
+<div class="line"><span class="lineno">  145</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> -= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> - 1] == 0;</div>
+<div class="line"><span class="lineno">  146</span>            }</div>
+<div class="line"><span class="lineno">  147</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  148</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a> &gt; 0);</div>
+<div class="line"><span class="lineno">  149</span>            <span class="comment">// 这里不能直接乘入dst，因为dst的大小可能小于limbn，导致溢出</span></div>
+<div class="line"><span class="lineno">  150</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> &gt;= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>) {</div>
+<div class="line"><span class="lineno">  151</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>, mp);</div>
+<div class="line"><span class="lineno">  152</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  153</span>                <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_</a>(mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbs</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>, mp + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">limbn</a>);</div>
+<div class="line"><span class="lineno">  154</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, mp, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>);</div>
+<div class="line"><span class="lineno">  155</span>            }</div>
+<div class="line"><span class="lineno">  156</span>        }</div>
+<div class="line"><span class="lineno">  157</span>        <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a>;</div>
+<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">  159</span>    }</div>
+<div class="line"><span class="lineno">  160</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00149">BALLOC_TYPE</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00116">FACTORS_MUL_N_THRESHOLD</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00333">lmmp_copy</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00356">lmmp_debug_assert</a>, <a class="el" href="../../dc/d42/ele__mul_8h.html#a0ab42521fd450b4c0b0668d967d81d77">lmmp_elem_mul_ulong_()</a>, <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00043">lmmp_factors_mul_()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00367">lmmp_param_assert</a>, <a class="el" href="../../d1/de6/inlines_8h_source.html#l00169">lmmp_sqr_</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00145">MP_UINT_MAX</a>, <a class="el" href="../../d8/dd0/mparam_8h_source.html#l00144">MP_USHORT_MAX</a>, <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00016">MUL</a>, <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00022">mul_1</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d5/d59/mat22__mul_8c.html#a938e6a2861f684cc1f7e2de661446e35">p2</a>, <a class="el" href="../../d5/d59/mat22__mul_8c.html#af761b4737979b5efa102cc5d6f95753e">p4</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00151">TALLOC_TYPE</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00134">TEMP_DECL</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00153">TEMP_FREE</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> , 以及 <a class="el" href="../../dd/d6c/mullo_8c.html#a7a96cf569df70b54ad34b471c27d08e7">tp2</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00043">lmmp_factors_mul_()</a> , 以及 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00173">lmmp_odd_factorial_uint_()</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d3a/factorial_8c_afca38bfa93879194801efa5dc91d214f_cgraph.svg" width="392" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d3a/factorial_8c_afca38bfa93879194801efa5dc91d214f_icgraph.svg" width="538" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9608ffdc19b75bf43b36242eb277cec4" name="a9608ffdc19b75bf43b36242eb277cec4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9608ffdc19b75bf43b36242eb277cec4">&#9670;&#160;</a></span>lmmp_odd_factorial_uint_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> lmmp_odd_factorial_uint_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a>&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td>
+          <td class="paramname"><em>rn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d9/d3a/factorial_8c_source.html">factorial.c</a> 第 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00173">173</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  173</span>                                                                              {</div>
+<div class="line"><span class="lineno">  174</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#ae15572db81682838454d6fdf65ad64b6">lmmp_prime_int_table_init_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  175</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a8c7d2f554a0d517ab3247c1a1f4c0b56">TEMP_B_DECL</a>;</div>
+<div class="line"><span class="lineno">  176</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> = <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#abe42e35d952690561e872515a36de632">lmmp_prime_size_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  177</span>    <a class="code hl_struct" href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">restrict</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>, <a class="code hl_struct" href="../../dc/d42/ele__mul_8h.html#d4/de1/structfac__t">fac_t</a>);</div>
+<div class="line"><span class="lineno">  178</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a> = 0;</div>
+<div class="line"><span class="lineno">  179</span>    </div>
+<div class="line"><span class="lineno">  180</span>    <a class="code hl_struct" href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>;</div>
+<div class="line"><span class="lineno">  181</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#afe62da8724ab642c14401be9bab13c5f">lmmp_prime_cache_init_</a>(&amp;<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  182</span>    <span class="keywordflow">while</span>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>.is_end == 0) {</div>
+<div class="line"><span class="lineno">  183</span>        <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a6b0071d242388d9ed82ccae17a240fb7">lmmp_prime_cache_next_</a>(&amp;<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>);</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a> &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>.size; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>++) {</div>
+<div class="line"><span class="lineno">  185</span>            <span class="comment">// 对于阶乘n!，对于所有小于等于n的质数，贡献都至少为1</span></div>
+<div class="line"><span class="lineno">  186</span>            <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#aac1a569d5754e74d909aef7a83a1f4a8">count_factors</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>++, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>.pp[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">i</a>]);</div>
+<div class="line"><span class="lineno">  187</span>        }</div>
+<div class="line"><span class="lineno">  188</span>    }</div>
+<div class="line"><span class="lineno">  189</span>    <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a0cc98f86f82fe1e5696a2fec6da664c5">lmmp_prime_cache_free_</a>(&amp;<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">cache</a>);</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>    <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a> = <a class="code hl_function" href="../../d9/d3a/factorial_8c.html#afca38bfa93879194801efa5dc91d214f">lmmp_factors_mul_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">fac</a>, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">nfactors</a>);</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a>;</div>
+<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">rn</a>;</div>
+<div class="line"><span class="lineno">  195</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00149">BALLOC_TYPE</a>, <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00162">count_factors()</a>, <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00043">lmmp_factors_mul_()</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00212">lmmp_prime_cache_free_()</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00108">lmmp_prime_cache_init_()</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00116">lmmp_prime_cache_next_()</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00029">lmmp_prime_int_table_init_()</a>, <a class="el" href="../../d1/d98/prime__table_8h_source.html#l00060">lmmp_prime_size_()</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00135">TEMP_B_DECL</a> , 以及 <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00162">TEMP_B_FREE</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d9/d3a/factorial_8c_source.html#l00197">lmmp_factorial_()</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d3a/factorial_8c_a9608ffdc19b75bf43b36242eb277cec4_cgraph.svg" width="635" height="372"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d3a/factorial_8c_a9608ffdc19b75bf43b36242eb277cec4_icgraph.svg" width="339" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_d77cbddddf37de395302ec58cb811daa.html">lammp</a></li><li class="navelem"><a class="el" href="../../dir_12d1bb9023a1e50bd298345c814b04b6.html">NumTh</a></li><li class="navelem"><a class="el" href="../../d9/d3a/factorial_8c.html">factorial.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:37 , 为 LAMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

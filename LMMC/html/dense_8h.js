@@ -1,0 +1,47 @@
+var dense_8h =
+[
+    [ "lmmc_mat_t", "dense_8h.html#structlmmc__mat__t", [
+      [ "rows", "dense_8h.html#a5c556e40e8364561fbfb4373e17b2874", null ],
+      [ "cols", "dense_8h.html#a30c2615f58505a433455ba3882f600f8", null ],
+      [ "stride", "dense_8h.html#af1ff23885bfc2ca02b83ad9c26fc0024", null ],
+      [ "data", "dense_8h.html#a8c72b81b3a507308e133e2da998e1a5d", null ],
+      [ "owns_data", "dense_8h.html#a7a61b35cee4abf3d8a26e34f00fdfad0", null ]
+    ] ],
+    [ "lmmc_vec_t", "dense_8h.html#structlmmc__vec__t", [
+      [ "size", "dense_8h.html#a3443e5be2addab17747b6cf187ad0cee", null ],
+      [ "data", "dense_8h.html#abb79242c5db253df66bf7a369fbce3d9", null ],
+      [ "owns_data", "dense_8h.html#ac637e2911dc60cea21a763a55756b03a", null ]
+    ] ],
+    [ "lmmc_mat_create", "dense_8h.html#a0fc9bc3b95589478a194ea553bd69c8f", null ],
+    [ "lmmc_mat_wrap", "dense_8h.html#a27fb2f1cb173a2b3a11fc82e0755c9b7", null ],
+    [ "lmmc_mat_destroy", "dense_8h.html#ad3ffb292f06884dbb65e2cf5b3074c69", null ],
+    [ "lmmc_mat_fill", "dense_8h.html#a7bf174b849f655680dc4f7c1617b6c1a", null ],
+    [ "lmmc_mat_copy", "dense_8h.html#a015f8311b498f15bff95d72c17f1aa85", null ],
+    [ "lmmc_mat_transpose_to", "dense_8h.html#a91c39f6be5b8dd41c7140b2e170f665e", null ],
+    [ "lmmc_mat_gemm", "dense_8h.html#a4f93ec17fbb9b9a7d7ee7147f7997ad9", null ],
+    [ "lmmc_mat_gemv", "dense_8h.html#a4a4ce2cc2e9aa103b8bd7cb5fb4c4b43", null ],
+    [ "lmmc_mat_mul", "dense_8h.html#aa08f9228c5f7c743720ce23e8938d043", null ],
+    [ "lmmc_mat_norm_fro", "dense_8h.html#a51c0c5e40ee6493486028770e1868071", null ],
+    [ "lmmc_vec_create", "dense_8h.html#ab1ff7e1a56dc108100975e953774a2ad", null ],
+    [ "lmmc_vec_wrap", "dense_8h.html#a5e23d2f77598433a2b2b3043211cd2ea", null ],
+    [ "lmmc_vec_destroy", "dense_8h.html#aeda4a0d3e0c54b575a9b78413118e5f0", null ],
+    [ "lmmc_vec_fill", "dense_8h.html#a27b27349658ae70afe3533afff02d6ea", null ],
+    [ "lmmc_vec_dot", "dense_8h.html#a21704ddfbc6675769e372ddf62cf1a82", null ],
+    [ "lmmc_mat_vec_mul", "dense_8h.html#a92fbce072b069531710cd18ba0021f1c", null ],
+    [ "lmmc_vec_norm2", "dense_8h.html#abc1a6e60d9f32c75b57487b4b5c1eda2", null ],
+    [ "lmmc_vec_norm_inf", "dense_8h.html#ac51bb926c8977268f35fca46d3f2a278", null ],
+    [ "lmmc_vec_scale", "dense_8h.html#a97c05446e03b56e8ffdde58550ca9af1", null ],
+    [ "lmmc_vec_axpy", "dense_8h.html#a7e592a539e50cb974a9eda60b6aa6da6", null ],
+    [ "lmmc_vec_copy", "dense_8h.html#ab3b3522edc7a0e0d928ebf48e9044f12", null ],
+    [ "lmmc_vec_swap", "dense_8h.html#a31b5362906a7786d5ca4a30a871632e6", null ],
+    [ "lmmc_vec_asum", "dense_8h.html#a5543c1fd39be9e6c552336826e3bc689", null ],
+    [ "lmmc_vec_iamax", "dense_8h.html#a50c156a105575a7d02d97b7887cd4cc4", null ],
+    [ "lmmc_mat_add", "dense_8h.html#a7c9b4a6371fa06811716a353664d9baa", null ],
+    [ "lmmc_mat_sub", "dense_8h.html#a77d2d69181d575107b32f4192bf2f5ce", null ],
+    [ "lmmc_mat_scale", "dense_8h.html#a03c7dcb003e85fd5d356b220775597cf", null ],
+    [ "lmmc_mat_identity", "dense_8h.html#ac26eaf3c95875e1263ad8f13476f7623", null ],
+    [ "lmmc_mat_trace", "dense_8h.html#af862603536e9625e302a36b0c43b2371", null ],
+    [ "lmmc_mat_det", "dense_8h.html#a176886a43f7bf092e505d56840ceacbb", null ],
+    [ "lmmc_mat_inv", "dense_8h.html#a98c17c86b6e315487faa542c9e32d5f6", null ],
+    [ "lmmc_solve_triangular", "dense_8h.html#a8fdd63e091007ac0bb525bd0bc9c1edf", null ]
+];

@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="db/d74/md_docs_2modules_2utils" kind="page">
+    <compoundname>md_docs_2modules_2utils</compoundname>
+    <title>说明</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="db/d74/md_docs_2modules_2utils_1autotoc_md77"/> </para>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md83">
+<title>Value 类型推断与混合运算</title>
+<para><itemizedlist>
+<listitem><para>基于 std::variant 自动推断类型，支持多种数值/符号混合。</para>
+</listitem><listitem><para>算法：构造时自动识别类型，运算时按类型分派。</para>
+</listitem><listitem><para>特性：支持符号与数值混合运算。</para>
+</listitem><listitem><para>局限：嵌套容器类型推断复杂。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md85">
+<title>容器嵌套</title>
+<para><itemizedlist>
+<listitem><para>支持 std::set、std::vector、std::vector&lt;vector&gt; 等嵌套。</para>
+</listitem><listitem><para>算法：递归遍历容器，自动推断元素类型。</para>
+</listitem><listitem><para>特性：支持矩阵、集合等复杂结构。</para>
+</listitem><listitem><para>局限：深度嵌套时性能瓶颈。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md87">
+<title>LmModule</title>
+<para><itemizedlist>
+<listitem><para>模块化结构，类似 Python dict。</para>
+</listitem><listitem><para>算法：内部用 unordered_map 存储子项，支持动态添加/删除。</para>
+</listitem><listitem><para>特性：支持嵌套模块，便于脚本化扩展。</para>
+</listitem><listitem><para>局限：深度嵌套时查找效率下降。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md89">
+<title>LmCppFunction</title>
+<para><itemizedlist>
+<listitem><para>C++函数封装，支持 <ref refid="dc/dcb/classValue" kindref="compound">Value</ref> 类型参数与返回值。</para>
+</listitem><listitem><para>算法：内部用 std::function&lt;<ref refid="dc/dcb/classValue" kindref="compound">Value(std::vector&lt;Value&gt;)</ref>&gt;。</para>
+</listitem><listitem><para>特性：支持高阶函数、匿名函数。</para>
+</listitem><listitem><para>局限：类型推断需手动管理。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md91">
+<title>辅助特性</title>
+<para><itemizedlist>
+<listitem><para>表达式打印、调试输出、数值类型转换。</para>
+</listitem><listitem><para>算法：to_string 自动识别类型并格式化输出。</para>
+</listitem><listitem><para>特性：支持多种类型自动转换。</para>
+</listitem><listitem><para>局限：边界类型未完全覆盖。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect1 id="db/d74/md_docs_2modules_2utils_1autotoc_md99">
+<title>工具与辅助模块</title>
+<para>主要头文件：<computeroutput><ref refid="d6/dda/value_8hpp" kindref="compound">include/value.hpp</ref></computeroutput></para>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md101">
+<title>Value 类</title>
+<para><itemizedlist>
+<listitem><para>通用值类型，采用 <computeroutput>std::variant</computeroutput> 实现，支持多种数据结构：<itemizedlist>
+<listitem><para>基本类型：<computeroutput>int</computeroutput>, <computeroutput>double</computeroutput>, <computeroutput>bool</computeroutput>, <computeroutput>std::string</computeroutput></para>
+</listitem><listitem><para>高精度类型：<computeroutput><ref refid="da/d5b/classBigInt" kindref="compound">BigInt</ref></computeroutput>, <computeroutput><ref refid="d8/da7/classRational" kindref="compound">Rational</ref></computeroutput>, <computeroutput><ref refid="d8/df2/classIrrational" kindref="compound">Irrational</ref></computeroutput></para>
+</listitem><listitem><para>符号类型：<computeroutput>std::shared_ptr&lt;<ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref>&gt;</computeroutput></para>
+</listitem><listitem><para>容器类型：<computeroutput>std::set&lt;<ref refid="dc/dcb/classValue" kindref="compound">Value</ref>&gt;</computeroutput>, <computeroutput>std::vector&lt;<ref refid="dc/dcb/classValue" kindref="compound">Value</ref>&gt;</computeroutput>, <computeroutput>std::vector&lt;std::vector&lt;<ref refid="dc/dcb/classValue" kindref="compound">Value</ref>&gt;&gt;</computeroutput></para>
+</listitem><listitem><para>模块与函数：<computeroutput>std::shared_ptr&lt;LmModule&gt;</computeroutput>, <computeroutput>std::shared_ptr&lt;LmCppFunction&gt;</computeroutput></para>
+</listitem><listitem><para>结构体与Lambda：<computeroutput>std::shared_ptr&lt;lmStruct&gt;</computeroutput>, <computeroutput>std::shared_ptr&lt;LambdaDeclExpr&gt;</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>构造函数重载，自动推断类型。</para>
+</listitem><listitem><para>算法：类型安全的自动转换，支持 <computeroutput>as_number()</computeroutput>、<computeroutput>as_symbolic()</computeroutput>、<computeroutput>is_numeric()</computeroutput> 等类型判断与转换。</para>
+</listitem><listitem><para>特性：<itemizedlist>
+<listitem><para>支持符号与数值混合运算。</para>
+</listitem><listitem><para>支持嵌套容器（如矩阵、集合）。</para>
+</listitem><listitem><para>支持脚本式调用（如模块、函数类型）。</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>已知问题：<itemizedlist>
+<listitem><para>类型推断复杂，部分边界类型（如嵌套容器）未完全覆盖。</para>
+</listitem><listitem><para>性能瓶颈主要在频繁的 variant 访问与类型转换。</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md102">
+<title>LmModule</title>
+<para><itemizedlist>
+<listitem><para>模块化类型，支持类似 Python dict 的结构。</para>
+</listitem><listitem><para>算法：内部采用 <computeroutput>std::unordered_map&lt;std::string, <ref refid="dc/dcb/classValue" kindref="compound">Value</ref>&gt;</computeroutput> 存储子项。</para>
+</listitem><listitem><para>特性：<itemizedlist>
+<listitem><para>支持嵌套模块，便于脚本式扩展。</para>
+</listitem><listitem><para>支持动态添加/删除子项。</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>已知问题：<itemizedlist>
+<listitem><para>模块嵌套过深时，查找效率下降。</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md105">
+<title>LmCppFunction</title>
+<para><itemizedlist>
+<listitem><para>C++函数封装，支持 <ref refid="dc/dcb/classValue" kindref="compound">Value</ref> 类型参数与返回值。</para>
+</listitem><listitem><para>算法：内部采用 <computeroutput>std::function&lt;<ref refid="dc/dcb/classValue" kindref="compound">Value</ref>(std::vector&lt;<ref refid="dc/dcb/classValue" kindref="compound">Value</ref>&gt;)&gt;</computeroutput>。</para>
+</listitem><listitem><para>特性：<itemizedlist>
+<listitem><para>支持高阶函数、匿名函数。</para>
+</listitem><listitem><para>可与 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 混合调用。</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>已知问题：<itemizedlist>
+<listitem><para>函数类型不支持类型推断，需手动管理参数类型。</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md107">
+<title>辅助特性</title>
+<para><itemizedlist>
+<listitem><para>表达式打印：支持 to_string()，自动识别类型并格式化输出。</para>
+</listitem><listitem><para>调试输出：支持 err_stream，便于日志与调试。</para>
+</listitem><listitem><para>数值类型转换：支持 as_number()、as_symbolic()，自动处理符号与数值类型。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="db/d74/md_docs_2modules_2utils_1autotoc_md109">
+<title>已知问题汇总</title>
+<para><itemizedlist>
+<listitem><para>类型系统复杂，部分边界类型未完全覆盖。</para>
+</listitem><listitem><para>性能瓶颈主要在 variant 访问与递归容器。</para>
+</listitem><listitem><para>脚本式模块与函数扩展能力有限，需进一步完善。 </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="docs/modules/utils.md"/>
+  </compounddef>
+</doxygen>

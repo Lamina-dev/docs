@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="dd/d2b/calculus_8md" kind="file" language="Markdown">
+    <compoundname>calculus.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>微积分模块</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">主要头文件：</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/integration.hpp`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/visitors/differentiation_visitor.hpp`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/symbolic.hpp`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>概览<sp/>(Overview)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">微积分模块提供了符号微分（Differentiation）、符号积分（Integration）以及级数展开（Series<sp/>Expansion）的核心算法。</highlight></codeline>
+<codeline><highlight class="normal">用户通常不需要直接实例化<sp/>`Integrator`<sp/>或<sp/>`DifferentiationVisitor`<sp/>类，而是通过<sp/>`SymbolicExpr`<sp/>的成员函数来调用这些功能。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>微分<sp/>(Differentiation)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>入口函数</highlight></codeline>
+<codeline><highlight class="normal">`SymbolicExpr::differentiate(const<sp/>std::string&amp;<sp/>var_name)`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>实现机制</highlight></codeline>
+<codeline><highlight class="normal">微分操作通过访问者模式<sp/>(`DifferentiationVisitor`)<sp/>实现。该访问者遍历表达式树，根据节点的类型应用相应的导数法则：</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**基本法则**</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>常数<sp/>(`NumberNode`)<sp/>-&gt;<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>变量<sp/>(`VariableNode`)<sp/>-&gt;<sp/>1<sp/>(若是求导变量)<sp/>或<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>加法<sp/>(`AddNode`)<sp/>-&gt;<sp/>逐项求导<sp/>(Sum<sp/>Rule)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>乘法<sp/>(`MultiplyNode`)<sp/>-&gt;<sp/>乘积法则<sp/>(Product<sp/>Rule:<sp/>`(uv)&apos;<sp/>=<sp/>u&apos;v<sp/>+<sp/>uv&apos;`)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>幂<sp/>(`PowerNode`)<sp/>-&gt;<sp/>幂法则与链式法则结合<sp/>(Power<sp/>Rule<sp/>/<sp/>Chain<sp/>Rule)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>函数<sp/>(`FunctionNode`)<sp/>-&gt;<sp/>链式法则<sp/>(Chain<sp/>Rule:<sp/>`f(g(x))&apos;<sp/>=<sp/>f&apos;(g(x))<sp/>*<sp/>g&apos;(x)`)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>特性与局限</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**支持**：显式函数求导、多层嵌套函数求导。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**局限**：目前的实现主要针对单变量显函数，对隐函数求导<sp/>(`Implicit<sp/>Differentiation`)<sp/>支持仅作为实验性功能存在<sp/>(`include/symbolic_implicit_diff.hpp`)。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>积分<sp/>(Integration)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>入口函数</highlight></codeline>
+<codeline><highlight class="normal">`SymbolicExpr::integrate(const<sp/>std::string&amp;<sp/>var_name)`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>核心算法<sp/>(Integrator)</highlight></codeline>
+<codeline><highlight class="normal">由于通用的<sp/>Risch<sp/>算法实现极其复杂，LMCAS<sp/>目前采用基于启发式规则（Heuristic<sp/>Rules）和模式匹配的积分策略。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>策略流程</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/><sp/>**查表法<sp/>(Table<sp/>Lookup)**：匹配基本积分公式（如<sp/>`x^n`,<sp/>`e^x`,<sp/>`sin(x)`<sp/>等）。</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/><sp/>**线性性质**：`∫(a*f<sp/>+<sp/>b*g)<sp/>=<sp/>a*∫f<sp/>+<sp/>b*∫g`。</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/><sp/>**换元法<sp/>(Substitution)**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>自动检测形如<sp/>`f(g(x))<sp/>*<sp/>g&apos;(x)`<sp/>的结构，令<sp/>`u<sp/>=<sp/>g(x)`<sp/>简化积分。</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/><sp/>**分部积分<sp/>(Integration<sp/>by<sp/>Parts,<sp/>IBP)**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>针对乘积结构<sp/>`u<sp/>*<sp/>v`，尝试应用<sp/>`∫u<sp/>dv<sp/>=<sp/>uv<sp/>-<sp/>∫v<sp/>du`。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>使用启发式算法选择<sp/>`u`<sp/>和<sp/>`dv`<sp/>以降低被积函数的复杂度。</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/><sp/>**部分分式分解<sp/>(Partial<sp/>Fraction<sp/>Decomposition)**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>对有理函数进行分解，将其拆分为简单的分式和多项式之和。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>积分历史<sp/>(IntegralHistory)</highlight></codeline>
+<codeline><highlight class="normal">为了防止在分部积分或换元过程中出现循环调用（即积分结果变回原函数或变得更复杂），积分器维护了一个<sp/>`IntegralHistory`<sp/>栈，检测到重复模式时会强制终止当前路径。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>级数展开<sp/>(Series<sp/>Expansion)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>入口函数</highlight></codeline>
+<codeline><highlight class="normal">`SymbolicExpr::series(const<sp/>std::string&amp;<sp/>var,<sp/>const<sp/>std::shared_ptr&lt;SymbolicExpr&gt;&amp;<sp/>point,<sp/>int<sp/>order)`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>实现</highlight></codeline>
+<codeline><highlight class="normal">级数展开基于泰勒公式实现。系统自动计算目标函数在展开点<sp/>`point`<sp/>处的高阶导数（直到<sp/>`order`<sp/>阶），并构造多项式：</highlight></codeline>
+<codeline><highlight class="normal">`f(x)<sp/>≈<sp/>Σ<sp/>(f^(n)(a)<sp/>/<sp/>n!)<sp/>*<sp/>(x-a)^n`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>注意事项</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>级数展开依赖于高阶导数的计算，对于非常复杂的函数，计算高阶导数可能会非常耗时。</highlight></codeline>
+    </programlisting>
+    <location file="docs/modules/calculus.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAMMP: include/lammp/impl/toom_interp.h 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LAMMP<span id="projectnumber">&#160;4.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d0/d3c/toom__interp_8h_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">toom_interp.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d0/d3c/toom__interp_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * [LAMMP]</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (C) [2025-2026] [HJimmyK(Jericho Knox)]</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * This program is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * (at your option) any later version.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * This program is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef __LAMMP_TOOM_INTERP_H__</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define __LAMMP_TOOM_INTERP_H__</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/daa/tmp__alloc_8h.html">tmp_alloc.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;../lmmpn.h&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda421d0950a9e5b767418f4a635298b421">   25</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75bed">toom6_flags</a> { <a class="code hl_enumvalue" href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda421d0950a9e5b767418f4a635298b421">toom6_all_pos</a> = 0, <a class="code hl_enumvalue" href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda31b945b2e01af1b300723c2ed7997d08">toom6_vm1_neg</a> = 1, <a class="code hl_enumvalue" href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda2abcb00d8391755d2a7573086e260fc0">toom6_vm2_neg</a> = 2 };</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28">   27</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28">toom7_flags</a> { <a class="code hl_enumvalue" href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28ab0a196a221452e665ee923a72e8965d8">toom7_w1_neg</a> = 1, <a class="code hl_enumvalue" href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28ad65bcb0b7579c8a12da4d9ab1b504c95">toom7_w3_neg</a> = 2 };</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"></span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * @brief Toom插值计算（5点插值），用于Toom-33和Toom-42乘法算法</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * @param dst 输出结果缓冲区，存储插值计算结果</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> *        v(0)储存在[dst,2n]，v(1)储存在[dst+2n,2n]</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * @param v2 v(2)插值点值，长度为 2n+1</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * @param vm1 v(-1)插值点值，长度为 2n+1</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * @param n 操作数的 limb 长度</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> * @param spt 系数r4的长度</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> * @param vm1_neg 符号标记：v(-1)是否为负数（1表示负，0表示正）</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * @param vinf0 无穷远点插值的低64位值</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#a6ae4dcc2f9da58424619e4302e1593e1">lmmp_toom_interp5_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../de/d4d/mul__toom33_8c.html#a6b1b4383fd5955a7a5b1ac13fafb0254">v2</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a76cd68ca6afad74f8cfef4ebd969beff">vm1</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">spt</a>, <span class="keywordtype">int</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">vm1_neg</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">vinf0</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * @brief Toom插值计算（6点插值）：用于Toom-43和Toom-52 乘法算法</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * @param dst    输出：最终乘积结果缓冲区（5n + w0n limbs）</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> *               w5 储存在[dst,2n], w3 储存在[dst+2n,2n+1], w0 储存在[dst+5n,w0n].</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * @param n      输入：Toom-6 拆分后每段标准 limb 长度</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * @param flags  输入：Toom-6 插值符号标志位（控制正负号运算）</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> *               - toom6_vm2_neg: 对应 x=-2 点值符号</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> *               - toom6_vm1_neg: 对应 x=-1 点值符号</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> * @param w4     输入/临时：点值 W4 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * @param w2     输入/临时：点值 W2 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * @param w1     输入/临时：点值 W1 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> * @param w0n    输入：最低位段 W0 的实际 limb 长度（0 &lt; w0n &lt;= 2n）</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * @note         w5=f(0), w4=f(-1), w3=f(1), w2=f(-2), w1=f(2), w0=f(inf)</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> * @warning      n&gt;0, 0&lt;w0n&lt;=2n</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#a5479cf130e909e3d594782131ef3ca22">lmmp_toom_interp6_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <span class="keyword">enum</span> <a class="code hl_enumeration" href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75bed">toom6_flags</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">flags</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">w4</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d3/d50/mul__toom__interp7_8c.html#a4e2c02ff5e8c641967d763af0e76ac4b">w2</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">w1</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">w0n</a>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"></span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"> * @brief Toom插值计算（7点插值）：用于Toom-44、Toom-53、Toom-62 乘法算法</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> * @param dst    输出结果缓冲区，存储插值计算结果（6*n + w6n limbs）</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"> *               w0 储存在[dst,2n], w2 储存在[dst+2n,2n+1], w6 储存在[dst+6n,w6n].</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"> * @param n      输入：Toom-7 拆分后每段标准 limb 长度</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"> * @param flags  输入：Toom-7 符号标志位，控制插值中的正负号运算</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment"> *               - toom7_w1_neg: 点值 W1 符号位</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"> *               - toom7_w3_neg: 点值 W3 符号位</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment"> * @param w1     输入/临时：点值 W1 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment"> * @param w3     输入/临时：点值 W3 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"> * @param w4     输入/临时：点值 W4 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> * @param w5     输入/临时：点值 W5 缓冲区（2n+1 limbs）</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * @param w6n    输入：最低位段 W6 的实际 limb 长度 (0 &lt; w6n ≤ 2n)</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> * @param tp     临时缓存空间（2*n+1 limbs）</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * @note         w0=f(0), w1=f(-2), w2=f(1), w3=f(-1), w4=f(2), w5=64*f(1/2), w6=f(inf),</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> * @warning      n&gt;0, 0&lt;w6n&lt;=2n</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#ac98c4398ab96bdf8294b73757bcc8e38">lmmp_toom_interp7_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">dst</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <span class="keyword">enum</span> <a class="code hl_enumeration" href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28">toom7_flags</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">flags</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">w1</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../da/d7f/mul__toom__interp6_8c.html#abeac6c0f86a7a600eca940f4921d2fc9">w3</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">w4</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../da/d7f/mul__toom__interp6_8c.html#ac938bef877c1a2652d4840c3fbd8db1c">w5</a>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">w6n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"></span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> * @brief Toom-3 专用：3次多项式在 x = +1 和 x = -1 处求值</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> * 计算 P(+1) 和 P(-1)，其中 P(x) 是一个3次多项式（4段系数）。</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * @param xp1  输出：P(+1) 的结果（n+1 个 limbs 空间）</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * @param xm1  输出：P(-1) 的结果（n+1 个 limbs 空间）</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * @param xp   输入：多项式系数数组（共4段，每段 n limbs）</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> * @param n    输入：每段完整系数的 limb 长度</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * @param x3n  输入：最后一段系数的实际长度（通常等于 n）</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> * @param tp   临时缓存空间（至少 n+1 limbs）</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment"> * @warning    0&lt;x3n&lt;=n</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"> * @return     符号位：0=正，~0=负（对应 P(-1)）</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#af98b9b08c790968117333768ab32372a">lmmp_toom_eval_dgr3_pm1_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp1</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xm1</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">x3n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"></span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * @brief Toom-3 专用：3次多项式在 x = +2 和 x = -2 处求值</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * 计算 P(+2) 和 P(-2)，其中 P(x) 是一个3次多项式（4段系数）。</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> * @param xp2  输出：P(+2) 的结果（n+1 个 limbs 空间）</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> * @param xm2  输出：P(-2) 的结果（n+1 个 limbs 空间）</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment"> * @param xp   输入：多项式系数数组（共4段，每段 n limbs）</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"> * @param n    输入：每段完整系数的 limb 长度</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"> * @param x3n  输入：最后一段系数的实际长度</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment"> * @param tp   临时缓存空间（至少 n+1 limbs）</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment"> * @warning    0&lt;x3n&lt;=n</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment"> * @return     符号位：0=正，~0=负（对应 P(-2)）</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#af0a96e41664eba816be8cf105824a32a">lmmp_toom_eval_dgr3_pm2_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp2</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xm2</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">x3n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"></span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment"> * @brief 通用高阶 Toom 求值：k次多项式在 x = +1 和 x = -1 处求值</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment"> * @param xp1  输出：P(+1) 的结果（n+1 limbs）</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment"> * @param xm1  输出：P(-1) 的结果（n+1 limbs）</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment"> * @param k    输入：多项式次数（也是完整段的数量）</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"> * @param xp   输入：多项式系数数组</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment"> * @param n    输入：每段完整系数的 limb 长度</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> * @param hn   输入：最后一段系数的实际长度</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"> * @param tp   临时缓存空间（n+1 limbs）</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment"> * @warning    0&lt;hn&lt;=n, 3 &lt; k</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"> * @return     符号位：0=正，~0=负</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#ad5101b25e1eb55014d6a66e6376eb797">lmmp_toom_eval_pm1_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp1</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xm1</a>, <span class="keywordtype">unsigned</span> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">hn</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment"></span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"> * @brief 通用高阶 Toom 求值：k次多项式在 x = +2 和 x = -2 处求值</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment"> * @param xp2  输出：P(+2) 的结果（n+1 limbs）</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment"> * @param xm2  输出：P(-2) 的结果（n+1 limbs）</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment"> * @param k    输入：多项式次数</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment"> * @param xp   输入：多项式系数数组</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment"> * @param n    输入：每段完整系数的 limb 长度</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment"> * @param hn   输入：最后一段系数的实际长度</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"> * @param tp   临时缓存空间（n+1 limbs）</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment"> * @warning    0&lt;hn&lt;=n, 3 &lt; k &lt; LIMB_BITS</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment"> * @return     符号位：0=正，~0=负</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d0/d3c/toom__interp_8h.html#a4ebbdc3171082a4955bb5049a0b4b50a">lmmp_toom_eval_pm2_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp2</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xm2</a>, <span class="keywordtype">unsigned</span> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">xp</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">hn</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#endif </span><span class="comment">// __LAMMP_TOOM_INTERP_H__</span></div>
+<div class="ttc" id="abinvert_8c_html_a13b230ea1d237595fb236c951a0849e0"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a></div><div class="ttdeci">#define k</div></div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00210">lmmp.h:210</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00207">lmmp.h:207</a></div></div>
+<div class="ttc" id="almmp_8h_html_a748ad941e186db2ca030aa4d766a0e5e"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></div><div class="ttdeci">const mp_limb_t * mp_srcptr</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00211">lmmp.h:211</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d90/lmmp_8h_source.html#l00206">lmmp.h:206</a></div></div>
+<div class="ttc" id="amul__toom32_8c_html_a76cd68ca6afad74f8cfef4ebd969beff"><div class="ttname"><a href="../../d4/d6a/mul__toom32_8c.html#a76cd68ca6afad74f8cfef4ebd969beff">vm1</a></div><div class="ttdeci">#define vm1</div></div>
+<div class="ttc" id="amul__toom33_8c_html_a6b1b4383fd5955a7a5b1ac13fafb0254"><div class="ttname"><a href="../../de/d4d/mul__toom33_8c.html#a6b1b4383fd5955a7a5b1ac13fafb0254">v2</a></div><div class="ttdeci">#define v2</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ab025e87040bd241c89f5a880c12fc80c"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a></div><div class="ttdeci">#define tp</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="amul__toom__interp6_8c_html_abeac6c0f86a7a600eca940f4921d2fc9"><div class="ttname"><a href="../../da/d7f/mul__toom__interp6_8c.html#abeac6c0f86a7a600eca940f4921d2fc9">w3</a></div><div class="ttdeci">#define w3</div></div>
+<div class="ttc" id="amul__toom__interp6_8c_html_ac938bef877c1a2652d4840c3fbd8db1c"><div class="ttname"><a href="../../da/d7f/mul__toom__interp6_8c.html#ac938bef877c1a2652d4840c3fbd8db1c">w5</a></div><div class="ttdeci">#define w5</div></div>
+<div class="ttc" id="amul__toom__interp7_8c_html_a4e2c02ff5e8c641967d763af0e76ac4b"><div class="ttname"><a href="../../d3/d50/mul__toom__interp7_8c.html#a4e2c02ff5e8c641967d763af0e76ac4b">w2</a></div><div class="ttdeci">#define w2</div></div>
+<div class="ttc" id="atmp__alloc_8h_html"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html">tmp_alloc.h</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a4ebbdc3171082a4955bb5049a0b4b50a"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a4ebbdc3171082a4955bb5049a0b4b50a">lmmp_toom_eval_pm2_</a></div><div class="ttdeci">int lmmp_toom_eval_pm2_(mp_ptr xp2, mp_ptr xm2, unsigned k, mp_srcptr xp, mp_size_t n, mp_size_t hn, mp_ptr tp)</div><div class="ttdoc">通用高阶 Toom 求值：k次多项式在 x = +2 和 x = -2 处求值</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d0a/mul__toom__eval_8c_source.html#l00107">mul_toom_eval.c:107</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a5479cf130e909e3d594782131ef3ca22"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a5479cf130e909e3d594782131ef3ca22">lmmp_toom_interp6_</a></div><div class="ttdeci">void lmmp_toom_interp6_(mp_ptr dst, mp_size_t n, enum toom6_flags flags, mp_ptr w4, mp_ptr w2, mp_ptr w1, mp_size_t w0n)</div><div class="ttdoc">Toom插值计算（6点插值）：用于Toom-43和Toom-52 乘法算法</div><div class="ttdef"><b>Definition</b> <a href="../../da/d7f/mul__toom__interp6_8c_source.html#l00039">mul_toom_interp6.c:39</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a6ae4dcc2f9da58424619e4302e1593e1"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a6ae4dcc2f9da58424619e4302e1593e1">lmmp_toom_interp5_</a></div><div class="ttdeci">void lmmp_toom_interp5_(mp_ptr dst, mp_ptr v2, mp_ptr vm1, mp_size_t n, mp_size_t spt, int vm1_neg, mp_limb_t vinf0)</div><div class="ttdoc">Toom插值计算（5点插值），用于Toom-33和Toom-42乘法算法</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d52/mul__toom__interp5_8c_source.html#l00010">mul_toom_interp5.c:10</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a77e8bf360f2722a43aee3fa225c75bed"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75bed">toom6_flags</a></div><div class="ttdeci">toom6_flags</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00025">toom_interp.h:25</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a77e8bf360f2722a43aee3fa225c75beda2abcb00d8391755d2a7573086e260fc0"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda2abcb00d8391755d2a7573086e260fc0">toom6_vm2_neg</a></div><div class="ttdeci">@ toom6_vm2_neg</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00025">toom_interp.h:25</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a77e8bf360f2722a43aee3fa225c75beda31b945b2e01af1b300723c2ed7997d08"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda31b945b2e01af1b300723c2ed7997d08">toom6_vm1_neg</a></div><div class="ttdeci">@ toom6_vm1_neg</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00025">toom_interp.h:25</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a77e8bf360f2722a43aee3fa225c75beda421d0950a9e5b767418f4a635298b421"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a77e8bf360f2722a43aee3fa225c75beda421d0950a9e5b767418f4a635298b421">toom6_all_pos</a></div><div class="ttdeci">@ toom6_all_pos</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00025">toom_interp.h:25</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a80fcbabcee1f284ef0c25ff62a9f2d28"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28">toom7_flags</a></div><div class="ttdeci">toom7_flags</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00027">toom_interp.h:27</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a80fcbabcee1f284ef0c25ff62a9f2d28ab0a196a221452e665ee923a72e8965d8"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28ab0a196a221452e665ee923a72e8965d8">toom7_w1_neg</a></div><div class="ttdeci">@ toom7_w1_neg</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00027">toom_interp.h:27</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_a80fcbabcee1f284ef0c25ff62a9f2d28ad65bcb0b7579c8a12da4d9ab1b504c95"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#a80fcbabcee1f284ef0c25ff62a9f2d28ad65bcb0b7579c8a12da4d9ab1b504c95">toom7_w3_neg</a></div><div class="ttdeci">@ toom7_w3_neg</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d3c/toom__interp_8h_source.html#l00027">toom_interp.h:27</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_ac98c4398ab96bdf8294b73757bcc8e38"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#ac98c4398ab96bdf8294b73757bcc8e38">lmmp_toom_interp7_</a></div><div class="ttdeci">void lmmp_toom_interp7_(mp_ptr dst, mp_size_t n, enum toom7_flags flags, mp_ptr w1, mp_ptr w3, mp_ptr w4, mp_ptr w5, mp_size_t w6n, mp_ptr tp)</div><div class="ttdoc">Toom插值计算（7点插值）：用于Toom-44、Toom-53、Toom-62 乘法算法</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d50/mul__toom__interp7_8c_source.html#l00045">mul_toom_interp7.c:45</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_ad5101b25e1eb55014d6a66e6376eb797"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#ad5101b25e1eb55014d6a66e6376eb797">lmmp_toom_eval_pm1_</a></div><div class="ttdeci">int lmmp_toom_eval_pm1_(mp_ptr xp1, mp_ptr xm1, unsigned k, mp_srcptr xp, mp_size_t n, mp_size_t hn, mp_ptr tp)</div><div class="ttdoc">通用高阶 Toom 求值：k次多项式在 x = +1 和 x = -1 处求值</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d0a/mul__toom__eval_8c_source.html#l00060">mul_toom_eval.c:60</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_af0a96e41664eba816be8cf105824a32a"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#af0a96e41664eba816be8cf105824a32a">lmmp_toom_eval_dgr3_pm2_</a></div><div class="ttdeci">int lmmp_toom_eval_dgr3_pm2_(mp_ptr xp2, mp_ptr xm2, mp_srcptr xp, mp_size_t n, mp_size_t x3n, mp_ptr tp)</div><div class="ttdoc">Toom-3 专用：3次多项式在 x = +2 和 x = -2 处求值 计算 P(+2) 和 P(-2)，其中 P(x) 是一个3次多项式（4段系数）。</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d0a/mul__toom__eval_8c_source.html#l00029">mul_toom_eval.c:29</a></div></div>
+<div class="ttc" id="atoom__interp_8h_html_af98b9b08c790968117333768ab32372a"><div class="ttname"><a href="../../d0/d3c/toom__interp_8h.html#af98b9b08c790968117333768ab32372a">lmmp_toom_eval_dgr3_pm1_</a></div><div class="ttdeci">int lmmp_toom_eval_dgr3_pm1_(mp_ptr xp1, mp_ptr xm1, mp_srcptr xp, mp_size_t n, mp_size_t x3n, mp_ptr tp)</div><div class="ttdoc">Toom-3 专用：3次多项式在 x = +1 和 x = -1 处求值 计算 P(+1) 和 P(-1)，其中 P(x) 是一个3次多项式（4段系数）。</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d0a/mul__toom__eval_8c_source.html#l00009">mul_toom_eval.c:9</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_ca4dcf94d3b8e5b7c7729e61e0ae3ccc.html">lammp</a></li><li class="navelem"><a class="el" href="../../dir_69f675299a25620559a8729d81bd0933.html">impl</a></li><li class="navelem"><a class="el" href="../../d0/d3c/toom__interp_8h.html">toom_interp.h</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:36 , 为 LAMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

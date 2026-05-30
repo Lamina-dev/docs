@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/fft.c 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('fft_8c_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">fft.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="fft_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="memory__bridge_8h.html">memory_bridge.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">lmmc/config.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="numeric_8h.html">lmmc/numeric.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">/* ======================== Utility helpers ======================== */</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">static</span> <span class="keywordtype">int</span> fft_is_power_of_two(<span class="keywordtype">size_t</span> n) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> (n &gt; 0) &amp;&amp; ((n &amp; (n - 1)) == 0);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">static</span> <span class="keywordtype">int</span> fft_is_power_of_four(<span class="keywordtype">size_t</span> n) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (n == 0) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> ((n &amp; (n - 1)) != 0) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">/* A power of 2 is a power of 4 iff the single set bit is at an even position */</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> (n &amp; 0x5555555555555555ULL) != 0;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">static</span> <span class="keywordtype">size_t</span> fft_next_power_of_two(<span class="keywordtype">size_t</span> n) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">size_t</span> p = 1;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (n == 0) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">while</span> (p &lt; n) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        p &lt;&lt;= 1;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> p;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">/* ======================== Radix-2 Cooley-Tukey FFT ======================== */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">static</span> <span class="keywordtype">void</span> fft_bit_reverse(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag, <span class="keywordtype">size_t</span> n) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">size_t</span> i, j, bit;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> tmp;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    j = 0;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">for</span> (i = 1; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        bit = n &gt;&gt; 1;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">while</span> (j &amp; bit) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            j ^= bit;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            bit &gt;&gt;= 1;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        j ^= bit;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span> (i &lt; j) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            tmp = real[i]; real[i] = real[j]; real[j] = tmp;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            tmp = imag[i]; imag[i] = imag[j]; imag[j] = tmp;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> fft_radix2(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag, <span class="keywordtype">size_t</span> n, <span class="keywordtype">int</span> inverse) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordtype">size_t</span> len, i, j;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">double</span> angle_sign;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (n &lt;= 1) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    fft_bit_reverse(real, imag, n);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    angle_sign = inverse ? 1.0 : -1.0;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">for</span> (len = 2; len &lt;= n; len &lt;&lt;= 1) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordtype">double</span> angle = angle_sign * 2.0 * <a class="code hl_define" href="numeric_8h.html#a867d8ad1c69eb579564dbd050251db8f">LMMC_PI</a> / (double)len;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">double</span> wlen_r = cos(angle);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">double</span> wlen_i = sin(angle);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; i += len) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordtype">double</span> w_r = 1.0, w_i = 0.0;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordtype">size_t</span> half = len &gt;&gt; 1;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keywordflow">for</span> (j = 0; j &lt; half; ++j) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                <span class="keywordtype">size_t</span> u_idx = i + j;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                <span class="keywordtype">size_t</span> v_idx = i + j + half;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="comment">/* twiddle * x[v] */</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keywordtype">double</span> t_r = w_r * real[v_idx] - w_i * imag[v_idx];</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordtype">double</span> t_i = w_r * imag[v_idx] + w_i * real[v_idx];</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="comment">/* butterfly */</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                real[v_idx] = real[u_idx] - t_r;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                imag[v_idx] = imag[u_idx] - t_i;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                real[u_idx] = real[u_idx] + t_r;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                imag[u_idx] = imag[u_idx] + t_i;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <span class="comment">/* advance twiddle */</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    <span class="keywordtype">double</span> new_w_r = w_r * wlen_r - w_i * wlen_i;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    <span class="keywordtype">double</span> new_w_i = w_r * wlen_i + w_i * wlen_r;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    w_r = new_w_r;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                    w_i = new_w_i;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">if</span> (inverse) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordtype">double</span> scale = 1.0 / (double)n;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            real[i] *= scale;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            imag[i] *= scale;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">/* ======================== Bluestein Chirp-Z ======================== */</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> fft_bluestein(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag, <span class="keywordtype">size_t</span> n, <span class="keywordtype">int</span> inverse) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordtype">size_t</span> m;           <span class="comment">/* padded power-of-2 length */</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordtype">size_t</span> k;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordtype">double</span> sign;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *a_r = NULL, *a_i = NULL;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *b_r = NULL, *b_i = NULL;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">if</span> (n &lt;= 1) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="comment">/* Padded length: next power of 2 &gt;= 2N - 1 */</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    m = fft_next_power_of_two(2 * n - 1);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment">/* Allocate working arrays */</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    a_r = (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    a_i = (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    b_r = (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    b_i = (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">if</span> (a_r == NULL || a_i == NULL || b_r == NULL || b_i == NULL) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">/* Zero-fill */</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    memset(a_r, 0, m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    memset(a_i, 0, m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    memset(b_r, 0, m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    memset(b_i, 0, m * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="comment">/* Sign for forward/inverse: forward DFT uses exp(-2*pi*i*k*n/N),</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">     * so chirp phase sign is -1 for forward, +1 for inverse. */</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    sign = inverse ? 1.0 : -1.0;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="comment">/* Build chirp-modulated input a[k] = x[k] * exp(sign * i * pi * k^2 / N)</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment">     * (Bluestein identity: modulate by exp(-i*pi*k^2/N) for forward) */</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">for</span> (k = 0; k &lt; n; ++k) {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordtype">double</span> phase = sign * <a class="code hl_define" href="numeric_8h.html#a867d8ad1c69eb579564dbd050251db8f">LMMC_PI</a> * (double)(k * k) / (double)n;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordtype">double</span> c = cos(phase);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordtype">double</span> s = sin(phase);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="comment">/* a[k] = x[k] * exp(sign*i*pi*k^2/N) = x[k] * (c + i*s) */</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        a_r[k] = real[k] * c - imag[k] * s;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        a_i[k] = imag[k] * c + real[k] * s;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="comment">/* Build convolution kernel b[k] = exp(-sign * i * pi * k^2 / N)</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">     * with wrap-around for negative indices */</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">for</span> (k = 0; k &lt; n; ++k) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keywordtype">double</span> phase = -sign * <a class="code hl_define" href="numeric_8h.html#a867d8ad1c69eb579564dbd050251db8f">LMMC_PI</a> * (double)(k * k) / (double)n;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordtype">double</span> c = cos(phase);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordtype">double</span> s = sin(phase);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        b_r[k] = c;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        b_i[k] = s;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">/* Wrap-around: b[m-k] = b[k] for k = 1..n-1 */</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">for</span> (k = 1; k &lt; n; ++k) {</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        b_r[m - k] = b_r[k];</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        b_i[m - k] = b_i[k];</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    }</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="comment">/* FFT both a and b (forward, length m which is power of 2) */</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    st = fft_radix2(a_r, a_i, m, 0);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    st = fft_radix2(b_r, b_i, m, 0);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">/* Pointwise multiply: a = a * b */</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">for</span> (k = 0; k &lt; m; ++k) {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordtype">double</span> tr = a_r[k] * b_r[k] - a_i[k] * b_i[k];</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordtype">double</span> ti = a_r[k] * b_i[k] + a_i[k] * b_r[k];</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        a_r[k] = tr;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        a_i[k] = ti;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    }</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="comment">/* Inverse FFT of the product */</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    st = fft_radix2(a_r, a_i, m, 1);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="comment">/* Extract result: X[k] = a[k] * exp(sign * i * pi * k^2 / N) */</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">for</span> (k = 0; k &lt; n; ++k) {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordtype">double</span> phase = sign * <a class="code hl_define" href="numeric_8h.html#a867d8ad1c69eb579564dbd050251db8f">LMMC_PI</a> * (double)(k * k) / (double)n;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordtype">double</span> c = cos(phase);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordtype">double</span> s = sin(phase);</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="comment">/* result[k] = a[k] * exp(sign*i*pi*k^2/N) = a[k] * (c + i*s) */</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        real[k] = a_r[k] * c - a_i[k] * s;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        imag[k] = a_i[k] * c + a_r[k] * s;</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="comment">/* For inverse FFT, normalize by 1/N */</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordflow">if</span> (inverse) {</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="keywordtype">double</span> scale = 1.0 / (double)n;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">for</span> (k = 0; k &lt; n; ++k) {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            real[k] *= scale;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            imag[k] *= scale;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        }</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    }</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>cleanup:</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keywordflow">if</span> (a_r) <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(a_r);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">if</span> (a_i) <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(a_i);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordflow">if</span> (b_r) <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(b_r);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordflow">if</span> (b_i) <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(b_i);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment">/* ======================== Public API ======================== */</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="numeric_8h.html#aba8d7da4b4fc13f799b921c441d1ce3f">  256</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="fft_8c.html#aba8d7da4b4fc13f799b921c441d1ce3f">lmmc_fft</a>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag, <span class="keywordtype">size_t</span> n, <span class="keywordtype">int</span> inverse) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">if</span> (real == NULL || imag == NULL || n == 0) {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    }</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">if</span> (n == 1) {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <span class="comment">/* DFT of length 1 is identity */</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    }</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment">/* Dispatch: power-of-4 -&gt; radix-4, power-of-2 -&gt; radix-2, else -&gt; Bluestein */</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">if</span> (fft_is_power_of_four(n)) {</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="numeric_8h.html#a36fdb198ddd454fbcf24d264f21a4376">lmmc_fft_radix4</a>(real, imag, n, inverse ? 1 : 0);</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fft_is_power_of_two(n)) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="keywordflow">return</span> fft_radix2(real, imag, n, inverse ? 1 : 0);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">return</span> fft_bluestein(real, imag, n, inverse ? 1 : 0);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    }</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>}</div>
+</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="foldopen" id="foldopen00275" data-start="{" data-end="}">
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno"><a class="line" href="numeric_8h.html#a65d6005c73035c52cfebf18d650583d9">  275</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="fft_8c.html#a65d6005c73035c52cfebf18d650583d9">lmmc_fft_forward</a>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag, <span class="keywordtype">size_t</span> n) {</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="fft_8c.html#aba8d7da4b4fc13f799b921c441d1ce3f">lmmc_fft</a>(real, imag, n, 0);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>}</div>
+</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="foldopen" id="foldopen00279" data-start="{" data-end="}">
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="numeric_8h.html#a3e3b69a714dfc6988e10b902cb5066d8">  279</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="fft_8c.html#a3e3b69a714dfc6988e10b902cb5066d8">lmmc_fft_inverse</a>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag, <span class="keywordtype">size_t</span> n) {</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="fft_8c.html#aba8d7da4b4fc13f799b921c441d1ce3f">lmmc_fft</a>(real, imag, n, 1);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>}</div>
+</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="foldopen" id="foldopen00283" data-start="{" data-end="}">
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="numeric_8h.html#a329f20873cc344a932d570ab1aed4e34">  283</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="fft_8c.html#a329f20873cc344a932d570ab1aed4e34">lmmc_fft_radix4_pad_into</a>(</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real_in, <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag_in, <span class="keywordtype">size_t</span> n,</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* real_out, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* imag_out, <span class="keywordtype">size_t</span>* out_nfft)</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>{</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <span class="keywordtype">size_t</span> nfft = 0;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordflow">if</span> (real_in == NULL || imag_in == NULL || real_out == NULL ||</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        imag_out == NULL || out_nfft == NULL || n == 0) {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    }</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    st = <a class="code hl_function" href="numeric_8h.html#a952b8d6f352cf24c619436e10966c0d8">lmmc_fft_radix4_next_size</a>(n, &amp;nfft);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    }</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="comment">/* Copy input data */</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    memcpy(real_out, real_in, n * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    memcpy(imag_out, imag_in, n * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="comment">/* Zero-pad the remainder */</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordflow">if</span> (nfft &gt; n) {</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        memset(real_out + n, 0, (nfft - n) * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        memset(imag_out + n, 0, (nfft - n) * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    }</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    *out_nfft = nfft;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>}</div>
+</div>
+<div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">LMMC 实数类型与基本运算抽象。</div></div>
+<div class="ttc" id="aconfig_8h_html_aa4548c12a1662c29aa98371cb5885543"><div class="ttname"><a href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></div><div class="ttdeci">double lmmc_real_t</div><div class="ttdoc">LMMC 内部使用的实数类型。</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00018">config.h:18</a></div></div>
+<div class="ttc" id="afft_8c_html_a329f20873cc344a932d570ab1aed4e34"><div class="ttname"><a href="fft_8c.html#a329f20873cc344a932d570ab1aed4e34">lmmc_fft_radix4_pad_into</a></div><div class="ttdeci">lmmc_status_t lmmc_fft_radix4_pad_into(const lmmc_real_t *real_in, const lmmc_real_t *imag_in, size_t n, lmmc_real_t *real_out, lmmc_real_t *imag_out, size_t *out_nfft)</div><div class="ttdoc">显式零填充辅助函数：将长度 n 的输入零填充到下一个 4 的幂。</div><div class="ttdef"><b>Definition</b> <a href="fft_8c_source.html#l00283">fft.c:283</a></div></div>
+<div class="ttc" id="afft_8c_html_a3e3b69a714dfc6988e10b902cb5066d8"><div class="ttname"><a href="fft_8c.html#a3e3b69a714dfc6988e10b902cb5066d8">lmmc_fft_inverse</a></div><div class="ttdeci">lmmc_status_t lmmc_fft_inverse(lmmc_real_t *real, lmmc_real_t *imag, size_t n)</div><div class="ttdoc">等价于 ::lmmc_fft(real, imag, n, 1) 。</div><div class="ttdef"><b>Definition</b> <a href="fft_8c_source.html#l00279">fft.c:279</a></div></div>
+<div class="ttc" id="afft_8c_html_a65d6005c73035c52cfebf18d650583d9"><div class="ttname"><a href="fft_8c.html#a65d6005c73035c52cfebf18d650583d9">lmmc_fft_forward</a></div><div class="ttdeci">lmmc_status_t lmmc_fft_forward(lmmc_real_t *real, lmmc_real_t *imag, size_t n)</div><div class="ttdoc">等价于 ::lmmc_fft(real, imag, n, 0) 。</div><div class="ttdef"><b>Definition</b> <a href="fft_8c_source.html#l00275">fft.c:275</a></div></div>
+<div class="ttc" id="afft_8c_html_aba8d7da4b4fc13f799b921c441d1ce3f"><div class="ttname"><a href="fft_8c.html#aba8d7da4b4fc13f799b921c441d1ce3f">lmmc_fft</a></div><div class="ttdeci">lmmc_status_t lmmc_fft(lmmc_real_t *real, lmmc_real_t *imag, size_t n, int inverse)</div><div class="ttdoc">计算任意长度 N 点 DFT（正变换或逆变换）。</div><div class="ttdef"><b>Definition</b> <a href="fft_8c_source.html#l00256">fft.c:256</a></div></div>
+<div class="ttc" id="amemory__bridge_8h_html"><div class="ttname"><a href="memory__bridge_8h.html">memory_bridge.h</a></div><div class="ttdoc">内存分配抽象层，可在标准库 malloc 与 LAMMP 栈分配器之间切换。</div></div>
+<div class="ttc" id="amemory__bridge_8h_html_a883f385bde933316ceedda50a2293fc0"><div class="ttname"><a href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a></div><div class="ttdeci">#define lmmc_free(ptr)</div><div class="ttdef"><b>Definition</b> <a href="memory__bridge_8h_source.html#l00025">memory_bridge.h:25</a></div></div>
+<div class="ttc" id="amemory__bridge_8h_html_ac171dbb634c8dc145a35b0cbc28ee480"><div class="ttname"><a href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a></div><div class="ttdeci">#define lmmc_alloc(sz)</div><div class="ttdef"><b>Definition</b> <a href="memory__bridge_8h_source.html#l00024">memory_bridge.h:24</a></div></div>
+<div class="ttc" id="anumeric_8h_html"><div class="ttname"><a href="numeric_8h.html">numeric.h</a></div><div class="ttdoc">数值常量、特殊值、近似比较与基本数学补充函数。</div></div>
+<div class="ttc" id="anumeric_8h_html_a36fdb198ddd454fbcf24d264f21a4376"><div class="ttname"><a href="numeric_8h.html#a36fdb198ddd454fbcf24d264f21a4376">lmmc_fft_radix4</a></div><div class="ttdeci">lmmc_status_t lmmc_fft_radix4(lmmc_real_t *real, lmmc_real_t *imag, size_t n, int inverse)</div><div class="ttdoc">严格 radix-4 就地 FFT。</div><div class="ttdef"><b>Definition</b> <a href="numeric_8c_source.html#l00424">numeric.c:424</a></div></div>
+<div class="ttc" id="anumeric_8h_html_a867d8ad1c69eb579564dbd050251db8f"><div class="ttname"><a href="numeric_8h.html#a867d8ad1c69eb579564dbd050251db8f">LMMC_PI</a></div><div class="ttdeci">#define LMMC_PI</div><div class="ttdoc">常量。</div><div class="ttdef"><b>Definition</b> <a href="numeric_8h_source.html#l00022">numeric.h:22</a></div></div>
+<div class="ttc" id="anumeric_8h_html_a952b8d6f352cf24c619436e10966c0d8"><div class="ttname"><a href="numeric_8h.html#a952b8d6f352cf24c619436e10966c0d8">lmmc_fft_radix4_next_size</a></div><div class="ttdeci">lmmc_status_t lmmc_fft_radix4_next_size(size_t n, size_t *out_nfft)</div><div class="ttdoc">计算不小于 n 的最近 4 的幂，用于 FFT 长度对齐。</div><div class="ttdef"><b>Definition</b> <a href="numeric_8c_source.html#l00261">numeric.c:261</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a></div><div class="ttdeci">lmmc_status_t</div><div class="ttdoc">LMMC 库统一返回的状态码。</div><div class="ttdef"><b>Definition</b> <a href="status_8h_source.html#l00022">status.h:22</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a></div><div class="ttdeci">@ LMMC_STATUS_OK</div><div class="ttdef"><b>Definition</b> <a href="status_8h_source.html#l00023">status.h:23</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a></div><div class="ttdeci">@ LMMC_STATUS_ALLOCATION_FAILED</div><div class="ttdef"><b>Definition</b> <a href="status_8h_source.html#l00026">status.h:26</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">@ LMMC_STATUS_INVALID_ARGUMENT</div><div class="ttdef"><b>Definition</b> <a href="status_8h_source.html#l00024">status.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="fft_8c.html">fft.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:52 , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

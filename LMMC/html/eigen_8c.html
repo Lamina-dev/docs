@@ -1,0 +1,747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/eigen.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('eigen_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">eigen.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>特征值、奇异值、伪逆与条件数算法实现。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="memory__bridge_8h_source.html">memory_bridge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="internal_8h_source.html">internal.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">lmmc/config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dense_8h_source.html">lmmc/dense.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="eigen_8h_source.html">lmmc/eigen.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="linear__algebra_8h_source.html">lmmc/linear_algebra.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> eigen.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="eigen_8c__incl.svg" width="100%" height="558"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="eigen_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a0020788c596d0175562f3bb67616c1df" id="r_a0020788c596d0175562f3bb67616c1df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#a0020788c596d0175562f3bb67616c1df">EIGEN_MAX_ITER</a>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a0020788c596d0175562f3bb67616c1df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23ddbe8145180a5aef09beb3e5ed943" id="r_ad23ddbe8145180a5aef09beb3e5ed943"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#ad23ddbe8145180a5aef09beb3e5ed943">MAT_ELEM</a>(mat,  i,  j)&#160;&#160;&#160;((mat)-&gt;data[(i) * (mat)-&gt;stride + (j)])</td></tr>
+<tr class="separator:ad23ddbe8145180a5aef09beb3e5ed943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a2d39fcf96e32f1ee32641e7f5cd2e06f" id="r_a2d39fcf96e32f1ee32641e7f5cd2e06f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#a2d39fcf96e32f1ee32641e7f5cd2e06f">lmmc_eigen_symmetric</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="eigen_8h.html#structlmmc__eigen__sym__result__t">lmmc_eigen_sym_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a2d39fcf96e32f1ee32641e7f5cd2e06f"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算实对称矩阵的全部特征值与特征向量。  <br /></td></tr>
+<tr class="separator:a2d39fcf96e32f1ee32641e7f5cd2e06f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269f7eb3516c8ed0e112479f7f58ba4f" id="r_a269f7eb3516c8ed0e112479f7f58ba4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#a269f7eb3516c8ed0e112479f7f58ba4f">lmmc_eigen_sym_result_destroy</a> (<a class="el" href="eigen_8h.html#structlmmc__eigen__sym__result__t">lmmc_eigen_sym_result_t</a> *result)</td></tr>
+<tr class="memdesc:a269f7eb3516c8ed0e112479f7f58ba4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">释放 <a class="el" href="eigen_8h.html#a2d39fcf96e32f1ee32641e7f5cd2e06f" title="计算实对称矩阵的全部特征值与特征向量。">lmmc_eigen_symmetric</a> 输出结果。  <br /></td></tr>
+<tr class="separator:a269f7eb3516c8ed0e112479f7f58ba4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44679d92a2f4bbfd4ede1dc8acdf62e5" id="r_a44679d92a2f4bbfd4ede1dc8acdf62e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#a44679d92a2f4bbfd4ede1dc8acdf62e5">lmmc_eigen_general</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="eigen_8h.html#structlmmc__eigen__gen__result__t">lmmc_eigen_gen_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a44679d92a2f4bbfd4ede1dc8acdf62e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算一般实矩阵的特征值（不输出特征向量）。  <br /></td></tr>
+<tr class="separator:a44679d92a2f4bbfd4ede1dc8acdf62e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4424b25d03c3390f01e2142781b9ecc" id="r_af4424b25d03c3390f01e2142781b9ecc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#af4424b25d03c3390f01e2142781b9ecc">lmmc_eigen_gen_result_destroy</a> (<a class="el" href="eigen_8h.html#structlmmc__eigen__gen__result__t">lmmc_eigen_gen_result_t</a> *result)</td></tr>
+<tr class="memdesc:af4424b25d03c3390f01e2142781b9ecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">释放 <a class="el" href="eigen_8h.html#a44679d92a2f4bbfd4ede1dc8acdf62e5" title="计算一般实矩阵的特征值（不输出特征向量）。">lmmc_eigen_general</a> 输出结果。  <br /></td></tr>
+<tr class="separator:af4424b25d03c3390f01e2142781b9ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdf483f81dfd9995b700d71ad7328eec" id="r_afdf483f81dfd9995b700d71ad7328eec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#afdf483f81dfd9995b700d71ad7328eec">lmmc_eigen_gen_full_result_destroy</a> (<a class="el" href="eigen_8h.html#structlmmc__eigen__gen__full__result__t">lmmc_eigen_gen_full_result_t</a> *result)</td></tr>
+<tr class="memdesc:afdf483f81dfd9995b700d71ad7328eec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute eigenvectors via inverse iteration with Wilkinson shift.  <br /></td></tr>
+<tr class="separator:afdf483f81dfd9995b700d71ad7328eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab81728e0d7bf46de4c1fb8a86b25ed4f" id="r_ab81728e0d7bf46de4c1fb8a86b25ed4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#ab81728e0d7bf46de4c1fb8a86b25ed4f">lmmc_eigen_general_full</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="eigen_8h.html#structlmmc__eigen__gen__full__result__t">lmmc_eigen_gen_full_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:ab81728e0d7bf46de4c1fb8a86b25ed4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算一般实矩阵的特征值与特征向量。  <br /></td></tr>
+<tr class="separator:ab81728e0d7bf46de4c1fb8a86b25ed4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1631a4e13e9d6edff7115e2b0526bd1d" id="r_a1631a4e13e9d6edff7115e2b0526bd1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#a1631a4e13e9d6edff7115e2b0526bd1d">lmmc_svd</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="eigen_8h.html#structlmmc__svd__result__t">lmmc_svd_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a1631a4e13e9d6edff7115e2b0526bd1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算奇异值分解：A = U * Σ * V^T。  <br /></td></tr>
+<tr class="separator:a1631a4e13e9d6edff7115e2b0526bd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a6b92455d8c4a7787679ae0eb16444" id="r_ab5a6b92455d8c4a7787679ae0eb16444"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#ab5a6b92455d8c4a7787679ae0eb16444">lmmc_pinv</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> tol, <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *out_pinv)</td></tr>
+<tr class="memdesc:ab5a6b92455d8c4a7787679ae0eb16444"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算 Moore-Penrose 伪逆 A^+。  <br /></td></tr>
+<tr class="separator:ab5a6b92455d8c4a7787679ae0eb16444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab766a11b1f5bf4b4bae7f62dca8e2697" id="r_ab766a11b1f5bf4b4bae7f62dca8e2697"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#ab766a11b1f5bf4b4bae7f62dca8e2697">lmmc_cond</a> (const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *a, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *out_cond)</td></tr>
+<tr class="memdesc:ab766a11b1f5bf4b4bae7f62dca8e2697"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵的 2-范数条件数：κ₂(A) = σ_max / σ_min。  <br /></td></tr>
+<tr class="separator:ab766a11b1f5bf4b4bae7f62dca8e2697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa5e95f384f44c01900307960ead05f" id="r_abfa5e95f384f44c01900307960ead05f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eigen_8c.html#abfa5e95f384f44c01900307960ead05f">lmmc_svd_result_destroy</a> (<a class="el" href="eigen_8h.html#structlmmc__svd__result__t">lmmc_svd_result_t</a> *result)</td></tr>
+<tr class="memdesc:abfa5e95f384f44c01900307960ead05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">释放 <a class="el" href="eigen_8h.html#a1631a4e13e9d6edff7115e2b0526bd1d" title="计算奇异值分解：A = U * Σ * V^T。">lmmc_svd</a> 输出结果。  <br /></td></tr>
+<tr class="separator:abfa5e95f384f44c01900307960ead05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>特征值、奇异值、伪逆与条件数算法实现。 </p>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 中定义.</p>
+</div><h2 class="groupheader">宏定义说明</h2>
+<a id="a0020788c596d0175562f3bb67616c1df" name="a0020788c596d0175562f3bb67616c1df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0020788c596d0175562f3bb67616c1df">&#9670;&#160;</a></span>EIGEN_MAX_ITER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EIGEN_MAX_ITER&#160;&#160;&#160;30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00014">14</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad23ddbe8145180a5aef09beb3e5ed943" name="ad23ddbe8145180a5aef09beb3e5ed943"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad23ddbe8145180a5aef09beb3e5ed943">&#9670;&#160;</a></span>MAT_ELEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAT_ELEM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">mat, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">i, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">j&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((mat)-&gt;data[(i) * (mat)-&gt;stride + (j)])</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00015">15</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a2d39fcf96e32f1ee32641e7f5cd2e06f" name="a2d39fcf96e32f1ee32641e7f5cd2e06f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d39fcf96e32f1ee32641e7f5cd2e06f">&#9670;&#160;</a></span>lmmc_eigen_symmetric()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_eigen_symmetric </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__eigen__sym__result__t">lmmc_eigen_sym_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算实对称矩阵的全部特征值与特征向量。 </p>
+<p>算法：Householder 三对角化 → 隐式 QL 迭代。 特征值按升序排列，第 i 个特征值对应 eigenvectors 的第 i 列。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>n×n 对称矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>输出结果，调用方需配对调用 <a class="el" href="eigen_8h.html#a269f7eb3516c8ed0e112479f7f58ba4f" title="释放 lmmc_eigen_symmetric 输出结果。">lmmc_eigen_sym_result_destroy</a> 释放。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或矩阵非方阵。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81">LMMC_STATUS_CONVERGENCE_FAILED</a> — QL 迭代未收敛（超过 30 次）。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存（eigenvalues 向量 + eigenvectors 矩阵 + 临时工作空间）。</li>
+<li>a 不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00167">167</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="eigen_8h_source.html#l00021">lmmc_eigen_sym_result_t::eigenvalues</a>, <a class="el" href="eigen_8h_source.html#l00022">lmmc_eigen_sym_result_t::eigenvectors</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="dense_8c_source.html#l00099">lmmc_mat_copy()</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00284">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00015">MAT_ELEM</a> , 以及 <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_a2d39fcf96e32f1ee32641e7f5cd2e06f_cgraph.svg" width="386" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a269f7eb3516c8ed0e112479f7f58ba4f" name="a269f7eb3516c8ed0e112479f7f58ba4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269f7eb3516c8ed0e112479f7f58ba4f">&#9670;&#160;</a></span>lmmc_eigen_sym_result_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_eigen_sym_result_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__eigen__sym__result__t">lmmc_eigen_sym_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>释放 <a class="el" href="eigen_8h.html#a2d39fcf96e32f1ee32641e7f5cd2e06f" title="计算实对称矩阵的全部特征值与特征向量。">lmmc_eigen_symmetric</a> 输出结果。 </p>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00222">222</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="eigen_8h_source.html#l00021">lmmc_eigen_sym_result_t::eigenvalues</a>, <a class="el" href="eigen_8h_source.html#l00022">lmmc_eigen_sym_result_t::eigenvectors</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a> , 以及 <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_a269f7eb3516c8ed0e112479f7f58ba4f_cgraph.svg" width="388" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a44679d92a2f4bbfd4ede1dc8acdf62e5" name="a44679d92a2f4bbfd4ede1dc8acdf62e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44679d92a2f4bbfd4ede1dc8acdf62e5">&#9670;&#160;</a></span>lmmc_eigen_general()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_eigen_general </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__eigen__gen__result__t">lmmc_eigen_gen_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算一般实矩阵的特征值（不输出特征向量）。 </p>
+<p>算法：Householder Hessenberg 约化 → Francis 双移位 QR 迭代。 复数特征值以共轭对形式出现在 real_parts/imag_parts 中。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>n×n 实矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>输出结果，调用方需配对调用 <a class="el" href="eigen_8h.html#af4424b25d03c3390f01e2142781b9ecc" title="释放 lmmc_eigen_general 输出结果。">lmmc_eigen_gen_result_destroy</a> 释放。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或矩阵非方阵。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81">LMMC_STATUS_CONVERGENCE_FAILED</a> — QR 迭代未收敛。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存。a 不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00465">465</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="eigen_8h_source.html#l00030">lmmc_eigen_gen_result_t::imag_parts</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00284">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00015">MAT_ELEM</a>, <a class="el" href="eigen_8h_source.html#l00029">lmmc_eigen_gen_result_t::real_parts</a> , 以及 <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_a44679d92a2f4bbfd4ede1dc8acdf62e5_cgraph.svg" width="366" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af4424b25d03c3390f01e2142781b9ecc" name="af4424b25d03c3390f01e2142781b9ecc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4424b25d03c3390f01e2142781b9ecc">&#9670;&#160;</a></span>lmmc_eigen_gen_result_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_eigen_gen_result_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__eigen__gen__result__t">lmmc_eigen_gen_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>释放 <a class="el" href="eigen_8h.html#a44679d92a2f4bbfd4ede1dc8acdf62e5" title="计算一般实矩阵的特征值（不输出特征向量）。">lmmc_eigen_general</a> 输出结果。 </p>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00585">585</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="eigen_8h_source.html#l00030">lmmc_eigen_gen_result_t::imag_parts</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a> , 以及 <a class="el" href="eigen_8h_source.html#l00029">lmmc_eigen_gen_result_t::real_parts</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_af4424b25d03c3390f01e2142781b9ecc_cgraph.svg" width="382" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afdf483f81dfd9995b700d71ad7328eec" name="afdf483f81dfd9995b700d71ad7328eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdf483f81dfd9995b700d71ad7328eec">&#9670;&#160;</a></span>lmmc_eigen_gen_full_result_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_eigen_gen_full_result_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__eigen__gen__full__result__t">lmmc_eigen_gen_full_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute eigenvectors via inverse iteration with Wilkinson shift. </p>
+<p>释放 <a class="el" href="eigen_8h.html#ab81728e0d7bf46de4c1fb8a86b25ed4f" title="计算一般实矩阵的特征值与特征向量。">lmmc_eigen_general_full</a> 输出结果。</p>
+<p>For each eigenvalue mu, solve (A - mu*I) * x = x_prev iteratively. For complex-conjugate pairs, use real arithmetic with the 2x2 block structure. </p>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00598">598</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="eigen_8h_source.html#l00044">lmmc_eigen_gen_full_result_t::imag_parts</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>, <a class="el" href="eigen_8h_source.html#l00043">lmmc_eigen_gen_full_result_t::real_parts</a>, <a class="el" href="eigen_8h_source.html#l00046">lmmc_eigen_gen_full_result_t::vectors_imag</a> , 以及 <a class="el" href="eigen_8h_source.html#l00045">lmmc_eigen_gen_full_result_t::vectors_real</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l00863">lmmc_eigen_general_full()</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_afdf483f81dfd9995b700d71ad7328eec_cgraph.svg" width="368" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_afdf483f81dfd9995b700d71ad7328eec_icgraph.svg" width="407" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab81728e0d7bf46de4c1fb8a86b25ed4f" name="ab81728e0d7bf46de4c1fb8a86b25ed4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab81728e0d7bf46de4c1fb8a86b25ed4f">&#9670;&#160;</a></span>lmmc_eigen_general_full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_eigen_general_full </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__eigen__gen__full__result__t">lmmc_eigen_gen_full_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算一般实矩阵的特征值与特征向量。 </p>
+<p>使用 Hessenberg 约化 + Francis 双移位 QR 迭代求特征值， 再通过逆迭代（Wilkinson 移位）计算特征向量。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>n×n 实矩阵。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>调用方需用 <a class="el" href="eigen_8h.html#afdf483f81dfd9995b700d71ad7328eec" title="释放 lmmc_eigen_general_full 输出结果。">lmmc_eigen_gen_full_result_destroy</a> 释放。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l00863">863</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="eigen_8h_source.html#l00044">lmmc_eigen_gen_full_result_t::imag_parts</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="eigen_8c_source.html#l00598">lmmc_eigen_gen_full_result_destroy()</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00284">lmmc_vec_create()</a>, <a class="el" href="eigen_8c_source.html#l00015">MAT_ELEM</a>, <a class="el" href="eigen_8h_source.html#l00043">lmmc_eigen_gen_full_result_t::real_parts</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>, <a class="el" href="eigen_8h_source.html#l00046">lmmc_eigen_gen_full_result_t::vectors_imag</a> , 以及 <a class="el" href="eigen_8h_source.html#l00045">lmmc_eigen_gen_full_result_t::vectors_real</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_ab81728e0d7bf46de4c1fb8a86b25ed4f_cgraph.svg" width="603" height="196"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1631a4e13e9d6edff7115e2b0526bd1d" name="a1631a4e13e9d6edff7115e2b0526bd1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1631a4e13e9d6edff7115e2b0526bd1d">&#9670;&#160;</a></span>lmmc_svd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_svd </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__svd__result__t">lmmc_svd_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算奇异值分解：A = U * Σ * V^T。 </p>
+<p>算法：Householder 双对角化 → Golub-Kahan 隐式 QR 迭代。 奇异值按降序排列。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>m×n 矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>输出 U(m×m)、sigma(min(m,n))、Vt(n×n)。 调用方需配对调用 <a class="el" href="eigen_8h.html#abfa5e95f384f44c01900307960ead05f" title="释放 lmmc_svd 输出结果。">lmmc_svd_result_destroy</a> 释放。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81">LMMC_STATUS_CONVERGENCE_FAILED</a> — 迭代未收敛。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>分配堆内存。a 不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l01503">1503</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="dense_8c_source.html#l00116">lmmc_mat_transpose_to()</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00284">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00015">MAT_ELEM</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>, <a class="el" href="eigen_8h_source.html#l00054">lmmc_svd_result_t::sigma</a>, <a class="el" href="eigen_8h_source.html#l00053">lmmc_svd_result_t::U</a> , 以及 <a class="el" href="eigen_8h_source.html#l00055">lmmc_svd_result_t::Vt</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l01614">lmmc_cond()</a> , 以及 <a class="el" href="eigen_8c_source.html#l01573">lmmc_pinv()</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_a1631a4e13e9d6edff7115e2b0526bd1d_cgraph.svg" width="331" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_a1631a4e13e9d6edff7115e2b0526bd1d_icgraph.svg" width="246" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab5a6b92455d8c4a7787679ae0eb16444" name="ab5a6b92455d8c4a7787679ae0eb16444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a6b92455d8c4a7787679ae0eb16444">&#9670;&#160;</a></span>lmmc_pinv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_pinv </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>tol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>out_pinv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算 Moore-Penrose 伪逆 A^+。 </p>
+<p>内部通过 SVD 实现：A^+ = V * Σ^{-1}_trunc * U^T， 其中奇异值 &lt; tol * σ_max 的被截断为零。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>m×n 矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>奇异值截断阈值；&lt;=0 时使用 max(m,n)*eps*σ_max。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_pinv</td><td>n×m 输出矩阵，须已创建。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — out_pinv 维度不是 n×m。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 out_pinv-&gt;data。内部分配并释放 SVD 工作空间。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l01573">1573</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="config_8h_source.html#l00068">LMMC_REAL_EPSILON</a>, <a class="el" href="status_8h_source.html#l00025">LMMC_STATUS_DIMENSION_MISMATCH</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a>, <a class="el" href="eigen_8c_source.html#l01638">lmmc_svd_result_destroy()</a>, <a class="el" href="eigen_8c_source.html#l00015">MAT_ELEM</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>, <a class="el" href="eigen_8h_source.html#l00054">lmmc_svd_result_t::sigma</a>, <a class="el" href="eigen_8h_source.html#l00053">lmmc_svd_result_t::U</a> , 以及 <a class="el" href="eigen_8h_source.html#l00055">lmmc_svd_result_t::Vt</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_ab5a6b92455d8c4a7787679ae0eb16444_cgraph.svg" width="574" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab766a11b1f5bf4b4bae7f62dca8e2697" name="ab766a11b1f5bf4b4bae7f62dca8e2697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab766a11b1f5bf4b4bae7f62dca8e2697">&#9670;&#160;</a></span>lmmc_cond()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_cond </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>out_cond</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算矩阵的 2-范数条件数：κ₂(A) = σ_max / σ_min。 </p>
+<p>内部通过 SVD 计算。若 σ_min ≈ 0 则条件数为 Inf。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>输入矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_cond</td><td>输出条件数。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a> — 内存分配失败。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>内部分配并释放 SVD 工作空间。a 不被修改。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l01614">1614</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8h_source.html#l00028">lmmc_mat_t::cols</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="eigen_8c_source.html#l01503">lmmc_svd()</a>, <a class="el" href="eigen_8c_source.html#l01638">lmmc_svd_result_destroy()</a>, <a class="el" href="dense_8h_source.html#l00027">lmmc_mat_t::rows</a>, <a class="el" href="eigen_8h_source.html#l00054">lmmc_svd_result_t::sigma</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_ab766a11b1f5bf4b4bae7f62dca8e2697_cgraph.svg" width="576" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abfa5e95f384f44c01900307960ead05f" name="abfa5e95f384f44c01900307960ead05f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa5e95f384f44c01900307960ead05f">&#9670;&#160;</a></span>lmmc_svd_result_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmc_svd_result_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="eigen_8h.html#structlmmc__svd__result__t">lmmc_svd_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>释放 <a class="el" href="eigen_8h.html#a1631a4e13e9d6edff7115e2b0526bd1d" title="计算奇异值分解：A = U * Σ * V^T。">lmmc_svd</a> 输出结果。 </p>
+
+<p class="definition">在文件 <a class="el" href="eigen_8c_source.html">eigen.c</a> 第 <a class="el" href="eigen_8c_source.html#l01638">1638</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="dense_8c_source.html#l00319">lmmc_vec_destroy()</a>, <a class="el" href="eigen_8h_source.html#l00054">lmmc_svd_result_t::sigma</a>, <a class="el" href="eigen_8h_source.html#l00053">lmmc_svd_result_t::U</a> , 以及 <a class="el" href="eigen_8h_source.html#l00055">lmmc_svd_result_t::Vt</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="eigen_8c_source.html#l01614">lmmc_cond()</a> , 以及 <a class="el" href="eigen_8c_source.html#l01573">lmmc_pinv()</a>.</p>
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_abfa5e95f384f44c01900307960ead05f_cgraph.svg" width="396" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> 这是这个函数的调用关系图:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="eigen_8c_abfa5e95f384f44c01900307960ead05f_icgraph.svg" width="346" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="eigen_8c.html">eigen.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:52 , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/integration.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d8/da1/integration_8cpp.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">命名空间</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">integration.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d9/d15/integration_8hpp_source.html">integration.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d3e/polynomial_8hpp_source.html">polynomial.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d12/solve__polynomial_8hpp_source.html">solve_polynomial.hpp</a>&quot;</code><br />
+<code>#include &quot;lmmc/config.h&quot;</code><br />
+<code>#include &quot;lmmc/numeric.h&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> integration.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dd/dc5/integration_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d8/da1/integration_8cpp_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:d1/d42/namespacelamina" id="r_d1/d42/namespacelamina"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03" id="r_d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html">lamina::anonymous_namespace{integration.cpp}</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:af10c8a62a2bb4c25553fb1b5d5bbf0ee" id="r_af10c8a62a2bb4c25553fb1b5d5bbf0ee"><td class="memItemLeft" align="right" valign="top">long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#af10c8a62a2bb4c25553fb1b5d5bbf0ee">lamina::anonymous_namespace{integration.cpp}::binomial_ll</a> (int n, int k)</td></tr>
+<tr class="separator:af10c8a62a2bb4c25553fb1b5d5bbf0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae842e6ea2486d48553126a9ab66986bf" id="r_ae842e6ea2486d48553126a9ab66986bf"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html#ae842e6ea2486d48553126a9ab66986bf">lamina::has_integral_node_check</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="separator:ae842e6ea2486d48553126a9ab66986bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a663848db291e1fce3ffce8b9d4779e7d" id="r_a663848db291e1fce3ffce8b9d4779e7d"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html#a663848db291e1fce3ffce8b9d4779e7d">lamina::make_arctan</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;op)</td></tr>
+<tr class="separator:a663848db291e1fce3ffce8b9d4779e7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7014378acfc76c3836446f384e92b70" id="r_aa7014378acfc76c3836446f384e92b70"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#aa7014378acfc76c3836446f384e92b70">lamina::anonymous_namespace{integration.cpp}::make_cos_scaled</a> (long long c, const std::string &amp;var)</td></tr>
+<tr class="separator:aa7014378acfc76c3836446f384e92b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c7851c330c76a4cd18ae36e1713aae" id="r_af9c7851c330c76a4cd18ae36e1713aae"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html#af9c7851c330c76a4cd18ae36e1713aae">lamina::make_expr_ptr</a> (const <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &amp;e)</td></tr>
+<tr class="separator:af9c7851c330c76a4cd18ae36e1713aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af55ac8202726b1103c72ca5de688b87e" id="r_af55ac8202726b1103c72ca5de688b87e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#af55ac8202726b1103c72ca5de688b87e">lamina::anonymous_namespace{integration.cpp}::make_sin_scaled</a> (long long c, const std::string &amp;var)</td></tr>
+<tr class="separator:af55ac8202726b1103c72ca5de688b87e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d65475b7a88a827ad12902285f10896" id="r_a7d65475b7a88a827ad12902285f10896"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a7d65475b7a88a827ad12902285f10896">lamina::anonymous_namespace{integration.cpp}::rd_collect_rational</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var, std::vector&lt; <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt; &amp;<a class="el" href="../../d1/d42/namespacelamina.html#a78a46efcff5ce7151a74984c5381cd71">num</a>, std::vector&lt; <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt; &amp;den)</td></tr>
+<tr class="separator:a7d65475b7a88a827ad12902285f10896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a415feefe222457cde3c283079e4ef642" id="r_a415feefe222457cde3c283079e4ef642"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a415feefe222457cde3c283079e4ef642">lamina::anonymous_namespace{integration.cpp}::rd_is_const_in</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="separator:a415feefe222457cde3c283079e4ef642"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72482a7ebf18661039f6ecfc06191698" id="r_a72482a7ebf18661039f6ecfc06191698"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a72482a7ebf18661039f6ecfc06191698">lamina::anonymous_namespace{integration.cpp}::rd_is_zero_poly</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;p)</td></tr>
+<tr class="separator:a72482a7ebf18661039f6ecfc06191698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b04b30c1262807066eed8d8ab11b5b5" id="r_a7b04b30c1262807066eed8d8ab11b5b5"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a7b04b30c1262807066eed8d8ab11b5b5">lamina::anonymous_namespace{integration.cpp}::rd_num_int</a> (long long v)</td></tr>
+<tr class="separator:a7b04b30c1262807066eed8d8ab11b5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714a8e21bccdb540d411c9392bf05993" id="r_a714a8e21bccdb540d411c9392bf05993"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a714a8e21bccdb540d411c9392bf05993">lamina::anonymous_namespace{integration.cpp}::rd_num_rat</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;r)</td></tr>
+<tr class="separator:a714a8e21bccdb540d411c9392bf05993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af90ac3aabce12d3df0ee7519f35e250b" id="r_af90ac3aabce12d3df0ee7519f35e250b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#af90ac3aabce12d3df0ee7519f35e250b">lamina::anonymous_namespace{integration.cpp}::rd_poly_to_sym</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;p, const std::string &amp;var)</td></tr>
+<tr class="separator:af90ac3aabce12d3df0ee7519f35e250b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d43a311372ba3e61dcdb48925de7acd" id="r_a2d43a311372ba3e61dcdb48925de7acd"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a2d43a311372ba3e61dcdb48925de7acd">lamina::anonymous_namespace{integration.cpp}::rd_var_minus</a> (const std::string &amp;var, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;r)</td></tr>
+<tr class="separator:a2d43a311372ba3e61dcdb48925de7acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ea4919e34e7706cb44554cbff2c82b" id="r_a73ea4919e34e7706cb44554cbff2c82b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a73ea4919e34e7706cb44554cbff2c82b">lamina::anonymous_namespace{integration.cpp}::sf_is_fn_of_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, <a class="el" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5">FunctionNode::FuncType</a> t, const std::string &amp;var)</td></tr>
+<tr class="separator:a73ea4919e34e7706cb44554cbff2c82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1f70307695a8666839cc832ac14a731" id="r_ac1f70307695a8666839cc832ac14a731"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#ac1f70307695a8666839cc832ac14a731">lamina::anonymous_namespace{integration.cpp}::sf_is_inv_ln_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var)</td></tr>
+<tr class="separator:ac1f70307695a8666839cc832ac14a731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f848b6e3b0dddccfa9ae6b5f53205e3" id="r_a4f848b6e3b0dddccfa9ae6b5f53205e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a4f848b6e3b0dddccfa9ae6b5f53205e3">lamina::anonymous_namespace{integration.cpp}::sf_is_inv_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var)</td></tr>
+<tr class="separator:a4f848b6e3b0dddccfa9ae6b5f53205e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64dcac480b218dad7329de3ff68860ac" id="r_a64dcac480b218dad7329de3ff68860ac"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a64dcac480b218dad7329de3ff68860ac">lamina::anonymous_namespace{integration.cpp}::sf_make_fn</a> (<a class="el" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5">FunctionNode::FuncType</a> t, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;arg)</td></tr>
+<tr class="separator:a64dcac480b218dad7329de3ff68860ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbddf32bcf2ca0104bc9e8f4fbc544e4" id="r_abbddf32bcf2ca0104bc9e8f4fbc544e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#abbddf32bcf2ca0104bc9e8f4fbc544e4">lamina::anonymous_namespace{integration.cpp}::sf_match_exp_neg_quad</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var, <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;c_out)</td></tr>
+<tr class="separator:abbddf32bcf2ca0104bc9e8f4fbc544e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebbec5e312e3dfa69a389c4fc3171332" id="r_aebbec5e312e3dfa69a389c4fc3171332"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#aebbec5e312e3dfa69a389c4fc3171332">lamina::anonymous_namespace{integration.cpp}::sf_split_inv_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var, std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &gt; &amp;other_factors, bool &amp;has_inv_var)</td></tr>
+<tr class="separator:aebbec5e312e3dfa69a389c4fc3171332"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bb96437d0209783582f2391e294de84" id="r_a4bb96437d0209783582f2391e294de84"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a4bb96437d0209783582f2391e294de84">lamina::anonymous_namespace{integration.cpp}::sf_sqrt_pi</a> ()</td></tr>
+<tr class="separator:a4bb96437d0209783582f2391e294de84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aadb9487a89a85ee9c9fe70c8c5e6b1" id="r_a3aadb9487a89a85ee9c9fe70c8c5e6b1"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html#a3aadb9487a89a85ee9c9fe70c8c5e6b1">lamina::sym_rational</a> (long long <a class="el" href="../../d1/d42/namespacelamina.html#a78a46efcff5ce7151a74984c5381cd71">num</a>, long long den)</td></tr>
+<tr class="separator:a3aadb9487a89a85ee9c9fe70c8c5e6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a581a2886a13064c468f1d1b5cd47b9cd" id="r_a581a2886a13064c468f1d1b5cd47b9cd"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html#a581a2886a13064c468f1d1b5cd47b9cd">lamina::sym_sub</a> (const <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &amp;a, const <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &amp;b)</td></tr>
+<tr class="separator:a581a2886a13064c468f1d1b5cd47b9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75df8f775ee90cf7fa1e27b0e20221e9" id="r_a75df8f775ee90cf7fa1e27b0e20221e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a75df8f775ee90cf7fa1e27b0e20221e9">lamina::anonymous_namespace{integration.cpp}::trig_extract_factor</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var, int &amp;kind_out, int &amp;power_out)</td></tr>
+<tr class="separator:a75df8f775ee90cf7fa1e27b0e20221e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5349da60e47da2e1ce84ea3841f2363" id="r_aa5349da60e47da2e1ce84ea3841f2363"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#aa5349da60e47da2e1ce84ea3841f2363">lamina::anonymous_namespace{integration.cpp}::trig_extract_nonneg_int</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;exp_node, int &amp;n_out)</td></tr>
+<tr class="separator:aa5349da60e47da2e1ce84ea3841f2363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e79860674becd378cc610ba5ac4cbe0" id="r_a8e79860674becd378cc610ba5ac4cbe0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a8e79860674becd378cc610ba5ac4cbe0">lamina::anonymous_namespace{integration.cpp}::trig_match_of_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var)</td></tr>
+<tr class="separator:a8e79860674becd378cc610ba5ac4cbe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8824cc9db46f9e5f67a417d3e75d6cb0" id="r_a8824cc9db46f9e5f67a417d3e75d6cb0"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db9/namespacelamina_1_1anonymous__namespace_02integration_8cpp_03.html#a8824cc9db46f9e5f67a417d3e75d6cb0">lamina::anonymous_namespace{integration.cpp}::trig_rational</a> (long long <a class="el" href="../../d1/d42/namespacelamina.html#a78a46efcff5ce7151a74984c5381cd71">num</a>, long long den)</td></tr>
+<tr class="separator:a8824cc9db46f9e5f67a417d3e75d6cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1ead7a217c0cba5a6362056a695f9b9" id="r_ae1ead7a217c0cba5a6362056a695f9b9"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/namespacelamina.html#ae1ead7a217c0cba5a6362056a695f9b9">lamina::valid_dependency</a> (const <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="separator:ae1ead7a217c0cba5a6362056a695f9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../d8/da1/integration_8cpp.html">integration.cpp</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

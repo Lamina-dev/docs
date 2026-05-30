@@ -1,0 +1,1125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/ode.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('ode_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">结构体</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">ode.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>ODE 初值问题求解器实现：Euler / RK4 / RK45。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="memory__bridge_8h_source.html">memory_bridge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="internal_8h_source.html">internal.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ode_8h_source.html">lmmc/ode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="optimize_8h_source.html">lmmc/optimize.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dense_8h_source.html">lmmc/dense.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="linear__algebra_8h_source.html">lmmc/linear_algebra.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> ode.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ode_8c__incl.svg" width="100%" height="558"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="ode_8c_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+结构体</h2></td></tr>
+<tr class="memitem:structode__implicit__euler__ctx__t" id="r_structode__implicit__euler__ctx__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#structode__implicit__euler__ctx__t">ode_implicit_euler_ctx_t</a></td></tr>
+<tr class="separator:structode__implicit__euler__ctx__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structode__trapezoidal__ctx__t" id="r_structode__trapezoidal__ctx__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#structode__trapezoidal__ctx__t">ode_trapezoidal_ctx_t</a></td></tr>
+<tr class="separator:structode__trapezoidal__ctx__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structode__sdirk__stage__ctx__t" id="r_structode__sdirk__stage__ctx__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#structode__sdirk__stage__ctx__t">ode_sdirk_stage_ctx_t</a></td></tr>
+<tr class="separator:structode__sdirk__stage__ctx__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a2aa88b3d9006f72dac1b0b9afceb6e94" id="r_a2aa88b3d9006f72dac1b0b9afceb6e94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a2aa88b3d9006f72dac1b0b9afceb6e94">SDIRK4_STAGES</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a2aa88b3d9006f72dac1b0b9afceb6e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8524e410d0651d782ddc432e5b961825" id="r_a8524e410d0651d782ddc432e5b961825"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a8524e410d0651d782ddc432e5b961825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a2969d955c3f8f4d5c70548b5c3851d08" id="r_a2969d955c3f8f4d5c70548b5c3851d08"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a2969d955c3f8f4d5c70548b5c3851d08">lmmc_ode_failure_string</a> (<a class="el" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8">lmmc_ode_failure_t</a> reason)</td></tr>
+<tr class="memdesc:a2969d955c3f8f4d5c70548b5c3851d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取失败原因对应的可读字符串。  <br /></td></tr>
+<tr class="separator:a2969d955c3f8f4d5c70548b5c3851d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d83a997f5d55666b4d2245c779689b3" id="r_a1d83a997f5d55666b4d2245c779689b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a1d83a997f5d55666b4d2245c779689b3">lmmc_ode_default_config</a> (<a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, size_t problem_dim, <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *out_cfg)</td></tr>
+<tr class="memdesc:a1d83a997f5d55666b4d2245c779689b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">根据积分区间与维度生成合理的默认求解配置。  <br /></td></tr>
+<tr class="separator:a1d83a997f5d55666b4d2245c779689b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6fcaa68e2df419df18068ada08f482f" id="r_ab6fcaa68e2df419df18068ada08f482f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#ab6fcaa68e2df419df18068ada08f482f">lmmc_ode_euler_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:ab6fcaa68e2df419df18068ada08f482f"><td class="mdescLeft">&#160;</td><td class="mdescRight">显式 Euler 法求解常微分方程初值问题 \(y&#39; = f(t,y)\) 。  <br /></td></tr>
+<tr class="separator:ab6fcaa68e2df419df18068ada08f482f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa435884922212bad7fdb392574bfcc37" id="r_aa435884922212bad7fdb392574bfcc37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#aa435884922212bad7fdb392574bfcc37">lmmc_ode_rk45_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:aa435884922212bad7fdb392574bfcc37"><td class="mdescLeft">&#160;</td><td class="mdescRight">自适应 Runge-Kutta-Fehlberg (RK45) 求解器。  <br /></td></tr>
+<tr class="separator:aa435884922212bad7fdb392574bfcc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a531eb4a1e6cace6d0f022a31a1e6b208" id="r_a531eb4a1e6cace6d0f022a31a1e6b208"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a531eb4a1e6cace6d0f022a31a1e6b208">lmmc_ode_rk4_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a531eb4a1e6cace6d0f022a31a1e6b208"><td class="mdescLeft">&#160;</td><td class="mdescRight">经典四阶 Runge-Kutta 法求解 \(y&#39; = f(t,y)\) （固定步长）。  <br /></td></tr>
+<tr class="separator:a531eb4a1e6cace6d0f022a31a1e6b208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c9e233460a5ccf6433318b6ebbd0121" id="r_a2c9e233460a5ccf6433318b6ebbd0121"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a2c9e233460a5ccf6433318b6ebbd0121">lmmc_ode_implicit_euler_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a2c9e233460a5ccf6433318b6ebbd0121"><td class="mdescLeft">&#160;</td><td class="mdescRight">隐式 Euler 法求解器（A-稳定，适用于刚性问题）。  <br /></td></tr>
+<tr class="separator:a2c9e233460a5ccf6433318b6ebbd0121"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84fd078a59d484e60d8071c155983828" id="r_a84fd078a59d484e60d8071c155983828"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a84fd078a59d484e60d8071c155983828">lmmc_ode_trapezoidal_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a84fd078a59d484e60d8071c155983828"><td class="mdescLeft">&#160;</td><td class="mdescRight">梯形法求解器（A-稳定，二阶精度）。  <br /></td></tr>
+<tr class="separator:a84fd078a59d484e60d8071c155983828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff0724e751a44e3e84ae1860f921c91b" id="r_aff0724e751a44e3e84ae1860f921c91b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#aff0724e751a44e3e84ae1860f921c91b">lmmc_ode_sdirk4_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:aff0724e751a44e3e84ae1860f921c91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 阶 SDIRK 求解器（含嵌入误差估计，自适应步长）。  <br /></td></tr>
+<tr class="separator:aff0724e751a44e3e84ae1860f921c91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87929e66754ebcc121215966ea76df21" id="r_a87929e66754ebcc121215966ea76df21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ode_8c.html#a87929e66754ebcc121215966ea76df21">lmmc_ode_rosenbrock_grk4t_solve</a> (<a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a> rhs, void *user_data, size_t dim, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end, <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *y, const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *cfg, <a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a87929e66754ebcc121215966ea76df21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rosenbrock-Wanner GRK4T 求解器（线性隐式，四阶，每步一次 LU）。  <br /></td></tr>
+<tr class="separator:a87929e66754ebcc121215966ea76df21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>ODE 初值问题求解器实现：Euler / RK4 / RK45。 </p>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 中定义.</p>
+</div><hr/><h2 class="groupheader">结构体说明</h2>
+<a name="structode__implicit__euler__ctx__t" id="structode__implicit__euler__ctx__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structode__implicit__euler__ctx__t">&#9670;&#160;</a></span>ode_implicit_euler_ctx_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct ode_implicit_euler_ctx_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00927">927</a> 行定义.</p>
+</div><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> ode_implicit_euler_ctx_t 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structode__implicit__euler__ctx__t__coll__graph.svg" width="271" height="278"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="ab95ad1d0f918e977633e838ca5cdc59b" name="ab95ad1d0f918e977633e838ca5cdc59b"></a><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a></td>
+<td class="fieldname">
+rhs</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a40837d3e9e99725f4c19dda3ed365136" name="a40837d3e9e99725f4c19dda3ed365136"></a>void *</td>
+<td class="fieldname">
+user_data</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a502fb128489bb505407c47c50f95e03e" name="a502fb128489bb505407c47c50f95e03e"></a><a class="el" href="ode_8h.html#a62e7efb02e9d4ef9224fd7aae067aebc">lmmc_ode_jac_t</a></td>
+<td class="fieldname">
+jac_cb</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a2e42e0e977740c34a193a9655a2afc65" name="a2e42e0e977740c34a193a9655a2afc65"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+t_next</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a02a589e88d528e52c49f847a94f083e0" name="a02a589e88d528e52c49f847a94f083e0"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+h</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="abf39c2fee5999768581e182f36615897" name="abf39c2fee5999768581e182f36615897"></a>const <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *</td>
+<td class="fieldname">
+y_n</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a42d7ae70cfd36c9e34b93cb592b86d30" name="a42d7ae70cfd36c9e34b93cb592b86d30"></a>size_t</td>
+<td class="fieldname">
+dim</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structode__trapezoidal__ctx__t" id="structode__trapezoidal__ctx__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structode__trapezoidal__ctx__t">&#9670;&#160;</a></span>ode_trapezoidal_ctx_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct ode_trapezoidal_ctx_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01086">1086</a> 行定义.</p>
+</div><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> ode_trapezoidal_ctx_t 的协作图:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structode__trapezoidal__ctx__t__coll__graph.svg" width="275" height="292"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="a8e61d075b2b9a3435cc8db5df837badc" name="a8e61d075b2b9a3435cc8db5df837badc"></a><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a></td>
+<td class="fieldname">
+rhs</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ad556bd1180906a6a30e11a94f45eb191" name="ad556bd1180906a6a30e11a94f45eb191"></a>void *</td>
+<td class="fieldname">
+user_data</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7b941fd6141727e8bfd07a877b71e965" name="a7b941fd6141727e8bfd07a877b71e965"></a><a class="el" href="ode_8h.html#a62e7efb02e9d4ef9224fd7aae067aebc">lmmc_ode_jac_t</a></td>
+<td class="fieldname">
+jac_cb</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a83ef2d3bfdd6d4737a07259ac525ea34" name="a83ef2d3bfdd6d4737a07259ac525ea34"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+t_n</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a5b9286b49963b82b6ff36f44c50920ce" name="a5b9286b49963b82b6ff36f44c50920ce"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+t_next</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ab279a4071f42fef646480b31b484bc7b" name="ab279a4071f42fef646480b31b484bc7b"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+h</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="af4a909bfbd08a3e0c3daf2800efbaad3" name="af4a909bfbd08a3e0c3daf2800efbaad3"></a>const <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *</td>
+<td class="fieldname">
+y_n</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a69e1ddd4f49b53db86433a80d71566b7" name="a69e1ddd4f49b53db86433a80d71566b7"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *</td>
+<td class="fieldname">
+f_n</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a9e9f28b22412135f921ffc3ca37fee06" name="a9e9f28b22412135f921ffc3ca37fee06"></a>size_t</td>
+<td class="fieldname">
+dim</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structode__sdirk__stage__ctx__t" id="structode__sdirk__stage__ctx__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structode__sdirk__stage__ctx__t">&#9670;&#160;</a></span>ode_sdirk_stage_ctx_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct ode_sdirk_stage_ctx_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01301">1301</a> 行定义.</p>
+</div><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> ode_sdirk_stage_ctx_t 的协作图:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structode__sdirk__stage__ctx__t__coll__graph.svg" width="288" height="292"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="a157407e00f239186dea684760193a255" name="a157407e00f239186dea684760193a255"></a><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a></td>
+<td class="fieldname">
+rhs</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a622bd01dfa5ca56114b0b34c19481868" name="a622bd01dfa5ca56114b0b34c19481868"></a>void *</td>
+<td class="fieldname">
+user_data</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="af896d32dafa4627945bd4bbe9ac90330" name="af896d32dafa4627945bd4bbe9ac90330"></a><a class="el" href="ode_8h.html#a62e7efb02e9d4ef9224fd7aae067aebc">lmmc_ode_jac_t</a></td>
+<td class="fieldname">
+jac_cb</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a1996e0e49be0a9900cad1ada82b4de56" name="a1996e0e49be0a9900cad1ada82b4de56"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+t_stage</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aab4919ec10cc94b89cbb6a80fd64a622" name="aab4919ec10cc94b89cbb6a80fd64a622"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+h</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7a81bcfa58c9ac1d36679cea3bcad039" name="a7a81bcfa58c9ac1d36679cea3bcad039"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></td>
+<td class="fieldname">
+gamma</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ac63cd377077556e7357d12cf1bbc1b53" name="ac63cd377077556e7357d12cf1bbc1b53"></a>const <a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *</td>
+<td class="fieldname">
+y_n</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a2a5c9459856b54dda8d0f5b50a9a39be" name="a2a5c9459856b54dda8d0f5b50a9a39be"></a><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *</td>
+<td class="fieldname">
+rhs_sum</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a80696c3cfad458c3493c17d441717b2d" name="a80696c3cfad458c3493c17d441717b2d"></a>size_t</td>
+<td class="fieldname">
+dim</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a2aa88b3d9006f72dac1b0b9afceb6e94" name="a2aa88b3d9006f72dac1b0b9afceb6e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa88b3d9006f72dac1b0b9afceb6e94">&#9670;&#160;</a></span>SDIRK4_STAGES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SDIRK4_STAGES&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01271">1271</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8524e410d0651d782ddc432e5b961825" name="a8524e410d0651d782ddc432e5b961825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8524e410d0651d782ddc432e5b961825">&#9670;&#160;</a></span>ROS_STAGES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ROS_STAGES&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01591">1591</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a2969d955c3f8f4d5c70548b5c3851d08" name="a2969d955c3f8f4d5c70548b5c3851d08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2969d955c3f8f4d5c70548b5c3851d08">&#9670;&#160;</a></span>lmmc_ode_failure_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * lmmc_ode_failure_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8">lmmc_ode_failure_t</a>&#160;</td>
+          <td class="paramname"><em>reason</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取失败原因对应的可读字符串。 </p>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00035">35</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00036">LMMC_ODE_FAILURE_INVALID_DIMENSION</a>, <a class="el" href="ode_8h_source.html#l00037">LMMC_ODE_FAILURE_INVALID_STEP</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="ode_8h_source.html#l00040">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a> , 以及 <a class="el" href="ode_8h_source.html#l00041">LMMC_ODE_FAILURE_TOLERANCE_INCONSISTENT</a>.</p>
+
+</div>
+</div>
+<a id="a1d83a997f5d55666b4d2245c779689b3" name="a1d83a997f5d55666b4d2245c779689b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d83a997f5d55666b4d2245c779689b3">&#9670;&#160;</a></span>lmmc_ode_default_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_default_config </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>problem_dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>out_cfg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>根据积分区间与维度生成合理的默认求解配置。 </p>
+<p>根据 <code>t_start</code> 与 <code>t_end</code> 的跨度自动设置初始步长、最小/最大步长、 容差及最大步数等参数，适合大多数非刚性问题。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_start</td><td>积分起始时间。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_end</td><td>积分终止时间。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">problem_dim</td><td>状态向量维度（&gt;= 1）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_cfg</td><td>输出配置结构体，所有字段将被覆盖写入。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若 problem_dim == 0 或 out_cfg 为 NULL。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>将 <code>out_cfg</code> 指向的结构体全部字段覆盖写入默认值。</li>
+<li>不分配堆内存。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00056">56</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00093">lmmc_ode_config_t::abs_tol</a>, <a class="el" href="ode_8h_source.html#l00096">lmmc_ode_config_t::adaptive_step_beta</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="ode_8h_source.html#l00100">lmmc_ode_config_t::jacobian</a>, <a class="el" href="numeric_8h_source.html#l00039">LMMC_DEFAULT_ABS_TOL</a>, <a class="el" href="numeric_8h_source.html#l00043">LMMC_DEFAULT_REL_TOL</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="ode_8h_source.html#l00098">lmmc_ode_config_t::log_cb</a>, <a class="el" href="ode_8h_source.html#l00099">lmmc_ode_config_t::log_user_data</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00094">lmmc_ode_config_t::rel_tol</a> , 以及 <a class="el" href="ode_8h_source.html#l00097">lmmc_ode_config_t::verbose</a>.</p>
+
+</div>
+</div>
+<a id="ab6fcaa68e2df419df18068ada08f482f" name="ab6fcaa68e2df419df18068ada08f482f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6fcaa68e2df419df18068ada08f482f">&#9670;&#160;</a></span>lmmc_ode_euler_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_euler_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>显式 Euler 法求解常微分方程初值问题 \(y&#39; = f(t,y)\) 。 </p>
+<p>使用固定步长（由 cfg-&gt;initial_step 决定）逐步推进，一阶精度。 适用于快速原型验证，不建议用于高精度需求。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>右端函数回调。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>传递给 <code>rhs</code> 的用户上下文指针。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>状态向量维度（&gt;= 1）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_start</td><td>积分起始时间。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_end</td><td>积分终止时间。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">y</td><td>输入初始条件，输出终态向量，长度 <code>dim</code> 。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>求解配置（步长、容差等）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>求解统计信息（步数、RHS 求值次数、收敛状态等）。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功抵达终点； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若参数非法（dim==0、NULL 指针等）； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a> 若积分过程中出现 NaN/Inf。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>y</code> 数组为终态值。</li>
+<li>内部分配临时工作数组（1 个长度为 dim 的缓冲区），函数返回前释放。</li>
+<li>回调 <code>rhs</code> 被调用 num_steps 次（每步一次）。</li>
+<li>若 cfg-&gt;log_cb 非 NULL，则每步额外调用一次日志回调。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00270">270</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="ode_8h_source.html#l00040">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00048">lmmc_ode_result_t::num_rhs_evals</a> , 以及 <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a>.</p>
+
+</div>
+</div>
+<a id="aa435884922212bad7fdb392574bfcc37" name="aa435884922212bad7fdb392574bfcc37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa435884922212bad7fdb392574bfcc37">&#9670;&#160;</a></span>lmmc_ode_rk45_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_rk45_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>自适应 Runge-Kutta-Fehlberg (RK45) 求解器。 </p>
+<p>使用嵌入式 4(5) 阶公式进行局部误差估计，自动调整步长以满足 cfg-&gt;abs_tol 和 cfg-&gt;rel_tol 指定的精度要求。每步需要 6 次 RHS 求值。 适用于大多数非刚性问题。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>右端函数回调。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>传递给 <code>rhs</code> 的用户上下文指针。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>状态向量维度（&gt;= 1）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_start</td><td>积分起始时间。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_end</td><td>积分终止时间。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">y</td><td>输入初始条件，输出终态向量，长度 <code>dim</code> 。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>求解配置（步长范围、容差、最大步数等）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>求解统计信息。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功抵达终点； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若参数非法； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a> 若积分过程中出现 NaN/Inf； ::LMMC_STATUS_MAX_ITERATIONS 若达到 cfg-&gt;max_steps 仍未抵达终点。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>y</code> 数组为终态值。</li>
+<li>内部分配临时工作数组（6 个长度为 dim 的缓冲区用于 k1~k6 及误差估计），函数返回前释放。</li>
+<li>回调 <code>rhs</code> 被调用约 6 × num_steps 次（被拒绝的步也会消耗求值次数）。</li>
+<li>若 cfg-&gt;log_cb 非 NULL，则每个被接受的步调用一次日志回调。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00440">440</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00093">lmmc_ode_config_t::abs_tol</a>, <a class="el" href="ode_8h_source.html#l00096">lmmc_ode_config_t::adaptive_step_beta</a>, <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="ode_8h_source.html#l00037">LMMC_ODE_FAILURE_INVALID_STEP</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="ode_8h_source.html#l00040">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00048">lmmc_ode_result_t::num_rhs_evals</a>, <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a> , 以及 <a class="el" href="ode_8h_source.html#l00094">lmmc_ode_config_t::rel_tol</a>.</p>
+
+</div>
+</div>
+<a id="a531eb4a1e6cace6d0f022a31a1e6b208" name="a531eb4a1e6cace6d0f022a31a1e6b208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a531eb4a1e6cace6d0f022a31a1e6b208">&#9670;&#160;</a></span>lmmc_ode_rk4_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_rk4_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>经典四阶 Runge-Kutta 法求解 \(y&#39; = f(t,y)\) （固定步长）。 </p>
+<p>使用固定步长（由 cfg-&gt;initial_step 决定），四阶精度。 每步需要 4 次 RHS 求值。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>右端函数回调。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>传递给 <code>rhs</code> 的用户上下文指针。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>状态向量维度（&gt;= 1）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_start</td><td>积分起始时间。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t_end</td><td>积分终止时间。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">y</td><td>输入初始条件，输出终态向量，长度 <code>dim</code> 。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>求解配置（步长、容差等）。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>求解统计信息。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> 成功抵达终点； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> 若参数非法； <a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a> 若积分过程中出现 NaN/Inf。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 <code>y</code> 数组为终态值。</li>
+<li>内部分配临时工作数组（4 个长度为 dim 的缓冲区用于 k1~k4），函数返回前释放。</li>
+<li>回调 <code>rhs</code> 被调用 4 × num_steps 次。</li>
+<li>若 cfg-&gt;log_cb 非 NULL，则每步额外调用一次日志回调。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00700">700</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="ode_8h_source.html#l00040">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00048">lmmc_ode_result_t::num_rhs_evals</a> , 以及 <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a>.</p>
+
+</div>
+</div>
+<a id="a2c9e233460a5ccf6433318b6ebbd0121" name="a2c9e233460a5ccf6433318b6ebbd0121"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c9e233460a5ccf6433318b6ebbd0121">&#9670;&#160;</a></span>lmmc_ode_implicit_euler_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_implicit_euler_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>隐式 Euler 法求解器（A-稳定，适用于刚性问题）。 </p>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l00988">988</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00093">lmmc_ode_config_t::abs_tol</a>, <a class="el" href="optimize_8h_source.html#l00067">lmmc_optimize_config_t::abs_tol</a>, <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="optimize_8h_source.html#l00090">lmmc_optimize_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="ode_8c_source.html#l00934">ode_implicit_euler_ctx_t::dim</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8c_source.html#l00932">ode_implicit_euler_ctx_t::h</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="ode_8c_source.html#l00930">ode_implicit_euler_ctx_t::jac_cb</a>, <a class="el" href="ode_8h_source.html#l00100">lmmc_ode_config_t::jacobian</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="optimize_8c_source.html#l00085">lmmc_optimize_default_config()</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="optimize_8h_source.html#l00069">lmmc_optimize_config_t::max_iter</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a>, <a class="el" href="ode_8h_source.html#l00094">lmmc_ode_config_t::rel_tol</a>, <a class="el" href="optimize_8h_source.html#l00068">lmmc_optimize_config_t::rel_tol</a>, <a class="el" href="ode_8c_source.html#l00928">ode_implicit_euler_ctx_t::rhs</a>, <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>, <a class="el" href="ode_8c_source.html#l00931">ode_implicit_euler_ctx_t::t_next</a>, <a class="el" href="ode_8c_source.html#l00929">ode_implicit_euler_ctx_t::user_data</a> , 以及 <a class="el" href="ode_8c_source.html#l00933">ode_implicit_euler_ctx_t::y_n</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ode_8c_a2c9e233460a5ccf6433318b6ebbd0121_cgraph.svg" width="100%" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a84fd078a59d484e60d8071c155983828" name="a84fd078a59d484e60d8071c155983828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84fd078a59d484e60d8071c155983828">&#9670;&#160;</a></span>lmmc_ode_trapezoidal_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_trapezoidal_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>梯形法求解器（A-稳定，二阶精度）。 </p>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01149">1149</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00093">lmmc_ode_config_t::abs_tol</a>, <a class="el" href="optimize_8h_source.html#l00067">lmmc_optimize_config_t::abs_tol</a>, <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="optimize_8h_source.html#l00090">lmmc_optimize_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="ode_8c_source.html#l01095">ode_trapezoidal_ctx_t::dim</a>, <a class="el" href="ode_8c_source.html#l01094">ode_trapezoidal_ctx_t::f_n</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8c_source.html#l01092">ode_trapezoidal_ctx_t::h</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="ode_8c_source.html#l01089">ode_trapezoidal_ctx_t::jac_cb</a>, <a class="el" href="ode_8h_source.html#l00100">lmmc_ode_config_t::jacobian</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="ode_8h_source.html#l00040">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a>, <a class="el" href="optimize_8c_source.html#l00085">lmmc_optimize_default_config()</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="optimize_8h_source.html#l00069">lmmc_optimize_config_t::max_iter</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a>, <a class="el" href="ode_8h_source.html#l00094">lmmc_ode_config_t::rel_tol</a>, <a class="el" href="optimize_8h_source.html#l00068">lmmc_optimize_config_t::rel_tol</a>, <a class="el" href="ode_8c_source.html#l01087">ode_trapezoidal_ctx_t::rhs</a>, <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>, <a class="el" href="ode_8c_source.html#l01090">ode_trapezoidal_ctx_t::t_n</a>, <a class="el" href="ode_8c_source.html#l01091">ode_trapezoidal_ctx_t::t_next</a>, <a class="el" href="ode_8c_source.html#l01088">ode_trapezoidal_ctx_t::user_data</a> , 以及 <a class="el" href="ode_8c_source.html#l01093">ode_trapezoidal_ctx_t::y_n</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ode_8c_a84fd078a59d484e60d8071c155983828_cgraph.svg" width="100%" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aff0724e751a44e3e84ae1860f921c91b" name="aff0724e751a44e3e84ae1860f921c91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff0724e751a44e3e84ae1860f921c91b">&#9670;&#160;</a></span>lmmc_ode_sdirk4_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_sdirk4_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>4 阶 SDIRK 求解器（含嵌入误差估计，自适应步长）。 </p>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01388">1388</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00093">lmmc_ode_config_t::abs_tol</a>, <a class="el" href="optimize_8h_source.html#l00067">lmmc_optimize_config_t::abs_tol</a>, <a class="el" href="ode_8h_source.html#l00096">lmmc_ode_config_t::adaptive_step_beta</a>, <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="optimize_8h_source.html#l00090">lmmc_optimize_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="ode_8c_source.html#l01310">ode_sdirk_stage_ctx_t::dim</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8c_source.html#l01307">ode_sdirk_stage_ctx_t::gamma</a>, <a class="el" href="ode_8c_source.html#l01306">ode_sdirk_stage_ctx_t::h</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="ode_8c_source.html#l01304">ode_sdirk_stage_ctx_t::jac_cb</a>, <a class="el" href="ode_8h_source.html#l00100">lmmc_ode_config_t::jacobian</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="optimize_8c_source.html#l00100">lmmc_nleq_newton()</a>, <a class="el" href="ode_8h_source.html#l00037">LMMC_ODE_FAILURE_INVALID_STEP</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="optimize_8c_source.html#l00085">lmmc_optimize_default_config()</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="optimize_8h_source.html#l00069">lmmc_optimize_config_t::max_iter</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a>, <a class="el" href="ode_8h_source.html#l00094">lmmc_ode_config_t::rel_tol</a>, <a class="el" href="optimize_8h_source.html#l00068">lmmc_optimize_config_t::rel_tol</a>, <a class="el" href="ode_8c_source.html#l01302">ode_sdirk_stage_ctx_t::rhs</a>, <a class="el" href="ode_8c_source.html#l01309">ode_sdirk_stage_ctx_t::rhs_sum</a>, <a class="el" href="ode_8c_source.html#l01271">SDIRK4_STAGES</a>, <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>, <a class="el" href="ode_8c_source.html#l01305">ode_sdirk_stage_ctx_t::t_stage</a>, <a class="el" href="ode_8c_source.html#l01303">ode_sdirk_stage_ctx_t::user_data</a> , 以及 <a class="el" href="ode_8c_source.html#l01308">ode_sdirk_stage_ctx_t::y_n</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ode_8c_aff0724e751a44e3e84ae1860f921c91b_cgraph.svg" width="100%" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a87929e66754ebcc121215966ea76df21" name="a87929e66754ebcc121215966ea76df21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87929e66754ebcc121215966ea76df21">&#9670;&#160;</a></span>lmmc_ode_rosenbrock_grk4t_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_ode_rosenbrock_grk4t_solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#a0df5e03b14248c6992aa3226661b3a36">lmmc_ode_rhs_t</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>&#160;</td>
+          <td class="paramname"><em>t_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a> *&#160;</td>
+          <td class="paramname"><em>out_result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rosenbrock-Wanner GRK4T 求解器（线性隐式，四阶，每步一次 LU）。 </p>
+
+<p class="definition">在文件 <a class="el" href="ode_8c_source.html">ode.c</a> 第 <a class="el" href="ode_8c_source.html#l01624">1624</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="ode_8h_source.html#l00093">lmmc_ode_config_t::abs_tol</a>, <a class="el" href="ode_8h_source.html#l00096">lmmc_ode_config_t::adaptive_step_beta</a>, <a class="el" href="ode_8h_source.html#l00046">lmmc_ode_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00030">lmmc_mat_t::data</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="ode_8h_source.html#l00050">lmmc_ode_result_t::failure_reason</a>, <a class="el" href="ode_8h_source.html#l00049">lmmc_ode_result_t::final_t</a>, <a class="el" href="ode_8h_source.html#l00090">lmmc_ode_config_t::initial_step</a>, <a class="el" href="ode_8h_source.html#l00100">lmmc_ode_config_t::jacobian</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="linear__algebra_8c_source.html#l00039">lmmc_lu_decompose_inplace()</a>, <a class="el" href="linear__algebra_8c_source.html#l00113">lmmc_lu_solve()</a>, <a class="el" href="dense_8c_source.html#l00026">lmmc_mat_create()</a>, <a class="el" href="dense_8c_source.html#l00068">lmmc_mat_destroy()</a>, <a class="el" href="ode_8h_source.html#l00037">LMMC_ODE_FAILURE_INVALID_STEP</a>, <a class="el" href="ode_8h_source.html#l00038">LMMC_ODE_FAILURE_MAX_STEPS</a>, <a class="el" href="ode_8h_source.html#l00035">LMMC_ODE_FAILURE_NONE</a>, <a class="el" href="ode_8h_source.html#l00039">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>, <a class="el" href="ode_8h_source.html#l00040">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="ode_8h_source.html#l00092">lmmc_ode_config_t::max_step</a>, <a class="el" href="ode_8h_source.html#l00095">lmmc_ode_config_t::max_steps</a>, <a class="el" href="ode_8h_source.html#l00091">lmmc_ode_config_t::min_step</a>, <a class="el" href="ode_8h_source.html#l00047">lmmc_ode_result_t::num_steps</a>, <a class="el" href="dense_8h_source.html#l00042">lmmc_vec_t::owns_data</a>, <a class="el" href="ode_8h_source.html#l00094">lmmc_ode_config_t::rel_tol</a>, <a class="el" href="ode_8c_source.html#l01591">ROS_STAGES</a>, <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a> , 以及 <a class="el" href="dense_8h_source.html#l00029">lmmc_mat_t::stride</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> 函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ode_8c_a87929e66754ebcc121215966ea76df21_cgraph.svg" width="443" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="ode_8c.html">ode.c</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:52 , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

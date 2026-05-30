@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="d2/d3c/md_docs_2modules_2algebra" kind="page">
+    <compoundname>md_docs_2modules_2algebra</compoundname>
+    <title>代数与方程模块</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md20"/> 主要头文件：<itemizedlist>
+<listitem><para><computeroutput><ref refid="d0/d3e/polynomial_8hpp" kindref="compound">include/polynomial.hpp</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="d9/d39/poly__utils_8hpp" kindref="compound">include/poly_utils.hpp</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="d2/d1c/solver_8hpp" kindref="compound">include/solver.hpp</ref></computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<sect1 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md21">
+<title>概览</title>
+<para>本模块提供了底层的多项式运算 (<computeroutput>Polynomial&lt;T&gt;</computeroutput>) 和高层的方程求解器 (<computeroutput>Solver</computeroutput>)。</para>
+<para><hruler/>
+</para>
+</sect1>
+<sect1 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md23">
+<title>多项式运算 (Polynomial Operations)</title>
+<sect2 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md24">
+<title>&lt;tt&gt;Polynomial&lt;T&gt;&lt;/tt&gt; 类</title>
+<para>这是一个通用的多项式模板类，支持多种系数类型（如 <computeroutput><ref refid="da/d5b/classBigInt" kindref="compound">BigInt</ref></computeroutput>、<computeroutput><ref refid="d8/da7/classRational" kindref="compound">Rational</ref></computeroutput>、甚至 <computeroutput><ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref></computeroutput>）。</para>
+<sect3 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md25">
+<title>核心算法</title>
+<para><itemizedlist>
+<listitem><para>**加减乘除**：按项合并 (<computeroutput>term-wise</computeroutput>)，自动处理系数运算。</para>
+</listitem><listitem><para>**除法带余 (<computeroutput>div_mod</computeroutput>)**：计算多项式除法的商和余数。</para>
+</listitem><listitem><para>**伪除法 (<computeroutput>pseudo_div_mod</computeroutput>)**：用于整系数多项式，避免引入分数。</para>
+</listitem><listitem><para>**最大公约数 (GCD)**：基于欧几里得算法及其变种（如子结式 PRS 算法）。</para>
+</listitem><listitem><para>**因式分解 (Factorization)**：目前支持简单的无平方因子分解 (<computeroutput>Square-free factorization</computeroutput>) 和部分特定形式的因式分解。</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md26">
+<title>特性</title>
+<para><itemizedlist>
+<listitem><para>**稀疏存储**：仅存储非零项，适合高次稀疏多项式。</para>
+</listitem><listitem><para>**符号支持**：当 <computeroutput>T = <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref></computeroutput> 时，可处理含参数的多项式。</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md28">
+<title>方程求解 (Equation Solving)</title>
+<sect2 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md29">
+<title>入口函数</title>
+<para><computeroutput>Solver::solve(eqn, var)</computeroutput> 或 <computeroutput>SymbolicExpr::solve(eqn, var)</computeroutput></para>
+</sect2>
+<sect2 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md30">
+<title>算法策略</title>
+<para>求解器根据方程的类型选择不同的策略：<orderedlist>
+<listitem><para>**线性方程 (<computeroutput>Linear</computeroutput>)**：直接移项求解 <computeroutput>ax + b = 0 =&gt; x = -b/a</computeroutput>。</para>
+</listitem><listitem><para>**二次方程 (<computeroutput>Quadratic</computeroutput>)**：应用求根公式。</para>
+</listitem><listitem><para>**多项式方程 (<computeroutput>Polynomial</computeroutput>)**：<itemizedlist>
+<listitem><para>尝试因式分解。</para>
+</listitem><listitem><para>对于高次方程，返回 <computeroutput>rootof(p(x), x, k)</computeroutput> 形式的符号根（不做数值近似）。</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>**三角方程 / 超越方程**：<itemizedlist>
+<listitem><para>尝试通过换元 (<computeroutput>t = sin(x)</computeroutput>) 转化为多项式方程。</para>
+</listitem><listitem><para>对形如 <computeroutput>a*x + b + c*exp(d*x) = 0</computeroutput> 的方程使用 <computeroutput>lambertw(...)</computeroutput> 表达解析解。</para>
+</listitem></itemizedlist>
+</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+<sect2 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md31">
+<title>线性方程组</title>
+<para>对于线性方程组，使用高斯消元法 (<computeroutput>Gaussian Elimination</computeroutput>) 或克拉默法则 (<computeroutput>Cramer&apos;s Rule</computeroutput>) 进行求解。</para>
+</sect2>
+</sect1>
+<sect1 id="d2/d3c/md_docs_2modules_2algebra_1autotoc_md32">
+<title>局限性</title>
+<para><itemizedlist>
+<listitem><para>**五次及以上方程**：以 <computeroutput>rootof(...)</computeroutput> 形式返回符号根。</para>
+</listitem><listitem><para>**混合超越方程**：若不能化为 Lambert W 或多项式形式，返回隐式解或空结果。 </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="docs/modules/algebra.md"/>
+  </compounddef>
+</doxygen>

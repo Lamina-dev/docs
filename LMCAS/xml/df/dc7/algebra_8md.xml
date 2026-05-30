@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="zh">
+  <compounddef id="df/dc7/algebra_8md" kind="file" language="Markdown">
+    <compoundname>algebra.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>代数与方程模块</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">主要头文件：</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/polynomial.hpp`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/poly_utils.hpp`</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`include/solver.hpp`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>概览</highlight></codeline>
+<codeline><highlight class="normal">本模块提供了底层的多项式运算<sp/>(`Polynomial&lt;T&gt;`)<sp/>和高层的方程求解器<sp/>(`Solver`)。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>多项式运算<sp/>(Polynomial<sp/>Operations)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>`Polynomial&lt;T&gt;`<sp/>类</highlight></codeline>
+<codeline><highlight class="normal">这是一个通用的多项式模板类，支持多种系数类型（如<sp/>`BigInt`、`Rational`、甚至<sp/>`SymbolicExpr`）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>核心算法</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**加减乘除**：按项合并<sp/>(`term-wise`)，自动处理系数运算。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**除法带余<sp/>(`div_mod`)**：计算多项式除法的商和余数。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**伪除法<sp/>(`pseudo_div_mod`)**：用于整系数多项式，避免引入分数。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**最大公约数<sp/>(GCD)**：基于欧几里得算法及其变种（如子结式<sp/>PRS<sp/>算法）。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**因式分解<sp/>(Factorization)**：目前支持简单的无平方因子分解<sp/>(`Square-free<sp/>factorization`)<sp/>和部分特定形式的因式分解。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>特性</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**稀疏存储**：仅存储非零项，适合高次稀疏多项式。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**符号支持**：当<sp/>`T<sp/>=<sp/>SymbolicExpr`<sp/>时，可处理含参数的多项式。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>方程求解<sp/>(Equation<sp/>Solving)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>入口函数</highlight></codeline>
+<codeline><highlight class="normal">`Solver::solve(eqn,<sp/>var)`<sp/>或<sp/>`SymbolicExpr::solve(eqn,<sp/>var)`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>算法策略</highlight></codeline>
+<codeline><highlight class="normal">求解器根据方程的类型选择不同的策略：</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/><sp/>**线性方程<sp/>(`Linear`)**：直接移项求解<sp/>`ax<sp/>+<sp/>b<sp/>=<sp/>0<sp/>=&gt;<sp/>x<sp/>=<sp/>-b/a`。</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/><sp/>**二次方程<sp/>(`Quadratic`)**：应用求根公式。</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/><sp/>**多项式方程<sp/>(`Polynomial`)**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>尝试因式分解。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>对于高次方程，返回<sp/>`rootof(p(x),<sp/>x,<sp/>k)`<sp/>形式的符号根（不做数值近似）。</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/><sp/>**三角方程<sp/>/<sp/>超越方程**：</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>尝试通过换元<sp/>(`t<sp/>=<sp/>sin(x)`)<sp/>转化为多项式方程。</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>对形如<sp/>`a*x<sp/>+<sp/>b<sp/>+<sp/>c*exp(d*x)<sp/>=<sp/>0`<sp/>的方程使用<sp/>`lambertw(...)`<sp/>表达解析解。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>线性方程组</highlight></codeline>
+<codeline><highlight class="normal">对于线性方程组，使用高斯消元法<sp/>(`Gaussian<sp/>Elimination`)<sp/>或克拉默法则<sp/>(`Cramer&apos;s<sp/>Rule`)<sp/>进行求解。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>局限性</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**五次及以上方程**：以<sp/>`rootof(...)`<sp/>形式返回符号根。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**混合超越方程**：若不能化为<sp/>Lambert<sp/>W<sp/>或多项式形式，返回隐式解或空结果。</highlight></codeline>
+    </programlisting>
+    <location file="docs/modules/algebra.md"/>
+  </compounddef>
+</doxygen>

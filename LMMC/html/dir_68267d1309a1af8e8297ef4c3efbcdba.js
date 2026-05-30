@@ -1,0 +1,26 @@
+var dir_68267d1309a1af8e8297ef4c3efbcdba =
+[
+    [ "blas_backend.c", "blas__backend_8c.html", "blas__backend_8c" ],
+    [ "dense.c", "dense_8c.html", "dense_8c" ],
+    [ "eigen.c", "eigen_8c.html", "eigen_8c" ],
+    [ "fft.c", "fft_8c.html", "fft_8c" ],
+    [ "init.c", "init_8c.html", "init_8c" ],
+    [ "internal.h", "internal_8h.html", null ],
+    [ "interp.c", "interp_8c.html", "interp_8c" ],
+    [ "itersolve.c", "itersolve_8c.html", "itersolve_8c" ],
+    [ "itersolve_minres_lsqr.c", "itersolve__minres__lsqr_8c.html", "itersolve__minres__lsqr_8c" ],
+    [ "linear_algebra.c", "linear__algebra_8c.html", "linear__algebra_8c" ],
+    [ "memory_bridge.h", "memory__bridge_8h.html", "memory__bridge_8h" ],
+    [ "nonlinear.c", "nonlinear_8c.html", "nonlinear_8c" ],
+    [ "numeric.c", "numeric_8c.html", "numeric_8c" ],
+    [ "ode.c", "ode_8c.html", "ode_8c" ],
+    [ "optimize.c", "optimize_8c.html", "optimize_8c" ],
+    [ "precond.c", "precond_8c.html", "precond_8c" ],
+    [ "quadrature.c", "quadrature_8c.html", "quadrature_8c" ],
+    [ "random.c", "random_8c.html", "random_8c" ],
+    [ "sparse.c", "sparse_8c.html", "sparse_8c" ],
+    [ "sparse_direct.c", "sparse__direct_8c.html", "sparse__direct_8c" ],
+    [ "stats.c", "stats_8c.html", "stats_8c" ],
+    [ "status.c", "status_8c.html", "status_8c" ],
+    [ "tensor.c", "tensor_8c.html", "tensor_8c" ]
+];

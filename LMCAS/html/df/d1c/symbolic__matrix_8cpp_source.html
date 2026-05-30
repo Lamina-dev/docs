@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/symbolic_matrix.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('df/d1c/symbolic__matrix_8cpp_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">symbolic_matrix.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../df/d1c/symbolic__matrix_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;../include/symbolic_matrix.hpp&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;../include/symbolic.hpp&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ab0aa22cee5ccd4e50e2ad5df0a035be9">    8</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab0aa22cee5ccd4e50e2ad5df0a035be9">matrix_multiply</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A, <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; B) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ad03189fc8a4db7762f7c1ca890674bbc">SymbolicExpr::multiply</a>(A, B);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
+</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a35783093777191a0254b7f3a2340e0f5">   12</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a35783093777191a0254b7f3a2340e0f5">matrix_determinant</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3b4cc1669b1b117b15cc82783a22b4fc">SymbolicExpr::determinant</a>(A);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a972455b000c18e71aefd4a84a5708edf">   16</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a972455b000c18e71aefd4a84a5708edf">matrix_inverse</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#afa1c1c57bb6c77da5d016f69eaa60703">SymbolicExpr::inverse</a>(A);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a1ec4973df39b09bdb02322360f1a347f">   20</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1ec4973df39b09bdb02322360f1a347f">matrix_rotation</a>(<span class="keywordtype">double</span> theta, <span class="keywordtype">int</span> dim) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (dim == 2) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">auto</span> c = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(std::cos(theta));</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">auto</span> s = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(std::sin(theta));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a2330e01df216a468e92c026b029855b0">SymbolicExpr::matrix</a>({{c, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ad03189fc8a4db7762f7c1ca890674bbc">SymbolicExpr::multiply</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(-1), s)}, {s, c}});</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a0b636e799fde80b8e844b86225be495b">   30</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a0b636e799fde80b8e844b86225be495b">matrix_reflection</a>(<span class="keywordtype">double</span> angle, <span class="keywordtype">int</span> dim) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (dim == 2) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">auto</span> c = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(std::cos(angle));</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">auto</span> s = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(std::sin(angle));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a2330e01df216a468e92c026b029855b0">SymbolicExpr::matrix</a>({{<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ac8782568f037f8055277e5d8b80ec6d6">SymbolicExpr::add</a>(c, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ad03189fc8a4db7762f7c1ca890674bbc">SymbolicExpr::multiply</a>(s, s)), <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ad03189fc8a4db7762f7c1ca890674bbc">SymbolicExpr::multiply</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(-1), s)}, {s, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ac8782568f037f8055277e5d8b80ec6d6">SymbolicExpr::add</a>(c, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ad03189fc8a4db7762f7c1ca890674bbc">SymbolicExpr::multiply</a>(s, s))}});</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a319af6bf9240a169ef0d04790e09b45e">   39</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a319af6bf9240a169ef0d04790e09b45e">matrix_scaling</a>(<span class="keywordtype">double</span> sx, <span class="keywordtype">double</span> sy, <span class="keywordtype">int</span> dim) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (dim == 2) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a2330e01df216a468e92c026b029855b0">SymbolicExpr::matrix</a>({{<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(sx), <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(0)}, {<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(0), <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a>(sy)}});</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a637041412896fe043dbbbc35b24881e2">   46</a></span>std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a637041412896fe043dbbbc35b24881e2">matrix_eigenvalues</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a3250a0a832df4a69f22438c8496943b8">   51</a></span>std::vector&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a3250a0a832df4a69f22438c8496943b8">matrix_eigenvectors</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="ttc" id="aclassSymbolicExpr_html_a2330e01df216a468e92c026b029855b0"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a2330e01df216a468e92c026b029855b0">SymbolicExpr::matrix</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; matrix(const std::vector&lt; std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &gt; &amp;elements)</div><div class="ttdoc">从二维元素列表创建矩阵表达式。</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00541">symbolic.hpp:541</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a3b4cc1669b1b117b15cc82783a22b4fc"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a3b4cc1669b1b117b15cc82783a22b4fc">SymbolicExpr::determinant</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; determinant(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;mat)</div><div class="ttdoc">计算矩阵行列式。</div><div class="ttdef"><b>Definition</b> <a href="../../d2/dab/solve__visitor_8cpp_source.html#l00244">solve_visitor.cpp:244</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ac8782568f037f8055277e5d8b80ec6d6"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ac8782568f037f8055277e5d8b80ec6d6">SymbolicExpr::add</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; add(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建加法表达式。</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00398">symbolic.hpp:398</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ad03189fc8a4db7762f7c1ca890674bbc"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ad03189fc8a4db7762f7c1ca890674bbc">SymbolicExpr::multiply</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; multiply(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建乘法表达式。</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00387">symbolic.hpp:387</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_adeb760bb6f4f28879108394537eca293"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#adeb760bb6f4f28879108394537eca293">SymbolicExpr::number</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; number(int n)</div><div class="ttdoc">创建整数数值表达式。</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00316">symbolic.hpp:316</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_afa1c1c57bb6c77da5d016f69eaa60703"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#afa1c1c57bb6c77da5d016f69eaa60703">SymbolicExpr::inverse</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; inverse(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;mat)</div><div class="ttdoc">计算矩阵的逆。</div><div class="ttdef"><b>Definition</b> <a href="../../d2/dab/solve__visitor_8cpp_source.html#l00551">solve_visitor.cpp:551</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a0b636e799fde80b8e844b86225be495b"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a0b636e799fde80b8e844b86225be495b">lamina::matrix_reflection</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_reflection(double angle, int dim=2)</div><div class="ttdoc">生成反射矩阵</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00030">symbolic_matrix.cpp:30</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a1ec4973df39b09bdb02322360f1a347f"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a1ec4973df39b09bdb02322360f1a347f">lamina::matrix_rotation</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_rotation(double theta, int dim=2)</div><div class="ttdoc">生成旋转矩阵</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00020">symbolic_matrix.cpp:20</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a319af6bf9240a169ef0d04790e09b45e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a319af6bf9240a169ef0d04790e09b45e">lamina::matrix_scaling</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_scaling(double sx, double sy, int dim=2)</div><div class="ttdoc">生成缩放矩阵</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00039">symbolic_matrix.cpp:39</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a3250a0a832df4a69f22438c8496943b8"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a3250a0a832df4a69f22438c8496943b8">lamina::matrix_eigenvectors</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &gt; matrix_eigenvectors(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算符号矩阵的特征向量</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00051">symbolic_matrix.cpp:51</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a35783093777191a0254b7f3a2340e0f5"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a35783093777191a0254b7f3a2340e0f5">lamina::matrix_determinant</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_determinant(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算符号矩阵的行列式</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00012">symbolic_matrix.cpp:12</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a637041412896fe043dbbbc35b24881e2"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a637041412896fe043dbbbc35b24881e2">lamina::matrix_eigenvalues</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; matrix_eigenvalues(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算符号矩阵的特征值</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00046">symbolic_matrix.cpp:46</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a972455b000c18e71aefd4a84a5708edf"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a972455b000c18e71aefd4a84a5708edf">lamina::matrix_inverse</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_inverse(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算符号矩阵的逆矩阵</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00016">symbolic_matrix.cpp:16</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab0aa22cee5ccd4e50e2ad5df0a035be9"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab0aa22cee5ccd4e50e2ad5df0a035be9">lamina::matrix_multiply</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_multiply(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;B)</div><div class="ttdoc">计算两个符号矩阵的乘积</div><div class="ttdef"><b>Definition</b> <a href="../../df/d1c/symbolic__matrix_8cpp_source.html#l00008">symbolic_matrix.cpp:8</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../df/d1c/symbolic__matrix_8cpp.html">symbolic_matrix.cpp</a></li>
+    <li class="footer">生成于 2026年 五月 30日 星期六 22:43:42 , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>
