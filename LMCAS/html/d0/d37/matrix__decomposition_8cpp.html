@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/matrix_decomposition.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d0/d37/matrix__decomposition_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">matrix_decomposition.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>矩阵高级分解算法实现。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d2/dc0/matrix__decomposition_8hpp_source.html">matrix_decomposition.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/db2/numeric__evaluation_8hpp_source.html">numeric_evaluation.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>matrix_decomposition.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../de/d88/matrix__decomposition_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d0/d37/matrix__decomposition_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bmatrix_5Fdecomposition_2Ecpp_7D" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bmatrix_5Fdecomposition_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html">lamina::anonymous_namespace{matrix_decomposition.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a9754dbdba230730756fcdb90676007b8" id="r_a9754dbdba230730756fcdb90676007b8"><td class="memItemLeft">std::optional&lt; double &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a9754dbdba230730756fcdb90676007b8">lamina::anonymous_namespace{matrix_decomposition.cpp}::checked_finite_numeric</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr)</td></tr>
+<tr class="memitem:af838ac232526f2c5885956bbd75361b7" id="r_af838ac232526f2c5885956bbd75361b7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#af838ac232526f2c5885956bbd75361b7">lamina::cholesky_decomposition</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;L)</td></tr>
+<tr class="memitem:abee93d2fd3fe67a138f060f7671e3993" id="r_abee93d2fd3fe67a138f060f7671e3993"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">CholeskyDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#abee93d2fd3fe67a138f060f7671e3993">lamina::cholesky_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memitem:a79c22394a2450f63f0b246895324d92d" id="r_a79c22394a2450f63f0b246895324d92d"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">CholeskyDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a79c22394a2450f63f0b246895324d92d">lamina::cholesky_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a79c22394a2450f63f0b246895324d92d"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算对称正定矩阵的 Cholesky 分解 (A = L * L^T)  <br /></td></tr>
+<tr class="memitem:a533465195ef2d1730a06cbc70213c163" id="r_a533465195ef2d1730a06cbc70213c163"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a533465195ef2d1730a06cbc70213c163">lamina::classify_quadratic_form</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memdesc:a533465195ef2d1730a06cbc70213c163"><td class="mdescLeft">&#160;</td><td class="mdescRight">对二次型对称矩阵进行定性分类。  <br /></td></tr>
+<tr class="memitem:aa56706d8a1419264a00a3511e5e6dc0d" id="r_aa56706d8a1419264a00a3511e5e6dc0d"><td class="memItemLeft"><a class="el" href="../../d8/da7/classRational.html">Rational</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#aa56706d8a1419264a00a3511e5e6dc0d">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_det</a> (std::vector&lt; std::vector&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt; matrix)</td></tr>
+<tr class="memitem:ad50305f030061a675e34faa3e76518d2" id="r_ad50305f030061a675e34faa3e76518d2"><td class="memItemLeft">std::optional&lt; std::vector&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#ad50305f030061a675e34faa3e76518d2">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_diagonal_entries</a> (const std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &amp;matrix)</td></tr>
+<tr class="memitem:a438749fb8084f589ee5ecb6245f99094" id="r_a438749fb8084f589ee5ecb6245f99094"><td class="memItemLeft">std::optional&lt; std::vector&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a438749fb8084f589ee5ecb6245f99094">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_nonnegative_diagonal_entries</a> (const std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &amp;matrix)</td></tr>
+<tr class="memitem:a9f52bed03e46bcd2ee59e7783b7a0503" id="r_a9f52bed03e46bcd2ee59e7783b7a0503"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a9f52bed03e46bcd2ee59e7783b7a0503">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_number_expr</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value)</td></tr>
+<tr class="memitem:a984d34313308dae2ab0202bef65a8987" id="r_a984d34313308dae2ab0202bef65a8987"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a984d34313308dae2ab0202bef65a8987">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_rational_expr</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="memitem:af83c82102ffffb671f6f3e992699142f" id="r_af83c82102ffffb671f6f3e992699142f"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#af83c82102ffffb671f6f3e992699142f">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_rational_expr</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr)</td></tr>
+<tr class="memitem:a9f893da7d6c7d43d39d86173bb300579" id="r_a9f893da7d6c7d43d39d86173bb300579"><td class="memItemLeft">std::optional&lt; std::vector&lt; std::vector&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a9f893da7d6c7d43d39d86173bb300579">lamina::anonymous_namespace{matrix_decomposition.cpp}::exact_rational_matrix</a> (const std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &amp;matrix)</td></tr>
+<tr class="memitem:ad28f0e7b0a0474e0d3fc9f487d8dcd0a" id="r_ad28f0e7b0a0474e0d3fc9f487d8dcd0a"><td class="memItemLeft">std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ad28f0e7b0a0474e0d3fc9f487d8dcd0a">lamina::gram_schmidt</a> (const std::vector&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt; &gt; &amp;vectors, bool normalize=false)</td></tr>
+<tr class="memdesc:ad28f0e7b0a0474e0d3fc9f487d8dcd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">对一组向量执行 Gram-Schmidt 正交化。  <br /></td></tr>
+<tr class="memitem:ae2213901c741a87e587011769b159531" id="r_ae2213901c741a87e587011769b159531"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#ae2213901c741a87e587011769b159531">lamina::anonymous_namespace{matrix_decomposition.cpp}::identity_matrix_expr</a> (size_t n)</td></tr>
+<tr class="memitem:a6bae38db7e8fba856dcda37b44be0483" id="r_a6bae38db7e8fba856dcda37b44be0483"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a6bae38db7e8fba856dcda37b44be0483">lamina::jordan_form</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;J, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;P)</td></tr>
+<tr class="memitem:a2ebb917b21c7d88b246975bf56a55c9f" id="r_a2ebb917b21c7d88b246975bf56a55c9f"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">JordanDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a2ebb917b21c7d88b246975bf56a55c9f">lamina::jordan_form_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memitem:a71161cbab4a4ccb1661e3512222f62d2" id="r_a71161cbab4a4ccb1661e3512222f62d2"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">JordanDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a71161cbab4a4ccb1661e3512222f62d2">lamina::jordan_form_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a71161cbab4a4ccb1661e3512222f62d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算方阵的 Jordan 标准型 J 及变换矩阵 P（A = P·J·P⁻¹）。  <br /></td></tr>
+<tr class="memitem:a774aac1c403c52e33b9bd9d1cc0aa51a" id="r_a774aac1c403c52e33b9bd9d1cc0aa51a"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a774aac1c403c52e33b9bd9d1cc0aa51a">lamina::kronecker</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;B)</td></tr>
+<tr class="memdesc:a774aac1c403c52e33b9bd9d1cc0aa51a"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算两个矩阵的 Kronecker 积 A⊗B。  <br /></td></tr>
+<tr class="memitem:a59fb2029d6bab0301873ad60e03abb6e" id="r_a59fb2029d6bab0301873ad60e03abb6e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a59fb2029d6bab0301873ad60e03abb6e">lamina::lu_decomposition</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;L, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;U)</td></tr>
+<tr class="memitem:a8e355a10e37b8fd24edee9a5d5eef946" id="r_a8e355a10e37b8fd24edee9a5d5eef946"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">LUDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a8e355a10e37b8fd24edee9a5d5eef946">lamina::lu_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memitem:ac6759fbb8f04412be71c1e39998ad8fb" id="r_ac6759fbb8f04412be71c1e39998ad8fb"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">LUDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ac6759fbb8f04412be71c1e39998ad8fb">lamina::lu_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:ac6759fbb8f04412be71c1e39998ad8fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算符号矩阵的 LU 分解 (A = L * U)  <br /></td></tr>
+<tr class="memitem:a9e9633b3b9ce32430bad72eb70fae272" id="r_a9e9633b3b9ce32430bad72eb70fae272"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a9e9633b3b9ce32430bad72eb70fae272">lamina::matrix_exp</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memdesc:a9e9633b3b9ce32430bad72eb70fae272"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵指数 e^A  <br /></td></tr>
+<tr class="memitem:aa8523d56203079f377c2f9993f4463ff" id="r_aa8523d56203079f377c2f9993f4463ff"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aa8523d56203079f377c2f9993f4463ff">lamina::matrix_log</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memdesc:aa8523d56203079f377c2f9993f4463ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵自然对数 log(A)（通过特征分解）。  <br /></td></tr>
+<tr class="memitem:a3e6cb8d480c36995f453e1cabfc52e6e" id="r_a3e6cb8d480c36995f453e1cabfc52e6e"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a3e6cb8d480c36995f453e1cabfc52e6e">lamina::matrix_norm</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, const std::string &amp;type=&quot;frobenius&quot;)</td></tr>
+<tr class="memdesc:a3e6cb8d480c36995f453e1cabfc52e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵范数。  <br /></td></tr>
+<tr class="memitem:a85c2b8ec92c29e242ec7e72d4e0511d5" id="r_a85c2b8ec92c29e242ec7e72d4e0511d5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a85c2b8ec92c29e242ec7e72d4e0511d5">lamina::matrix_rank</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memdesc:a85c2b8ec92c29e242ec7e72d4e0511d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算矩阵的秩（通过 RREF 主元计数）。  <br /></td></tr>
+<tr class="memitem:ae3b1768a23e942ee664eb786953b9730" id="r_ae3b1768a23e942ee664eb786953b9730"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae3b1768a23e942ee664eb786953b9730">lamina::matrix_trace</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memdesc:ae3b1768a23e942ee664eb786953b9730"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算方阵的迹（对角元之和）。  <br /></td></tr>
+<tr class="memitem:a3971183c794c3caf758e7bb186ff6b0c" id="r_a3971183c794c3caf758e7bb186ff6b0c"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a3971183c794c3caf758e7bb186ff6b0c">lamina::normalize_vec</a> (std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt; v)</td></tr>
+<tr class="memitem:a5ce2ffba784d5b416bd572401c58f6b3" id="r_a5ce2ffba784d5b416bd572401c58f6b3"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a5ce2ffba784d5b416bd572401c58f6b3">lamina::anonymous_namespace{matrix_decomposition.cpp}::prove_exact_full_column_rank_qr_support</a> (const std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &amp;matrix, const std::string &amp;operation)</td></tr>
+<tr class="memitem:abc377b0196e136f891c3c4a1c639504d" id="r_abc377b0196e136f891c3c4a1c639504d"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#abc377b0196e136f891c3c4a1c639504d">lamina::anonymous_namespace{matrix_decomposition.cpp}::prove_exact_no_pivot_lu_support</a> (const std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &amp;matrix, const std::string &amp;operation)</td></tr>
+<tr class="memitem:ad9eeab6820a5d2232e3005a38caa437b" id="r_ad9eeab6820a5d2232e3005a38caa437b"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#ad9eeab6820a5d2232e3005a38caa437b">lamina::anonymous_namespace{matrix_decomposition.cpp}::prove_exact_spd</a> (const std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &amp;matrix, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a446d72a66587bd3bbdac37e44f202ede" id="r_a446d72a66587bd3bbdac37e44f202ede"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a446d72a66587bd3bbdac37e44f202ede">lamina::qr_decomposition</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;Q, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;R)</td></tr>
+<tr class="memitem:a9b391b64bd8708b198a48e69d8c6e377" id="r_a9b391b64bd8708b198a48e69d8c6e377"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">QRDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a9b391b64bd8708b198a48e69d8c6e377">lamina::qr_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memitem:a012e577a432e9f30bbc4aabf6afed8b7" id="r_a012e577a432e9f30bbc4aabf6afed8b7"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">QRDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a012e577a432e9f30bbc4aabf6afed8b7">lamina::qr_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a012e577a432e9f30bbc4aabf6afed8b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算符号矩阵的 QR 分解 (A = Q * R)  <br /></td></tr>
+<tr class="memitem:a6ba735de3b86fb5ae9f67c16f93cbcea" id="r_a6ba735de3b86fb5ae9f67c16f93cbcea"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a6ba735de3b86fb5ae9f67c16f93cbcea">lamina::quadratic_form_matrix</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::vector&lt; std::string &gt; &amp;vars)</td></tr>
+<tr class="memdesc:a6ba735de3b86fb5ae9f67c16f93cbcea"><td class="mdescLeft">&#160;</td><td class="mdescRight">从二次型表达式提取对称矩阵 A，使得 expr = xᵀAx。  <br /></td></tr>
+<tr class="memitem:aa29bb9a3f2d602068902a8fcf0d8dec8" id="r_aa29bb9a3f2d602068902a8fcf0d8dec8"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#aa29bb9a3f2d602068902a8fcf0d8dec8">lamina::anonymous_namespace{matrix_decomposition.cpp}::rectangular_diagonal_expr</a> (size_t rows, size_t cols, const std::vector&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;diagonal)</td></tr>
+<tr class="memitem:a5c9f71ed921d093c897eb92f8f7d21c4" id="r_a5c9f71ed921d093c897eb92f8f7d21c4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a5c9f71ed921d093c897eb92f8f7d21c4">lamina::svd_decomposition</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;U, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;S, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;V)</td></tr>
+<tr class="memitem:a25740e5579f00ddf620222b637876e16" id="r_a25740e5579f00ddf620222b637876e16"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">SVDDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a25740e5579f00ddf620222b637876e16">lamina::svd_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A)</td></tr>
+<tr class="memitem:a8431b060696b71fdcafb41b1c701f082" id="r_a8431b060696b71fdcafb41b1c701f082"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">SVDDecompositionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a8431b060696b71fdcafb41b1c701f082">lamina::svd_decomposition_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a8431b060696b71fdcafb41b1c701f082"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算符号矩阵的奇异值分解 (A = U * S * V^T)  <br /></td></tr>
+<tr class="memitem:a60481eb20a100b1c5b1ed5654f02fd75" id="r_a60481eb20a100b1c5b1ed5654f02fd75"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; std::shared_ptr&lt; const <a class="el" href="../../d3/d86/classMatrixNode.html">MatrixNode</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a60481eb20a100b1c5b1ed5654f02fd75">lamina::anonymous_namespace{matrix_decomposition.cpp}::validate_decomposition_matrix</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;A, bool require_square, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a35adef8dc7fd242881fb87a64ad2567c" id="r_a35adef8dc7fd242881fb87a64ad2567c"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d6/d45/namespacelamina_1_1anonymous__namespace_02matrix__decomposition_8cpp_03.html#a35adef8dc7fd242881fb87a64ad2567c">lamina::anonymous_namespace{matrix_decomposition.cpp}::validate_decomposition_output</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::string &amp;name, const std::string &amp;operation)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">详细描述</h2>
+<div class="textblock"><p>矩阵高级分解算法实现。 </p>
+
+<p class="definition">在文件 <a class="el" href="../../d0/d37/matrix__decomposition_8cpp_source.html">matrix_decomposition.cpp</a> 中定义.</p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d0/d37/matrix__decomposition_8cpp.html">matrix_decomposition.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

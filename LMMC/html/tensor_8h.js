@@ -1,0 +1,47 @@
+var tensor_8h =
+[
+    [ "lmmc_tensor_nd_t", "tensor_8h.html#structlmmc__tensor__nd__t", [
+      [ "ndim", "tensor_8h.html#aaf138c07f18eb9bd58773ae27e545de5", null ],
+      [ "dims", "tensor_8h.html#ade9170a3429a71a7fac6bae2a9e865cd", null ],
+      [ "strides", "tensor_8h.html#ae6a53fc4c9793f37589f21891f089136", null ],
+      [ "data", "tensor_8h.html#acd8be84045cfbb9db5f57cb237f02c20", null ],
+      [ "owns_data", "tensor_8h.html#a34549f59390068ce3f25979c4e0f75cb", null ]
+    ] ],
+    [ "lmmc_tensor_t", "tensor_8h.html#structlmmc__tensor__t", [
+      [ "dim0", "tensor_8h.html#a0f902bea9e9ab7edcdaf8459bf27ca11", null ],
+      [ "dim1", "tensor_8h.html#ab41930c413d0b7b2070314a634cf8f0a", null ],
+      [ "dim2", "tensor_8h.html#a0adece2b5d353f40fb292599f8af2931", null ],
+      [ "stride0", "tensor_8h.html#ab7d586dd932494b3b9a136804c5b8072", null ],
+      [ "stride1", "tensor_8h.html#aa23d04c8aed736e3866261e893630f2d", null ],
+      [ "stride2", "tensor_8h.html#aa9e4bb02f24229471de9643f91f7a3cb", null ],
+      [ "data", "tensor_8h.html#a109ca101c403287fee1646a1e1ca5bba", null ],
+      [ "owns_data", "tensor_8h.html#a71778073730f66931e4f0b490f77175b", null ]
+    ] ],
+    [ "LMMC_TENSOR_MAX_NDIM", "tensor_8h.html#aca38fea73d0216739f15872146e06e17", null ],
+    [ "lmmc_tensor_create", "tensor_8h.html#a3890275e247f377031cb04cf9c6a38b4", null ],
+    [ "lmmc_tensor_get_nd", "tensor_8h.html#af5a5d039d3ee0723ece438c2d21fd20c", null ],
+    [ "lmmc_tensor_set_nd", "tensor_8h.html#aa56983a57a3c46bd1eb2e6a4d56b0c3b", null ],
+    [ "lmmc_tensor_permute", "tensor_8h.html#a9f1c2fa57b54e2c686fed67546ee1217", null ],
+    [ "lmmc_tensor_contract", "tensor_8h.html#a2f92d83cfa95d887fd3b55575b9de234", null ],
+    [ "lmmc_tensor_mode_n_product", "tensor_8h.html#a7b4db77dfc59d216bc780e041eee029b", null ],
+    [ "lmmc_tensor_nd_reshape_view", "tensor_8h.html#ad19e23e58930732feaacf1e55e7b099a", null ],
+    [ "lmmc_tensor_nd_destroy", "tensor_8h.html#a14614df213de00ce7fbad9230703f7de", null ],
+    [ "lmmc_tensor3_create", "tensor_8h.html#a31e28e98fe5dfeda12bb4a49d5b86688", null ],
+    [ "lmmc_tensor3_wrap", "tensor_8h.html#a35ada581f7f35f7fcb72b7e81069fe72", null ],
+    [ "lmmc_tensor_destroy", "tensor_8h.html#afccef36e3ea7cf779ea9794375dcedcf", null ],
+    [ "lmmc_tensor_fill", "tensor_8h.html#a88c571a0469f4c4579460e69a0cf07e7", null ],
+    [ "lmmc_tensor_set", "tensor_8h.html#a1309d68c098b72d13e26cb7a34d32a1a", null ],
+    [ "lmmc_tensor_get", "tensor_8h.html#a3b314108359c18e8f9da84782389b7da", null ],
+    [ "lmmc_tensor_norm_fro", "tensor_8h.html#a0c27461ec851020ce7984127df7bb82e", null ],
+    [ "lmmc_tensor_add", "tensor_8h.html#a717d8c2f68558ed07fa645d0e84035ab", null ],
+    [ "lmmc_tensor_sub", "tensor_8h.html#adef362c1ed721476fe3a2071f6a47fad", null ],
+    [ "lmmc_tensor_mul", "tensor_8h.html#a3310601229202793d76b2a19210ff0d8", null ],
+    [ "lmmc_tensor_div", "tensor_8h.html#a703bb8f58eeac1a3606e0873f9a82b17", null ],
+    [ "lmmc_tensor_scale", "tensor_8h.html#a777b04563546cdf257c155e6603ba898", null ],
+    [ "lmmc_tensor_sum", "tensor_8h.html#a5566031f5f357460e35d1a18785f4007", null ],
+    [ "lmmc_tensor_max", "tensor_8h.html#adfe5dcf0911ee282198c2415833fbb70", null ],
+    [ "lmmc_tensor_min", "tensor_8h.html#af754aaf2c043eaaabebc121584f54eae", null ],
+    [ "lmmc_tensor_sum_axis", "tensor_8h.html#ac204f15781fe8794f13da2df77f29454", null ],
+    [ "lmmc_tensor_reshape_view", "tensor_8h.html#a6510cbb6c8685787801a57df1b6842d4", null ],
+    [ "lmmc_tensor_slice_view", "tensor_8h.html#a8bcef489418e305821ee2667e3e6edc3", null ]
+];

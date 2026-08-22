@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/transform_engine.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/d74/transform__engine_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">transform_engine.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>积分变换引擎实现：Laplace 变换、逆 Laplace 变换、Fourier 变换、Z 变换。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/d86/transform__engine_8hpp_source.html">transform_engine.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>transform_engine.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/de9/transform__engine_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d2/d74/transform__engine_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a6aa0a9f74d2df645081b115a76cf3a04" id="r_a6aa0a9f74d2df645081b115a76cf3a04"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a6aa0a9f74d2df645081b115a76cf3a04">lamina::convolve</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;g, const std::string &amp;var)</td></tr>
+<tr class="memitem:ae35188c83c06f72f54b0eb10ff2f9faf" id="r_ae35188c83c06f72f54b0eb10ff2f9faf"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae35188c83c06f72f54b0eb10ff2f9faf">lamina::convolve_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;g, const std::string &amp;var)</td></tr>
+<tr class="memdesc:ae35188c83c06f72f54b0eb10ff2f9faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用默认计算上下文计算卷积，并显式报告无效输入。  <br /></td></tr>
+<tr class="memitem:ab40d05e0e9a73212dd546ee50be9ac7a" id="r_ab40d05e0e9a73212dd546ee50be9ac7a"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ab40d05e0e9a73212dd546ee50be9ac7a">lamina::convolve_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;g, const std::string &amp;var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:ab40d05e0e9a73212dd546ee50be9ac7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算两个函数的卷积 (f * g)(t) = ∫f(τ)g(t-τ)dτ。  <br /></td></tr>
+<tr class="memitem:a23ed5fc7c58e6525e95d4a26b9ac1695" id="r_a23ed5fc7c58e6525e95d4a26b9ac1695"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a23ed5fc7c58e6525e95d4a26b9ac1695">lamina::fourier_transform</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;omega)</td></tr>
+<tr class="memitem:a5369930f1cf30b1bdab331b43f259fd0" id="r_a5369930f1cf30b1bdab331b43f259fd0"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a5369930f1cf30b1bdab331b43f259fd0">lamina::fourier_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;omega)</td></tr>
+<tr class="memdesc:a5369930f1cf30b1bdab331b43f259fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用默认计算上下文计算 Fourier 变换，并返回条件/ROC 容器。  <br /></td></tr>
+<tr class="memitem:abe51a27d5f1a64f09e8267b876206b8f" id="r_abe51a27d5f1a64f09e8267b876206b8f"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#abe51a27d5f1a64f09e8267b876206b8f">lamina::fourier_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;omega, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:abe51a27d5f1a64f09e8267b876206b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算函数的 Fourier 变换 F{f(t)} = F(ω)。  <br /></td></tr>
+<tr class="memitem:a32f6a92521262717ca62963e0f7a2b26" id="r_a32f6a92521262717ca62963e0f7a2b26"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a32f6a92521262717ca62963e0f7a2b26">lamina::inverse_fourier_transform</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;omega, const std::string &amp;t)</td></tr>
+<tr class="memitem:a0586e734eca99d48576de19a00430b06" id="r_a0586e734eca99d48576de19a00430b06"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a0586e734eca99d48576de19a00430b06">lamina::inverse_fourier_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;omega, const std::string &amp;t)</td></tr>
+<tr class="memdesc:a0586e734eca99d48576de19a00430b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用默认计算上下文计算逆 Fourier 变换，并返回条件/ROC 容器。  <br /></td></tr>
+<tr class="memitem:a870cfb1f873d3194ad340870366c99e3" id="r_a870cfb1f873d3194ad340870366c99e3"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a870cfb1f873d3194ad340870366c99e3">lamina::inverse_fourier_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;omega, const std::string &amp;t, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a870cfb1f873d3194ad340870366c99e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算逆 Fourier 变换 F⁻¹{F(ω)} = f(t)。  <br /></td></tr>
+<tr class="memitem:a586b5155d121cb9436ae4a3e7fc36169" id="r_a586b5155d121cb9436ae4a3e7fc36169"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a586b5155d121cb9436ae4a3e7fc36169">lamina::inverse_laplace</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;s, const std::string &amp;t)</td></tr>
+<tr class="memitem:ae5ad5649e08124c37f548e5baa4885b7" id="r_ae5ad5649e08124c37f548e5baa4885b7"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae5ad5649e08124c37f548e5baa4885b7">lamina::inverse_laplace_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;s, const std::string &amp;t)</td></tr>
+<tr class="memdesc:ae5ad5649e08124c37f548e5baa4885b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用默认计算上下文计算逆 Laplace 变换，并返回条件/ROC 容器。  <br /></td></tr>
+<tr class="memitem:a08a4a2a797796fbcd68471a3bdbcd813" id="r_a08a4a2a797796fbcd68471a3bdbcd813"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a08a4a2a797796fbcd68471a3bdbcd813">lamina::inverse_laplace_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;s, const std::string &amp;t, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a08a4a2a797796fbcd68471a3bdbcd813"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算逆 Laplace 变换 ℒ⁻¹{F(s)} = f(t)。  <br /></td></tr>
+<tr class="memitem:a6bed592ed77714510ac7a6dd3efadee6" id="r_a6bed592ed77714510ac7a6dd3efadee6"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a6bed592ed77714510ac7a6dd3efadee6">lamina::laplace_transform</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;s)</td></tr>
+<tr class="memitem:a4ab2a6ecec42dd17f3023305e16d5a8f" id="r_a4ab2a6ecec42dd17f3023305e16d5a8f"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a4ab2a6ecec42dd17f3023305e16d5a8f">lamina::laplace_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;s)</td></tr>
+<tr class="memdesc:a4ab2a6ecec42dd17f3023305e16d5a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用默认计算上下文计算 Laplace 变换，并返回条件/ROC 容器。  <br /></td></tr>
+<tr class="memitem:a2b67c422adbcf8c7d4fc3e3332e79c96" id="r_a2b67c422adbcf8c7d4fc3e3332e79c96"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a2b67c422adbcf8c7d4fc3e3332e79c96">lamina::laplace_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;s, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a2b67c422adbcf8c7d4fc3e3332e79c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算函数的 Laplace 变换 ℒ{f(t)} = F(s)。  <br /></td></tr>
+<tr class="memitem:a77cb77319ab2361cebe23114d61d0a57" id="r_a77cb77319ab2361cebe23114d61d0a57"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a77cb77319ab2361cebe23114d61d0a57">lamina::te_contains_var</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var)</td></tr>
+<tr class="memitem:af840834ad3fb407d24a0ec48889598ed" id="r_af840834ad3fb407d24a0ec48889598ed"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#af840834ad3fb407d24a0ec48889598ed">lamina::te_depends_on</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e, const std::string &amp;v)</td></tr>
+<tr class="memitem:ab32ece56c56a4d08f99a5f470570e290" id="r_ab32ece56c56a4d08f99a5f470570e290"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ab32ece56c56a4d08f99a5f470570e290">lamina::te_extract_exp</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e, const std::string &amp;t, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;a_out, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;rem_out)</td></tr>
+<tr class="memitem:a71a34d260b0fb3fa855f0c2f380422f9" id="r_a71a34d260b0fb3fa855f0c2f380422f9"><td class="memItemLeft">static long long&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a71a34d260b0fb3fa855f0c2f380422f9">lamina::te_factorial</a> (int n)</td></tr>
+<tr class="memitem:a82c021d043c1a56642ad8608bb95a1c6" id="r_a82c021d043c1a56642ad8608bb95a1c6"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a82c021d043c1a56642ad8608bb95a1c6">lamina::te_gt_condition</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;lhs, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;rhs)</td></tr>
+<tr class="memitem:a88acd3f97fb208b1359fe5f2280d92b1" id="r_a88acd3f97fb208b1359fe5f2280d92b1"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a88acd3f97fb208b1359fe5f2280d92b1">lamina::te_inv_power</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;s, const std::string &amp;t)</td></tr>
+<tr class="memitem:ae305be65cd40e6c3de01ef208f9a225d" id="r_ae305be65cd40e6c3de01ef208f9a225d"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae305be65cd40e6c3de01ef208f9a225d">lamina::te_inv_product</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;s, const std::string &amp;t)</td></tr>
+<tr class="memitem:ac24fc675d4ee14b9574a20909a3f232c" id="r_ac24fc675d4ee14b9574a20909a3f232c"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ac24fc675d4ee14b9574a20909a3f232c">lamina::te_is_abs_exp</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;a_out)</td></tr>
+<tr class="memdesc:ac24fc675d4ee14b9574a20909a3f232c"><td class="mdescLeft">&#160;</td><td class="mdescRight">检测 e^(-a*|t|) 形式并提取系数 a（a 可为符号或数值正数）。  <br /></td></tr>
+<tr class="memitem:a8838728f3bd91441bdfd9533a6081dd6" id="r_a8838728f3bd91441bdfd9533a6081dd6"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a8838728f3bd91441bdfd9533a6081dd6">lamina::te_is_gaussian</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, double &amp;a_out)</td></tr>
+<tr class="memdesc:a8838728f3bd91441bdfd9533a6081dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">检测 e^(-a*t^2) 高斯形式并提取系数 a &gt; 0。  <br /></td></tr>
+<tr class="memitem:a51b6891f7bcfffb16822fc1be2467ecf" id="r_a51b6891f7bcfffb16822fc1be2467ecf"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a51b6891f7bcfffb16822fc1be2467ecf">lamina::te_is_hyp</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e, const std::string &amp;v, bool &amp;is_sinh, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;freq)</td></tr>
+<tr class="memitem:ae9cd58d6ab550ff41a99327a229b0b01" id="r_ae9cd58d6ab550ff41a99327a229b0b01"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae9cd58d6ab550ff41a99327a229b0b01">lamina::te_is_power_of_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e, const std::string &amp;v, int &amp;n)</td></tr>
+<tr class="memitem:ad906747bcab7081dcebd4eeca2ff51e1" id="r_ad906747bcab7081dcebd4eeca2ff51e1"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ad906747bcab7081dcebd4eeca2ff51e1">lamina::te_is_trig</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e, const std::string &amp;v, bool &amp;is_sin, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;freq)</td></tr>
+<tr class="memitem:ad059e07a043cf865230a2b9a96d76b88" id="r_ad059e07a043cf865230a2b9a96d76b88"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ad059e07a043cf865230a2b9a96d76b88">lamina::te_is_zero</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e)</td></tr>
+<tr class="memitem:a65d2b1a300113c8c1c25aceed94192cf" id="r_a65d2b1a300113c8c1c25aceed94192cf"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a65d2b1a300113c8c1c25aceed94192cf">lamina::te_laplace_lookup</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;s)</td></tr>
+<tr class="memitem:a456ed2f4a660e7f3593c5ec9337da8fc" id="r_a456ed2f4a660e7f3593c5ec9337da8fc"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a456ed2f4a660e7f3593c5ec9337da8fc">lamina::te_laplace_roc</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;s)</td></tr>
+<tr class="memitem:aefbc93cce61b07b7324079ec94681619" id="r_aefbc93cce61b07b7324079ec94681619"><td class="memItemLeft">static double&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aefbc93cce61b07b7324079ec94681619">lamina::te_numval</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;nd)</td></tr>
+<tr class="memitem:a61e9e7ed450153887e088e011563afb0" id="r_a61e9e7ed450153887e088e011563afb0"><td class="memItemLeft">static std::pair&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a61e9e7ed450153887e088e011563afb0">lamina::te_split_coeff</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;e, const std::string &amp;v)</td></tr>
+<tr class="memitem:ab8e9386a1acaec456b2991f7511cec94" id="r_ab8e9386a1acaec456b2991f7511cec94"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ab8e9386a1acaec456b2991f7511cec94">lamina::te_unevaluated_inv_laplace</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;F, const std::string &amp;s, const std::string &amp;t)</td></tr>
+<tr class="memitem:aab02a3fc1b8b8a5eaf9b7d98d96d86d2" id="r_aab02a3fc1b8b8a5eaf9b7d98d96d86d2"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aab02a3fc1b8b8a5eaf9b7d98d96d86d2">lamina::te_unevaluated_laplace</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;t, const std::string &amp;s)</td></tr>
+<tr class="memitem:a9f69cb8bb20447a935ff4f6e86e51c05" id="r_a9f69cb8bb20447a935ff4f6e86e51c05"><td class="memItemLeft">static <a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a9f69cb8bb20447a935ff4f6e86e51c05">lamina::te_validate_convolution_inputs</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;g, const std::string &amp;var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:ad58a4e9ede795e86a643fffc2cc2788b" id="r_ad58a4e9ede795e86a643fffc2cc2788b"><td class="memItemLeft">static <a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ad58a4e9ede795e86a643fffc2cc2788b">lamina::te_validate_expr_vars</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::string &amp;input_var, const std::string &amp;output_var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a82b6178335edca5935ceba1c0dabed5e" id="r_a82b6178335edca5935ceba1c0dabed5e"><td class="memItemLeft">static <a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a82b6178335edca5935ceba1c0dabed5e">lamina::te_wrap_transform_result</a> (std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; expr, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a98c347e07dafe2642e35e0c5ca2e9948" id="r_a98c347e07dafe2642e35e0c5ca2e9948"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a98c347e07dafe2642e35e0c5ca2e9948">lamina::z_transform</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f_n, const std::string &amp;n, const std::string &amp;z)</td></tr>
+<tr class="memitem:ab56b42b4e8130fa3a74af8fb3a7fe3f7" id="r_ab56b42b4e8130fa3a74af8fb3a7fe3f7"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ab56b42b4e8130fa3a74af8fb3a7fe3f7">lamina::z_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f_n, const std::string &amp;n, const std::string &amp;z)</td></tr>
+<tr class="memdesc:ab56b42b4e8130fa3a74af8fb3a7fe3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用默认计算上下文计算 Z 变换，并返回条件/ROC 容器。  <br /></td></tr>
+<tr class="memitem:a83257409c4c782b1ccc0bc7446ccc344" id="r_a83257409c4c782b1ccc0bc7446ccc344"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a57bcca86a1ed0a1ab16d6e60b51744c6">TransformEngineResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a83257409c4c782b1ccc0bc7446ccc344">lamina::z_transform_checked</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f_n, const std::string &amp;n, const std::string &amp;z, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a83257409c4c782b1ccc0bc7446ccc344"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算序列的 Z 变换 Z{f[n]} = F(z)。  <br /></td></tr>
+<tr class="memitem:a8597f56baca92587733848e8465160b8" id="r_a8597f56baca92587733848e8465160b8"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a8597f56baca92587733848e8465160b8">lamina::zt_abs_expr</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr)</td></tr>
+<tr class="memitem:aa0c92ade3940e2d24caa608eb4df8e7c" id="r_aa0c92ade3940e2d24caa608eb4df8e7c"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aa0c92ade3940e2d24caa608eb4df8e7c">lamina::zt_base_roc</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;base, const std::string &amp;z)</td></tr>
+<tr class="memitem:a5ad59bfc4a129d9cedd6af17b5fea763" id="r_a5ad59bfc4a129d9cedd6af17b5fea763"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a5ad59bfc4a129d9cedd6af17b5fea763">lamina::zt_is_exp_seq</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;n, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;base_out)</td></tr>
+<tr class="memdesc:a5ad59bfc4a129d9cedd6af17b5fea763"><td class="mdescLeft">&#160;</td><td class="mdescRight">检测 a^n 形式并提取底数 a（a 不依赖 n）。  <br /></td></tr>
+<tr class="memitem:a5e4abbbd2a6af8e6abb85aaabbfa695f" id="r_a5e4abbbd2a6af8e6abb85aaabbfa695f"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a5e4abbbd2a6af8e6abb85aaabbfa695f">lamina::zt_is_trig_seq</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f, const std::string &amp;n, bool &amp;is_sin_out, std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;omega_out)</td></tr>
+<tr class="memdesc:a5e4abbbd2a6af8e6abb85aaabbfa695f"><td class="mdescLeft">&#160;</td><td class="mdescRight">检测 sin(w*n) 或 cos(w*n) 形式并提取角频率 w。  <br /></td></tr>
+<tr class="memitem:a3878245361771bfd5bad2fbf23ae47d1" id="r_a3878245361771bfd5bad2fbf23ae47d1"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a3878245361771bfd5bad2fbf23ae47d1">lamina::zt_roc</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;f_n, const std::string &amp;n, const std::string &amp;z)</td></tr>
+<tr class="memitem:ade6730c96cba573754924080c13ba737" id="r_ade6730c96cba573754924080c13ba737"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ade6730c96cba573754924080c13ba737">lamina::zt_unit_roc</a> (const std::string &amp;z)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">详细描述</h2>
+<div class="textblock"><p>积分变换引擎实现：Laplace 变换、逆 Laplace 变换、Fourier 变换、Z 变换。 </p>
+<p>算法来源:</p><ul>
+<li>Laplace/Fourier: Schiff, The Laplace Transform: Theory and Applications, Springer.</li>
+<li>Z 变换: Oppenheim &amp; Willsky, Signals and Systems, 2nd ed., Chapter 10. </li>
+</ul>
+
+<p class="definition">在文件 <a class="el" href="../../d2/d74/transform__engine_8cpp_source.html">transform_engine.cpp</a> 中定义.</p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/d74/transform__engine_8cpp.html">transform_engine.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

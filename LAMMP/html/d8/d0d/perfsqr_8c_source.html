@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAMMP: src/lammp/numth/perfsqr.c 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LAMMP<span id="projectnumber">&#160;4.2.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d8/d0d/perfsqr_8c_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">perfsqr.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d8/d0d/perfsqr_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *  Copyright (C) 2026 HJimmyK(Jericho Knox)</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  This file is part of LAMMP.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *  LAMMP is free software: you can redistribute it and/or modify it under</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *  the terms of the GNU Lesser General Public License (LGPL) as published</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *   by the Free Software Foundation; either version 3 of the License, or</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *  This program is distributed WITHOUT ANY WARRANTY.</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *  See &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor"> #include &quot;<a class="code" href="../../d8/daa/tmp__alloc_8h.html">../../../include/lammp/impl/tmp_alloc.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/da4/numth_8h.html">../../../include/lammp/numth.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d39/lmmpn_8h.html">../../../include/lammp/lmmpn.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a194a6e1583fedf2054046ed05c64f8de">   21</a></span><span class="preprocessor">#define MASK48 (0xFFFFFFFFFFFF)</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a7b21d6a6a4573b4997b1f04b01cd4efb">   23</a></span><span class="preprocessor">#define B1 (LIMB_BITS / 4)</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a6945d50f798e1fde624d70c74457090e">   24</a></span><span class="preprocessor">#define B2 (B1 * 2)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ae6ac0edb1e2c9c7672ab9488d8b65be9">   25</a></span><span class="preprocessor">#define B3 (B1 * 3)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ac597abe7cf610f262f7aaec53ed1d413">   27</a></span><span class="preprocessor">#define M1 ((1ULL &lt;&lt; B1) - 1)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a2a187ef3afced0eb4c4cb99515e5429c">   28</a></span><span class="preprocessor">#define M2 ((1ULL &lt;&lt; B2) - 1)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ad801d72bd01ef1ac9b86dbf4de0d355d">   29</a></span><span class="preprocessor">#define M3 ((1ULL &lt;&lt; B3) - 1)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a94d4d1b3c126954051626723f97bd2b7">   31</a></span><span class="preprocessor">#define LOW0(n) ((n) &amp; M3)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a5968d9e9bf016ac25bd0e4a657955b3c">   32</a></span><span class="preprocessor">#define HIGH0(n) ((n) &gt;&gt; B3)</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ac19c562d45a6a51b87e450ef263e9f20">   34</a></span><span class="preprocessor">#define LOW1(n) (((n) &amp; M2) &lt;&lt; B1)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a5e6a5e553352969e9a3b431a7c6cdc83">   35</a></span><span class="preprocessor">#define HIGH1(n) ((n) &gt;&gt; B2)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#aeea7ca36beb71689ca9bdaff26c3b6c6">   37</a></span><span class="preprocessor">#define LOW2(n) (((n) &amp; M1) &lt;&lt; B2)</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a7e0e5daebcede0ea425b29e26bc19d4f">   38</a></span><span class="preprocessor">#define HIGH2(n) ((n) &gt;&gt; B1)</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a1abfefd231ba550bc6a8722ee4441b09">   40</a></span><span class="preprocessor">#define PARTS0(n) (LOW0(n) + HIGH0(n))</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ab78e8d4a51b69776c2b8e4e6e9828c8c">   41</a></span><span class="preprocessor">#define PARTS1(n) (LOW1(n) + HIGH1(n))</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#aef3728ca7a651a456ed28717049be46a">   42</a></span><span class="preprocessor">#define PARTS2(n) (LOW2(n) + HIGH2(n))</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// a += val, if carry, add 1 to c</span></div>
+<div class="foldopen" id="foldopen00045" data-start="" data-end="">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">   45</a></span><span class="preprocessor">#define ADD(c, a, val)                 \</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">    do {                               \</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">        mp_limb_t new_a = (a) + (val); \</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">        (c) += new_a &lt; (a);            \</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">        (a) = new_a;                   \</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">    } while (0)</span></div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#ad59b0cc86c62d3c2ae0530ab29b0bb33">   52</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_function" href="../../de/da4/numth_8h.html#ad59b0cc86c62d3c2ae0530ab29b0bb33">lmmp_mod_2p48sub1_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; p != NULL);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a> = 0, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a> = 0, c2 = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a> = 0, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a> = 0, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a> = 0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt;= 3) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, p[0]);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>, p[1]);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a>(c2, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a>, p[2]);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        p += 3;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> -= 3;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 2) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, p[0]);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>, p[1]);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 1) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, p[0]);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> res = <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a>(<a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>) + <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a>(<a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>) + <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#aef3728ca7a651a456ed28717049be46a">PARTS2</a>(<a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a>) </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                  + <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>) + <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#aef3728ca7a651a456ed28717049be46a">PARTS2</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>) + <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a>(c2);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    res = (res &amp; <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>) + (res &gt;&gt; <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (res &gt;= <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        res -= <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#undef B1</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#undef B2</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#undef B3</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#undef M1</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#undef M2</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#undef M3</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#undef LOW0</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#undef HIGH0</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#undef LOW1</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#undef HIGH1</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#undef LOW2</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#undef HIGH2</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#undef PARTS0</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#undef PARTS1</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#undef PARTS2</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#undef ADD</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">    我们选择2^48-1作为模数只是因为其计算可以非常迅速，并且拥有一组非常好的因数分解</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">        2^48-1 = 9 * 5 * 7 * 13 * 17 * 97 * 241 * 257 * 673</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">    而下面的每个函数，都直接硬编码了完全平方数才可能具有的模数。当然也不需要担心这</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">    么多的判断会导致分支预测效率很低，因为编译器通常可以很好的将其优化为位图，并且</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">    由于位图很小，可能直接变成立即数。对于更长的数，我们手动计算了位图，直接计算地址，</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">    取出对应的bit，可以避免编译器将其优化为多分支结构。</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment"></span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">    只有完全平方数以及部分非完全平方数可以通过，大部分非完全平方数都无法通过。</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">    在模2^48-1下，完全平方数可能的结果仅占到大约 0.277%，</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">    在模256下，完全平方数可能的结果仅占到大约 17.2%</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ac016feb0003381e6f54b0bd44089eced">  111</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 4 || r == 7;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ae10cdeec4d3bc4dc1c1c8db02eabadd8">  115</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 4;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a0f25c59a1877fdbe98f34b4bb90111ed">  119</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 2 || r == 4;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#aaa5696afeeb4e11e722175f5e208fd41">  123</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 3 || r == 4 || r == 9 || r == 10 || r == 12;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
+</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="}">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a439e4f47d5eb1fadc5e9a3cea3370d2c">  127</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 2 || r == 4 || r == 8 || r == 9 || r == 13 || r == 15 || r == 16;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ae8c112ff5c8d94124786fee91ef87790">  131</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">return</span> r ==  0 || r ==  1 || r ==  2 || r ==  3 || r ==  4 || r ==  6 || r ==  8 || r ==  9 || r == 11 || r == 12 ||</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>           r == 16 || r == 18 || r == 22 || r == 24 || r == 25 || r == 27 || r == 31 || r == 32 || r == 33 || r == 35 ||</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>           r == 36 || r == 43 || r == 44 || r == 47 || r == 48 || r == 49 || r == 50 || r == 53 || r == 54 || r == 61 ||</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>           r == 62 || r == 64 || r == 65 || r == 66 || r == 70 || r == 72 || r == 73 || r == 75 || r == 79 || r == 81 ||</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>           r == 85 || r == 86 || r == 88 || r == 89 || r == 91 || r == 93 || r == 94 || r == 95 || r == 96;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="}">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a25ee624514f4f3a05e2fabb8d65cbebc">  139</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> r) {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p241[] = {0x3C67A3116B15977F, 0x2FD21C174C8FA909, 0x98F24257C4CBA0E1, 0x0001FBA6A35A2317};</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 4);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> (p241[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>}</div>
+</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#ab85c40a1aeb85cb29075e20b8a8d23f0">  147</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> r) {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p257[] = {0x7E16541DE6E7AB17, 0x1F76811C93128359, 0x6B052324E205BBE3, 0xA3579D9EE0A9A1FA,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                                     0x0000000000000001};</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 5);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">return</span> (p257[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="foldopen" id="foldopen00156" data-start="{" data-end="}">
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a7bb98a25b2e18df71690793a3fef5770">  156</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> r) {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p673[] = {0x85F744B13FA573DF, 0xC231D5979ABA4F21, 0xE944C76E98DD0C01, 0xD20E0F2BD993E915,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                                     0x616259FB225208AB, 0x7E691A18F8B7B47C, 0x53C1C12F54412913, 0xDB8C8A5EA25F266F,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                                     0xA6AE310E00C2EC65, 0x348BBE8613C97567, 0x00000001EF3A97F2};</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 11);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">return</span> (p673[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>}</div>
+</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="../../d8/d0d/perfsqr_8c.html#a4aed5afb63a10feede63166f3dae3efe">  166</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p256[] = {0x0202021202030213, 0x0202021202020213, 0x0202021202030212, 0x0202021202020212};</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 4);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">return</span> (p256[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#a36c6b408cfdefc5bba5e90354208f8a5">  174</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/da4/numth_8h.html#a36c6b408cfdefc5bba5e90354208f8a5">lmmp_perfsqr_filter_1_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> p) {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p &gt; 0);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a = p % 256;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a>(a)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    p = p % <a class="code hl_define" href="../../d8/d0d/perfsqr_8c.html#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a>(p % 9) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a>(p % 5) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a>(p % 7) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a>(p % 13) &amp;&amp;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>           <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a>(p % 17) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a>(p % 97) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a>(p % 241) &amp;&amp;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>           <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a>(p % 257) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a>(p % 673);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="foldopen" id="foldopen00184" data-start="{" data-end="}">
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#af6fd8351626fa438e87e41d3d32bdb3b">  184</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/da4/numth_8h.html#af6fd8351626fa438e87e41d3d32bdb3b">lmmp_perfsqr_filter_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; p != NULL);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1] &gt; 0);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 1) <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/da4/numth_8h.html#a36c6b408cfdefc5bba5e90354208f8a5">lmmp_perfsqr_filter_1_</a>(p[0]);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a = p[0] % 256;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a>(a))</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> r = <a class="code hl_function" href="../../de/da4/numth_8h.html#ad59b0cc86c62d3c2ae0530ab29b0bb33">lmmp_mod_2p48sub1_</a>(p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a>(r % 9) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a>(r % 5) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a>(r % 7) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a>(r % 13) &amp;&amp;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>           <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a>(r % 17) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a>(r % 97) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a>(r % 241) &amp;&amp;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>           <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a>(r % 257) &amp;&amp; <a class="code hl_function" href="../../d8/d0d/perfsqr_8c.html#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a>(r % 673);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>}</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="foldopen" id="foldopen00197" data-start="{" data-end="}">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#a8ebd5368944d807d16767547260a671e">  197</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/da4/numth_8h.html#a8ebd5368944d807d16767547260a671e">lmmp_perfsqr_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; p != NULL);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1] &gt; 0);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">bool</span> filter, ret;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    filter = <a class="code hl_function" href="../../de/da4/numth_8h.html#af6fd8351626fa438e87e41d3d32bdb3b">lmmp_perfsqr_filter_</a>(p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">if</span> (filter == <span class="keyword">false</span>) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a>;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> restrict <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> + 2, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> restrict dstr = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 2 + 1;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <a class="code hl_function" href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, dstr, p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, 0);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    ret = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#afa8f36d4b874f3c5482caaf4c63ef6d5">lmmp_zero_q_</a>(dstr, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 2 + 1);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>}</div>
+</div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00117">lmmp.h:117</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00114">lmmp.h:114</a></div></div>
+<div class="ttc" id="almmp_8h_html_a748ad941e186db2ca030aa4d766a0e5e"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></div><div class="ttdeci">const mp_limb_t * mp_srcptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00118">lmmp.h:118</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00113">lmmp.h:113</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp.h:496</a></div></div>
+<div class="ttc" id="almmpn_8h_html"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html">lmmpn.h</a></div></div>
+<div class="ttc" id="almmpn_8h_html_afa8f36d4b874f3c5482caaf4c63ef6d5"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#afa8f36d4b874f3c5482caaf4c63ef6d5">lmmp_zero_q_</a></div><div class="ttdeci">static int lmmp_zero_q_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">判零函数（内联）</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01016">lmmpn.h:1016</a></div></div>
+<div class="ttc" id="amul__toom22_8c_html_aa42b800f0f58b50bc7604c67cc2853ab"><div class="ttname"><a href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a></div><div class="ttdeci">#define a0</div></div>
+<div class="ttc" id="amul__toom22_8c_html_ab89a77e63a7226fffaecb2e2c2ab5219"><div class="ttname"><a href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a></div><div class="ttdeci">#define a1</div></div>
+<div class="ttc" id="amul__toom32_8c_html_aa3fd046b2956875cf908d73a51a96b42"><div class="ttname"><a href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a></div><div class="ttdeci">#define a2</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ab025e87040bd241c89f5a880c12fc80c"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a></div><div class="ttdeci">#define tp</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="amullo_8c_html_a8f9aca421a560153a31ebb326da34216"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a></div><div class="ttdeci">#define c1</div></div>
+<div class="ttc" id="amullo_8c_html_ac18b3d0edccb2b9062a09d00b0d8b83b"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a></div><div class="ttdeci">#define c0</div></div>
+<div class="ttc" id="anumth_8h_html"><div class="ttname"><a href="../../de/da4/numth_8h.html">numth.h</a></div></div>
+<div class="ttc" id="anumth_8h_html_a27c902d5ca78afa82d5ed75554d5cedc"><div class="ttname"><a href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></div><div class="ttdeci">uint8_t uchar</div><div class="ttdoc">Copyright (C) 2026 HJimmyK(Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00027">numth.h:27</a></div></div>
+<div class="ttc" id="anumth_8h_html_a36c6b408cfdefc5bba5e90354208f8a5"><div class="ttname"><a href="../../de/da4/numth_8h.html#a36c6b408cfdefc5bba5e90354208f8a5">lmmp_perfsqr_filter_1_</a></div><div class="ttdeci">bool lmmp_perfsqr_filter_1_(mp_limb_t p)</div><div class="ttdoc">非完全平方数过滤器</div><div class="ttdef"><b>定义</b> <a href="#l00174">perfsqr.c:174</a></div></div>
+<div class="ttc" id="anumth_8h_html_a8ebd5368944d807d16767547260a671e"><div class="ttname"><a href="../../de/da4/numth_8h.html#a8ebd5368944d807d16767547260a671e">lmmp_perfsqr_</a></div><div class="ttdeci">bool lmmp_perfsqr_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">判断[p,n]是否为完全平方数</div><div class="ttdef"><b>定义</b> <a href="#l00197">perfsqr.c:197</a></div></div>
+<div class="ttc" id="anumth_8h_html_a9e58a7bf060b7a5fbf6a401d3020adca"><div class="ttname"><a href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></div><div class="ttdeci">uint16_t ushort</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00029">numth.h:29</a></div></div>
+<div class="ttc" id="anumth_8h_html_ad59b0cc86c62d3c2ae0530ab29b0bb33"><div class="ttname"><a href="../../de/da4/numth_8h.html#ad59b0cc86c62d3c2ae0530ab29b0bb33">lmmp_mod_2p48sub1_</a></div><div class="ttdeci">mp_limb_t lmmp_mod_2p48sub1_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">计算 [p,n] % 2^48-1</div><div class="ttdef"><b>定义</b> <a href="#l00052">perfsqr.c:52</a></div></div>
+<div class="ttc" id="anumth_8h_html_ae0b4726620c46767b8fa9dd6a2b9ae28"><div class="ttname"><a href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a></div><div class="ttdeci">void lmmp_sqrt_(mp_ptr dsts, mp_ptr dstr, mp_srcptr numa, mp_size_t na, mp_size_t nf)</div><div class="ttdoc">计算 [numa,na] * B^(2*nf) 的平方根和余数</div><div class="ttdef"><b>定义</b> <a href="../../dd/de3/sqrt_8c_source.html#l00322">sqrt.c:322</a></div></div>
+<div class="ttc" id="anumth_8h_html_af6fd8351626fa438e87e41d3d32bdb3b"><div class="ttname"><a href="../../de/da4/numth_8h.html#af6fd8351626fa438e87e41d3d32bdb3b">lmmp_perfsqr_filter_</a></div><div class="ttdeci">bool lmmp_perfsqr_filter_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">非完全平方数过滤器</div><div class="ttdef"><b>定义</b> <a href="#l00184">perfsqr.c:184</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a0f25c59a1877fdbe98f34b4bb90111ed"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a></div><div class="ttdeci">static bool is_perfsqr_p7(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00119">perfsqr.c:119</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a122eff5e4a028dd4c224febaf379951e"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a122eff5e4a028dd4c224febaf379951e">ADD</a></div><div class="ttdeci">#define ADD(c, a, val)</div><div class="ttdef"><b>定义</b> <a href="#l00045">perfsqr.c:45</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a194a6e1583fedf2054046ed05c64f8de"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a194a6e1583fedf2054046ed05c64f8de">MASK48</a></div><div class="ttdeci">#define MASK48</div><div class="ttdoc">Copyright (C) 2026 HJimmyK(Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="#l00021">perfsqr.c:21</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a1abfefd231ba550bc6a8722ee4441b09"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a></div><div class="ttdeci">#define PARTS0(n)</div><div class="ttdef"><b>定义</b> <a href="#l00040">perfsqr.c:40</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a25ee624514f4f3a05e2fabb8d65cbebc"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a></div><div class="ttdeci">static bool is_perfsqr_p241(ushort r)</div><div class="ttdef"><b>定义</b> <a href="#l00139">perfsqr.c:139</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a439e4f47d5eb1fadc5e9a3cea3370d2c"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a></div><div class="ttdeci">static bool is_perfsqr_p17(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00127">perfsqr.c:127</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a4aed5afb63a10feede63166f3dae3efe"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a></div><div class="ttdeci">static bool is_perfsqr_p256(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00166">perfsqr.c:166</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a7bb98a25b2e18df71690793a3fef5770"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a></div><div class="ttdeci">static bool is_perfsqr_p673(ushort r)</div><div class="ttdef"><b>定义</b> <a href="#l00156">perfsqr.c:156</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_aaa5696afeeb4e11e722175f5e208fd41"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a></div><div class="ttdeci">static bool is_perfsqr_p13(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00123">perfsqr.c:123</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ab78e8d4a51b69776c2b8e4e6e9828c8c"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a></div><div class="ttdeci">#define PARTS1(n)</div><div class="ttdef"><b>定义</b> <a href="#l00041">perfsqr.c:41</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ab85c40a1aeb85cb29075e20b8a8d23f0"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a></div><div class="ttdeci">static bool is_perfsqr_p257(ushort r)</div><div class="ttdef"><b>定义</b> <a href="#l00147">perfsqr.c:147</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ac016feb0003381e6f54b0bd44089eced"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a></div><div class="ttdeci">static bool is_perfsqr_p9(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00111">perfsqr.c:111</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ae10cdeec4d3bc4dc1c1c8db02eabadd8"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a></div><div class="ttdeci">static bool is_perfsqr_p5(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00115">perfsqr.c:115</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ae6ac0edb1e2c9c7672ab9488d8b65be9"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a></div><div class="ttdeci">#define B3</div><div class="ttdef"><b>定义</b> <a href="#l00025">perfsqr.c:25</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ae8c112ff5c8d94124786fee91ef87790"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a></div><div class="ttdeci">static bool is_perfsqr_p97(uchar r)</div><div class="ttdef"><b>定义</b> <a href="#l00131">perfsqr.c:131</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_aef3728ca7a651a456ed28717049be46a"><div class="ttname"><a href="../../d8/d0d/perfsqr_8c.html#aef3728ca7a651a456ed28717049be46a">PARTS2</a></div><div class="ttdeci">#define PARTS2(n)</div><div class="ttdef"><b>定义</b> <a href="#l00042">perfsqr.c:42</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html">tmp_alloc.h</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a2cdfd912649d3b47e211733cee82105c"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a></div><div class="ttdeci">#define TEMP_DECL</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00131">tmp_alloc.h:131</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a6a24d6c991fa35bcb5ed6a0c015b636b"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a></div><div class="ttdeci">#define TEMP_FREE</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00158">tmp_alloc.h:158</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a89accda8969763fd5645da4171590502"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a></div><div class="ttdeci">#define TALLOC_TYPE(n, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00156">tmp_alloc.h:156</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_d77cbddddf37de395302ec58cb811daa.html">lammp</a></li><li class="navelem"><a href="../../dir_b0e95e20361ee944571d17c4928a58d8.html">numth</a></li><li class="navelem"><a href="../../d8/d0d/perfsqr_8c.html">perfsqr.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LAMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

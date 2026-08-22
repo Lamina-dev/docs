@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/solve_mixed_transcendental.hpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d6/d61/solve__mixed__transcendental_8hpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solve_mixed_transcendental.hpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>混合超越方程求解：符号预处理 + 自适应根隔离 + Newton-Raphson 精化。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/dd2/solve__strategies_8hpp_source.html">solve_strategies.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/dcf/transcendental__factor_8hpp_source.html">transcendental_factor.hpp</a>&quot;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>solve_mixed_transcendental.hpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/dd5/solve__mixed__transcendental_8hpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>此图展示该文件被哪些文件直接或间接地引用了:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d9/d3c/solve__mixed__transcendental_8hpp__dep__incl.svg" width="448" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:lamina_3A_3AIsolatedInterval_5Fdb_2Fdfc_2Fstructlamina_5F1_5F1IsolatedInterval" id="r_lamina_3A_3AIsolatedInterval_5Fdb_2Fdfc_2Fstructlamina_5F1_5F1IsolatedInterval"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">lamina::IsolatedInterval</a></td></tr>
+<tr class="memdesc:db/dfc/structlamina_1_1IsolatedInterval"><td class="mdescLeft">&#160;</td><td class="mdescRight">隔离子区间，包含至多一个根  <a href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">更多...</a><br /></td></tr>
+<tr class="memitem:lamina_3A_3ASearchInterval_5Fd1_2Fd65_2Fstructlamina_5F1_5F1SearchInterval" id="r_lamina_3A_3ASearchInterval_5Fd1_2Fd65_2Fstructlamina_5F1_5F1SearchInterval"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">lamina::SearchInterval</a></td></tr>
+<tr class="memdesc:d1/d65/structlamina_1_1SearchInterval"><td class="mdescLeft">&#160;</td><td class="mdescRight">搜索区间  <a href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">更多...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a20426b4722f9485b6fcc5ec4c1d0df6f" id="r_a20426b4722f9485b6fcc5ec4c1d0df6f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a20426b4722f9485b6fcc5ec4c1d0df6f">lamina::contains_transcendental_of_var</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memdesc:a20426b4722f9485b6fcc5ec4c1d0df6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">判断表达式是否包含依赖指定变量的超越函数。  <br /></td></tr>
+<tr class="memitem:a1240265e22932c45f57ff61a674ca8be" id="r_a1240265e22932c45f57ff61a674ca8be"><td class="memItemLeft">std::vector&lt; lmmc_real_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a1240265e22932c45f57ff61a674ca8be">lamina::deduplicate_roots</a> (std::vector&lt; <a class="el" href="../../d1/d42/namespacelamina.html#df/de4/structlamina_1_1NumericRoot">NumericRoot</a> &gt; &amp;roots, lmmc_real_t tolerance, int max_roots)</td></tr>
+<tr class="memdesc:a1240265e22932c45f57ff61a674ca8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">去重并排序数值根。  <br /></td></tr>
+<tr class="memitem:a0200dcf339a1a30a9e483e877091a3f8" id="r_a0200dcf339a1a30a9e483e877091a3f8"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">SearchInterval</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a0200dcf339a1a30a9e483e877091a3f8">lamina::determine_search_interval</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::string &amp;var, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+<tr class="memdesc:a0200dcf339a1a30a9e483e877091a3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">确定搜索区间：用户指定 &gt; 周期扩展 &gt; 默认 [-10, 10]。  <br /></td></tr>
+<tr class="memitem:ae112d725d881e71e6fae361c54714484" id="r_ae112d725d881e71e6fae361c54714484"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae112d725d881e71e6fae361c54714484">lamina::is_polynomial_after_substitution</a> (const <a class="el" href="../../d1/d42/namespacelamina.html#db/db4/structlamina_1_1TransSubstitutionResult">TransSubstitutionResult</a> &amp;sub_result)</td></tr>
+<tr class="memdesc:ae112d725d881e71e6fae361c54714484"><td class="mdescLeft">&#160;</td><td class="mdescRight">判断换元结果是否为关于换元变量的多项式。  <br /></td></tr>
+<tr class="memitem:a49708dbfd9b94ea7040c199cd3a3f1de" id="r_a49708dbfd9b94ea7040c199cd3a3f1de"><td class="memItemLeft">std::vector&lt; <a class="el" href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">IsolatedInterval</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a49708dbfd9b94ea7040c199cd3a3f1de">lamina::isolate_roots</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;derivative, const std::string &amp;var, const <a class="el" href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">SearchInterval</a> &amp;interval, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+<tr class="memdesc:a49708dbfd9b94ea7040c199cd3a3f1de"><td class="mdescLeft">&#160;</td><td class="mdescRight">自适应根隔离：将搜索区间划分为含至多一个根的子区间。  <br /></td></tr>
+<tr class="memitem:a0f8f1b804b0fe5c8392ade3ea4ed4264" id="r_a0f8f1b804b0fe5c8392ade3ea4ed4264"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../d1/d42/namespacelamina.html#df/de4/structlamina_1_1NumericRoot">NumericRoot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a0f8f1b804b0fe5c8392ade3ea4ed4264">lamina::refine_root</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;derivative, const std::string &amp;var, const <a class="el" href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">IsolatedInterval</a> &amp;interval, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+<tr class="memdesc:a0f8f1b804b0fe5c8392ade3ea4ed4264"><td class="mdescLeft">&#160;</td><td class="mdescRight">对隔离区间执行根精化，返回高精度数值根。  <br /></td></tr>
+<tr class="memitem:aa6cdfe2966909cabcca4b1f14a592cc4" id="r_aa6cdfe2966909cabcca4b1f14a592cc4"><td class="memItemLeft">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aa6cdfe2966909cabcca4b1f14a592cc4">lamina::solve_mixed_transcendental</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr, const std::string &amp;var, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+<tr class="memdesc:aa6cdfe2966909cabcca4b1f14a592cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">混合超越方程求解主入口：符号预处理 + 数值根隔离 + 精化。  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">详细描述</h2>
+<div class="textblock"><p>混合超越方程求解：符号预处理 + 自适应根隔离 + Newton-Raphson 精化。 </p>
+<p>本模块处理同时包含超越函数（sin、cos、tan、exp、ln）和代数项的方程， 这类方程无法通过换元化为纯多项式或纯超越形式。求解流程：</p><ol type="1">
+<li>通过 factor_transcendental 尝试符号分解；</li>
+<li>对不可约因子执行自适应根隔离（符号变化检测 + 单调性确认）；</li>
+<li>使用 Newton-Raphson（带区间约束）精化每个隔离根，失败时回退到二分法。 </li>
+</ol>
+
+<p class="definition">在文件 <a class="el" href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html">solve_mixed_transcendental.hpp</a> 中定义.</p>
+</div><hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="db/dfc/structlamina_1_1IsolatedInterval" id="db/dfc/structlamina_1_1IsolatedInterval"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#db/dfc/structlamina_1_1IsolatedInterval">&#9670;&#160;</a></span>lamina::IsolatedInterval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::IsolatedInterval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>隔离子区间，包含至多一个根 </p>
+
+<p class="definition">在文件 <a class="el" href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html">solve_mixed_transcendental.hpp</a> 第 <a class="el" href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html#l00031">31</a> 行定义.</p>
+</div><div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::IsolatedInterval 的协作图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/dc4/structlamina_1_1IsolatedInterval__coll__graph.svg" width="220" height="232"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="aa748348542a31dae46865f6a93b1a90f" name="aa748348542a31dae46865f6a93b1a90f"></a>bool</td>
+<td class="fieldname">
+confirmed</td>
+<td class="fielddoc">
+若导数单调性确认恰含一个根则为 true </td></tr>
+<tr><td class="fieldtype">
+<a id="a9dd5f15574fdec18b2172935bfbdd482" name="a9dd5f15574fdec18b2172935bfbdd482"></a>lmmc_real_t</td>
+<td class="fieldname">
+hi</td>
+<td class="fielddoc">
+子区间上界 </td></tr>
+<tr><td class="fieldtype">
+<a id="a855b068411067cba8818b3c70a0cd163" name="a855b068411067cba8818b3c70a0cd163"></a>lmmc_real_t</td>
+<td class="fieldname">
+lo</td>
+<td class="fielddoc">
+子区间下界 </td></tr>
+</table>
+
+</div>
+</div>
+<a name="d1/d65/structlamina_1_1SearchInterval" id="d1/d65/structlamina_1_1SearchInterval"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d1/d65/structlamina_1_1SearchInterval">&#9670;&#160;</a></span>lamina::SearchInterval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::SearchInterval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>搜索区间 </p>
+
+<p class="definition">在文件 <a class="el" href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html">solve_mixed_transcendental.hpp</a> 第 <a class="el" href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html#l00025">25</a> 行定义.</p>
+</div><div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::SearchInterval 的协作图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d0/d1d/structlamina_1_1SearchInterval__coll__graph.svg" width="172" height="232"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a7aed4a53dcebe05608b8fc86f45e1033" name="a7aed4a53dcebe05608b8fc86f45e1033"></a>lmmc_real_t</td>
+<td class="fieldname">
+hi</td>
+<td class="fielddoc">
+上界 </td></tr>
+<tr><td class="fieldtype">
+<a id="a102dbdc0354bf76553bdef4bef0ee885" name="a102dbdc0354bf76553bdef4bef0ee885"></a>lmmc_real_t</td>
+<td class="fieldname">
+lo</td>
+<td class="fielddoc">
+下界 </td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../d6/d61/solve__mixed__transcendental_8hpp.html">solve_mixed_transcendental.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

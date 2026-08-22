@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/symbolic_factor.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/d45/symbolic__factor_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">symbolic_factor.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">../include/symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">../include/symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">../include/poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/db5/expression__analysis_8hpp_source.html">internal/expression_analysis.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/dcf/transcendental__factor_8hpp_source.html">../include/transcendental_factor.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d12/solve__polynomial_8hpp_source.html">../include/solve_polynomial.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d8c/multivariate__factor_8hpp_source.html">../include/multivariate_factor.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>symbolic_factor.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d0/d13/symbolic__factor_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d2/d45/symbolic__factor_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:anonymous_5Fnamespace_7Bsymbolic_5Ffactor_2Ecpp_7D_3A_3AFactorVariablesVisitor" id="r_anonymous_5Fnamespace_7Bsymbolic_5Ffactor_2Ecpp_7D_3A_3AFactorVariablesVisitor"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d5/dd5/classanonymous__namespace_02symbolic__factor_8cpp_03_1_1FactorVariablesVisitor.html">anonymous_namespace{symbolic_factor.cpp}::FactorVariablesVisitor</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:anonymous_5Fnamespace_7Bsymbolic_5Ffactor_2Ecpp_7D" id="r_anonymous_5Fnamespace_7Bsymbolic_5Ffactor_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../dc/deb/namespaceanonymous__namespace_02symbolic__factor_8cpp_03.html">anonymous_namespace{symbolic_factor.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a3d8a772fc0b959580d79d0a8a9abb72c" id="r_a3d8a772fc0b959580d79d0a8a9abb72c"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../dc/deb/namespaceanonymous__namespace_02symbolic__factor_8cpp_03.html#a3d8a772fc0b959580d79d0a8a9abb72c">anonymous_namespace{symbolic_factor.cpp}::is_poly_expr_node</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="memdesc:a3d8a772fc0b959580d79d0a8a9abb72c"><td class="mdescLeft">&#160;</td><td class="mdescRight">多元因式分解辅助函数  <br /></td></tr>
+<tr class="memitem:a373bd7f1590e0471bc470262f2306d9c" id="r_a373bd7f1590e0471bc470262f2306d9c"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a373bd7f1590e0471bc470262f2306d9c">multipoly_to_symbolic</a> (const <a class="el" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a> &amp;poly)</td></tr>
+<tr class="memdesc:a373bd7f1590e0471bc470262f2306d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">将 MultiPoly 转换为符号表达式  <br /></td></tr>
+<tr class="memitem:afb88190b32b957b92b83ee0c21683312" id="r_afb88190b32b957b92b83ee0c21683312"><td class="memItemLeft">static <a class="el" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a>&#160;</td><td class="memItemRight"><a class="el" href="#afb88190b32b957b92b83ee0c21683312">symbolic_node_to_multipoly</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::vector&lt; std::string &gt; &amp;vars)</td></tr>
+<tr class="memdesc:afb88190b32b957b92b83ee0c21683312"><td class="mdescLeft">&#160;</td><td class="mdescRight">递归将符号节点转换为 MultiPoly  <br /></td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="a373bd7f1590e0471bc470262f2306d9c" name="a373bd7f1590e0471bc470262f2306d9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a373bd7f1590e0471bc470262f2306d9c">&#9670;&#160;</a></span>multipoly_to_symbolic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; multipoly_to_symbolic </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>poly</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>将 MultiPoly 转换为符号表达式 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">poly</td><td>多元多项式 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>对应的符号表达式 </dd></dl>
+<p>系数部分</p>
+<p>变量部分</p>
+
+<p class="definition">在文件 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html">symbolic_factor.cpp</a> 第 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00254">254</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  254</span>                                                                                      {</div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordflow">if</span> (poly.<a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#acce8e0df5151511364672f55a6234221">is_zero</a>()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(0);</div>
+<div class="line"><span class="lineno">  256</span> </div>
+<div class="line"><span class="lineno">  257</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; vars = poly.<a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a66ce8baff5b790372691509ad4d41f76">variables</a>();</div>
+<div class="line"><span class="lineno">  258</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; terms = poly.<a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a69969fe5bd05bace7ad4c6ca41963102">terms</a>();</div>
+<div class="line"><span class="lineno">  259</span> </div>
+<div class="line"><span class="lineno">  260</span>    std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; term_exprs;</div>
+<div class="line"><span class="lineno">  261</span>    term_exprs.reserve(terms.size());</div>
+<div class="line"><span class="lineno">  262</span> </div>
+<div class="line"><span class="lineno">  263</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [mono, coeff] : terms) {</div>
+<div class="line"><span class="lineno">  264</span>        std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; factors;</div>
+<div class="line"><span class="lineno">  265</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  266</span><span class="comment">        /// 系数部分</span></div>
+<div class="line"><span class="lineno">  267</span>        <span class="keywordflow">if</span> (!(coeff == <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1)) || <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a33c68aed536f8284ccb988c65de34e2b">lamina::total_degree</a>(mono) == 0) {</div>
+<div class="line"><span class="lineno">  268</span>            <span class="keywordflow">if</span> (coeff == <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(-1) &amp;&amp; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a33c68aed536f8284ccb988c65de34e2b">lamina::total_degree</a>(mono) &gt; 0) {</div>
+<div class="line"><span class="lineno">  269</span>                factors.push_back(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(-1));</div>
+<div class="line"><span class="lineno">  270</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  271</span>                factors.push_back(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(coeff));</div>
+<div class="line"><span class="lineno">  272</span>            }</div>
+<div class="line"><span class="lineno">  273</span>        }</div>
+<div class="line"><span class="lineno">  274</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  275</span><span class="comment">        /// 变量部分</span></div>
+<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; vars.size() &amp;&amp; i &lt; mono.size(); ++i) {</div>
+<div class="line"><span class="lineno">  277</span>            <span class="keywordflow">if</span> (mono[i] == 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  278</span>            <span class="keyword">auto</span> var_expr = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(</div>
+<div class="line"><span class="lineno">  279</span>                <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;VariableNode&gt;</a>(vars[i]));</div>
+<div class="line"><span class="lineno">  280</span>            <span class="keywordflow">if</span> (mono[i] == 1) {</div>
+<div class="line"><span class="lineno">  281</span>                factors.push_back(var_expr);</div>
+<div class="line"><span class="lineno">  282</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  283</span>                factors.push_back(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a>(var_expr,</div>
+<div class="line"><span class="lineno">  284</span>                    <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(mono[i])));</div>
+<div class="line"><span class="lineno">  285</span>            }</div>
+<div class="line"><span class="lineno">  286</span>        }</div>
+<div class="line"><span class="lineno">  287</span> </div>
+<div class="line"><span class="lineno">  288</span>        std::shared_ptr&lt;SymbolicExpr&gt; term_expr;</div>
+<div class="line"><span class="lineno">  289</span>        <span class="keywordflow">if</span> (factors.empty()) {</div>
+<div class="line"><span class="lineno">  290</span>            term_expr = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(1);</div>
+<div class="line"><span class="lineno">  291</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (factors.size() == 1) {</div>
+<div class="line"><span class="lineno">  292</span>            term_expr = factors[0];</div>
+<div class="line"><span class="lineno">  293</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  294</span>            <span class="keyword">auto</span> result = factors[0];</div>
+<div class="line"><span class="lineno">  295</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 1; i &lt; factors.size(); ++i) {</div>
+<div class="line"><span class="lineno">  296</span>                result = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(result, factors[i]);</div>
+<div class="line"><span class="lineno">  297</span>            }</div>
+<div class="line"><span class="lineno">  298</span>            term_expr = result;</div>
+<div class="line"><span class="lineno">  299</span>        }</div>
+<div class="line"><span class="lineno">  300</span>        term_exprs.push_back(term_expr);</div>
+<div class="line"><span class="lineno">  301</span>    }</div>
+<div class="line"><span class="lineno">  302</span> </div>
+<div class="line"><span class="lineno">  303</span>    <span class="keywordflow">if</span> (term_exprs.empty()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(0);</div>
+<div class="line"><span class="lineno">  304</span>    <span class="keywordflow">if</span> (term_exprs.size() == 1) <span class="keywordflow">return</span> term_exprs[0]-&gt;simplify();</div>
+<div class="line"><span class="lineno">  305</span> </div>
+<div class="line"><span class="lineno">  306</span>    <span class="keyword">auto</span> result = term_exprs[0];</div>
+<div class="line"><span class="lineno">  307</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 1; i &lt; term_exprs.size(); ++i) {</div>
+<div class="line"><span class="lineno">  308</span>        result = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a>(result, term_exprs[i]);</div>
+<div class="line"><span class="lineno">  309</span>    }</div>
+<div class="line"><span class="lineno">  310</span>    <span class="keywordflow">return</span> result-&gt;simplify();</div>
+<div class="line"><span class="lineno">  311</span>}</div>
+<div class="ttc" id="aclassRational_html_a3bbd6ff67c590da76ddfcbd48cd3de0a"><div class="ttname"><a href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational::Rational</a></div><div class="ttdeci">Rational()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00090">rational.hpp:90</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a3bdf282c74b91aedb1dc529c047390db"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; number(int n)</div><div class="ttdoc">创建整数数值表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00017">symbolic_core.cpp:17</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a7cbde7842e11e1337d8c2276e650f7c0"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; multiply(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建乘法表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00060">symbolic_core.cpp:60</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ab917584b9057b286e514d407614888cd"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; power(std::shared_ptr&lt; SymbolicExpr &gt; base, std::shared_ptr&lt; SymbolicExpr &gt; exponent)</div><div class="ttdoc">创建幂运算表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00084">symbolic_core.cpp:84</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ade468ea22874ed2a114a5ee83aae525b"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; add(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建加法表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00072">symbolic_core.cpp:72</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a66ce8baff5b790372691509ad4d41f76"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a66ce8baff5b790372691509ad4d41f76">lamina::MultiPoly::variables</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; variables() const</div><div class="ttdoc">获取变量名列表</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00178">multivariate_poly.cpp:178</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a69969fe5bd05bace7ad4c6ca41963102"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a69969fe5bd05bace7ad4c6ca41963102">lamina::MultiPoly::terms</a></div><div class="ttdeci">const std::vector&lt; Term &gt; &amp; terms() const</div><div class="ttdoc">获取项列表</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00183">multivariate_poly.cpp:183</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_acce8e0df5151511364672f55a6234221"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#acce8e0df5151511364672f55a6234221">lamina::MultiPoly::is_zero</a></div><div class="ttdeci">bool is_zero() const</div><div class="ttdoc">— 属性查询 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00123">multivariate_poly.cpp:123</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aadd9ee6d804ecfa450cbaced381efdeb"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a></div><div class="ttdeci">std::shared_ptr&lt;::SymbolicExpr &gt; make_expression_ptr(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00102">base.hpp:102</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aea502a76fff503e0f55363f674f65fa4"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00114">base.hpp:114</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a33c68aed536f8284ccb988c65de34e2b"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a33c68aed536f8284ccb988c65de34e2b">lamina::total_degree</a></div><div class="ttdeci">int total_degree(const Monomial &amp;m)</div><div class="ttdoc">计算单项式的全次数</div><div class="ttdef"><b>定义</b> <a href="../../db/d4d/monomial__order_8hpp_source.html#l00030">monomial_order.hpp:30</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00072">SymbolicExpr::add()</a>, <a class="el" href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00123">lamina::MultiPoly::is_zero()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00102">lamina::detail::make_expression_ptr()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00060">SymbolicExpr::multiply()</a>, <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00254">multipoly_to_symbolic()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00017">SymbolicExpr::number()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00084">SymbolicExpr::power()</a>, <a class="el" href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00183">lamina::MultiPoly::terms()</a>, <a class="el" href="../../db/d4d/monomial__order_8hpp_source.html#l00030">lamina::total_degree()</a> , 以及 <a class="el" href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00178">lamina::MultiPoly::variables()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00313">SymbolicExpr::factor()</a> , 以及 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00254">multipoly_to_symbolic()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d45/symbolic__factor_8cpp_a373bd7f1590e0471bc470262f2306d9c_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d45/symbolic__factor_8cpp_a373bd7f1590e0471bc470262f2306d9c_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="afb88190b32b957b92b83ee0c21683312" name="afb88190b32b957b92b83ee0c21683312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb88190b32b957b92b83ee0c21683312">&#9670;&#160;</a></span>symbolic_node_to_multipoly()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a> symbolic_node_to_multipoly </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>vars</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>递归将符号节点转换为 MultiPoly </p>
+<p>假设节点已通过 is_poly_expr_node 验证为多项式。 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>符号节点 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vars</td><td>变量名列表（确定单项式各分量的含义） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>对应的 MultiPoly </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html">symbolic_factor.cpp</a> 第 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00178">178</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  181</span>{</div>
+<div class="line"><span class="lineno">  182</span>    <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a>(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(0), vars);</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  185</span>        <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> coeff(0);</div>
+<div class="line"><span class="lineno">  186</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  187</span>            coeff = <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(std::get&lt;BigInt&gt;(num-&gt;value()));</div>
+<div class="line"><span class="lineno">  188</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  189</span>            coeff = std::get&lt;Rational&gt;(num-&gt;value());</div>
+<div class="line"><span class="lineno">  190</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  191</span>            coeff = <a class="code hl_function" href="../../d8/da7/classRational.html#ac7a93fda9943083585843c9bd56e3fce">Rational::from_double</a>(std::get&lt;lmmc_real_t&gt;(num-&gt;value()));</div>
+<div class="line"><span class="lineno">  192</span>        }</div>
+<div class="line"><span class="lineno">  193</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a>(coeff, vars);</div>
+<div class="line"><span class="lineno">  194</span>    }</div>
+<div class="line"><span class="lineno">  195</span> </div>
+<div class="line"><span class="lineno">  196</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> var_node = std::dynamic_pointer_cast&lt;const VariableNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  197</span>        <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a55c89afc5fed3e091c7bcdc2cd1da678">lamina::Monomial</a> mono(vars.size(), 0);</div>
+<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; vars.size(); ++i) {</div>
+<div class="line"><span class="lineno">  199</span>            <span class="keywordflow">if</span> (vars[i] == var_node-&gt;name()) {</div>
+<div class="line"><span class="lineno">  200</span>                mono[i] = 1;</div>
+<div class="line"><span class="lineno">  201</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  202</span>            }</div>
+<div class="line"><span class="lineno">  203</span>        }</div>
+<div class="line"><span class="lineno">  204</span>        std::vector&lt;lamina::MultiPoly::Term&gt; terms;</div>
+<div class="line"><span class="lineno">  205</span>        terms.push_back({mono, <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1)});</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a>(std::move(terms), vars);</div>
+<div class="line"><span class="lineno">  207</span>    }</div>
+<div class="line"><span class="lineno">  208</span> </div>
+<div class="line"><span class="lineno">  209</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> add = std::dynamic_pointer_cast&lt;const AddNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  210</span>        <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a> result(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(0), vars);</div>
+<div class="line"><span class="lineno">  211</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; op : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">add</a>-&gt;operands()) {</div>
+<div class="line"><span class="lineno">  212</span>            result = result + <a class="code hl_function" href="#afb88190b32b957b92b83ee0c21683312">symbolic_node_to_multipoly</a>(op, vars);</div>
+<div class="line"><span class="lineno">  213</span>        }</div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno">  215</span>    }</div>
+<div class="line"><span class="lineno">  216</span> </div>
+<div class="line"><span class="lineno">  217</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> mul = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  218</span>        <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a> result(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1), vars);</div>
+<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; op : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()) {</div>
+<div class="line"><span class="lineno">  220</span>            result = result * <a class="code hl_function" href="#afb88190b32b957b92b83ee0c21683312">symbolic_node_to_multipoly</a>(op, vars);</div>
+<div class="line"><span class="lineno">  221</span>        }</div>
+<div class="line"><span class="lineno">  222</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno">  223</span>    }</div>
+<div class="line"><span class="lineno">  224</span> </div>
+<div class="line"><span class="lineno">  225</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> pow = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  226</span>        <span class="keyword">auto</span> base_poly = <a class="code hl_function" href="#afb88190b32b957b92b83ee0c21683312">symbolic_node_to_multipoly</a>(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">pow</a>-&gt;base(), vars);</div>
+<div class="line"><span class="lineno">  227</span>        <span class="keywordtype">int</span> exp_val = 0;</div>
+<div class="line"><span class="lineno">  228</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> exp_num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">pow</a>-&gt;exponent())) {</div>
+<div class="line"><span class="lineno">  229</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(exp_num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  230</span>                exp_val = std::get&lt;BigInt&gt;(exp_num-&gt;value()).to_int();</div>
+<div class="line"><span class="lineno">  231</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(exp_num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  232</span>                exp_val = std::get&lt;Rational&gt;(exp_num-&gt;value()).to_BigInt().to_int();</div>
+<div class="line"><span class="lineno">  233</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(exp_num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  234</span>                exp_val = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::get&lt;lmmc_real_t&gt;(exp_num-&gt;value()));</div>
+<div class="line"><span class="lineno">  235</span>            }</div>
+<div class="line"><span class="lineno">  236</span>        }</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">if</span> (exp_val == 0) <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a>(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1), vars);</div>
+<div class="line"><span class="lineno">  238</span>        <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a> result(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1), vars);</div>
+<div class="line"><span class="lineno">  239</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; exp_val; ++i) {</div>
+<div class="line"><span class="lineno">  240</span>            result = result * base_poly;</div>
+<div class="line"><span class="lineno">  241</span>        }</div>
+<div class="line"><span class="lineno">  242</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><span class="lineno">  243</span>    }</div>
+<div class="line"><span class="lineno">  244</span> </div>
+<div class="line"><span class="lineno">  245</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a>(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(0), vars);</div>
+<div class="line"><span class="lineno">  246</span>}</div>
+<div class="ttc" id="aclassRational_html"><div class="ttname"><a href="../../d8/da7/classRational.html">Rational</a></div><div class="ttdoc">精确有理数类，以 BigInt 分子/分母表示，构造时自动约分</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00020">rational.hpp:20</a></div></div>
+<div class="ttc" id="aclassRational_html_ac7a93fda9943083585843c9bd56e3fce"><div class="ttname"><a href="../../d8/da7/classRational.html#ac7a93fda9943083585843c9bd56e3fce">Rational::from_double</a></div><div class="ttdeci">static Rational from_double(double value)</div><div class="ttdoc">从 double 构造有理数</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00232">rational.hpp:232</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a></div><div class="ttdoc">多元多项式类，稀疏表示</div><div class="ttdef"><b>定义</b> <a href="../../d8/d5a/multivariate__poly_8hpp_source.html#l00029">multivariate_poly.hpp:29</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a64990c257e3fd7e2a75bd4fc77ddeaf3"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">lamina::lsr::pow</a></div><div class="ttdeci">ExprResult pow(const ExprPtr &amp;base, const ExprPtr &amp;exponent, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00484">lsr_expr_facade.cpp:484</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a7f26e61e1ba27febfad52ada513cf651"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">lamina::lsr::add</a></div><div class="ttdeci">ExprResult add(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00394">lsr_expr_facade.cpp:394</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_ada335511ba75e35d44a3cb620637eaea"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">lamina::lsr::mul</a></div><div class="ttdeci">ExprResult mul(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00405">lsr_expr_facade.cpp:405</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a55c89afc5fed3e091c7bcdc2cd1da678"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a55c89afc5fed3e091c7bcdc2cd1da678">lamina::Monomial</a></div><div class="ttdeci">std::vector&lt; int &gt; Monomial</div><div class="ttdoc">单项式类型，以整数向量表示各变量的指数</div><div class="ttdef"><b>定义</b> <a href="../../db/d4d/monomial__order_8hpp_source.html#l00015">monomial_order.hpp:15</a></div></div>
+<div class="ttc" id="asymbolic__factor_8cpp_html_afb88190b32b957b92b83ee0c21683312"><div class="ttname"><a href="#afb88190b32b957b92b83ee0c21683312">symbolic_node_to_multipoly</a></div><div class="ttdeci">static lamina::MultiPoly symbolic_node_to_multipoly(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, const std::vector&lt; std::string &gt; &amp;vars)</div><div class="ttdoc">递归将符号节点转换为 MultiPoly</div><div class="ttdef"><b>定义</b> <a href="../../d2/d45/symbolic__factor_8cpp_source.html#l00178">symbolic_factor.cpp:178</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a>, <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00232">Rational::from_double()</a> , 以及 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00178">symbolic_node_to_multipoly()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00313">SymbolicExpr::factor()</a> , 以及 <a class="el" href="../../d2/d45/symbolic__factor_8cpp_source.html#l00178">symbolic_node_to_multipoly()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d45/symbolic__factor_8cpp_afb88190b32b957b92b83ee0c21683312_cgraph.svg" width="100%" height="553"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d45/symbolic__factor_8cpp_afb88190b32b957b92b83ee0c21683312_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/d45/symbolic__factor_8cpp.html">symbolic_factor.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

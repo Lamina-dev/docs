@@ -1,0 +1,28 @@
+var annotated_dup =
+[
+    [ "_udiv64_t", "d1/d59/longlong_8h.html#d6/d24/struct__udiv64__t", "d1/d59/longlong_8h_d6/d24/struct__udiv64__t" ],
+    [ "bino_choose_t", "dd/ded/nCr_8c.html#d8/d9f/structbino__choose__t", "dd/ded/nCr_8c_d8/d9f/structbino__choose__t" ],
+    [ "fac_t", "dc/d42/ele__mul_8h.html#d4/de1/structfac__t", "dc/d42/ele__mul_8h_d4/de1/structfac__t" ],
+    [ "fft_cache", "df/d83/mul__cache_8h.html#d5/d08/structfft__cache", "df/d83/mul__cache_8h_d5/d08/structfft__cache" ],
+    [ "fft_gr_cache", "df/d83/mul__cache_8h.html#d7/d5c/structfft__gr__cache", "df/d83/mul__cache_8h_d7/d5c/structfft__gr__cache" ],
+    [ "fft_memstack", "d3/d16/fft__ssa_8h.html#dc/dea/structfft__memstack", "d3/d16/fft__ssa_8h_dc/dea/structfft__memstack" ],
+    [ "huff_node", "dc/d42/ele__mul_8h.html#d5/d8e/structhuff__node", "dc/d42/ele__mul_8h_d5/d8e/structhuff__node" ],
+    [ "huff_tree", "dc/d42/ele__mul_8h.html#d0/d23/structhuff__tree", "dc/d42/ele__mul_8h_d0/d23/structhuff__tree" ],
+    [ "lehmer_stack_t", "de/d86/gcd__lehmer_8c.html#dd/d96/structlehmer__stack__t", "de/d86/gcd__lehmer_8c_dd/d96/structlehmer__stack__t" ],
+    [ "lmmp_alloc_marker", "d8/daa/tmp__alloc_8h.html#d3/d7b/structlmmp__alloc__marker", "d8/daa/tmp__alloc_8h_d3/d7b/structlmmp__alloc__marker" ],
+    [ "lmmp_global_rng_t", "df/de3/mprand_8c.html#d0/dd7/structlmmp__global__rng__t", "df/de3/mprand_8c_d0/dd7/structlmmp__global__rng__t" ],
+    [ "lmmp_heap_allocator_t", "dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t", "dd/d90/lmmp_8h_d8/d93/structlmmp__heap__allocator__t" ],
+    [ "lmmp_mat22_t", "d5/dc3/mat22__mul_8h.html#de/da0/structlmmp__mat22__t", "d5/dc3/mat22__mul_8h_de/da0/structlmmp__mat22__t" ],
+    [ "lmmp_memory_ctx", "d8/daa/tmp__alloc_8h.html#da/d9e/structlmmp__memory__ctx", "d8/daa/tmp__alloc_8h_da/d9e/structlmmp__memory__ctx" ],
+    [ "lmmp_strong_rng_t", "df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t", "df/de3/mprand_8c_de/dd1/structlmmp__strong__rng__t" ],
+    [ "mp_base_t", "d3/d70/base__table_8h.html#df/d99/structmp__base__t", "d3/d70/base__table_8h_df/d99/structmp__base__t" ],
+    [ "mp_basepow_t", "d3/d70/base__table_8h.html#d7/d4a/structmp__basepow__t", "d3/d70/base__table_8h_d7/d4a/structmp__basepow__t" ],
+    [ "mp_gcd_lehmer_t", "de/d86/gcd__lehmer_8c.html#d9/dc8/structmp__gcd__lehmer__t", "de/d86/gcd__lehmer_8c_d9/dc8/structmp__gcd__lehmer__t" ],
+    [ "pcg64_128_state", "dc/da5/rand__state_8h.html#d8/d02/structpcg64__128__state", "dc/da5/rand__state_8h_d8/d02/structpcg64__128__state" ],
+    [ "pcg64_le_seq_t", "dc/da5/rand__state_8h.html#d4/d49/structpcg64__le__seq__t", "dc/da5/rand__state_8h_d4/d49/structpcg64__le__seq__t" ],
+    [ "prime_cache_t", "d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t", "d1/d98/prime__table_8h_d8/d94/structprime__cache__t" ],
+    [ "prime_int", "d2/d9c/prime__table_8c.html#d1/d3b/structprime__int", "d2/d9c/prime__table_8c_d1/d3b/structprime__int" ],
+    [ "toom42_cache_t", "d0/de5/mul__toom42_8c.html#d1/d43/structtoom42__cache__t", "d0/de5/mul__toom42_8c_d1/d43/structtoom42__cache__t" ],
+    [ "toom62_cache_t", "df/d18/mul__toom62_8c.html#dd/d10/structtoom62__cache__t", "df/d18/mul__toom62_8c_dd/d10/structtoom62__cache__t" ],
+    [ "xoshiro256pp_state", "dc/da5/rand__state_8h.html#d1/db3/structxoshiro256pp__state", "dc/da5/rand__state_8h_d1/db3/structxoshiro256pp__state" ]
+];

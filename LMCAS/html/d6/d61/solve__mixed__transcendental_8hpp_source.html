@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/solve_mixed_transcendental.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d6/d61/solve__mixed__transcendental_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solve_mixed_transcendental.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d6/d61/solve__mixed__transcendental_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file solve_mixed_transcendental.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 混合超越方程求解：符号预处理 + 自适应根隔离 + Newton-Raphson 精化。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * 本模块处理同时包含超越函数（sin、cos、tan、exp、ln）和代数项的方程，</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * 这类方程无法通过换元化为纯多项式或纯超越形式。求解流程：</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * 1. 通过 factor_transcendental 尝试符号分解；</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * 2. 对不可约因子执行自适应根隔离（符号变化检测 + 单调性确认）；</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * 3. 使用 Newton-Raphson（带区间约束）精化每个隔离根，失败时回退到二分法。</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/dd2/solve__strategies_8hpp.html">solve_strategies.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"></span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/// 搜索区间</span></div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">SearchInterval</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a102dbdc0354bf76553bdef4bef0ee885">   26</a></span>    lmmc_real_t <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a102dbdc0354bf76553bdef4bef0ee885">lo</a>;  <span class="comment">///&lt; 下界</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a7aed4a53dcebe05608b8fc86f45e1033">   27</a></span>    lmmc_real_t <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a7aed4a53dcebe05608b8fc86f45e1033">hi</a>;  <span class="comment">///&lt; 上界</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>};</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"></span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/// 隔离子区间，包含至多一个根</span></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">IsolatedInterval</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a855b068411067cba8818b3c70a0cd163">   32</a></span>    lmmc_real_t <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a855b068411067cba8818b3c70a0cd163">lo</a>;   <span class="comment">///&lt; 子区间下界</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a9dd5f15574fdec18b2172935bfbdd482">   33</a></span>    lmmc_real_t <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a9dd5f15574fdec18b2172935bfbdd482">hi</a>;   <span class="comment">///&lt; 子区间上界</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aa748348542a31dae46865f6a93b1a90f">   34</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#aa748348542a31dae46865f6a93b1a90f">confirmed</a>;   <span class="comment">///&lt; 若导数单调性确认恰含一个根则为 true</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"></span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * @brief 混合超越方程求解主入口：符号预处理 + 数值根隔离 + 精化。</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * 对输入表达式先调用 factor_transcendental 尝试分解为多个因子：</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> * - 可约为 ≤4 次多项式的因子委托给多项式求解器；</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> * - 可通过 Lambert W 或直接反演求解的因子委托给 solve_transcendental；</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * - 不可约因子进入数值路径（根隔离 + 精化）。</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * 最终对所有因子的根集取并集，去重排序后返回。</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * @param[in] expr 待求解表达式（视为 = 0）</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * @param[in] var  求解变量名</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * @param[in] opts 求解选项（容差、最大迭代次数、搜索区间等）</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * @return 数值根列表，以 NumberNode 表达式形式返回，按升序排列；</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> *         无根时返回空向量</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aa6cdfe2966909cabcca4b1f14a592cc4">solve_mixed_transcendental</a>(</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a>&amp; opts);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"></span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"> * @brief 判断表达式是否包含依赖指定变量的超越函数。</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"> * 遍历 AST，检测 sin/cos/tan/exp/ln 节点的参数是否依赖 var。</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> * 若超越函数的参数不含 var（即为常数），则不计入。</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"> * @param[in] expr 待检测的符号表达式</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"> * @param[in] var  目标变量名</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment"> * @return 包含依赖 var 的超越函数时返回 true，否则返回 false</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a20426b4722f9485b6fcc5ec4c1d0df6f">contains_transcendental_of_var</a>(</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"></span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> * @brief 判断换元结果是否为关于换元变量的多项式。</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> * 检查 detect_trans_substitutions 的输出：若映射为空或换元后表达式</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"> * 仍非多项式形式，则返回 false。</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"> * @param[in] sub_result 换元分析结果</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"> * @return 换元后为多项式时返回 true，否则返回 false</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ae112d725d881e71e6fae361c54714484">is_polynomial_after_substitution</a>(</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#db/db4/structlamina_1_1TransSubstitutionResult">TransSubstitutionResult</a>&amp; sub_result);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"></span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * @brief 确定搜索区间：用户指定 &gt; 周期扩展 &gt; 默认 [-10, 10]。</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * 优先级：</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> * 1. 若 opts.has_search_interval 为 true，使用 [search_lo, search_hi]；</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment"> * 2. 若表达式含周期函数（sin/cos/tan）且参数为 k*x+c 形式，</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"> *    扩展默认区间覆盖至少两个完整周期，上限 [-100, 100]；</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment"> * 3. 否则使用默认区间 [-10, 10]。</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"> * @param[in] expr 表达式</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"> * @param[in] var  变量名</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * @param[in] opts 求解选项</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * @return 有效搜索区间；区间无效（lo &gt;= hi 或宽度 &lt;= tolerance）时返回 nullopt</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::optional&lt;SearchInterval&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a0200dcf339a1a30a9e483e877091a3f8">determine_search_interval</a>(</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a>&amp; opts);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment"></span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment"> * @brief 自适应根隔离：将搜索区间划分为含至多一个根的子区间。</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment"> * 通过递归二分检测符号变化，定位根所在子区间。当导数可用时，</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"> * 利用导数符号确认子区间内的单调性（即恰含一个根）。</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment"> * 特殊处理：</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment"> * - 子区间宽度 &lt; 1e-6 时停止细分；</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment"> * - 采样点产生 NaN/Inf 时跳过并缩小区间重新采样；</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment"> * - 超过 max_roots 限制时截断返回。</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment"> * @param[in] expr       表达式</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> * @param[in] derivative 表达式的导数（可为 nullptr，跳过单调性确认）</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"> * @param[in] var        变量名</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment"> * @param[in] interval   搜索区间</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"> * @param[in] opts       求解选项（max_roots、tolerance）</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment"> * @return 隔离子区间列表</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;IsolatedInterval&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a49708dbfd9b94ea7040c199cd3a3f1de">isolate_roots</a>(</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; derivative,</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">SearchInterval</a>&amp; interval,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a>&amp; opts);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment"></span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment"> * @brief 去重并排序数值根。</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment"> * 对候选根进行两两比较，差值小于 10 * tolerance 的视为重复，</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment"> * 保留残差较小者。去重后按升序排列，并应用 max_roots 限制。</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment"> * @param[in,out] roots     候选根列表（会被排序修改）</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment"> * @param[in]     tolerance 去重容差（实际阈值为 10 * tolerance）</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment"> * @param[in]     max_roots 最大返回根数（-1 表示不限制）</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment"> * @return 去重、排序后的根值列表</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;lmmc_real_t&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1240265e22932c45f57ff61a674ca8be">deduplicate_roots</a>(</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    std::vector&lt;NumericRoot&gt;&amp; roots,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    lmmc_real_t tolerance,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordtype">int</span> max_roots);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment"></span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment"> * @brief 对隔离区间执行根精化，返回高精度数值根。</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment"> * 使用带区间约束的 Newton-Raphson 迭代精化根，导数不可用时回退到纯二分法。</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment"> * 收敛条件为 |f(x)| &lt; tolerance，达到最大迭代次数后返回残差最小的结果</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment"> * （仅当残差 &lt; tolerance），否则返回 nullopt。</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment"> * @param[in] expr       待求解表达式</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment"> * @param[in] derivative 表达式的导数（可为 nullptr，此时使用纯二分法）</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment"> * @param[in] var        求解变量名</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"> * @param[in] interval   隔离子区间</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment"> * @param[in] opts       求解选项（tolerance, max_newton_iterations）</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment"> * @return 精化后的数值根；未收敛或残差超限时返回 nullopt</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::optional&lt;NumericRoot&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a0f8f1b804b0fe5c8392ade3ea4ed4264">refine_root</a>(</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; derivative,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">IsolatedInterval</a>&amp; interval,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a>&amp; opts);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="alamina__export_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>定义</b> <a href="../../d1/d05/lamina__export_8hpp_source.html#l00011">lamina_export.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a0200dcf339a1a30a9e483e877091a3f8"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a0200dcf339a1a30a9e483e877091a3f8">lamina::determine_search_interval</a></div><div class="ttdeci">std::optional&lt; SearchInterval &gt; determine_search_interval(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, const SolveOptions &amp;opts)</div><div class="ttdoc">确定搜索区间：用户指定 &gt; 周期扩展 &gt; 默认 [-10, 10]。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l00464">solve_mixed_transcendental.cpp:464</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a0f8f1b804b0fe5c8392ade3ea4ed4264"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a0f8f1b804b0fe5c8392ade3ea4ed4264">lamina::refine_root</a></div><div class="ttdeci">std::optional&lt; NumericRoot &gt; refine_root(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;var, const IsolatedInterval &amp;interval, const SolveOptions &amp;opts)</div><div class="ttdoc">对隔离区间执行根精化，返回高精度数值根。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l00941">solve_mixed_transcendental.cpp:941</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a102dbdc0354bf76553bdef4bef0ee885"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a102dbdc0354bf76553bdef4bef0ee885">lamina::SearchInterval::lo</a></div><div class="ttdeci">lmmc_real_t lo</div><div class="ttdoc">下界</div><div class="ttdef"><b>定义</b> <a href="#l00026">solve_mixed_transcendental.hpp:26</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a1240265e22932c45f57ff61a674ca8be"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a1240265e22932c45f57ff61a674ca8be">lamina::deduplicate_roots</a></div><div class="ttdeci">std::vector&lt; lmmc_real_t &gt; deduplicate_roots(std::vector&lt; NumericRoot &gt; &amp;roots, lmmc_real_t tolerance, int max_roots)</div><div class="ttdoc">去重并排序数值根。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l00873">solve_mixed_transcendental.cpp:873</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a20426b4722f9485b6fcc5ec4c1d0df6f"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a20426b4722f9485b6fcc5ec4c1d0df6f">lamina::contains_transcendental_of_var</a></div><div class="ttdeci">bool contains_transcendental_of_var(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</div><div class="ttdoc">判断表达式是否包含依赖指定变量的超越函数。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l00040">solve_mixed_transcendental.cpp:40</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a49708dbfd9b94ea7040c199cd3a3f1de"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a49708dbfd9b94ea7040c199cd3a3f1de">lamina::isolate_roots</a></div><div class="ttdeci">std::vector&lt; IsolatedInterval &gt; isolate_roots(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;var, const SearchInterval &amp;interval, const SolveOptions &amp;opts)</div><div class="ttdoc">自适应根隔离：将搜索区间划分为含至多一个根的子区间。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l00675">solve_mixed_transcendental.cpp:675</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a7aed4a53dcebe05608b8fc86f45e1033"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a7aed4a53dcebe05608b8fc86f45e1033">lamina::SearchInterval::hi</a></div><div class="ttdeci">lmmc_real_t hi</div><div class="ttdoc">上界</div><div class="ttdef"><b>定义</b> <a href="#l00027">solve_mixed_transcendental.hpp:27</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a855b068411067cba8818b3c70a0cd163"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a855b068411067cba8818b3c70a0cd163">lamina::IsolatedInterval::lo</a></div><div class="ttdeci">lmmc_real_t lo</div><div class="ttdoc">子区间下界</div><div class="ttdef"><b>定义</b> <a href="#l00032">solve_mixed_transcendental.hpp:32</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a9dd5f15574fdec18b2172935bfbdd482"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a9dd5f15574fdec18b2172935bfbdd482">lamina::IsolatedInterval::hi</a></div><div class="ttdeci">lmmc_real_t hi</div><div class="ttdoc">子区间上界</div><div class="ttdef"><b>定义</b> <a href="#l00033">solve_mixed_transcendental.hpp:33</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aa6cdfe2966909cabcca4b1f14a592cc4"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aa6cdfe2966909cabcca4b1f14a592cc4">lamina::solve_mixed_transcendental</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; solve_mixed_transcendental(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, const SolveOptions &amp;opts)</div><div class="ttdoc">混合超越方程求解主入口：符号预处理 + 数值根隔离 + 精化。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l01235">solve_mixed_transcendental.cpp:1235</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aa748348542a31dae46865f6a93b1a90f"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aa748348542a31dae46865f6a93b1a90f">lamina::IsolatedInterval::confirmed</a></div><div class="ttdeci">bool confirmed</div><div class="ttdoc">若导数单调性确认恰含一个根则为 true</div><div class="ttdef"><b>定义</b> <a href="#l00034">solve_mixed_transcendental.hpp:34</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ae112d725d881e71e6fae361c54714484"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ae112d725d881e71e6fae361c54714484">lamina::is_polynomial_after_substitution</a></div><div class="ttdeci">bool is_polynomial_after_substitution(const TransSubstitutionResult &amp;sub_result)</div><div class="ttdoc">判断换元结果是否为关于换元变量的多项式。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d55/solve__mixed__transcendental_8cpp_source.html#l00224">solve_mixed_transcendental.cpp:224</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d1/d65/structlamina_1_1SearchInterval"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d1/d65/structlamina_1_1SearchInterval">lamina::SearchInterval</a></div><div class="ttdoc">搜索区间</div><div class="ttdef"><b>定义</b> <a href="#l00025">solve_mixed_transcendental.hpp:25</a></div></div>
+<div class="ttc" id="anamespacelamina_html_da/d00/structlamina_1_1SolveOptions"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">lamina::SolveOptions</a></div><div class="ttdoc">方程求解选项，控制数值求解行为和结果形式。</div><div class="ttdef"><b>定义</b> <a href="../../d5/dd2/solve__strategies_8hpp_source.html#l00017">solve_strategies.hpp:17</a></div></div>
+<div class="ttc" id="anamespacelamina_html_db/db4/structlamina_1_1TransSubstitutionResult"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#db/db4/structlamina_1_1TransSubstitutionResult">lamina::TransSubstitutionResult</a></div><div class="ttdoc">换元结果</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00031">transcendental_factor.hpp:31</a></div></div>
+<div class="ttc" id="anamespacelamina_html_db/dfc/structlamina_1_1IsolatedInterval"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#db/dfc/structlamina_1_1IsolatedInterval">lamina::IsolatedInterval</a></div><div class="ttdoc">隔离子区间，包含至多一个根</div><div class="ttdef"><b>定义</b> <a href="#l00031">solve_mixed_transcendental.hpp:31</a></div></div>
+<div class="ttc" id="asolve__strategies_8hpp_html"><div class="ttname"><a href="../../d5/dd2/solve__strategies_8hpp.html">solve_strategies.hpp</a></div><div class="ttdoc">方程求解策略调度器 solve_dispatch 及相关选项结构体。</div></div>
+<div class="ttc" id="asymbolic_8hpp_html"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a></div><div class="ttdoc">符号表达式主类 SymbolicExpr 及其工厂方法、运算接口。</div></div>
+<div class="ttc" id="atranscendental__factor_8hpp_html"><div class="ttname"><a href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a></div><div class="ttdoc">混合超越方程不可约因式分解器公共 API。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../d6/d61/solve__mixed__transcendental_8hpp.html">solve_mixed_transcendental.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/symbolic_calculus_adapter.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('db/daf/symbolic__calculus__adapter_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">symbolic_calculus_adapter.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../db/daf/symbolic__calculus__adapter_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d10/assumption__context_8hpp.html">assumption_context.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d15/integration_8hpp.html">integration.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d7b/limit__visitor_8hpp.html">visitors/limit_visitor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a057e0155331bca24ca2e3a2ae407e876">    6</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a057e0155331bca24ca2e3a2ae407e876">SymbolicExpr::integral</a>(</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    std::shared_ptr&lt;SymbolicExpr&gt; operand,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">const</span> std::string&amp; variable_name) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> operand ? operand-&gt;integrate(variable_name) : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
+</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a36fb26c3bd3ee9aec61c1d172728cba8">   12</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a36fb26c3bd3ee9aec61c1d172728cba8">SymbolicExpr::limit_func</a>(</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    std::shared_ptr&lt;SymbolicExpr&gt; operand,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">const</span> std::string&amp; variable_name,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::shared_ptr&lt;SymbolicExpr&gt; target) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">return</span> operand ? operand-&gt;limit(variable_name, std::move(target)) : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a05f36e8f965b7437c3de7b90a5ba1ee7">   19</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a05f36e8f965b7437c3de7b90a5ba1ee7">SymbolicExpr::limit</a>(</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; point,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> std::string&amp; direction)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9">impl_</a>-&gt;root || !point) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a> visitor(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>, <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(point), direction);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_variable" href="../../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9">impl_</a>-&gt;root-&gt;accept(visitor);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> visitor.<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#adc56f5d89468fa2ac61c03159593dcbd">get_result</a>()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        ? <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(visitor.<a class="code hl_function" href="../../dd/d23/classLimitVisitor.html#adc56f5d89468fa2ac61c03159593dcbd">get_result</a>())</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a3cea51734e44db6a4a48a77206ca4055">   32</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3cea51734e44db6a4a48a77206ca4055">SymbolicExpr::integrate</a>(</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9">impl_</a>-&gt;root) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="../../d8/dbb/classlamina_1_1Integrator.html">lamina::Integrator</a> integrator;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">auto</span> result = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        integrator.<a class="code hl_function" href="../../d8/dbb/classlamina_1_1Integrator.html#ad041f93ff9d1cca47ad39439338ec2e5">integrate</a>(*<span class="keyword">this</span>, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>));</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">return</span> result-&gt;simplify();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a8cef833f7b221a1f494fae5bbf53b687">   42</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a8cef833f7b221a1f494fae5bbf53b687">SymbolicExpr::series</a>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; point,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">int</span> order,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../de/dc6/classlamina_1_1AssumptionContext.html">lamina::AssumptionContext</a>*)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9">impl_</a>-&gt;root || !point) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (order &lt; 0) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(0);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">auto</span> variable_expr = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">SymbolicExpr::variable</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">auto</span> delta = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a>(</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        variable_expr,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(-1), point));</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; terms;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">auto</span> derivative = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(<a class="code hl_variable" href="../../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9">impl_</a>-&gt;root-&gt;clone());</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt;= order; ++n) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">if</span> (n &gt; 0) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            derivative = derivative-&gt;differentiate(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">if</span> (!derivative) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            derivative = derivative-&gt;simplify();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">auto</span> coefficient = derivative-&gt;substitute(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>, point);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">if</span> (!coefficient) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        coefficient = coefficient-&gt;simplify();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">auto</span> term = coefficient;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (n &gt; 0) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            term = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                term,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a>(delta, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(n)));</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">if</span> (n &gt; 1) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keyword">auto</span> factorial = <a class="code hl_function" href="../../da/d5b/classBigInt.html#a9d3bfe8ac1f4d6e0552043a370fb47d6">BigInt::factorial</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(n));</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            term = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                term,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(<a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1), factorial)));</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        terms.push_back(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(term));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (terms.empty()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(0);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;AddNode&gt;</a>(terms))-&gt;simplify();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a6a3f1264007ddb6103a17ff82f958c4e">   88</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a6a3f1264007ddb6103a17ff82f958c4e">SymbolicExpr::make_integral</a>(</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expression,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">if</span> (!expression) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; arguments = {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expression),</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;VariableNode&gt;</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>),</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    };</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a95221abbc7271add91c6204e21fb474a">FunctionNode::FuncType::Calculus_Integral</a>, arguments));</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="../../dc/d25/classSymbolicExpr.html#a74caecfbdae122f513a365bd082a0b89">  101</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a74caecfbdae122f513a365bd082a0b89">SymbolicExpr::make_limit</a>(</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expression,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; point) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">if</span> (!expression || !point) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; arguments = {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expression),</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;VariableNode&gt;</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">variable</a>),</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(point),</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    };</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a80d2677cf518f4d04320042f4ea6c146">FunctionNode::FuncType::Limit</a>, arguments));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+</div>
+<div class="ttc" id="aassumption__context_8hpp_html"><div class="ttname"><a href="../../d4/d10/assumption__context_8hpp.html">assumption_context.hpp</a></div><div class="ttdoc">AssumptionContext class with scoped push/pop management.</div></div>
+<div class="ttc" id="aclassBigInt_html_a9d3bfe8ac1f4d6e0552043a370fb47d6"><div class="ttname"><a href="../../da/d5b/classBigInt.html#a9d3bfe8ac1f4d6e0552043a370fb47d6">BigInt::factorial</a></div><div class="ttdeci">static BigInt factorial(unsigned int n)</div><div class="ttdoc">计算阶乘</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00691">bigint.cpp:691</a></div></div>
+<div class="ttc" id="aclassBigInt_html_af677021c0987fc2a48da06837ed29c58"><div class="ttname"><a href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt::BigInt</a></div><div class="ttdeci">BigInt()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00059">bigint.cpp:59</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a80d2677cf518f4d04320042f4ea6c146"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a80d2677cf518f4d04320042f4ea6c146">FunctionNode::FuncType::Limit</a></div><div class="ttdeci">@ Limit</div><div class="ttdoc">极限</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00022">functions.hpp:22</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a95221abbc7271add91c6204e21fb474a"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a95221abbc7271add91c6204e21fb474a">FunctionNode::FuncType::Calculus_Integral</a></div><div class="ttdeci">@ Calculus_Integral</div><div class="ttdoc">积分</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00020">functions.hpp:20</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html">LimitVisitor</a></div><div class="ttdoc">极限访问器，通过代入求值和 L&#39;Hôpital 法则计算符号表达式的极限</div><div class="ttdef"><b>定义</b> <a href="../../da/d7b/limit__visitor_8hpp_source.html#l00021">limit_visitor.hpp:21</a></div></div>
+<div class="ttc" id="aclassLimitVisitor_html_adc56f5d89468fa2ac61c03159593dcbd"><div class="ttname"><a href="../../dd/d23/classLimitVisitor.html#adc56f5d89468fa2ac61c03159593dcbd">LimitVisitor::get_result</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; get_result() const</div><div class="ttdef"><b>定义</b> <a href="../../db/dde/limit__visitor__core_8cpp_source.html#l00034">limit_visitor_core.cpp:34</a></div></div>
+<div class="ttc" id="aclassRational_html_a3bbd6ff67c590da76ddfcbd48cd3de0a"><div class="ttname"><a href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational::Rational</a></div><div class="ttdeci">Rational()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00090">rational.hpp:90</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a057e0155331bca24ca2e3a2ae407e876"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a057e0155331bca24ca2e3a2ae407e876">SymbolicExpr::integral</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; integral(std::shared_ptr&lt; SymbolicExpr &gt; op, const std::string &amp;var)</div><div class="ttdoc">计算表达式关于指定变量的不定积分。</div><div class="ttdef"><b>定义</b> <a href="#l00006">symbolic_calculus_adapter.cpp:6</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a05f36e8f965b7437c3de7b90a5ba1ee7"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a05f36e8f965b7437c3de7b90a5ba1ee7">SymbolicExpr::limit</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; limit(const std::string &amp;var, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;point, const std::string &amp;direction=&quot;&quot;) const</div><div class="ttdoc">计算表达式的极限。</div><div class="ttdef"><b>定义</b> <a href="#l00019">symbolic_calculus_adapter.cpp:19</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a0fde315bae8c920ad3b46c73368cebd9"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9">SymbolicExpr::impl_</a></div><div class="ttdeci">std::shared_ptr&lt; const Impl &gt; impl_</div><div class="ttdef"><b>定义</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00053">symbolic.hpp:53</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a36fb26c3bd3ee9aec61c1d172728cba8"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a36fb26c3bd3ee9aec61c1d172728cba8">SymbolicExpr::limit_func</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; limit_func(std::shared_ptr&lt; SymbolicExpr &gt; op, const std::string &amp;var, std::shared_ptr&lt; SymbolicExpr &gt; target)</div><div class="ttdoc">计算表达式的极限。</div><div class="ttdef"><b>定义</b> <a href="#l00012">symbolic_calculus_adapter.cpp:12</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a3bdf282c74b91aedb1dc529c047390db"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; number(int n)</div><div class="ttdoc">创建整数数值表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00017">symbolic_core.cpp:17</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a3cea51734e44db6a4a48a77206ca4055"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a3cea51734e44db6a4a48a77206ca4055">SymbolicExpr::integrate</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; integrate(const std::string &amp;var) const</div><div class="ttdoc">计算不定积分。</div><div class="ttdef"><b>定义</b> <a href="#l00032">symbolic_calculus_adapter.cpp:32</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a6a3f1264007ddb6103a17ff82f958c4e"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a6a3f1264007ddb6103a17ff82f958c4e">SymbolicExpr::make_integral</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; make_integral(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</div><div class="ttdoc">创建积分表达式节点（不求值）。</div><div class="ttdef"><b>定义</b> <a href="#l00088">symbolic_calculus_adapter.cpp:88</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a74caecfbdae122f513a365bd082a0b89"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a74caecfbdae122f513a365bd082a0b89">SymbolicExpr::make_limit</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; make_limit(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;point)</div><div class="ttdoc">创建极限表达式节点（不求值）。</div><div class="ttdef"><b>定义</b> <a href="#l00101">symbolic_calculus_adapter.cpp:101</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a7cbde7842e11e1337d8c2276e650f7c0"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; multiply(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建乘法表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00060">symbolic_core.cpp:60</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_a8cef833f7b221a1f494fae5bbf53b687"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a8cef833f7b221a1f494fae5bbf53b687">SymbolicExpr::series</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; series(const std::string &amp;var, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;point, int order, const lamina::AssumptionContext *ctx=nullptr) const</div><div class="ttdoc">在指定点展开为泰勒级数。</div><div class="ttdef"><b>定义</b> <a href="#l00042">symbolic_calculus_adapter.cpp:42</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ab917584b9057b286e514d407614888cd"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; power(std::shared_ptr&lt; SymbolicExpr &gt; base, std::shared_ptr&lt; SymbolicExpr &gt; exponent)</div><div class="ttdoc">创建幂运算表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00084">symbolic_core.cpp:84</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ade468ea22874ed2a114a5ee83aae525b"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; add(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建加法表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00072">symbolic_core.cpp:72</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ae4ce46624e6b27008d9061029e4399a7"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ae4ce46624e6b27008d9061029e4399a7">SymbolicExpr::variable</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; variable(const std::string &amp;name)</div><div class="ttdoc">创建变量表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00243">symbolic_core.cpp:243</a></div></div>
+<div class="ttc" id="aclasslamina_1_1AssumptionContext_html"><div class="ttname"><a href="../../de/dc6/classlamina_1_1AssumptionContext.html">lamina::AssumptionContext</a></div><div class="ttdoc">Scoped assumption context with push/pop management.</div><div class="ttdef"><b>定义</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00043">assumption_context.hpp:43</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html">lamina::Integrator</a></div><div class="ttdoc">符号积分器，协调各策略完成积分运算</div><div class="ttdef"><b>定义</b> <a href="../../dd/d1f/integrator_8hpp_source.html#l00010">integrator.hpp:10</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Integrator_html_ad041f93ff9d1cca47ad39439338ec2e5"><div class="ttname"><a href="../../d8/dbb/classlamina_1_1Integrator.html#ad041f93ff9d1cca47ad39439338ec2e5">lamina::Integrator::integrate</a></div><div class="ttdeci">SymbolicExpr integrate(const SymbolicExpr &amp;expr, const std::string &amp;var_name)</div><div class="ttdoc">计算不定积分</div><div class="ttdef"><b>定义</b> <a href="../../d6/d01/integrator_8cpp_source.html#l00367">integrator.cpp:367</a></div></div>
+<div class="ttc" id="aintegration_8hpp_html"><div class="ttname"><a href="../../d9/d15/integration_8hpp.html">integration.hpp</a></div><div class="ttdoc">Symbolic integration APIs.</div></div>
+<div class="ttc" id="alimit__visitor_8hpp_html"><div class="ttname"><a href="../../da/d7b/limit__visitor_8hpp.html">limit_visitor.hpp</a></div><div class="ttdoc">极限访问器，通过代入和 L&#39;Hôpital 法则计算极限。</div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a9e31448c7d53c33d5be1a6bd9a631cbf"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00082">base.hpp:82</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aadd9ee6d804ecfa450cbaced381efdeb"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a></div><div class="ttdeci">std::shared_ptr&lt;::SymbolicExpr &gt; make_expression_ptr(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00102">base.hpp:102</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aea502a76fff503e0f55363f674f65fa4"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00114">base.hpp:114</a></div></div>
+<div class="ttc" id="asymbolic__ast_8hpp_html"><div class="ttname"><a href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a></div><div class="ttdoc">Compatibility aggregate for LMCAS internal AST definitions.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../db/daf/symbolic__calculus__adapter_8cpp.html">symbolic_calculus_adapter.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

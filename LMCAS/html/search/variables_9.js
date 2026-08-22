@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['i_0',['i',['../d4/d13/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1SugarPair.html#a746bd6a47c98a964dac375f8c708b13f',1,'lamina::anonymous_namespace{solver_groebner.cpp}::SugarPair']]],
+  ['imag_1',['imag',['../d5/d92/structlamina_1_1lsr_1_1ApproxComplex.html#ab4b22cb42f0c8e2747b74e9ad8610e76',1,'lamina::lsr::ApproxComplex::imag'],['../d1/d42/namespacelamina.html#ae1d7d09dfce72c92caf1a965ae3813c0',1,'lamina::ComplexSymbolic::imag']]],
+  ['imag_5f_2',['imag_',['../da/d65/classComplexNode.html#ace8ef67087f4b4eebc85c492d89c6ce7',1,'ComplexNode']]],
+  ['imag_5fpart_3',['imag_part',['../d1/d42/namespacelamina.html#a758b25cbf59f41f54e3a6f91bf07876f',1,'lamina::CharRoot::imag_part'],['../d1/d42/namespacelamina.html#ae389f076674080480d2341784095bd31',1,'lamina::RootWithIndex::imag_part']]],
+  ['impl_5f_4',['impl_',['../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd',1,'lamina::InferenceEngine::impl_'],['../dc/d25/classSymbolicExpr.html#a0fde315bae8c920ad3b46c73368cebd9',1,'SymbolicExpr::impl_']]],
+  ['implicit_5fmode_5',['implicit_mode',['../d3/d1a/classDifferentiationVisitor.html#ac5eb6395b194e1bd18128c4708bfe9d1',1,'DifferentiationVisitor']]],
+  ['implicit_5fvar_6',['implicit_var',['../d3/d1a/classDifferentiationVisitor.html#a74472663d6c6856c5dde82834c596174',1,'DifferentiationVisitor']]],
+  ['indeterminate_7',['indeterminate',['../d1/d42/namespacelamina.html#aed0681597cce8802d2601256d19dceb4',1,'lamina::TransSubstitution']]],
+  ['index_5fvar_5f_8',['index_var_',['../db/da6/classSummationNode.html#a6dbac9036ebc07f27fafe04f039fadbf',1,'SummationNode::index_var_'],['../d6/da7/classProductNode.html#ad82811fbee493b66953091aa869ad6d5',1,'ProductNode::index_var_']]],
+  ['indicial_5froots_9',['indicial_roots',['../d1/d42/namespacelamina.html#ac24b4d31545621f494bee91d9a651219',1,'lamina::FrobeniusSolution']]],
+  ['infinity_10',['infinity',['../dc/d09/namespacelamina_1_1anonymous__namespace_02interval_8cpp_03.html#aa074a09e663b97a726df15fa302e3533',1,'lamina::anonymous_namespace{interval.cpp}::ComparableEndpoint']]],
+  ['initial_5fguess_11',['initial_guess',['../d1/d42/namespacelamina.html#ac3466b4d0d6fdd3e25e96e65e8aad3a2',1,'lamina::SolveOptions']]],
+  ['inner_12',['inner',['../d1/d42/namespacelamina.html#a155ea25d440d07e45e3b452527c8f901',1,'lamina::InversePattern::inner'],['../d1/d42/namespacelamina.html#aada78642bd8a8f546bc7ee55a84e5a7a',1,'lamina::LambertWPattern::inner'],['../d1/d42/namespacelamina.html#a70add8d0ac3e37e5ea18dbdde63f18b3',1,'lamina::ExpBasePattern::inner']]],
+  ['inserted_5f_13',['inserted_',['../d4/d8f/classlamina_1_1InferenceEngine_1_1DepthGuard.html#a091a7ff3f6145c5f029e5a1b674361ae',1,'lamina::InferenceEngine::DepthGuard']]],
+  ['interval_14',['interval',['../d1/d42/namespacelamina.html#a9b218a73bdb7ea5c960b430ab7a8d990',1,'lamina::SignChartEntry::interval'],['../d3/dba/classlamina_1_1PropertyStore.html#ace256b32e4f8305b91d4653c077471f2',1,'lamina::PropertyStore::ContinuityInfo::interval'],['../d3/dba/classlamina_1_1PropertyStore.html#a4a0bcced3ed424b30031d69e8e8166ff',1,'lamina::PropertyStore::MonotonicityInfo::interval'],['../d3/dba/classlamina_1_1PropertyStore.html#a3c8cf0f670f3ff5be35ac5d3f9bcea50',1,'lamina::PropertyStore::SymbolProperties::ContinuityDecl::interval'],['../d3/dba/classlamina_1_1PropertyStore.html#ad2fcf59506a6fb40cf093248c70780bb',1,'lamina::PropertyStore::SymbolProperties::MonotonicityDecl::interval'],['../dc/d09/namespacelamina_1_1anonymous__namespace_02interval_8cpp_03.html#aa462ee178fb3c3ccd8e239a615d00eb9',1,'lamina::anonymous_namespace{interval.cpp}::CheckedInterval::interval']]],
+  ['intervals_5f_15',['intervals_',['../d7/d6c/classlamina_1_1SolutionSet.html#ad13964efcc713b1454c2291ff6aeff2d',1,'lamina::SolutionSet::intervals_'],['../de/d2c/classlamina_1_1IntervalUnion.html#a8d78edc6fa287b36604d01c9b020cf8c',1,'lamina::IntervalUnion::intervals_']]],
+  ['is_5fcomplex_16',['is_complex',['../d1/d42/namespacelamina.html#ae8088f41819bdc3299f9a3e88a6bddc0',1,'lamina::CharRoot']]],
+  ['is_5fdifferentiable_17',['is_differentiable',['../d3/dba/classlamina_1_1PropertyStore.html#a9af554a3e8c03632a3fea5751898d088',1,'lamina::PropertyStore::ContinuityInfo::is_differentiable'],['../d3/dba/classlamina_1_1PropertyStore.html#ae9e9943d30c5528661934aa797bf5c66',1,'lamina::PropertyStore::SymbolProperties::ContinuityDecl::is_differentiable']]],
+  ['is_5fneg_5finfinity_18',['is_neg_infinity',['../df/dd1/structlamina_1_1Endpoint.html#ae8d341d2af60bb695fd9819232e8caea',1,'lamina::Endpoint']]],
+  ['is_5fopen_19',['is_open',['../df/dd1/structlamina_1_1Endpoint.html#a04f2be899386f9e24546d245191bc002',1,'lamina::Endpoint']]],
+  ['is_5fpos_5finfinity_20',['is_pos_infinity',['../df/dd1/structlamina_1_1Endpoint.html#a1519f8dd3bb355b1739b4794f788b03e',1,'lamina::Endpoint']]],
+  ['is_5freal_21',['is_real',['../d1/d42/namespacelamina.html#abde90584ee15593453fa334d180ffbe5',1,'lamina::RootWithIndex']]],
+  ['iterations_22',['iterations',['../d1/d42/namespacelamina.html#afa9494d26f681dd06f24b72a3b64f460',1,'lamina::NumericRoot']]]
+];

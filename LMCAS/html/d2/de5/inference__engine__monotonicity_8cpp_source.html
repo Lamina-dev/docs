@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/inference_engine_monotonicity.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/de5/inference__engine__monotonicity_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">inference_engine_monotonicity.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d2/de5/inference__engine__monotonicity_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../d2/de5/inference__engine__monotonicity_8cpp.html#a525335710b53cb064ca56b936120431e">    1</a></span><span class="preprocessor">#define _USE_MATH_DEFINES</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d62/inference__engine__impl_8hpp.html">internal/inference_engine_impl.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// Periodicity inference</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a758833ac6967bfcf3dd5917cfdb6340a">    8</a></span><a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">Tribool</a> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a758833ac6967bfcf3dd5917cfdb6340a">InferenceEngine::query_periodic</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a80f96645c66afc3c82ee4471574df3e9">inference_query_or_unknown</a>(<a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a583a9d0173f957b8cbfa08e67b234775">query_periodic_checked</a>(expr));</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
+</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a583a9d0173f957b8cbfa08e67b234775">   12</a></span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a82c6c3918cbe80d5d71d4a231548c946">InferenceTriboolResult</a> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a583a9d0173f957b8cbfa08e67b234775">InferenceEngine::query_periodic_checked</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a32ddd0b63e70e54f9b92cc9557277995">checked_inference_result&lt;Tribool&gt;</a>(expr, <span class="stringliteral">&quot;query_periodic_checked&quot;</span>,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        [&amp;]() {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="comment">// FunctionNode: sin, cos, tan are periodic</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> func = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                <span class="keywordflow">switch</span> (func-&gt;type()) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd">FunctionNode::FuncType::Sin</a>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b">FunctionNode::FuncType::Cos</a>:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a1266b4e6f81e60733ec6c717e0181f60">FunctionNode::FuncType::Tan</a>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bdaf827cf462f62848df37c5e1e94a4da74">Tribool::True</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="comment">// VariableNode: check PropertyStore for declared periodicity</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; props = <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.current_properties();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                <span class="keywordflow">if</span> (props.is_periodic(var-&gt;name())) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bdaf827cf462f62848df37c5e1e94a4da74">Tribool::True</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bda88183b946cc5f0e8c96b2e66e1c74a7e">Tribool::Unknown</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        });</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a4ff71777468fc8e940ae0af056c0951d">   36</a></span>std::optional&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a4ff71777468fc8e940ae0af056c0951d">InferenceEngine::infer_period</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ad2b94968b8c7ccd837274e8220c1ca58">inference_period_or_empty</a>(<a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#aaf45707b8b772c49dae45799c2592060">infer_period_checked</a>(expr));</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#aaf45707b8b772c49dae45799c2592060">   40</a></span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#ab4629d596147cd185337cb1eb764e17d">InferencePeriodResult</a> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#aaf45707b8b772c49dae45799c2592060">InferenceEngine::infer_period_checked</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a32ddd0b63e70e54f9b92cc9557277995">checked_inference_result&lt;std::optional&lt;SymbolicExpr&gt;</a>&gt;(</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        expr, <span class="stringliteral">&quot;infer_period_checked&quot;</span>, [&amp;]() -&gt; std::optional&lt;SymbolicExpr&gt; {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="comment">// FunctionNode: known periods for trig functions</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> func = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">switch</span> (func-&gt;type()) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd">FunctionNode::FuncType::Sin</a>:</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b">FunctionNode::FuncType::Cos</a>: {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                        <span class="comment">// Period = 2*pi</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                        <span class="keyword">auto</span> two = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<span class="keyword">static_cast&lt;</span>lmmc_real_t<span class="keyword">&gt;</span>(2.0));</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                        <span class="keyword">auto</span> pi_val = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<span class="keyword">static_cast&lt;</span>lmmc_real_t<span class="keyword">&gt;</span>(LMMC_CONST_PI));</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                        <span class="keyword">auto</span> two_pi = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;MultiplyNode&gt;</a>(</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{two, pi_val});</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                        <span class="keyword">auto</span> period = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(two_pi);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                        <span class="keywordflow">return</span> period;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a1266b4e6f81e60733ec6c717e0181f60">FunctionNode::FuncType::Tan</a>: {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                        <span class="comment">// Period = pi</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                        <span class="keyword">auto</span> pi_val = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<span class="keyword">static_cast&lt;</span>lmmc_real_t<span class="keyword">&gt;</span>(LMMC_CONST_PI));</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                        <span class="keyword">auto</span> period = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(pi_val);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                        <span class="keywordflow">return</span> period;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="comment">// VariableNode: check PropertyStore for declared period</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; props = <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.current_properties();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keyword">auto</span> stored_period = props.get_period(var-&gt;name());</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <span class="keywordflow">if</span> (stored_period.has_value() &amp;&amp; *stored_period) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                    <span class="keywordflow">return</span> *(*stored_period); <span class="comment">// dereference optional&lt;shared_ptr&lt;SymbolicExpr&gt;&gt;</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        });</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">// Monotonicity inference</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"></span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * @brief Helper: check if a MultiplyNode represents negation (multiplication by -1).</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * Returns the inner expression if it&#39;s a negation, nullptr otherwise.</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a58e12853e644e4736f1737aa96cf9515">   85</a></span><span class="keyword">static</span> std::shared_ptr&lt;const SymbolicNode&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a58e12853e644e4736f1737aa96cf9515">detect_negation</a>(<span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; node) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">auto</span> mul = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (!mul || mul-&gt;operands().size() != 2) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">// Check if one operand is -1</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; 2; ++i) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(mul-&gt;operands()[i]);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">if</span> (!num) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">bool</span> is_neg_one = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value())) {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            is_neg_one = (std::get&lt;BigInt&gt;(num-&gt;value()) == <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(-1));</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value())) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            is_neg_one = (std::get&lt;Rational&gt;(num-&gt;value()) == <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(-1));</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(num-&gt;value())) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            is_neg_one = (std::get&lt;lmmc_real_t&gt;(num-&gt;value()) == -1.0);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">if</span> (is_neg_one) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">return</span> mul-&gt;operands()[1 - i]; <span class="comment">// return the other operand</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a88ef9f00223db04a5d8afdaba5675fda">  110</a></span><a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcf">Monotonicity</a> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a88ef9f00223db04a5d8afdaba5675fda">InferenceEngine::infer_monotonicity</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; expr,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                                                  <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                                                  <span class="keyword">const</span> <a class="code hl_struct" href="../../db/d7f/structlamina_1_1Interval.html">Interval</a>&amp; interval)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment">// FunctionNode: auto-infer for known functions</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> func = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="comment">// Check that the function argument is the queried variable</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">if</span> (func-&gt;arguments().empty()) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keyword">auto</span> arg_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(func-&gt;arguments()[0]);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">if</span> (!arg_var || arg_var-&gt;name() != var) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">switch</span> (func-&gt;type()) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a>:</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                <span class="comment">// exp is strictly increasing on all of ℝ</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a9acdbc05ab7c5f2b2576422f0400963a">FunctionNode::FuncType::Ln</a>: {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                <span class="comment">// ln is strictly increasing on ℝ⁺ (positive reals)</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <span class="comment">// Check if the interval is within positive reals</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                <span class="comment">// If the lower bound is &gt; 0 (or open at 0), ln is increasing</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <span class="keyword">auto</span> lo = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a7e58dc671fd40771b0dcc256c79733f5">endpoint_to_double</a>(interval.lower);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                <span class="keywordflow">if</span> (lo.has_value() &amp;&amp; *lo &gt; 0.0) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                <span class="comment">// If lower is open at 0, also increasing</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="keywordflow">if</span> (lo.has_value() &amp;&amp; *lo == 0.0 &amp;&amp; interval.lower.is_open) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                <span class="comment">// If interval is (0, +inf) or similar positive interval</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                <span class="keywordflow">if</span> (interval.lower.is_neg_infinity) {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>; <span class="comment">// ln not defined on negative reals</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">// Negation: multiply by -1 reverses monotonicity</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> inner = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a58e12853e644e4736f1737aa96cf9515">detect_negation</a>(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">auto</span> inner_expr = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(inner);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcf">Monotonicity</a> inner_mono = <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a88ef9f00223db04a5d8afdaba5675fda">infer_monotonicity</a>(inner_expr, var, interval);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">switch</span> (inner_mono) {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>:    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa2e6a9b0375c021e8f650a5eb22012b5b">Monotonicity::Decreasing</a>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa2e6a9b0375c021e8f650a5eb22012b5b">Monotonicity::Decreasing</a>:    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa06250c55ebb50b217110abfbdda2eb5d">Monotonicity::NonDecreasing</a>:  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaca5830363e097ce9cfe81212fa9625a3">Monotonicity::NonIncreasing</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaca5830363e097ce9cfe81212fa9625a3">Monotonicity::NonIncreasing</a>:  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa06250c55ebb50b217110abfbdda2eb5d">Monotonicity::NonDecreasing</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">default</span>:                           <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="comment">// VariableNode: check PropertyStore for declared monotonicity</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> var_node = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; props = <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.current_properties();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">return</span> props.get_monotonicity(var_node-&gt;name(), var, interval);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}</div>
+</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">// Monotonicity deduction (apply_monotonicity_rules)</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment"></span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> * @brief Helper: collect positive integer exponents that appear in PowerNode</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment"> * expressions within the RelationStore involving the given variable names.</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00179" data-start="{" data-end="}">
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#afc17d632a1a0e29f914166b257c5b3aa">  179</a></span><span class="keyword">static</span> std::vector&lt;int&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#afc17d632a1a0e29f914166b257c5b3aa">collect_power_exponents</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/db6/classlamina_1_1RelationStore.html">RelationStore</a>&amp; store,</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                                                <span class="keyword">const</span> std::string&amp; lhs_name,</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                                                <span class="keyword">const</span> std::string&amp; rhs_name) {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    std::unordered_set&lt;int&gt; exponents;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keyword">auto</span> check_node = [&amp;](<span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; node) {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keyword">auto</span> pow_node = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">if</span> (!pow_node) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="comment">// Check if the base is one of our variables</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keyword">auto</span> base_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(pow_node-&gt;base());</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">if</span> (!base_var) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">if</span> (base_var-&gt;name() != lhs_name &amp;&amp; base_var-&gt;name() != rhs_name) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="comment">// Check if the exponent is a positive integer</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keyword">auto</span> exp_num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(pow_node-&gt;exponent());</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keywordflow">if</span> (!exp_num) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d1/d42/namespacelamina.html#affc1661066767e062bb3193fb177b922">is_positive_integer_number</a>(*exp_num)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="comment">// Extract the integer value</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordtype">int</span> n = 0;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(exp_num-&gt;value())) {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b = std::get&lt;BigInt&gt;(exp_num-&gt;value());</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="comment">// Only consider small exponents to avoid explosion</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <span class="keywordflow">if</span> (b &gt; <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(100)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            n = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(b.IsNegative() ? 0 : b.is_zero() ? 0 : std::stoi(b.to_string()));</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(exp_num-&gt;value())) {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> num_val = std::get&lt;Rational&gt;(exp_num-&gt;value()).get_numerator();</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <span class="keywordflow">if</span> (num_val &gt; <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(100)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            n = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::stoi(num_val.<a class="code hl_function" href="../../da/d5b/classBigInt.html#a1e3ed7be0093cfa492a79c5352ccad71">to_string</a>()));</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <span class="keywordtype">double</span> v = std::get&lt;lmmc_real_t&gt;(exp_num-&gt;value());</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <span class="keywordflow">if</span> (v &lt;= 0.0 || v &gt; 100.0 || v != std::floor(v)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            n = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(v);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        }</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keywordflow">if</span> (n &gt; 0) {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            exponents.insert(n);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        }</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    };</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="comment">// Scan all relations in the store for PowerNode expressions</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; rel : store.<a class="code hl_function" href="../../de/db6/classlamina_1_1RelationStore.html#a3b4fb9340907a7428c78d50cf29a8c71">get_relations</a>()) {</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        check_node(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(rel.lhs));</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        check_node(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(rel.rhs));</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">return</span> std::vector&lt;int&gt;(exponents.begin(), exponents.end());</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>}</div>
+</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="foldopen" id="foldopen00230" data-start="{" data-end="}">
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#af66eb3d82da75290aaeb1f9c7805e9c6">  230</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#af66eb3d82da75290aaeb1f9c7805e9c6">InferenceEngine::apply_monotonicity_rules</a>(<span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#dd/d91/structlamina_1_1Relation">Relation</a>&amp; rel, <a class="code hl_class" href="../../de/db6/classlamina_1_1RelationStore.html">RelationStore</a>&amp; store,</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                                               <a class="code hl_class" href="../../d3/dba/classlamina_1_1PropertyStore.html">PropertyStore</a>&amp; prop_store, <span class="keywordtype">int</span> depth) {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    (void)<a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a3867deb7c0ac8728180cfd7e9fc26d42">apply_monotonicity_rules_checked</a>(rel, store, prop_store, depth);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>}</div>
+</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="foldopen" id="foldopen00235" data-start="{" data-end="}">
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a3867deb7c0ac8728180cfd7e9fc26d42">  235</a></span><a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;void&gt;</a> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a3867deb7c0ac8728180cfd7e9fc26d42">InferenceEngine::apply_monotonicity_rules_checked</a>(</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#dd/d91/structlamina_1_1Relation">Relation</a>&amp; rel,</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <a class="code hl_class" href="../../de/db6/classlamina_1_1RelationStore.html">RelationStore</a>&amp; store,</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <a class="code hl_class" href="../../d3/dba/classlamina_1_1PropertyStore.html">PropertyStore</a>&amp; prop_store,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordtype">int</span> depth) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// Stop recursion at maximum depth</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">if</span> (depth &gt;= <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#ad1b1dc27f8cf5c636e5e9381bc63cee8">MAX_MONOTONICITY_DEPTH</a>) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="comment">// Only apply to GT (greater-than) relations</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">if</span> (rel.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a1989dbd9796b1634dc7c34fe5c20fdcf">op</a> != RelationalNode::Op::GT) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="comment">// Extract LHS and RHS — both must be single VariableNodes</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keyword">auto</span> lhs_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(rel.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a1b8d56ca6054d439cb12bf4e958fcd69">lhs</a>));</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keyword">auto</span> rhs_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(rel.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a675156e465c3067fd3e7c055af566514">rhs</a>));</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordflow">if</span> (!lhs_var || !rhs_var) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keyword">const</span> std::string&amp; x_name = lhs_var-&gt;name();</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keyword">const</span> std::string&amp; y_name = rhs_var-&gt;name();</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="comment">// Helper to add a deduced relation and recursively apply monotonicity rules</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keyword">auto</span> add_deduced = [&amp;](<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; new_lhs,</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                           <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&amp; new_rhs) -&gt; <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;void&gt;</a> {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        <span class="comment">// Don&#39;t add if already present</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">if</span> (store.<a class="code hl_function" href="../../de/db6/classlamina_1_1RelationStore.html#a1f2cfd899ec04a332db2f6e7088819b4">has_relation</a>(new_lhs, new_rhs, RelationalNode::Op::GT)) {</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        }</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        <span class="keyword">auto</span> inserted = store.<a class="code hl_function" href="../../de/db6/classlamina_1_1RelationStore.html#a63c3184c58e9be03648d02076e65f25d">add_relation_checked</a>(</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            new_lhs, new_rhs, RelationalNode::Op::GT, prop_store);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="keywordflow">if</span> (!inserted.has_value()) {</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">Result&lt;void&gt;::failure</a>(inserted.error());</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        }</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="comment">// Recursively apply monotonicity rules to the newly added relation</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#dd/d91/structlamina_1_1Relation">Relation</a> new_rel{new_lhs, new_rhs, RelationalNode::Op::GT};</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a3867deb7c0ac8728180cfd7e9fc26d42">apply_monotonicity_rules_checked</a>(new_rel, store, prop_store, depth + 1);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    };</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="comment">// Check domain assumptions using the AssumptionContext (read-through all scopes)</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordtype">bool</span> both_positive = <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.has_sign(x_name, <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147">Sign::Positive</a>) &amp;&amp;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                         <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.has_sign(y_name, <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147">Sign::Positive</a>);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">bool</span> both_real = <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.has_domain(x_name, <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235a7f80fcc452c2f1ed2bb51b39d0864df1">Domain::Real</a>) &amp;&amp;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                     <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.has_domain(y_name, <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235a7f80fcc452c2f1ed2bb51b39d0864df1">Domain::Real</a>);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">bool</span> both_nonnegative = <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.has_sign(x_name, <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8">Sign::NonNegative</a>) &amp;&amp;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                            <a class="code hl_variable" href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">impl_</a>-&gt;ctx.has_sign(y_name, <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8">Sign::NonNegative</a>);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordflow">if</span> (both_positive) {</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keyword">auto</span> ln_x_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a9acdbc05ab7c5f2b2576422f0400963a">FunctionNode::FuncType::Ln</a>,</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{lhs_var-&gt;clone()});</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keyword">auto</span> ln_y_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a9acdbc05ab7c5f2b2576422f0400963a">FunctionNode::FuncType::Ln</a>,</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{rhs_var-&gt;clone()});</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keyword">auto</span> ln_x = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(ln_x_node);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keyword">auto</span> ln_y = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(ln_y_node);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <span class="keyword">auto</span> deduced = add_deduced(ln_x, ln_y);</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordflow">if</span> (!deduced.has_value()) <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    }</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordflow">if</span> (both_positive) {</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="keyword">auto</span> sqrt_x_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aae77f3ad25595e35b327334d89410054">FunctionNode::FuncType::Sqrt</a>,</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{lhs_var-&gt;clone()});</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="keyword">auto</span> sqrt_y_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aae77f3ad25595e35b327334d89410054">FunctionNode::FuncType::Sqrt</a>,</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{rhs_var-&gt;clone()});</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <span class="keyword">auto</span> sqrt_x = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(sqrt_x_node);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keyword">auto</span> sqrt_y = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(sqrt_y_node);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        <span class="keyword">auto</span> deduced = add_deduced(sqrt_x, sqrt_y);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <span class="keywordflow">if</span> (!deduced.has_value()) <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    }</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keywordflow">if</span> (both_real) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        <span class="keyword">auto</span> exp_x_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a>,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{lhs_var-&gt;clone()});</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keyword">auto</span> exp_y_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a>,</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{rhs_var-&gt;clone()});</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <span class="keyword">auto</span> exp_x = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(exp_x_node);</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        <span class="keyword">auto</span> exp_y = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(exp_y_node);</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <span class="keyword">auto</span> deduced = add_deduced(exp_x, exp_y);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <span class="keywordflow">if</span> (!deduced.has_value()) <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    }</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span> (both_nonnegative) {</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        std::vector&lt;int&gt; exponents = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#afc17d632a1a0e29f914166b257c5b3aa">collect_power_exponents</a>(store, x_name, y_name);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n : exponents) {</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            <span class="keyword">auto</span> exp_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(n));</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>            <span class="keyword">auto</span> pow_x_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;PowerNode&gt;</a>(lhs_var-&gt;clone(), exp_node-&gt;clone());</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>            <span class="keyword">auto</span> pow_y_node = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;PowerNode&gt;</a>(rhs_var-&gt;clone(), exp_node-&gt;clone());</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            <span class="keyword">auto</span> pow_x = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(pow_x_node);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>            <span class="keyword">auto</span> pow_y = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a>(pow_y_node);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>            <span class="keyword">auto</span> deduced = add_deduced(pow_x, pow_y);</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            <span class="keywordflow">if</span> (!deduced.has_value()) <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        }</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    }</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>}</div>
+</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="aclassBigInt_html"><div class="ttname"><a href="../../da/d5b/classBigInt.html">BigInt</a></div><div class="ttdef"><b>定义</b> <a href="../../d8/d09/bigint_8hpp_source.html#l00029">bigint.hpp:29</a></div></div>
+<div class="ttc" id="aclassBigInt_html_a1e3ed7be0093cfa492a79c5352ccad71"><div class="ttname"><a href="../../da/d5b/classBigInt.html#a1e3ed7be0093cfa492a79c5352ccad71">BigInt::to_string</a></div><div class="ttdeci">std::string to_string() const</div><div class="ttdoc">转换为十进制字符串（同 ToString）</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00219">bigint.cpp:219</a></div></div>
+<div class="ttc" id="aclassBigInt_html_af677021c0987fc2a48da06837ed29c58"><div class="ttname"><a href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt::BigInt</a></div><div class="ttdeci">BigInt()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00059">bigint.cpp:59</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd">FunctionNode::FuncType::Sin</a></div><div class="ttdeci">@ Sin</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00012">functions.hpp:12</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a1266b4e6f81e60733ec6c717e0181f60"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a1266b4e6f81e60733ec6c717e0181f60">FunctionNode::FuncType::Tan</a></div><div class="ttdeci">@ Tan</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00012">functions.hpp:12</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a9acdbc05ab7c5f2b2576422f0400963a"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a9acdbc05ab7c5f2b2576422f0400963a">FunctionNode::FuncType::Ln</a></div><div class="ttdeci">@ Ln</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00015">functions.hpp:15</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5aae77f3ad25595e35b327334d89410054"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aae77f3ad25595e35b327334d89410054">FunctionNode::FuncType::Sqrt</a></div><div class="ttdeci">@ Sqrt</div><div class="ttdoc">对数、绝对值、平方根</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00015">functions.hpp:15</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5acad39a154bffb61175f674d6eefaf6d0"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a></div><div class="ttdeci">@ Exp</div><div class="ttdoc">指数函数</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00016">functions.hpp:16</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b">FunctionNode::FuncType::Cos</a></div><div class="ttdeci">@ Cos</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00012">functions.hpp:12</a></div></div>
+<div class="ttc" id="aclassRational_html_a3bbd6ff67c590da76ddfcbd48cd3de0a"><div class="ttname"><a href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational::Rational</a></div><div class="ttdeci">Rational()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00090">rational.hpp:90</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a></div><div class="ttdoc">符号表达式主类，封装 AST 根节点并提供运算、化简、求解等接口。</div><div class="ttdef"><b>定义</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00050">symbolic.hpp:50</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_a3867deb7c0ac8728180cfd7e9fc26d42"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#a3867deb7c0ac8728180cfd7e9fc26d42">lamina::InferenceEngine::apply_monotonicity_rules_checked</a></div><div class="ttdeci">Result&lt; void &gt; apply_monotonicity_rules_checked(const Relation &amp;rel, RelationStore &amp;store, PropertyStore &amp;prop_store, int depth=0)</div><div class="ttdoc">Applies monotonicity deductions transactionally.</div><div class="ttdef"><b>定义</b> <a href="#l00235">inference_engine_monotonicity.cpp:235</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_a4ff71777468fc8e940ae0af056c0951d"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#a4ff71777468fc8e940ae0af056c0951d">lamina::InferenceEngine::infer_period</a></div><div class="ttdeci">std::optional&lt; SymbolicExpr &gt; infer_period(const SymbolicExpr &amp;expr) const</div><div class="ttdoc">Infer the period of an expression.</div><div class="ttdef"><b>定义</b> <a href="#l00036">inference_engine_monotonicity.cpp:36</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_a583a9d0173f957b8cbfa08e67b234775"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#a583a9d0173f957b8cbfa08e67b234775">lamina::InferenceEngine::query_periodic_checked</a></div><div class="ttdeci">InferenceTriboolResult query_periodic_checked(const SymbolicExpr &amp;expr) const</div><div class="ttdef"><b>定义</b> <a href="#l00012">inference_engine_monotonicity.cpp:12</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_a758833ac6967bfcf3dd5917cfdb6340a"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#a758833ac6967bfcf3dd5917cfdb6340a">lamina::InferenceEngine::query_periodic</a></div><div class="ttdeci">Tribool query_periodic(const SymbolicExpr &amp;expr) const</div><div class="ttdoc">Query whether an expression is periodic.</div><div class="ttdef"><b>定义</b> <a href="#l00008">inference_engine_monotonicity.cpp:8</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_a80b6654ede195f92c2343fb5025d80cd"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#a80b6654ede195f92c2343fb5025d80cd">lamina::InferenceEngine::impl_</a></div><div class="ttdeci">std::unique_ptr&lt; Impl &gt; impl_</div><div class="ttdef"><b>定义</b> <a href="../../d8/dcd/inference__engine_8hpp_source.html#l00239">inference_engine.hpp:239</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_a88ef9f00223db04a5d8afdaba5675fda"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#a88ef9f00223db04a5d8afdaba5675fda">lamina::InferenceEngine::infer_monotonicity</a></div><div class="ttdeci">Monotonicity infer_monotonicity(const SymbolicExpr &amp;expr, const std::string &amp;var, const Interval &amp;interval) const</div><div class="ttdoc">Infer the monotonicity of an expression with respect to a variable on an interval.</div><div class="ttdef"><b>定义</b> <a href="#l00110">inference_engine_monotonicity.cpp:110</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_aaf45707b8b772c49dae45799c2592060"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#aaf45707b8b772c49dae45799c2592060">lamina::InferenceEngine::infer_period_checked</a></div><div class="ttdeci">InferencePeriodResult infer_period_checked(const SymbolicExpr &amp;expr) const</div><div class="ttdef"><b>定义</b> <a href="#l00040">inference_engine_monotonicity.cpp:40</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_ad1b1dc27f8cf5c636e5e9381bc63cee8"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#ad1b1dc27f8cf5c636e5e9381bc63cee8">lamina::InferenceEngine::MAX_MONOTONICITY_DEPTH</a></div><div class="ttdeci">static constexpr int MAX_MONOTONICITY_DEPTH</div><div class="ttdef"><b>定义</b> <a href="../../d8/dcd/inference__engine_8hpp_source.html#l00235">inference_engine.hpp:235</a></div></div>
+<div class="ttc" id="aclasslamina_1_1InferenceEngine_html_af66eb3d82da75290aaeb1f9c7805e9c6"><div class="ttname"><a href="../../d2/d48/classlamina_1_1InferenceEngine.html#af66eb3d82da75290aaeb1f9c7805e9c6">lamina::InferenceEngine::apply_monotonicity_rules</a></div><div class="ttdeci">void apply_monotonicity_rules(const Relation &amp;rel, RelationStore &amp;store, PropertyStore &amp;prop_store, int depth=0)</div><div class="ttdoc">Apply monotonicity deduction rules when a new relation is added.</div><div class="ttdef"><b>定义</b> <a href="#l00230">inference_engine_monotonicity.cpp:230</a></div></div>
+<div class="ttc" id="aclasslamina_1_1PropertyStore_html"><div class="ttname"><a href="../../d3/dba/classlamina_1_1PropertyStore.html">lamina::PropertyStore</a></div><div class="ttdoc">Stores and validates mathematical properties for named symbols.</div><div class="ttdef"><b>定义</b> <a href="../../d7/dd8/property__store_8hpp_source.html#l00037">property_store.hpp:37</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RelationStore_html"><div class="ttname"><a href="../../de/db6/classlamina_1_1RelationStore.html">lamina::RelationStore</a></div><div class="ttdoc">Stores relational constraints and derives sign properties for simple patterns.</div><div class="ttdef"><b>定义</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00048">relation_store.hpp:48</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RelationStore_html_a1f2cfd899ec04a332db2f6e7088819b4"><div class="ttname"><a href="../../de/db6/classlamina_1_1RelationStore.html#a1f2cfd899ec04a332db2f6e7088819b4">lamina::RelationStore::has_relation</a></div><div class="ttdeci">bool has_relation(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op) const</div><div class="ttdoc">Check if a specific relation is stored.</div><div class="ttdef"><b>定义</b> <a href="../../d6/d25/relation__store_8cpp_source.html#l00312">relation_store.cpp:312</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RelationStore_html_a3b4fb9340907a7428c78d50cf29a8c71"><div class="ttname"><a href="../../de/db6/classlamina_1_1RelationStore.html#a3b4fb9340907a7428c78d50cf29a8c71">lamina::RelationStore::get_relations</a></div><div class="ttdeci">const std::vector&lt; Relation &gt; &amp; get_relations() const</div><div class="ttdoc">Retrieve all stored relations.</div><div class="ttdef"><b>定义</b> <a href="../../d6/d25/relation__store_8cpp_source.html#l00308">relation_store.cpp:308</a></div></div>
+<div class="ttc" id="aclasslamina_1_1RelationStore_html_a63c3184c58e9be03648d02076e65f25d"><div class="ttname"><a href="../../de/db6/classlamina_1_1RelationStore.html#a63c3184c58e9be03648d02076e65f25d">lamina::RelationStore::add_relation_checked</a></div><div class="ttdeci">RelationStoreResult add_relation_checked(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op, PropertyStore &amp;prop_store)</div><div class="ttdoc">Checked relation insertion with explicit failure reporting.</div><div class="ttdef"><b>定义</b> <a href="../../d6/d25/relation__store_8cpp_source.html#l00128">relation_store.cpp:128</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html">lamina::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00050">result.hpp:50</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html_a70191f302f20c27ad54a360736f2ab47"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">lamina::Result::success</a></div><div class="ttdeci">static Result success(T value)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html_a98c750bac3d54d9b81d02a5c64a0f860"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">lamina::Result::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00056">result.hpp:56</a></div></div>
+<div class="ttc" id="ainference__engine__impl_8hpp_html"><div class="ttname"><a href="../../d1/d62/inference__engine__impl_8hpp.html">inference_engine_impl.hpp</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a0af6c76d3555d7b64462d4c226b79246"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a0af6c76d3555d7b64462d4c226b79246">lamina::detail::expression_from_node</a></div><div class="ttdeci">inline ::SymbolicExpr expression_from_node(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00098">base.hpp:98</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a9e31448c7d53c33d5be1a6bd9a631cbf"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00082">base.hpp:82</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aea502a76fff503e0f55363f674f65fa4"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00114">base.hpp:114</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a1989dbd9796b1634dc7c34fe5c20fdcf"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a1989dbd9796b1634dc7c34fe5c20fdcf">lamina::Relation::op</a></div><div class="ttdeci">RelationOp op</div><div class="ttdoc">Relational operator (GT, LT, GEQ, LEQ, NEQ, EQ)</div><div class="ttdef"><b>定义</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00031">relation_store.hpp:31</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a1b8d56ca6054d439cb12bf4e958fcd69"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a1b8d56ca6054d439cb12bf4e958fcd69">lamina::Relation::lhs</a></div><div class="ttdeci">SymbolicExpr lhs</div><div class="ttdoc">Left-hand side expression</div><div class="ttdef"><b>定义</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00029">relation_store.hpp:29</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a32ddd0b63e70e54f9b92cc9557277995"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a32ddd0b63e70e54f9b92cc9557277995">lamina::checked_inference_result</a></div><div class="ttdeci">Result&lt; T &gt; checked_inference_result(const SymbolicExpr &amp;expr, const std::string &amp;operation, const std::function&lt; T()&gt; &amp;query)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d62/inference__engine__impl_8hpp_source.html#l00058">inference_engine_impl.hpp:58</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a545201946a428bb0bf09f5ab65102fcf"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcf">lamina::Monotonicity</a></div><div class="ttdeci">Monotonicity</div><div class="ttdoc">Monotonicity classification for functions over intervals.</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00057">assumption.hpp:57</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a545201946a428bb0bf09f5ab65102fcfa06250c55ebb50b217110abfbdda2eb5d"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa06250c55ebb50b217110abfbdda2eb5d">lamina::Monotonicity::NonDecreasing</a></div><div class="ttdeci">@ NonDecreasing</div><div class="ttdoc">Non-decreasing (weakly increasing)</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00060">assumption.hpp:60</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a545201946a428bb0bf09f5ab65102fcfa2e6a9b0375c021e8f650a5eb22012b5b"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa2e6a9b0375c021e8f650a5eb22012b5b">lamina::Monotonicity::Decreasing</a></div><div class="ttdeci">@ Decreasing</div><div class="ttdoc">Strictly decreasing</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00059">assumption.hpp:59</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfa88183b946cc5f0e8c96b2e66e1c74a7e">lamina::Monotonicity::Unknown</a></div><div class="ttdeci">@ Unknown</div><div class="ttdoc">Monotonicity not determined</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00062">assumption.hpp:62</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a545201946a428bb0bf09f5ab65102fcfaca5830363e097ce9cfe81212fa9625a3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaca5830363e097ce9cfe81212fa9625a3">lamina::Monotonicity::NonIncreasing</a></div><div class="ttdeci">@ NonIncreasing</div><div class="ttdoc">Non-increasing (weakly decreasing)</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00061">assumption.hpp:61</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a545201946a428bb0bf09f5ab65102fcfaf3ff61f20d0c8eedfa348b0298df5edd">lamina::Monotonicity::Increasing</a></div><div class="ttdeci">@ Increasing</div><div class="ttdoc">Strictly increasing</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00058">assumption.hpp:58</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a58e12853e644e4736f1737aa96cf9515"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a58e12853e644e4736f1737aa96cf9515">lamina::detect_negation</a></div><div class="ttdeci">static std::shared_ptr&lt; const SymbolicNode &gt; detect_negation(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdoc">Helper: check if a MultiplyNode represents negation (multiplication by -1).</div><div class="ttdef"><b>定义</b> <a href="#l00085">inference_engine_monotonicity.cpp:85</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a675156e465c3067fd3e7c055af566514"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a675156e465c3067fd3e7c055af566514">lamina::Relation::rhs</a></div><div class="ttdeci">SymbolicExpr rhs</div><div class="ttdoc">Right-hand side expression</div><div class="ttdef"><b>定义</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00030">relation_store.hpp:30</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a7e58dc671fd40771b0dcc256c79733f5"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a7e58dc671fd40771b0dcc256c79733f5">lamina::endpoint_to_double</a></div><div class="ttdeci">std::optional&lt; double &gt; endpoint_to_double(const Endpoint &amp;ep)</div><div class="ttdoc">Helper: extract a numeric double value from an Endpoint.</div><div class="ttdef"><b>定义</b> <a href="../../d7/dd9/inference__engine__bounds_8cpp_source.html#l00012">inference_engine_bounds.cpp:12</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a80f96645c66afc3c82ee4471574df3e9"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a80f96645c66afc3c82ee4471574df3e9">lamina::inference_query_or_unknown</a></div><div class="ttdeci">Tribool inference_query_or_unknown(InferenceTriboolResult result)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d62/inference__engine__impl_8hpp_source.html#l00078">inference_engine_impl.hpp:78</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a82c6c3918cbe80d5d71d4a231548c946"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a82c6c3918cbe80d5d71d4a231548c946">lamina::InferenceTriboolResult</a></div><div class="ttdeci">Result&lt; Tribool &gt; InferenceTriboolResult</div><div class="ttdef"><b>定义</b> <a href="../../d8/dcd/inference__engine_8hpp_source.html#l00027">inference_engine.hpp:27</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8c4ec73bc39be52e463e21d9ba3c2235a7f80fcc452c2f1ed2bb51b39d0864df1"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8c4ec73bc39be52e463e21d9ba3c2235a7f80fcc452c2f1ed2bb51b39d0864df1">lamina::Domain::Real</a></div><div class="ttdeci">@ Real</div><div class="ttdoc">Real numbers</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00017">assumption.hpp:17</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab4629d596147cd185337cb1eb764e17d"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab4629d596147cd185337cb1eb764e17d">lamina::InferencePeriodResult</a></div><div class="ttdeci">Result&lt; std::optional&lt; SymbolicExpr &gt; &gt; InferencePeriodResult</div><div class="ttdef"><b>定义</b> <a href="../../d8/dcd/inference__engine_8hpp_source.html#l00028">inference_engine.hpp:28</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab6f6fc3b593643289105268edf9988bd"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bd">lamina::Tribool</a></div><div class="ttdeci">Tribool</div><div class="ttdoc">Tri-state logic value for property queries.</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00050">assumption.hpp:50</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab6f6fc3b593643289105268edf9988bda88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bda88183b946cc5f0e8c96b2e66e1c74a7e">lamina::Tribool::Unknown</a></div><div class="ttdeci">@ Unknown</div><div class="ttdoc">Property cannot be determined</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00053">assumption.hpp:53</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab6f6fc3b593643289105268edf9988bdaf827cf462f62848df37c5e1e94a4da74"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab6f6fc3b593643289105268edf9988bdaf827cf462f62848df37c5e1e94a4da74">lamina::Tribool::True</a></div><div class="ttdeci">@ True</div><div class="ttdoc">Property definitely holds</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00051">assumption.hpp:51</a></div></div>
+<div class="ttc" id="anamespacelamina_html_abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8">lamina::Sign::NonNegative</a></div><div class="ttdeci">@ NonNegative</div><div class="ttdoc">&gt;= 0</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00029">assumption.hpp:29</a></div></div>
+<div class="ttc" id="anamespacelamina_html_abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147">lamina::Sign::Positive</a></div><div class="ttdeci">@ Positive</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00027">assumption.hpp:27</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad2b94968b8c7ccd837274e8220c1ca58"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad2b94968b8c7ccd837274e8220c1ca58">lamina::inference_period_or_empty</a></div><div class="ttdeci">std::optional&lt; SymbolicExpr &gt; inference_period_or_empty(InferencePeriodResult result)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d62/inference__engine__impl_8hpp_source.html#l00082">inference_engine_impl.hpp:82</a></div></div>
+<div class="ttc" id="anamespacelamina_html_afc17d632a1a0e29f914166b257c5b3aa"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#afc17d632a1a0e29f914166b257c5b3aa">lamina::collect_power_exponents</a></div><div class="ttdeci">static std::vector&lt; int &gt; collect_power_exponents(const RelationStore &amp;store, const std::string &amp;lhs_name, const std::string &amp;rhs_name)</div><div class="ttdoc">Helper: collect positive integer exponents that appear in PowerNode expressions within the RelationSt...</div><div class="ttdef"><b>定义</b> <a href="#l00179">inference_engine_monotonicity.cpp:179</a></div></div>
+<div class="ttc" id="anamespacelamina_html_affc1661066767e062bb3193fb177b922"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#affc1661066767e062bb3193fb177b922">lamina::is_positive_integer_number</a></div><div class="ttdeci">bool is_positive_integer_number(const NumberNode &amp;num)</div><div class="ttdoc">Helper: check if a NumberNode holds a positive integer value (&gt; 0).</div><div class="ttdef"><b>定义</b> <a href="../../db/daa/inference__engine__arithmetic_8cpp_source.html#l00704">inference_engine_arithmetic.cpp:704</a></div></div>
+<div class="ttc" id="anamespacelamina_html_dd/d91/structlamina_1_1Relation"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#dd/d91/structlamina_1_1Relation">lamina::Relation</a></div><div class="ttdoc">A stored relational constraint between two symbolic expressions.</div><div class="ttdef"><b>定义</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00028">relation_store.hpp:28</a></div></div>
+<div class="ttc" id="astructlamina_1_1Interval_html"><div class="ttname"><a href="../../db/d7f/structlamina_1_1Interval.html">lamina::Interval</a></div><div class="ttdoc">单个区间 [a, b] 或 (a, b) 等</div><div class="ttdef"><b>定义</b> <a href="../../dc/de2/interval_8hpp_source.html#l00060">interval.hpp:60</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/de5/inference__engine__monotonicity_8cpp.html">inference_engine_monotonicity.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

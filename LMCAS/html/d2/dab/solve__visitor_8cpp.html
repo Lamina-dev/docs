@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/solve_visitor.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/dab/solve__visitor_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solve_visitor.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">../include/symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/da6/parametric__solver_8hpp_source.html">../include/parametric_solver.hpp</a>&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &quot;lmmc/config.h&quot;</code><br />
+<code>#include &quot;lmmc/numeric.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d5e/normalization__visitor_8hpp_source.html">../include/visitors/normalization_visitor.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">../include/poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/dd2/solve__strategies_8hpp_source.html">../include/solve_strategies.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d12/solve__polynomial_8hpp_source.html">../include/solve_polynomial.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d7f/solve__transcendental_8hpp_source.html">../include/solve_transcendental.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d61/solve__mixed__transcendental_8hpp_source.html">../include/solve_mixed_transcendental.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d53/newton__raphson_8hpp_source.html">../include/newton_raphson.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d0a/root__of__utils_8hpp_source.html">../include/root_of_utils.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>solve_visitor.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d3d/solve__visitor_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d2/dab/solve__visitor_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:af6f5f16062c17aef0e9d5a3676beedf8" id="r_af6f5f16062c17aef0e9d5a3676beedf8"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d1/df9/structlamina_1_1SymbolicPolyCoeff.html">SymbolicPolyCoeff</a> &gt; &amp;p, int deg)</td></tr>
+<tr class="memitem:af1e9163eaaa97a00bf6c9573522c061b" id="r_af1e9163eaaa97a00bf6c9573522c061b"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="memitem:abd1dbf99cdbc8f34ea1ef18e5eb10eee" id="r_abd1dbf99cdbc8f34ea1ef18e5eb10eee"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abd1dbf99cdbc8f34ea1ef18e5eb10eee">solve_filter_rootof_results</a> (std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt; results, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+<tr class="memitem:a0ce95b8aff09e75c58575c7ffa118d74" id="r_a0ce95b8aff09e75c58575c7ffa118d74"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a0ce95b8aff09e75c58575c7ffa118d74">solve_is_minus_one</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;number)</td></tr>
+<tr class="memitem:a45c4f5e04665a33edb2c049f78ae6e5d" id="r_a45c4f5e04665a33edb2c049f78ae6e5d"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a45c4f5e04665a33edb2c049f78ae6e5d">solve_polynomial_closed</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d1/df9/structlamina_1_1SymbolicPolyCoeff.html">SymbolicPolyCoeff</a> &gt; &amp;poly, const std::string &amp;var)</td></tr>
+<tr class="memitem:a760a41119196beacb8413572f7f9eb82" id="r_a760a41119196beacb8413572f7f9eb82"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a760a41119196beacb8413572f7f9eb82">solve_simplify_solution_value</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;expr)</td></tr>
+<tr class="memitem:a0e5a3b4a277a2df449f9006519c34309" id="r_a0e5a3b4a277a2df449f9006519c34309"><td class="memItemLeft">static std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="af6f5f16062c17aef0e9d5a3676beedf8" name="af6f5f16062c17aef0e9d5a3676beedf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6f5f16062c17aef0e9d5a3676beedf8">&#9670;&#160;</a></span>get_coeff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; get_coeff </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d1/df9/structlamina_1_1SymbolicPolyCoeff.html">SymbolicPolyCoeff</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>deg</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00020">20</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   20</span>                                                                                       {</div>
+<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">if</span> (deg &lt; 0 || deg &gt; p.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">degree</a>()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(0);</div>
+<div class="line"><span class="lineno">   22</span>    <span class="keywordflow">return</span> p.<a class="code hl_variable" href="../../d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908">coeffs</a>[deg].val;</div>
+<div class="line"><span class="lineno">   23</span>}</div>
+<div class="ttc" id="aclassSymbolicExpr_html_a3bdf282c74b91aedb1dc529c047390db"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; number(int n)</div><div class="ttdoc">创建整数数值表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00017">symbolic_core.cpp:17</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_aa4209c719c18fc882b702d88e397bdf4"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">lamina::Polynomial::degree</a></div><div class="ttdeci">int degree() const</div><div class="ttdoc">获取多项式的次数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00096">polynomial.hpp:96</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_ab01744d72dd2edf9f0742ec818e73908"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908">lamina::Polynomial::coeffs</a></div><div class="ttdeci">std::vector&lt; CoeffType &gt; coeffs</div><div class="ttdoc">系数数组，coeffs[i] 为 x^i 的系数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00051">polynomial.hpp:51</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d0/d3e/polynomial_8hpp_source.html#l00051">lamina::Polynomial&lt; CoeffType &gt;::coeffs</a>, <a class="el" href="../../d0/d3e/polynomial_8hpp_source.html#l00096">lamina::Polynomial&lt; CoeffType &gt;::degree()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00020">get_coeff()</a> , 以及 <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00017">SymbolicExpr::number()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00020">get_coeff()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00411">SymbolicExpr::solve()</a>, <a class="el" href="../../d9/d5a/root__of__utils_8cpp_source.html#l00207">lamina::solve_closed_form_from_poly()</a>, <a class="el" href="../../da/db6/solve__polynomial_8cpp_source.html#l00754">lamina::solve_closed_form_poly()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00159">solve_polynomial_closed()</a>, <a class="el" href="../../d4/d2c/inequality__solver_8cpp_source.html#l01098">lamina::solve_symbolic_poly()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00472">SymbolicExpr::solve_system()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_af6f5f16062c17aef0e9d5a3676beedf8_cgraph.svg" width="100%" height="449"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_af6f5f16062c17aef0e9d5a3676beedf8_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="af1e9163eaaa97a00bf6c9573522c061b" name="af1e9163eaaa97a00bf6c9573522c061b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e9163eaaa97a00bf6c9573522c061b">&#9670;&#160;</a></span>solve_contains_rootof_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool solve_contains_rootof_node </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00036">36</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>                                                                                      {</div>
+<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> function = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#aa0134abdcd8899343216d030f3bf9cb5">function</a>-&gt;type() == <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a2787a0693f65afb2d4ddc45a2cbf6cf3">FunctionNode::FuncType::RootOf</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; arg : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#aa0134abdcd8899343216d030f3bf9cb5">function</a>-&gt;arguments()) {</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(arg)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   42</span>        }</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   44</span>    }</div>
+<div class="line"><span class="lineno">   45</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> add = std::dynamic_pointer_cast&lt;const AddNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; operand : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">add</a>-&gt;operands()) {</div>
+<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(operand)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   48</span>        }</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   50</span>    }</div>
+<div class="line"><span class="lineno">   51</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> multiply = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; operand : multiply-&gt;operands()) {</div>
+<div class="line"><span class="lineno">   53</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(operand)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   54</span>        }</div>
+<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   56</span>    }</div>
+<div class="line"><span class="lineno">   57</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> power = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(power-&gt;base()) ||</div>
+<div class="line"><span class="lineno">   59</span>               <a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(power-&gt;exponent());</div>
+<div class="line"><span class="lineno">   60</span>    }</div>
+<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> relation = std::dynamic_pointer_cast&lt;const RelationalNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a2a76447669dc8aa984e34c9cebaa092d">relation</a>-&gt;left()) ||</div>
+<div class="line"><span class="lineno">   63</span>               <a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a2a76447669dc8aa984e34c9cebaa092d">relation</a>-&gt;right());</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   66</span>}</div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a2787a0693f65afb2d4ddc45a2cbf6cf3"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a2787a0693f65afb2d4ddc45a2cbf6cf3">FunctionNode::FuncType::RootOf</a></div><div class="ttdeci">@ RootOf</div><div class="ttdoc">多项式根表示</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00018">functions.hpp:18</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a2a76447669dc8aa984e34c9cebaa092d"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a2a76447669dc8aa984e34c9cebaa092d">lamina::lsr::relation</a></div><div class="ttdeci">ExprResult relation(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, RelationOp op)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l01028">lsr_expr_facade.cpp:1028</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a7f26e61e1ba27febfad52ada513cf651"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">lamina::lsr::add</a></div><div class="ttdeci">ExprResult add(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00394">lsr_expr_facade.cpp:394</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_aa0134abdcd8899343216d030f3bf9cb5"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#aa0134abdcd8899343216d030f3bf9cb5">lamina::lsr::function</a></div><div class="ttdeci">ExprResult function(const std::string &amp;name, std::vector&lt; ExprPtr &gt; arguments)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00989">lsr_expr_facade.cpp:989</a></div></div>
+<div class="ttc" id="asolve__visitor_8cpp_html_af1e9163eaaa97a00bf6c9573522c061b"><div class="ttname"><a href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a></div><div class="ttdeci">static bool solve_contains_rootof_node(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdef"><b>定义</b> <a href="../../d2/dab/solve__visitor_8cpp_source.html#l00036">solve_visitor.cpp:36</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/d1a/functions_8hpp_source.html#l00018">FunctionNode::RootOf</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00036">solve_contains_rootof_node()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00036">solve_contains_rootof_node()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00068">solve_filter_rootof_results()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_af1e9163eaaa97a00bf6c9573522c061b_cgraph.svg" width="215" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_af1e9163eaaa97a00bf6c9573522c061b_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="abd1dbf99cdbc8f34ea1ef18e5eb10eee" name="abd1dbf99cdbc8f34ea1ef18e5eb10eee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd1dbf99cdbc8f34ea1ef18e5eb10eee">&#9670;&#160;</a></span>solve_filter_rootof_results()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt; solve_filter_rootof_results </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>results</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>opts</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00068">68</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   70</span>                              {</div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">if</span> (opts.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a3ba4b6b37ce77c2fa73631d8606d1302">return_rootof</a>) <span class="keywordflow">return</span> results;</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>    std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; filtered;</div>
+<div class="line"><span class="lineno">   74</span>    filtered.reserve(results.size());</div>
+<div class="line"><span class="lineno">   75</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; result : results) {</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">if</span> (!result || !<a class="code hl_function" href="#af1e9163eaaa97a00bf6c9573522c061b">solve_contains_rootof_node</a>(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(result))) {</div>
+<div class="line"><span class="lineno">   77</span>            filtered.push_back(std::move(result));</div>
+<div class="line"><span class="lineno">   78</span>        }</div>
+<div class="line"><span class="lineno">   79</span>    }</div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> filtered;</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a9e31448c7d53c33d5be1a6bd9a631cbf"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00082">base.hpp:82</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a3ba4b6b37ce77c2fa73631d8606d1302"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a3ba4b6b37ce77c2fa73631d8606d1302">lamina::SolveOptions::return_rootof</a></div><div class="ttdeci">bool return_rootof</div><div class="ttdoc">无闭式解时是否返回 RootOf 表达式</div><div class="ttdef"><b>定义</b> <a href="../../d5/dd2/solve__strategies_8hpp_source.html#l00022">solve_strategies.hpp:22</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00082">lamina::detail::node()</a>, <a class="el" href="../../d5/dd2/solve__strategies_8hpp_source.html#l00022">lamina::SolveOptions::return_rootof</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00036">solve_contains_rootof_node()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00068">solve_filter_rootof_results()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00299">lamina::solve_dispatch_vector_checked()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00068">solve_filter_rootof_results()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_abd1dbf99cdbc8f34ea1ef18e5eb10eee_cgraph.svg" width="631" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_abd1dbf99cdbc8f34ea1ef18e5eb10eee_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0ce95b8aff09e75c58575c7ffa118d74" name="a0ce95b8aff09e75c58575c7ffa118d74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ce95b8aff09e75c58575c7ffa118d74">&#9670;&#160;</a></span>solve_is_minus_one()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool solve_is_minus_one </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>number</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00025">25</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>                                                                              {</div>
+<div class="line"><span class="lineno">   26</span>    <span class="keywordflow">if</span> (!number) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   27</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(number-&gt;value())) {</div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">return</span> std::get&lt;BigInt&gt;(number-&gt;value()) == <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(-1);</div>
+<div class="line"><span class="lineno">   29</span>    }</div>
+<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(number-&gt;value())) {</div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">return</span> std::get&lt;Rational&gt;(number-&gt;value()) == <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(-1);</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">return</span> std::get&lt;lmmc_real_t&gt;(number-&gt;value()) == -1.0;</div>
+<div class="line"><span class="lineno">   34</span>}</div>
+<div class="ttc" id="aclassBigInt_html_af677021c0987fc2a48da06837ed29c58"><div class="ttname"><a href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt::BigInt</a></div><div class="ttdeci">BigInt()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00059">bigint.cpp:59</a></div></div>
+<div class="ttc" id="aclassRational_html_a3bbd6ff67c590da76ddfcbd48cd3de0a"><div class="ttname"><a href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational::Rational</a></div><div class="ttdeci">Rational()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00090">rational.hpp:90</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d5/dc7/bigint_8cpp_source.html#l00059">BigInt::BigInt()</a>, <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00025">solve_is_minus_one()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00025">solve_is_minus_one()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00083">solve_simplify_with_nonzero_pivots()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a0ce95b8aff09e75c58575c7ffa118d74_cgraph.svg" width="351" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a0ce95b8aff09e75c58575c7ffa118d74_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a45c4f5e04665a33edb2c049f78ae6e5d" name="a45c4f5e04665a33edb2c049f78ae6e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45c4f5e04665a33edb2c049f78ae6e5d">&#9670;&#160;</a></span>solve_polynomial_closed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &gt; solve_polynomial_closed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d1/df9/structlamina_1_1SymbolicPolyCoeff.html">SymbolicPolyCoeff</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>poly</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>var</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00159">159</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  161</span>                          {</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>    <span class="keywordtype">int</span> deg = poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">degree</a>();</div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">if</span> (deg &lt;= 0) <span class="keywordflow">return</span> {};</div>
+<div class="line"><span class="lineno">  165</span> </div>
+<div class="line"><span class="lineno">  166</span>    <span class="keywordflow">if</span> (deg == 1) {</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keyword">auto</span> a = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 1);</div>
+<div class="line"><span class="lineno">  168</span>        <span class="keyword">auto</span> b = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 0);</div>
+<div class="line"><span class="lineno">  169</span>        <span class="keyword">auto</span> neg_b = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(b, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(-1));</div>
+<div class="line"><span class="lineno">  170</span>        <span class="keyword">auto</span> result = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#aea4c251b3fd9994c77fb8b26dae96d5f">SymbolicExpr::divide</a>(neg_b, a);</div>
+<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">return</span> { result-&gt;simplify() };</div>
+<div class="line"><span class="lineno">  172</span>    }</div>
+<div class="line"><span class="lineno">  173</span> </div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">if</span> (deg == 2) {</div>
+<div class="line"><span class="lineno">  175</span>        <span class="keyword">auto</span> a = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 2);</div>
+<div class="line"><span class="lineno">  176</span>        <span class="keyword">auto</span> b = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 1);</div>
+<div class="line"><span class="lineno">  177</span>        <span class="keyword">auto</span> c = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 0);</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span>        <span class="keyword">auto</span> b2 = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a>(b, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(2));</div>
+<div class="line"><span class="lineno">  180</span>        <span class="keyword">auto</span> ac4 = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(4), <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(a, c));</div>
+<div class="line"><span class="lineno">  181</span>        <span class="keyword">auto</span> delta = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a>(b2, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(ac4, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(-1)));</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>        <span class="keyword">auto</span> sqrt_delta = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a>(delta, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(0.5));</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keyword">auto</span> neg_b = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(b, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(-1));</div>
+<div class="line"><span class="lineno">  185</span>        <span class="keyword">auto</span> two_a = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(<a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(2), a);</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>        <span class="keyword">auto</span> numerator1 = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a>(neg_b, sqrt_delta);</div>
+<div class="line"><span class="lineno">  188</span>        <span class="keyword">auto</span> numerator2 = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a>(neg_b, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a>(sqrt_delta, <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#a3bdf282c74b91aedb1dc529c047390db">SymbolicExpr::number</a>(-1)));</div>
+<div class="line"><span class="lineno">  189</span> </div>
+<div class="line"><span class="lineno">  190</span>        <span class="keyword">auto</span> x1 = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#aea4c251b3fd9994c77fb8b26dae96d5f">SymbolicExpr::divide</a>(numerator1, two_a);</div>
+<div class="line"><span class="lineno">  191</span>        <span class="keyword">auto</span> x2 = <a class="code hl_function" href="../../dc/d25/classSymbolicExpr.html#aea4c251b3fd9994c77fb8b26dae96d5f">SymbolicExpr::divide</a>(numerator2, two_a);</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>        <span class="keywordflow">return</span> { x1-&gt;simplify(), x2-&gt;simplify() };</div>
+<div class="line"><span class="lineno">  194</span>    }</div>
+<div class="line"><span class="lineno">  195</span> </div>
+<div class="line"><span class="lineno">  196</span>    <span class="keywordflow">if</span> (deg == 3) {</div>
+<div class="line"><span class="lineno">  197</span>        <span class="keyword">auto</span> a = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 3);</div>
+<div class="line"><span class="lineno">  198</span>        <span class="keyword">auto</span> b = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 2);</div>
+<div class="line"><span class="lineno">  199</span>        <span class="keyword">auto</span> c = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 1);</div>
+<div class="line"><span class="lineno">  200</span>        <span class="keyword">auto</span> d = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 0);</div>
+<div class="line"><span class="lineno">  201</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a6905556da3efb2c2544e5c27757789cd">solve_cubic</a>(a, b, c, d, var);</div>
+<div class="line"><span class="lineno">  202</span>    }</div>
+<div class="line"><span class="lineno">  203</span> </div>
+<div class="line"><span class="lineno">  204</span>    <span class="keywordflow">if</span> (deg == 4) {</div>
+<div class="line"><span class="lineno">  205</span>        <span class="keyword">auto</span> a = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 4);</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keyword">auto</span> b = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 3);</div>
+<div class="line"><span class="lineno">  207</span>        <span class="keyword">auto</span> c = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 2);</div>
+<div class="line"><span class="lineno">  208</span>        <span class="keyword">auto</span> d = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 1);</div>
+<div class="line"><span class="lineno">  209</span>        <span class="keyword">auto</span> <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">e</a> = <a class="code hl_function" href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a>(poly, 0);</div>
+<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a15c18d12300d4d54180562f3d444a325">solve_quartic</a>(a, b, c, d, e, var);</div>
+<div class="line"><span class="lineno">  211</span>    }</div>
+<div class="line"><span class="lineno">  212</span> </div>
+<div class="line"><span class="lineno">  213</span>    <span class="keywordflow">return</span> {};</div>
+<div class="line"><span class="lineno">  214</span>}</div>
+<div class="ttc" id="aclassSymbolicExpr_html_a7cbde7842e11e1337d8c2276e650f7c0"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#a7cbde7842e11e1337d8c2276e650f7c0">SymbolicExpr::multiply</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; multiply(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建乘法表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00060">symbolic_core.cpp:60</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ab917584b9057b286e514d407614888cd"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ab917584b9057b286e514d407614888cd">SymbolicExpr::power</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; power(std::shared_ptr&lt; SymbolicExpr &gt; base, std::shared_ptr&lt; SymbolicExpr &gt; exponent)</div><div class="ttdoc">创建幂运算表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00084">symbolic_core.cpp:84</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_ade468ea22874ed2a114a5ee83aae525b"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#ade468ea22874ed2a114a5ee83aae525b">SymbolicExpr::add</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; add(std::shared_ptr&lt; SymbolicExpr &gt; left, std::shared_ptr&lt; SymbolicExpr &gt; right)</div><div class="ttdoc">创建加法表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00072">symbolic_core.cpp:72</a></div></div>
+<div class="ttc" id="aclassSymbolicExpr_html_aea4c251b3fd9994c77fb8b26dae96d5f"><div class="ttname"><a href="../../dc/d25/classSymbolicExpr.html#aea4c251b3fd9994c77fb8b26dae96d5f">SymbolicExpr::divide</a></div><div class="ttdeci">static std::shared_ptr&lt; SymbolicExpr &gt; divide(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;num, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;den)</div><div class="ttdoc">执行符号除法。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d39/symbolic__core_8cpp_source.html#l00816">symbolic_core.cpp:816</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a40f20aa7662c13c015b694d19dcece9d"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">lamina::lsr::e</a></div><div class="ttdeci">ExprResult e()</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00354">lsr_expr_facade.cpp:354</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a15c18d12300d4d54180562f3d444a325"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a15c18d12300d4d54180562f3d444a325">lamina::solve_quartic</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; solve_quartic(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;b, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;d, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;e, const std::string &amp;var)</div><div class="ttdoc">使用四次公式求解四次方程 ax⁴ + bx³ + cx² + dx + e = 0。</div><div class="ttdef"><b>定义</b> <a href="../../da/db6/solve__polynomial_8cpp_source.html#l00360">solve_polynomial.cpp:360</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a6905556da3efb2c2544e5c27757789cd"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a6905556da3efb2c2544e5c27757789cd">lamina::solve_cubic</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; solve_cubic(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;b, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;d, const std::string &amp;var)</div><div class="ttdoc">使用三次公式求解三次方程 ax³ + bx² + cx + d = 0。</div><div class="ttdef"><b>定义</b> <a href="../../da/db6/solve__polynomial_8cpp_source.html#l00143">solve_polynomial.cpp:143</a></div></div>
+<div class="ttc" id="asolve__visitor_8cpp_html_af6f5f16062c17aef0e9d5a3676beedf8"><div class="ttname"><a href="#af6f5f16062c17aef0e9d5a3676beedf8">get_coeff</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; get_coeff(const Polynomial&lt; SymbolicPolyCoeff &gt; &amp;p, int deg)</div><div class="ttdef"><b>定义</b> <a href="../../d2/dab/solve__visitor_8cpp_source.html#l00020">solve_visitor.cpp:20</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00072">SymbolicExpr::add()</a>, <a class="el" href="../../d0/d3e/polynomial_8hpp_source.html#l00096">lamina::Polynomial&lt; CoeffType &gt;::degree()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00816">SymbolicExpr::divide()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00020">get_coeff()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00060">SymbolicExpr::multiply()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00017">SymbolicExpr::number()</a>, <a class="el" href="../../dd/d39/symbolic__core_8cpp_source.html#l00084">SymbolicExpr::power()</a>, <a class="el" href="../../da/db6/solve__polynomial_8cpp_source.html#l00143">lamina::solve_cubic()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00159">solve_polynomial_closed()</a> , 以及 <a class="el" href="../../da/db6/solve__polynomial_8cpp_source.html#l00360">lamina::solve_quartic()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00299">lamina::solve_dispatch_vector_checked()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00159">solve_polynomial_closed()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a45c4f5e04665a33edb2c049f78ae6e5d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a45c4f5e04665a33edb2c049f78ae6e5d_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a760a41119196beacb8413572f7f9eb82" name="a760a41119196beacb8413572f7f9eb82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a760a41119196beacb8413572f7f9eb82">&#9670;&#160;</a></span>solve_simplify_solution_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; solve_simplify_solution_value </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00152">152</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  153</span>                                             {</div>
+<div class="line"><span class="lineno">  154</span>    <span class="keywordflow">if</span> (!expr || !<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)) <span class="keywordflow">return</span> expr;</div>
+<div class="line"><span class="lineno">  155</span>    <span class="keyword">auto</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a> = <a class="code hl_function" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a>(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr));</div>
+<div class="line"><span class="lineno">  156</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(node)-&gt;simplify();</div>
+<div class="line"><span class="lineno">  157</span>}</div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aadd9ee6d804ecfa450cbaced381efdeb"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a></div><div class="ttdeci">std::shared_ptr&lt;::SymbolicExpr &gt; make_expression_ptr(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00102">base.hpp:102</a></div></div>
+<div class="ttc" id="asolve__visitor_8cpp_html_a0e5a3b4a277a2df449f9006519c34309"><div class="ttname"><a href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a></div><div class="ttdeci">static std::shared_ptr&lt; const SymbolicNode &gt; solve_simplify_with_nonzero_pivots(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdef"><b>定义</b> <a href="../../d2/dab/solve__visitor_8cpp_source.html#l00083">solve_visitor.cpp:83</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00102">lamina::detail::make_expression_ptr()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00082">lamina::detail::node()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00152">solve_simplify_solution_value()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00083">solve_simplify_with_nonzero_pivots()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00152">solve_simplify_solution_value()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00472">SymbolicExpr::solve_system()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a760a41119196beacb8413572f7f9eb82_cgraph.svg" width="100%" height="559"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a760a41119196beacb8413572f7f9eb82_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0e5a3b4a277a2df449f9006519c34309" name="a0e5a3b4a277a2df449f9006519c34309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e5a3b4a277a2df449f9006519c34309">&#9670;&#160;</a></span>solve_simplify_with_nonzero_pivots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; solve_simplify_with_nonzero_pivots </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html">solve_visitor.cpp</a> 第 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00083">83</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   84</span>                                                   {</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a>;</div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> add = std::dynamic_pointer_cast&lt;const AddNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   88</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; operands;</div>
+<div class="line"><span class="lineno">   89</span>        operands.reserve(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">add</a>-&gt;operands().size());</div>
+<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; operand : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">add</a>-&gt;operands()) {</div>
+<div class="line"><span class="lineno">   91</span>            operands.push_back(<a class="code hl_function" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a>(operand));</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;AddNode&gt;</a>(std::move(operands));</div>
+<div class="line"><span class="lineno">   94</span>    }</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> power = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;PowerNode&gt;</a>(</div>
+<div class="line"><span class="lineno">   98</span>            <a class="code hl_function" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a>(power-&gt;base()),</div>
+<div class="line"><span class="lineno">   99</span>            <a class="code hl_function" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a>(power-&gt;exponent()));</div>
+<div class="line"><span class="lineno">  100</span>    }</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> multiply = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  103</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; operands;</div>
+<div class="line"><span class="lineno">  104</span>        operands.reserve(multiply-&gt;operands().size());</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; operand : multiply-&gt;operands()) {</div>
+<div class="line"><span class="lineno">  106</span>            <span class="keyword">auto</span> simplified = <a class="code hl_function" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a>(operand);</div>
+<div class="line"><span class="lineno">  107</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> nested = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(simplified)) {</div>
+<div class="line"><span class="lineno">  108</span>                operands.insert(operands.end(), nested-&gt;operands().begin(), nested-&gt;operands().end());</div>
+<div class="line"><span class="lineno">  109</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  110</span>                operands.push_back(simplified);</div>
+<div class="line"><span class="lineno">  111</span>            }</div>
+<div class="line"><span class="lineno">  112</span>        }</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>        std::vector&lt;bool&gt; consumed(operands.size(), <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; operands.size(); ++i) {</div>
+<div class="line"><span class="lineno">  116</span>            <span class="keywordflow">if</span> (consumed[i]) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  117</span>            <span class="keyword">auto</span> reciprocal = std::dynamic_pointer_cast&lt;const PowerNode&gt;(operands[i]);</div>
+<div class="line"><span class="lineno">  118</span>            <span class="keyword">auto</span> exponent = reciprocal ? std::dynamic_pointer_cast&lt;const NumberNode&gt;(reciprocal-&gt;exponent()) : nullptr;</div>
+<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">if</span> (!reciprocal || !<a class="code hl_function" href="#a0ce95b8aff09e75c58575c7ffa118d74">solve_is_minus_one</a>(exponent)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; operands.size(); ++j) {</div>
+<div class="line"><span class="lineno">  122</span>                <span class="keywordflow">if</span> (i == j || consumed[j]) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  123</span>                <span class="keywordflow">if</span> (reciprocal-&gt;base()-&gt;compare(*operands[j]) == 0) {</div>
+<div class="line"><span class="lineno">  124</span>                    consumed[i] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  125</span>                    consumed[j] = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  126</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  127</span>                }</div>
+<div class="line"><span class="lineno">  128</span>            }</div>
+<div class="line"><span class="lineno">  129</span>        }</div>
+<div class="line"><span class="lineno">  130</span> </div>
+<div class="line"><span class="lineno">  131</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; remaining;</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; operands.size(); ++i) {</div>
+<div class="line"><span class="lineno">  133</span>            <span class="keywordflow">if</span> (!consumed[i]) remaining.push_back(operands[i]);</div>
+<div class="line"><span class="lineno">  134</span>        }</div>
+<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">if</span> (remaining.empty()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1));</div>
+<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">if</span> (remaining.size() == 1) <span class="keywordflow">return</span> remaining.front();</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;MultiplyNode&gt;</a>(std::move(remaining));</div>
+<div class="line"><span class="lineno">  138</span>    }</div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> function = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  141</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; args;</div>
+<div class="line"><span class="lineno">  142</span>        args.reserve(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#aa0134abdcd8899343216d030f3bf9cb5">function</a>-&gt;arguments().size());</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; arg : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#aa0134abdcd8899343216d030f3bf9cb5">function</a>-&gt;arguments()) {</div>
+<div class="line"><span class="lineno">  144</span>            args.push_back(<a class="code hl_function" href="#a0e5a3b4a277a2df449f9006519c34309">solve_simplify_with_nonzero_pivots</a>(arg));</div>
+<div class="line"><span class="lineno">  145</span>        }</div>
+<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#aa0134abdcd8899343216d030f3bf9cb5">function</a>-&gt;type(), std::move(args));</div>
+<div class="line"><span class="lineno">  147</span>    }</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a>;</div>
+<div class="line"><span class="lineno">  150</span>}</div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aea502a76fff503e0f55363f674f65fa4"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00114">base.hpp:114</a></div></div>
+<div class="ttc" id="asolve__visitor_8cpp_html_a0ce95b8aff09e75c58575c7ffa118d74"><div class="ttname"><a href="#a0ce95b8aff09e75c58575c7ffa118d74">solve_is_minus_one</a></div><div class="ttdeci">static bool solve_is_minus_one(const std::shared_ptr&lt; const NumberNode &gt; &amp;number)</div><div class="ttdef"><b>定义</b> <a href="../../d2/dab/solve__visitor_8cpp_source.html#l00025">solve_visitor.cpp:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d5/dc7/bigint_8cpp_source.html#l00059">BigInt::BigInt()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a>, <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00025">solve_is_minus_one()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00083">solve_simplify_with_nonzero_pivots()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00152">solve_simplify_solution_value()</a> , 以及 <a class="el" href="../../d2/dab/solve__visitor_8cpp_source.html#l00083">solve_simplify_with_nonzero_pivots()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a0e5a3b4a277a2df449f9006519c34309_cgraph.svg" width="591" height="156"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dab/solve__visitor_8cpp_a0e5a3b4a277a2df449f9006519c34309_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/dab/solve__visitor_8cpp.html">solve_visitor.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

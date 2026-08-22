@@ -1,0 +1,57 @@
+var symbolic__vector__geometry_8hpp =
+[
+    [ "lamina::LineSymbolic", "d1/d42/namespacelamina.html#da/dfd/structlamina_1_1LineSymbolic", [
+      [ "direction", "d1/d42/namespacelamina.html#a8a6953347aaa62a74c1efa1a86d11fd9", null ],
+      [ "point", "d1/d42/namespacelamina.html#ad17ecfa505bce5fd02c53b09f1332eb3", null ]
+    ] ],
+    [ "lamina::PlaneSymbolic", "d1/d42/namespacelamina.html#d8/db0/structlamina_1_1PlaneSymbolic", [
+      [ "d", "d1/d42/namespacelamina.html#ac2c0097666f868fc8f7ccff7cb8633f6", null ],
+      [ "normal", "d1/d42/namespacelamina.html#a4cb0d15b433c9fad45395d6dfc14d8d8", null ]
+    ] ],
+    [ "lamina::SurfaceSymbolic", "d1/d42/namespacelamina.html#dd/d43/structlamina_1_1SurfaceSymbolic", [
+      [ "F", "d1/d42/namespacelamina.html#a2715e73f42bfb49809c6ac50b4ea2612", null ],
+      [ "vars", "d1/d42/namespacelamina.html#a94fc8d37d8fadcbad2ba6a57a0579b0a", null ]
+    ] ],
+    [ "lamina::LineSymbolicResult", "d1/d42/namespacelamina.html#a28ddca77c7ca0debb5adb69d3b310d36", null ],
+    [ "lamina::PlaneSymbolicResult", "d1/d42/namespacelamina.html#a8b4ea93f482b2d9fd22204a804d87925", null ],
+    [ "lamina::VectorAngleResult", "d1/d42/namespacelamina.html#aa077b814a01ed34a6fc50cb11fc2ed4c", null ],
+    [ "lamina::VectorExprListResult", "d1/d42/namespacelamina.html#a3177aaab08933ec601dfb22784b9c1e2", null ],
+    [ "lamina::VectorStringResult", "d1/d42/namespacelamina.html#af384dcd0315157da6a8a0e93edb11a49", null ],
+    [ "lamina::classify_quadric", "d1/d42/namespacelamina.html#a45111b08ca496053240bb295dfee79ea", null ],
+    [ "lamina::classify_quadric_checked", "d1/d42/namespacelamina.html#af67167be463d3ee6977d8f9eb4d16d0e", null ],
+    [ "lamina::classify_quadric_checked", "d1/d42/namespacelamina.html#a85db9b31ce67bd74d346ece4f01259c5", null ],
+    [ "lamina::dihedral_angle", "d1/d42/namespacelamina.html#a86e22a8c6aacb9d11d46c5619c9242cf", null ],
+    [ "lamina::dihedral_angle_checked", "d1/d42/namespacelamina.html#a2af54d39322c2854f4bc0c794557e9ae", null ],
+    [ "lamina::dihedral_angle_checked", "d1/d42/namespacelamina.html#a36e07774e030a2bc924eec58284e5221", null ],
+    [ "lamina::line_from_two_points", "d1/d42/namespacelamina.html#a65ed9e2bb779afceb91aa4a2dac663af", null ],
+    [ "lamina::line_from_two_points_checked", "d1/d42/namespacelamina.html#a695e4fd4eebdef03906abd1e365d0823", null ],
+    [ "lamina::line_from_two_points_checked", "d1/d42/namespacelamina.html#a37ba5206324666885a189c320039fcb7", null ],
+    [ "lamina::line_plane_intersection", "d1/d42/namespacelamina.html#ad936b928e4b853c16f84a4d9b3c8473f", null ],
+    [ "lamina::line_plane_intersection_checked", "d1/d42/namespacelamina.html#a6c951ee99ca7fbba70669bf6a4919a52", null ],
+    [ "lamina::line_plane_intersection_checked", "d1/d42/namespacelamina.html#a2e96fa360277fe8e604a7663599b7639", null ],
+    [ "lamina::plane_from_three_points", "d1/d42/namespacelamina.html#af0d14150053316f086b350d6fb218547", null ],
+    [ "lamina::plane_from_three_points_checked", "d1/d42/namespacelamina.html#a8cdd49773699d88ee4bedcfa1d3627f9", null ],
+    [ "lamina::plane_from_three_points_checked", "d1/d42/namespacelamina.html#aae93a3852ffcffc65dc5ae02d7973ed7", null ],
+    [ "lamina::plane_general", "d1/d42/namespacelamina.html#a28fc8a77ab4345b72d71e47d4283a566", null ],
+    [ "lamina::point_plane_distance", "d1/d42/namespacelamina.html#a36eb57b0673aa02f6d32298b952cbbee", null ],
+    [ "lamina::point_plane_distance_checked", "d1/d42/namespacelamina.html#a089990dcf4703c2ace38493cbd25b92d", null ],
+    [ "lamina::point_plane_distance_checked", "d1/d42/namespacelamina.html#acca4b4ab012f7775ad3953a30366879b", null ],
+    [ "lamina::skew_lines_distance", "d1/d42/namespacelamina.html#a31d4a8b43dd11efe1cd603380255fca4", null ],
+    [ "lamina::skew_lines_distance_checked", "d1/d42/namespacelamina.html#a932164b6e3273fa5064dee84de02d0fe", null ],
+    [ "lamina::skew_lines_distance_checked", "d1/d42/namespacelamina.html#a312dc03135e976a302ce4d8a3882e368", null ],
+    [ "lamina::surface_normal", "d1/d42/namespacelamina.html#af838c589b7388d3eb9abdcbd12d44f7e", null ],
+    [ "lamina::surface_normal_checked", "d1/d42/namespacelamina.html#acce91c7d1d7f78a9b9a959273d6c5cce", null ],
+    [ "lamina::surface_normal_checked", "d1/d42/namespacelamina.html#a7f1e953c187bf94b85ff61231629c32d", null ],
+    [ "lamina::tangent_plane", "d1/d42/namespacelamina.html#a4e94a63c3d77879fa9d827a3fa1f69ca", null ],
+    [ "lamina::tangent_plane_checked", "d1/d42/namespacelamina.html#ac6ed4064b2455ca55e756792c45bf8a5", null ],
+    [ "lamina::tangent_plane_checked", "d1/d42/namespacelamina.html#a09d60f441c3fc69bc9c94bd7151f5914", null ],
+    [ "lamina::vector_angle", "d1/d42/namespacelamina.html#a202ba6c95f4d1be4b39c87ad656b451f", null ],
+    [ "lamina::vector_angle_checked", "d1/d42/namespacelamina.html#a18b9a380f551627746b9bce235660516", null ],
+    [ "lamina::vector_angle_checked", "d1/d42/namespacelamina.html#a49d20f1216cbb8de19aa41c8a8ed69c3", null ],
+    [ "lamina::vector_cross", "d1/d42/namespacelamina.html#a6905577c746a90477edd0596f963c0d9", null ],
+    [ "lamina::vector_cross_checked", "d1/d42/namespacelamina.html#a04b73c95e6cf8a13603d16398197af9a", null ],
+    [ "lamina::vector_cross_checked", "d1/d42/namespacelamina.html#ab00327312f3297495f507d90afd079fb", null ],
+    [ "lamina::vector_dot", "d1/d42/namespacelamina.html#a0dcb9f60145879303ddb68f9063bbea5", null ],
+    [ "lamina::vector_dot_checked", "d1/d42/namespacelamina.html#ab4151dc5e84b8d532a8b48715315d80d", null ],
+    [ "lamina::vector_dot_checked", "d1/d42/namespacelamina.html#a5b8ad5e26ae044837cfe008ce7193ac6", null ]
+];

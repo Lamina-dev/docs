@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="zh">
+  <compounddef id="d9/dc4/classlamina_1_1WeierstrassStrategy" kind="class" language="C++" prot="public">
+    <compoundname>lamina::WeierstrassStrategy</compoundname>
+    <basecompoundref refid="d3/d27/classlamina_1_1IntegrationStrategy" prot="public" virt="non-virtual">lamina::IntegrationStrategy</basecompoundref>
+    <includes refid="d8/d6f/integration__strategies_8hpp" local="no">integration_strategies.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="d9/dc4/classlamina_1_1WeierstrassStrategy_1a0c7e66be8de07388c12da7c2cea8058a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string lamina::WeierstrassStrategy::name</definition>
+        <argsstring>() const override</argsstring>
+        <name>name</name>
+        <qualifiedname>lamina::WeierstrassStrategy::name</qualifiedname>
+        <reimplements refid="d3/d27/classlamina_1_1IntegrationStrategy_1a1a0648b428cf985dd45fd09565504e54">name</reimplements>
+        <briefdescription>
+<para>获取策略名称 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>策略名称字符串 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/integration_strategies.hpp" line="374" column="17" bodyfile="include/integration_strategies.hpp" bodystart="374" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="d9/dc4/classlamina_1_1WeierstrassStrategy_1af64ed707a438476c031c5e788dc1d7c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; SymbolicExpr &gt; lamina::WeierstrassStrategy::try_integrate</definition>
+        <argsstring>(const SymbolicExpr &amp;expr, const std::string &amp;var, Integrator &amp;ctx, ComputationContext &amp;computation, int depth=0) override</argsstring>
+        <name>try_integrate</name>
+        <qualifiedname>lamina::WeierstrassStrategy::try_integrate</qualifiedname>
+        <reimplements refid="d3/d27/classlamina_1_1IntegrationStrategy_1a6a7572eee565b301c17a05cd9c752f2f">try_integrate</reimplements>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type><ref refid="d8/dbb/classlamina_1_1Integrator" kindref="compound">Integrator</ref> &amp;</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="df/dac/classlamina_1_1ComputationContext" kindref="compound">ComputationContext</ref> &amp;</type>
+          <declname>computation</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>depth</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>尝试对表达式进行积分 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>expr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>被积表达式 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>var</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>积分变量名 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>积分器上下文 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>当前递归深度 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>积分结果，失败返回 nullptr </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>必须确实含有 sin/cos(var) 且整体为其有理函数</para>
+<para>替换 sin/cos -&gt; t 的有理式，并乘以 dx = 2/(1+t²) dt</para>
+<para>关键：被积函数是 sin/cos 的有理函数，代换后仍是 t 的有理函数，但 嵌套分式 simplify() 无法约化。用「有理数对 (分子多项式, 分母多项式)」 递归求值整棵表达式树，得到干净的 N(t)/D(t)，再交给有理函数积分。</para>
+<para>用多项式 GCD 约简 num/den，得到最简有理函数，避免 simplify() 把 单一分式重新展开成分式之和（那样 RationalDecomposition 无法识别）。</para>
+<para>用有理分解策略直接积分（用独立的 <ref refid="d8/dbb/classlamina_1_1Integrator" kindref="compound">Integrator</ref> 实例，避免污染外层 积分器的循环检测状态导致结果被错误改写）。</para>
+<para>退化为多项式（如常数 1）时，RationalDecomposition 可能不接受； 直接用幂律积分兜底。</para>
+<para>若结果仍含未求值积分节点，视为失败</para>
+<para>检查是否残留 Calculus_Integral</para>
+<para>回代 t = tan(x/2)</para>
+        </inbodydescription>
+        <location file="include/integration_strategies.hpp" line="371" column="21" bodyfile="src/integration_weierstrass.cpp" bodystart="201" bodyend="289"/>
+        <references refid="d8/da7/classRational_1a3bbd6ff67c590da76ddfcbd48cd3de0a" compoundref="d1/de8/rational_8hpp" startline="90" endline="90">Rational::Rational</references>
+        <references refid="dc/d25/classSymbolicExpr_1ade468ea22874ed2a114a5ee83aae525b" compoundref="dd/d39/symbolic__core_8cpp" startline="72" endline="82">SymbolicExpr::add</references>
+        <references refid="d7/d06/classFunctionNode_1a10187ec4c0f41b3bfb221b87c72ac7b5a95221abbc7271add91c6204e21fb474a" compoundref="db/d1a/functions_8hpp" startline="20">FunctionNode::Calculus_Integral</references>
+        <references refid="d8/d1e/classlamina_1_1Polynomial_1aa4209c719c18fc882b702d88e397bdf4" compoundref="d0/d3e/polynomial_8hpp" startline="96" endline="99">lamina::Polynomial&lt; CoeffType &gt;::degree</references>
+        <references refid="d8/d1e/classlamina_1_1Polynomial_1aa814387a30feaf66a7487b1f9aac3354" compoundref="d0/d3e/polynomial_8hpp" startline="214" endline="248">lamina::Polynomial&lt; CoeffType &gt;::div_mod</references>
+        <references refid="dc/d25/classSymbolicExpr_1aea4c251b3fd9994c77fb8b26dae96d5f" compoundref="dd/d39/symbolic__core_8cpp" startline="816" endline="818">SymbolicExpr::divide</references>
+        <references refid="d1/d42/namespacelamina_1aba7679ee0ba03a09eb520cce1f7604f3" compoundref="dc/d9c/expression__analysis_8cpp" startline="103" endline="110">lamina::expression_depends_on_variable</references>
+        <references refid="d8/d1e/classlamina_1_1Polynomial_1a1a3abf00054bcec5935ac071cdb6cc8d" compoundref="d0/d3e/polynomial_8hpp" startline="434" endline="475">lamina::Polynomial&lt; CoeffType &gt;::gcd</references>
+        <references refid="d8/dbb/classlamina_1_1Integrator_1a968e8d0208a5eb838ac420b686b1538e" compoundref="d6/d01/integrator_8cpp" startline="243" endline="279">lamina::Integrator::integrate_recursive</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1aadd9ee6d804ecfa450cbaced381efdeb" compoundref="dd/d3c/base_8hpp" startline="102" endline="104">lamina::detail::make_expression_ptr</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1aea502a76fff503e0f55363f674f65fa4" compoundref="dd/d3c/base_8hpp" startline="114" endline="119">lamina::detail::make_node</references>
+        <references refid="dc/d25/classSymbolicExpr_1a7cbde7842e11e1337d8c2276e650f7c0" compoundref="dd/d39/symbolic__core_8cpp" startline="60" endline="70">SymbolicExpr::multiply</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1a9e31448c7d53c33d5be1a6bd9a631cbf" compoundref="dd/d3c/base_8hpp" startline="82" endline="84">lamina::detail::node</references>
+        <references refid="dc/d25/classSymbolicExpr_1a3bdf282c74b91aedb1dc529c047390db" compoundref="dd/d39/symbolic__core_8cpp" startline="17" endline="20">SymbolicExpr::number</references>
+        <references refid="d1/d42/namespacelamina_1af5154e16a293fafce6bebf7618c2a01f" compoundref="d4/dd3/poly__utils_8cpp" startline="311" endline="355">lamina::poly_to_symbolic</references>
+        <references refid="dc/d25/classSymbolicExpr_1ab917584b9057b286e514d407614888cd" compoundref="dd/d39/symbolic__core_8cpp" startline="84" endline="92">SymbolicExpr::power</references>
+        <references refid="dc/d25/classSymbolicExpr_1acc2ea5b99b699087717f3ac42433e4b8" compoundref="dd/d39/symbolic__core_8cpp" startline="754" endline="759">SymbolicExpr::simplify</references>
+        <references refid="d1/d42/namespacelamina_1a7c6f00f36ac91ada34b6b42d17356512" compoundref="d4/dd3/poly__utils_8cpp" startline="300" endline="308">lamina::symbolic_to_poly</references>
+        <references refid="d7/d06/classFunctionNode_1a10187ec4c0f41b3bfb221b87c72ac7b5a1266b4e6f81e60733ec6c717e0181f60" compoundref="db/d1a/functions_8hpp" startline="12">FunctionNode::Tan</references>
+        <references refid="de/d78/classlamina_1_1RationalDecompositionStrategy_1a4d4247d0d9727faa1d466c04b975708b" compoundref="d4/d71/integration__rational_8cpp" startline="674" endline="801">lamina::RationalDecompositionStrategy::try_integrate</references>
+        <references refid="dc/d25/classSymbolicExpr_1ae4ce46624e6b27008d9061029e4399a7" compoundref="dd/d39/symbolic__core_8cpp" startline="243" endline="247">SymbolicExpr::variable</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>万能代换（Weierstrass）积分策略（任务 15.2）。 </para>
+    </briefdescription>
+    <detaileddescription>
+<para>识别 sin(x)、cos(x) 的有理函数，应用半角代换 t = tan(x/2)： sin(x) = 2t/(1+t²), cos(x) = (1-t²)/(1+t²), dx = 2/(1+t²) dt 将被积函数转化为 t 的有理函数后递归积分，再回代 t = tan(x/2)。 在策略链中位于 <ref refid="dd/ddb/classlamina_1_1TrigCombinationStrategy" kindref="compound">TrigCombinationStrategy</ref> 之后。 </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>lamina::IntegrationStrategy</label>
+        <link refid="d3/d27/classlamina_1_1IntegrationStrategy"/>
+      </node>
+      <node id="1">
+        <label>lamina::WeierstrassStrategy</label>
+        <link refid="d9/dc4/classlamina_1_1WeierstrassStrategy"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>lamina::IntegrationStrategy</label>
+        <link refid="d3/d27/classlamina_1_1IntegrationStrategy"/>
+      </node>
+      <node id="1">
+        <label>lamina::WeierstrassStrategy</label>
+        <link refid="d9/dc4/classlamina_1_1WeierstrassStrategy"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/integration_strategies.hpp" line="369" column="1" bodyfile="include/integration_strategies.hpp" bodystart="369" bodyend="375"/>
+    <listofallmembers>
+      <member refid="d9/dc4/classlamina_1_1WeierstrassStrategy_1a0c7e66be8de07388c12da7c2cea8058a" prot="public" virt="virtual"><scope>lamina::WeierstrassStrategy</scope><name>name</name></member>
+      <member refid="d9/dc4/classlamina_1_1WeierstrassStrategy_1af64ed707a438476c031c5e788dc1d7c6" prot="public" virt="virtual"><scope>lamina::WeierstrassStrategy</scope><name>try_integrate</name></member>
+      <member refid="d3/d27/classlamina_1_1IntegrationStrategy_1a7da64af3365644693d1435be4d6bbc2b" prot="public" virt="virtual"><scope>lamina::WeierstrassStrategy</scope><name>~IntegrationStrategy</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

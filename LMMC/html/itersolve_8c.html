@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/itersolve.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('itersolve_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">itersolve.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>稀疏迭代求解器实现：CG / BiCGSTAB / GMRES。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="memory__bridge_8h_source.html">memory_bridge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">lmmc/config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dense_8h_source.html">lmmc/dense.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="itersolve_8h_source.html">lmmc/itersolve.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>itersolve.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="itersolve_8c_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a9fe70199f2d9d86530059692ec9c4323" id="r_a9fe70199f2d9d86530059692ec9c4323"><td class="memItemLeft"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9fe70199f2d9d86530059692ec9c4323">lmmc_itersolve_default_config</a> (size_t problem_size, <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *out_cfg)</td></tr>
+<tr class="memdesc:a9fe70199f2d9d86530059692ec9c4323"><td class="mdescLeft">&#160;</td><td class="mdescRight">根据问题规模生成迭代求解器默认配置。  <br /></td></tr>
+<tr class="memitem:aba3cf403ebcc77de7d1922680a602188" id="r_aba3cf403ebcc77de7d1922680a602188"><td class="memItemLeft"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aba3cf403ebcc77de7d1922680a602188">lmmc_cg_solve</a> (const <a class="el" href="sparse_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *b, const <a class="el" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a> *precond, const <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *cfg, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:aba3cf403ebcc77de7d1922680a602188"><td class="mdescLeft">&#160;</td><td class="mdescRight">共轭梯度法（CG）求解对称正定稀疏系统 A*x = b。  <br /></td></tr>
+<tr class="memitem:ae2e84a40cba8627963f842c9e8ad819f" id="r_ae2e84a40cba8627963f842c9e8ad819f"><td class="memItemLeft"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae2e84a40cba8627963f842c9e8ad819f">lmmc_bicgstab_solve</a> (const <a class="el" href="sparse_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *b, const <a class="el" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a> *precond, const <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *cfg, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:ae2e84a40cba8627963f842c9e8ad819f"><td class="mdescLeft">&#160;</td><td class="mdescRight">稳定双共轭梯度法（BiCGSTAB）求解一般非对称稀疏系统 A*x = b。  <br /></td></tr>
+<tr class="memitem:a3df10113a11ad318d373d414d28f917b" id="r_a3df10113a11ad318d373d414d28f917b"><td class="memItemLeft"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3df10113a11ad318d373d414d28f917b">lmmc_gmres_solve</a> (const <a class="el" href="sparse_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a> *a, const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *b, const <a class="el" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a> *precond, const <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *cfg, <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *x, <a class="el" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a> *out_result)</td></tr>
+<tr class="memdesc:a3df10113a11ad318d373d414d28f917b"><td class="mdescLeft">&#160;</td><td class="mdescRight">重启型 GMRES 求解一般非对称稀疏系统 A*x = b。  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">详细描述</h2>
+<div class="textblock"><p>稀疏迭代求解器实现：CG / BiCGSTAB / GMRES。 </p>
+
+<p class="definition">在文件 <a class="el" href="itersolve_8c_source.html">itersolve.c</a> 中定义.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="a9fe70199f2d9d86530059692ec9c4323" name="a9fe70199f2d9d86530059692ec9c4323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fe70199f2d9d86530059692ec9c4323">&#9670;&#160;</a></span>lmmc_itersolve_default_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_itersolve_default_config </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>problem_size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>out_cfg</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>根据问题规模生成迭代求解器默认配置。 </p>
+<p>默认值：abs_tol=1e-12, rel_tol=1e-8, max_iter=max(100, 20*n), restart=min(n,30)。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">problem_size</td><td>问题维度 n，必须 &gt; 0。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_cfg</td><td>输出配置结构体。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — problem_size==0 或 out_cfg==NULL。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>覆写 out_cfg 的所有字段。无内存分配。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="itersolve_8c_source.html">itersolve.c</a> 第 <a class="el" href="itersolve_8c_source.html#l00151">151</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="itersolve_8h_source.html#l00050">lmmc_itersolve_config_t::abs_tol</a>, <a class="el" href="itersolve_8h_source.html#l00055">lmmc_itersolve_config_t::apply_op</a>, <a class="el" href="itersolve_8h_source.html#l00054">lmmc_itersolve_config_t::diagnostics</a>, <a class="el" href="numeric_8h_source.html#l00039">LMMC_DEFAULT_ABS_TOL</a>, <a class="el" href="itersolve_8c_source.html#l00151">lmmc_itersolve_default_config()</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="itersolve_8h_source.html#l00052">lmmc_itersolve_config_t::max_iter</a>, <a class="el" href="itersolve_8h_source.html#l00056">lmmc_itersolve_config_t::op_user_data</a>, <a class="el" href="itersolve_8h_source.html#l00051">lmmc_itersolve_config_t::rel_tol</a> , 以及 <a class="el" href="itersolve_8h_source.html#l00053">lmmc_itersolve_config_t::restart</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00151">lmmc_itersolve_default_config()</a>, <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00366">lmmc_lsqr_solve()</a> , 以及 <a class="el" href="itersolve__minres__lsqr_8c_source.html#l00119">lmmc_minres_solve()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_a9fe70199f2d9d86530059692ec9c4323_cgraph.svg" width="187" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_a9fe70199f2d9d86530059692ec9c4323_icgraph.svg" width="388" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aba3cf403ebcc77de7d1922680a602188" name="aba3cf403ebcc77de7d1922680a602188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba3cf403ebcc77de7d1922680a602188">&#9670;&#160;</a></span>lmmc_cg_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_cg_solve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="sparse_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a> *</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a> *</td>          <td class="paramname"><span class="paramname"><em>precond</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>cfg</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a> *</td>          <td class="paramname"><span class="paramname"><em>out_result</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>共轭梯度法（CG）求解对称正定稀疏系统 A*x = b。 </p>
+<p>要求 A 对称正定。x 作为初始猜测输入，收敛后存储解。 收敛判据：||r||_2 &lt;= abs_tol + rel_tol * ||b||_2。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>对称正定稀疏矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>右端向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">precond</td><td>预处理子，可为 NULL（无预处理）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>配置参数，可为 NULL（使用默认值）。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">x</td><td>初始猜测 / 输出解向量。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>迭代统计结果，可为 NULL。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd><ul>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> — 成功（含收敛和达到最大步数两种情况，通过 out_result-&gt;converged 区分）。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a> — 指针为 NULL 或维度为 0。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a> — 矩阵/向量/预处理子维度不匹配。</li>
+<li><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a> — 出现 NaN/Inf 或分母退化。</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 x-&gt;data。分配并释放 4 个长度为 n 的临时向量。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="itersolve_8c_source.html">itersolve.c</a> 第 <a class="el" href="itersolve_8c_source.html#l00363">363</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="itersolve_8h_source.html#l00050">lmmc_itersolve_config_t::abs_tol</a>, <a class="el" href="itersolve_8h_source.html#l00027">lmmc_itersolve_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="itersolve_8h_source.html#l00030">lmmc_itersolve_result_t::final_residual_norm</a>, <a class="el" href="itersolve_8h_source.html#l00029">lmmc_itersolve_result_t::initial_residual_norm</a>, <a class="el" href="itersolve_8c_source.html#l00363">lmmc_cg_solve()</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00070">LMMC_REAL_CMP</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00045">LMMC_REAL_NEG</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="sparse_8c_source.html#l00303">lmmc_sparse_mat_vec_mul()</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00535">lmmc_vec_axpy()</a>, <a class="el" href="dense_8c_source.html#l00566">lmmc_vec_copy()</a>, <a class="el" href="dense_8c_source.html#l00285">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00320">lmmc_vec_destroy()</a>, <a class="el" href="itersolve_8h_source.html#l00052">lmmc_itersolve_config_t::max_iter</a>, <a class="el" href="itersolve_8h_source.html#l00028">lmmc_itersolve_result_t::num_iter</a>, <a class="el" href="itersolve_8h_source.html#l00051">lmmc_itersolve_config_t::rel_tol</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00363">lmmc_cg_solve()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_aba3cf403ebcc77de7d1922680a602188_cgraph.svg" width="574" height="354"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_aba3cf403ebcc77de7d1922680a602188_icgraph.svg" width="134" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae2e84a40cba8627963f842c9e8ad819f" name="ae2e84a40cba8627963f842c9e8ad819f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2e84a40cba8627963f842c9e8ad819f">&#9670;&#160;</a></span>lmmc_bicgstab_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_bicgstab_solve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="sparse_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a> *</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a> *</td>          <td class="paramname"><span class="paramname"><em>precond</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>cfg</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a> *</td>          <td class="paramname"><span class="paramname"><em>out_result</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>稳定双共轭梯度法（BiCGSTAB）求解一般非对称稀疏系统 A*x = b。 </p>
+<p>适用于非对称或不定矩阵。x 作为初始猜测输入。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>稀疏矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>右端向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">precond</td><td>预处理子，可为 NULL。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>配置参数，可为 NULL。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">x</td><td>初始猜测 / 输出解向量。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>迭代统计结果，可为 NULL。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>同 ::lmmc_cg_solve。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 x-&gt;data。分配并释放 9 个长度为 n 的临时向量。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="itersolve_8c_source.html">itersolve.c</a> 第 <a class="el" href="itersolve_8c_source.html#l00657">657</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="itersolve_8h_source.html#l00050">lmmc_itersolve_config_t::abs_tol</a>, <a class="el" href="itersolve_8h_source.html#l00027">lmmc_itersolve_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="itersolve_8h_source.html#l00030">lmmc_itersolve_result_t::final_residual_norm</a>, <a class="el" href="itersolve_8h_source.html#l00029">lmmc_itersolve_result_t::initial_residual_norm</a>, <a class="el" href="itersolve_8c_source.html#l00657">lmmc_bicgstab_solve()</a>, <a class="el" href="config_8h_source.html#l00049">LMMC_REAL_ABS</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00070">LMMC_REAL_CMP</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00045">LMMC_REAL_NEG</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="sparse_8c_source.html#l00303">lmmc_sparse_mat_vec_mul()</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00535">lmmc_vec_axpy()</a>, <a class="el" href="dense_8c_source.html#l00566">lmmc_vec_copy()</a>, <a class="el" href="dense_8c_source.html#l00285">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00320">lmmc_vec_destroy()</a>, <a class="el" href="itersolve_8h_source.html#l00052">lmmc_itersolve_config_t::max_iter</a>, <a class="el" href="itersolve_8h_source.html#l00028">lmmc_itersolve_result_t::num_iter</a>, <a class="el" href="itersolve_8h_source.html#l00051">lmmc_itersolve_config_t::rel_tol</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00657">lmmc_bicgstab_solve()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_ae2e84a40cba8627963f842c9e8ad819f_cgraph.svg" width="614" height="354"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_ae2e84a40cba8627963f842c9e8ad819f_icgraph.svg" width="174" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3df10113a11ad318d373d414d28f917b" name="a3df10113a11ad318d373d414d28f917b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df10113a11ad318d373d414d28f917b">&#9670;&#160;</a></span>lmmc_gmres_solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_gmres_solve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="sparse_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a> *</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a> *</td>          <td class="paramname"><span class="paramname"><em>precond</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>cfg</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> *</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a> *</td>          <td class="paramname"><span class="paramname"><em>out_result</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>重启型 GMRES 求解一般非对称稀疏系统 A*x = b。 </p>
+<p>使用 Arnoldi 过程构建 Krylov 子空间，Givens 旋转求解最小残差。 重启长度由 cfg-&gt;restart 控制（默认 30）。</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>稀疏矩阵（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>右端向量（不被修改）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">precond</td><td>预处理子，可为 NULL。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>配置参数，可为 NULL。cfg-&gt;restart 控制重启长度。 </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">x</td><td>初始猜测 / 输出解向量。 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_result</td><td>迭代统计结果，可为 NULL。</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>同 ::lmmc_cg_solve。</dd></dl>
+<dl class="section user"><dt>副作用</dt><dd><ul>
+<li>就地修改 x-&gt;data。</li>
+<li>分配 (restart+1) 个长度为 n 的 Arnoldi 基向量 + Hessenberg 矩阵等工作空间。 </li>
+</ul>
+</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="itersolve_8c_source.html">itersolve.c</a> 第 <a class="el" href="itersolve_8c_source.html#l00924">924</a> 行定义.</p>
+
+<p class="reference">引用了 <a class="el" href="itersolve_8h_source.html#l00050">lmmc_itersolve_config_t::abs_tol</a>, <a class="el" href="itersolve_8h_source.html#l00027">lmmc_itersolve_result_t::converged</a>, <a class="el" href="dense_8h_source.html#l00041">lmmc_vec_t::data</a>, <a class="el" href="itersolve_8h_source.html#l00030">lmmc_itersolve_result_t::final_residual_norm</a>, <a class="el" href="itersolve_8h_source.html#l00029">lmmc_itersolve_result_t::initial_residual_norm</a>, <a class="el" href="memory__bridge_8h_source.html#l00024">lmmc_alloc</a>, <a class="el" href="memory__bridge_8h_source.html#l00025">lmmc_free</a>, <a class="el" href="itersolve_8c_source.html#l00924">lmmc_gmres_solve()</a>, <a class="el" href="config_8h_source.html#l00036">LMMC_REAL_ADD</a>, <a class="el" href="config_8h_source.html#l00028">LMMC_REAL_CLEAR</a>, <a class="el" href="config_8h_source.html#l00070">LMMC_REAL_CMP</a>, <a class="el" href="config_8h_source.html#l00042">LMMC_REAL_DIV</a>, <a class="el" href="config_8h_source.html#l00026">LMMC_REAL_INIT</a>, <a class="el" href="config_8h_source.html#l00040">LMMC_REAL_MUL</a>, <a class="el" href="config_8h_source.html#l00031">LMMC_REAL_SET</a>, <a class="el" href="config_8h_source.html#l00033">LMMC_REAL_SET_D</a>, <a class="el" href="config_8h_source.html#l00038">LMMC_REAL_SUB</a>, <a class="el" href="sparse_8c_source.html#l00303">lmmc_sparse_mat_vec_mul()</a>, <a class="el" href="status_8h_source.html#l00026">LMMC_STATUS_ALLOCATION_FAILED</a>, <a class="el" href="status_8h_source.html#l00024">LMMC_STATUS_INVALID_ARGUMENT</a>, <a class="el" href="status_8h_source.html#l00029">LMMC_STATUS_NUMERICAL_FAILURE</a>, <a class="el" href="status_8h_source.html#l00023">LMMC_STATUS_OK</a>, <a class="el" href="dense_8c_source.html#l00566">lmmc_vec_copy()</a>, <a class="el" href="dense_8c_source.html#l00285">lmmc_vec_create()</a>, <a class="el" href="dense_8c_source.html#l00320">lmmc_vec_destroy()</a>, <a class="el" href="itersolve_8h_source.html#l00052">lmmc_itersolve_config_t::max_iter</a>, <a class="el" href="itersolve_8h_source.html#l00028">lmmc_itersolve_result_t::num_iter</a>, <a class="el" href="itersolve_8h_source.html#l00051">lmmc_itersolve_config_t::rel_tol</a>, <a class="el" href="itersolve_8h_source.html#l00053">lmmc_itersolve_config_t::restart</a> , 以及 <a class="el" href="dense_8h_source.html#l00040">lmmc_vec_t::size</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="itersolve_8c_source.html#l00924">lmmc_gmres_solve()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_a3df10113a11ad318d373d414d28f917b_cgraph.svg" width="572" height="280"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="itersolve_8c_a3df10113a11ad318d373d414d28f917b_icgraph.svg" width="160" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="itersolve_8c.html">itersolve.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

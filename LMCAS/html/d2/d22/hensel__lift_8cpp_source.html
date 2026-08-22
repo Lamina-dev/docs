@@ -1,0 +1,990 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/hensel_lift.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/d22/hensel__lift_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hensel_lift.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d2/d22/hensel__lift_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file hensel_lift.cpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief Hensel 提升算法实现：Mignotte 界计算与二次提升。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * 本文件实现 Phase 4（Hensel 提升）的核心逻辑：</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * - Mignotte 界计算：确定提升高度 k 使得 p^k 足以恢复真因子系数</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * - 二次 Hensel 提升：将模 p 因子逐步提升到 mod p^k</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * - 多因子提升：通过二叉树结构递归配对提升</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * @see Mignotte, M. &quot;An inequality about factors of polynomials.&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *      Mathematics of Computation, 28(128), 1974.</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * @see Zassenhaus, H. &quot;On Hensel factorization, I.&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *      Journal of Number Theory, 1(3), 1969.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"></span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * @brief 计算二项式系数 C(n, k)。</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * 使用乘法公式 C(n, k) = n! / (k! * (n-k)!) 逐步计算，</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * 利用 BigInt 避免中间结果溢出。取 k = min(k, n-k) 以减少迭代次数。</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * @param[in] n 上标（非负整数）</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * @param[in] k 下标（0 ≤ k ≤ n）</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * @return C(n, k) 的精确值</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aaf24db9bf1e94f034853c1c078d3a0a3">   38</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aaf24db9bf1e94f034853c1c078d3a0a3">hl_binomial</a>(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> k) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (k &lt; 0 || k &gt; n) <span class="keywordflow">return</span> <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (k == 0 || k == n) <span class="keywordflow">return</span> <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">    /// 利用对称性 C(n, k) = C(n, n-k)</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (k &gt; n - k) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        k = n - k;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> result(1);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; k; ++i) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        result = result * <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(n - i);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        result = result / <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(i + 1);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"></span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * @brief 计算多项式系数的 L2 范数的平方。</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"> * 即 ||f||_2^2 = sum(a_i^2)，其中 a_i 为多项式各项系数。</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"> * @param[in] poly 整系数多项式</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> * @return 系数平方和（BigInt 精确值）</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a002f8555dbc76563724c4c316b33b715">   64</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a002f8555dbc76563724c4c316b33b715">hl_l2_norm_squared</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> sum(0);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : poly.<a class="code hl_variable" href="../../d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908">coeffs</a>) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        sum = sum + c * c;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> sum;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"></span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * @brief 计算多项式的 Mignotte 界。</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"> * 对于次数为 n 的多项式 f(x)，其任意因子的系数绝对值上界为：</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment"> *   B = C(n, floor(n/2)) * ||f||_2</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"> * 其中 C(n, k) 为二项式系数，||f||_2 为系数向量的 L2 范数。</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> * 实现中使用 B^2 = C(n, floor(n/2))^2 * ||f||_2^2 避免开方，</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> * 最终通过 BigInt::sqrt() 取整数平方根（向上取整）。</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * @param[in] poly 整系数多项式（非零，次数 ≥ 1）</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * @return Mignotte 界 B</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * @see Mignotte, M. &quot;An inequality about factors of polynomials.&quot;</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> *      Mathematics of Computation, 28(128), 1974.</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a2b6598674d80fa60f2285514ca87959f">   90</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a2b6598674d80fa60f2285514ca87959f">hl_mignotte_bound</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordtype">int</span> n = poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">degree</a>();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">if</span> (n &lt;= 0) <span class="keywordflow">return</span> <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"></span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">    /// C(n, floor(n/2))</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> binom = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aaf24db9bf1e94f034853c1c078d3a0a3">hl_binomial</a>(n, n / 2);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"></span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">    /// ||f||_2^2</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> norm_sq = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a002f8555dbc76563724c4c316b33b715">hl_l2_norm_squared</a>(poly);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"></span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">    /// B^2 = binom^2 * norm_sq</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> b_squared = binom * binom * norm_sq;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment"></span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">    /// B = ceil(sqrt(B^2))</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">    /// BigInt::sqrt() 返回 floor(sqrt(x))，需要检查是否精确</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> b = b_squared.<a class="code hl_function" href="../../da/d5b/classBigInt.html#a912850d3f7c9487ebf100b004135c959">sqrt</a>();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> (b * b &lt; b_squared) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        b = b + <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> b;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"></span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> * @brief 计算 Hensel 提升所需的高度 k。</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment"> * 提升高度 k 需满足 p^k &gt; 2 * B * |lc(f)|，其中：</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"> * - B 为 Mignotte 界</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment"> * - lc(f) 为多项式首项系数</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment"> * - p 为选定的素数</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"> * 通过反复乘以 p 直到超过阈值来确定 k，避免浮点对数的精度问题。</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment"> * @param[in] poly  整系数多项式（非零，次数 ≥ 1）</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment"> * @param[in] prime 选定的素数 p</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment"> * @return 所需的提升高度 k（正整数）</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a4792c9c0afea429630dcd426ad08008e">  128</a></span><span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a4792c9c0afea429630dcd426ad08008e">hl_compute_lift_height</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly, int64_t prime) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">if</span> (poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#a5ab9f08024d7084b47a746f72ba9f850">is_zero</a>() || poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">degree</a>() &lt;= 0) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> B = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a2b6598674d80fa60f2285514ca87959f">hl_mignotte_bound</a>(poly);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> lc = poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#ae491492c9a43d1dee5f86b4adf803cfa">lead_coeff</a>().Abs();</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment"></span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">    /// 阈值 threshold = 2 * B * |lc(f)|</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> threshold = <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(2) * B * lc;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment"></span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">    /// 计算最小 k 使得 p^k &gt; threshold</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> p_power(1);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> big_p(<span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(prime));</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordtype">int</span> k = 0;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">while</span> (p_power &lt;= threshold) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        p_power = p_power * big_p;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        k++;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment"></span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment">    /// 至少提升 1 次</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">if</span> (k &lt; 1) k = 1;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">return</span> k;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment"></span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment"> * @brief 将 BigInt 系数归约到对称表示 [-m/2, m/2)。</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment"> * 对给定系数 c 和模数 m，计算 c mod m 并映射到 [-m/2, m/2) 区间。</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment"> * 这确保提升后的系数保持最小绝对值表示。</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment"> * @param[in] c 待归约的系数</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment"> * @param[in] m 模数（正整数）</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment"> * @return 对称表示下的归约值</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">  164</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; c, <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">if</span> (m.<a class="code hl_function" href="../../da/d5b/classBigInt.html#a6ae37e804e0989cb245f32f90a2d5f64">is_zero</a>()) <span class="keywordflow">return</span> c;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> r = c % m;<span class="comment"></span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">    /// 确保 r 在 [0, m) 范围内</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">if</span> (r.<a class="code hl_function" href="../../da/d5b/classBigInt.html#ae5d874ccb625319e093bec91b29e5a24">IsNegative</a>()) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        r = r + m;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment"></span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">    /// 映射到 [-m/2, m/2)</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> half_m = m / <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(2);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">if</span> (r &gt; half_m) {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        r = r - m;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
+</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"></span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> * @brief 对多项式系数向量执行模归约（对称表示）。</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> * 将向量中每个系数归约到 [-m/2, m/2) 区间，并去除高次零系数。</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> * @param[in,out] poly 系数向量（就地修改）</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">  190</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(std::vector&lt;BigInt&gt;&amp; poly, <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; c : poly) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        c = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(c, m);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }<span class="comment"></span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">    /// 去除高次零系数</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">while</span> (!poly.empty() &amp;&amp; poly.back().is_zero()) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        poly.pop_back();</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    }</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}</div>
+</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment"></span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"> * @brief 多项式乘法（BigInt 系数），结果模 m 归约。</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> * 计算两个系数向量表示的多项式之积，所有系数归约到对称表示 [-m/2, m/2)。</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> * @param[in] a 第一个多项式的系数向量</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> * @param[in] b 第二个多项式的系数向量</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"> * @return 乘积多项式的系数向量</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00211" data-start="{" data-end="}">
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">  211</a></span><span class="keyword">static</span> std::vector&lt;BigInt&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(<span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; a,</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                                           <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; b,</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                                           <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">if</span> (a.empty() || b.empty()) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordtype">size_t</span> n = a.size() + b.size() - 1;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    std::vector&lt;BigInt&gt; result(n, <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0));</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; a.size(); ++i) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">if</span> (a[i].is_zero()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; b.size(); ++j) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">if</span> (b[j].is_zero()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            result[i + j] = result[i + j] + a[i] * b[j];</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        }</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(result, m);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>}</div>
+</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment"></span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment"> * @brief 多项式减法（BigInt 系数），结果模 m 归约。</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment"> * @param[in] a 被减数多项式系数向量</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment"> * @param[in] b 减数多项式系数向量</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment"> * @return 差多项式的系数向量</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">  240</a></span><span class="keyword">static</span> std::vector&lt;BigInt&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(<span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; a,</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                                           <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; b,</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                                           <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keywordtype">size_t</span> n = std::max(a.size(), b.size());</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    std::vector&lt;BigInt&gt; result(n, <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0));</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> ai = (i &lt; a.size()) ? a[i] : <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> bi = (i &lt; b.size()) ? b[i] : <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        result[i] = ai - bi;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(result, m);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
+</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment"></span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment"> * @brief 多项式加法（BigInt 系数），结果模 m 归约。</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment"> * @param[in] a 第一个多项式系数向量</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment"> * @param[in] b 第二个多项式系数向量</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="comment"> * @return 和多项式的系数向量</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00265" data-start="{" data-end="}">
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">  265</a></span><span class="keyword">static</span> std::vector&lt;BigInt&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">hl_poly_add_mod</a>(<span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; a,</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                                           <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; b,</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                                           <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordtype">size_t</span> n = std::max(a.size(), b.size());</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    std::vector&lt;BigInt&gt; result(n, <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0));</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> ai = (i &lt; a.size()) ? a[i] : <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> bi = (i &lt; b.size()) ? b[i] : <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        result[i] = ai + bi;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    }</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(result, m);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>}</div>
+</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="comment"></span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment"> * @brief 计算 BigInt 在模 m 下的乘法逆元。</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="comment"> * 使用扩展欧几里得算法求 a 在 Z/mZ 中的逆元。</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment"> * 要求 gcd(a, m) = 1。</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment"> * @param[in] a 待求逆的整数</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment"> * @return a 的模逆元，归约到 [0, m)</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment"> * @throw std::domain_error 若 a 不可逆</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00293" data-start="{" data-end="}">
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ad7c245ba4bca19be95b7b4ca964498de">  293</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ad7c245ba4bca19be95b7b4ca964498de">hl_mod_inverse</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {<span class="comment"></span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="comment">    /// 扩展欧几里得：求 s 使得 a*s ≡ 1 (mod m)</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> r0 = m, r1 = a % m;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keywordflow">if</span> (r1.IsNegative()) r1 = r1 + m;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> s0(0), s1(1);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">while</span> (!r1.is_zero()) {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> q = r0 / r1;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> r_new = r0 - q * r1;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> s_new = s0 - q * s1;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        r0 = r1;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        r1 = r_new;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        s0 = s1;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        s1 = s_new;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    }</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="comment"></span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment">    /// r0 应为 gcd(a, m) = 1</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keywordflow">if</span> (r0 != <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1) &amp;&amp; r0 != <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(-1)) {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordflow">throw</span> std::domain_error(<span class="stringliteral">&quot;hl_mod_inverse: element not invertible&quot;</span>);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    }</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="comment"></span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="comment">    /// 若 gcd 为 -1，调整符号</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordflow">if</span> (r0.<a class="code hl_function" href="../../da/d5b/classBigInt.html#ae5d874ccb625319e093bec91b29e5a24">IsNegative</a>()) {</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        s0 = s0.negate();</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    }</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> result = s0 % m;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">if</span> (result.<a class="code hl_function" href="../../da/d5b/classBigInt.html#ae5d874ccb625319e093bec91b29e5a24">IsNegative</a>()) result = result + m;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>}</div>
+</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="comment"></span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment"> * @brief 多项式带余除法（BigInt 系数），模 m 下运算。</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="comment"> * 计算 a(x) = q(x) * b(x) + r(x)，其中 deg(r) &lt; deg(b)。</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="comment"> * 要求 b 的首项系数在 Z/mZ 中可逆。</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="comment"> * 所有系数归约到对称表示。</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="comment"> * @param[in] a 被除数多项式系数向量</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="comment"> * @param[in] b 除数多项式系数向量</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="comment"> * @return pair(商, 余数) 的系数向量</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="keyword">static</span> std::pair&lt;std::vector&lt;BigInt&gt;, std::vector&lt;BigInt&gt;&gt;</div>
+<div class="foldopen" id="foldopen00340" data-start="{" data-end="}">
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aab7ee30f4b8ef565a96ee7e5c9cbdb75">  340</a></span><a class="code hl_function" href="../../d1/d42/namespacelamina.html#aab7ee30f4b8ef565a96ee7e5c9cbdb75">hl_poly_divmod</a>(<span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; a,</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>               <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; b,</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>               <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">if</span> (b.empty()) {</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;hl_poly_divmod: division by zero polynomial&quot;</span>);</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordtype">int</span> deg_a = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(a.size()) - 1;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keywordtype">int</span> deg_b = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(b.size()) - 1;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordflow">if</span> (deg_a &lt; deg_b) {</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        std::vector&lt;BigInt&gt; r = a;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(r, m);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <span class="keywordflow">return</span> {{}, r};</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    }</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="comment"></span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="comment">    /// 首项系数的逆元</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> lc_inv = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ad7c245ba4bca19be95b7b4ca964498de">hl_mod_inverse</a>(b.back(), m);</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    std::vector&lt;BigInt&gt; remainder = a;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    std::vector&lt;BigInt&gt; quotient(deg_a - deg_b + 1, <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0));</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = deg_a; i &gt;= deg_b; --i) {</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> coeff = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(remainder[i], m);</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        <span class="keywordflow">if</span> (coeff.<a class="code hl_function" href="../../da/d5b/classBigInt.html#a6ae37e804e0989cb245f32f90a2d5f64">is_zero</a>()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> factor = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(coeff * lc_inv, m);</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        quotient[i - deg_b] = factor;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt;= deg_b; ++j) {</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            remainder[i - deg_b + j] = remainder[i - deg_b + j] - factor * b[j];</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            remainder[i - deg_b + j] = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(remainder[i - deg_b + j], m);</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        }</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    }</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span><span class="comment"></span> </div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span><span class="comment">    /// 余数截断到 deg &lt; deg_b</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    std::vector&lt;BigInt&gt; rem(remainder.begin(), remainder.begin() + deg_b);</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(quotient, m);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(rem, m);</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keywordflow">return</span> {quotient, rem};</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>}</div>
+</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="foldopen" id="foldopen00382" data-start="{" data-end="}">
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ab9c48c8144dbdc33229dd27ce2027d7e">  382</a></span><span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab9c48c8144dbdc33229dd27ce2027d7e">hl_is_prime</a>(int64_t value) {</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="keywordflow">if</span> (value &lt; 2) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="keywordflow">if</span> (value == 2) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keywordflow">if</span> (value % 2 == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keywordflow">for</span> (int64_t divisor = 3; divisor &lt;= value / divisor; divisor += 2) {</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        <span class="keywordflow">if</span> (value % divisor == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    }</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}</div>
+</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
+<div class="foldopen" id="foldopen00392" data-start="{" data-end="}">
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a24b7b5caa0eb4e9bdefa3466a7c404f8">  392</a></span><span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a24b7b5caa0eb4e9bdefa3466a7c404f8">hl_coeff_vectors_equal</a>(std::vector&lt;BigInt&gt; left,</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>                                   std::vector&lt;BigInt&gt; right) {</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    <span class="keywordflow">while</span> (!left.empty() &amp;&amp; left.back().is_zero()) left.pop_back();</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <span class="keywordflow">while</span> (!right.empty() &amp;&amp; right.back().is_zero()) right.pop_back();</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <span class="keyword">const</span> std::size_t size = std::max(left.size(), right.size());</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    left.resize(size, <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0));</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>    right.resize(size, <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(0));</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="keywordflow">return</span> left == right;</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>}</div>
+</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
+<div class="foldopen" id="foldopen00402" data-start="{" data-end="}">
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a2a5b760350eec4b84b300a990b6b04ef">  402</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;void&gt;</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a2a5b760350eec4b84b300a990b6b04ef">hl_validate_lift_inputs</a>(</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    <span class="keyword">const</span> std::vector&lt;std::vector&lt;BigInt&gt;&gt;&amp; factor_vecs,</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    int64_t prime) {</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* operation = <span class="stringliteral">&quot;hensel_lift&quot;</span>;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab9c48c8144dbdc33229dd27ce2027d7e">hl_is_prime</a>(prime)) {</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">Result&lt;void&gt;::failure</a>(<a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>                                     <span class="stringliteral">&quot;Hensel lifting requires a prime modulus&quot;</span>,</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>                                     operation);</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    }</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    <span class="keywordflow">if</span> (poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#a5ab9f08024d7084b47a746f72ba9f850">is_zero</a>() || poly.<a class="code hl_function" href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">degree</a>() &lt;= 0) {</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">Result&lt;void&gt;::failure</a>(<a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>                                     <span class="stringliteral">&quot;Hensel lifting requires a non-constant polynomial&quot;</span>,</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>                                     operation);</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    }</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="keywordflow">if</span> (factor_vecs.empty()) {</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">Result&lt;void&gt;::failure</a>(<a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>                                     <span class="stringliteral">&quot;Hensel lifting requires at least one mod-p factor&quot;</span>,</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>                                     operation);</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    }</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; factor : factor_vecs) {</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        <span class="keywordflow">if</span> (factor.empty()) {</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">Result&lt;void&gt;::failure</a>(<a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>                                         <span class="stringliteral">&quot;Hensel lifting factor cannot be zero&quot;</span>,</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>                                         operation);</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>        }</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    }</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span> </div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> modulus(<span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(prime));</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>    std::vector&lt;BigInt&gt; product{<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1)};</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; factor : factor_vecs) {</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>        product = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(product, factor, modulus);</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    }</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    std::vector&lt;BigInt&gt; reduced_f = poly.<a class="code hl_variable" href="../../d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908">coeffs</a>;</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(reduced_f, modulus);</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d1/d42/namespacelamina.html#a24b7b5caa0eb4e9bdefa3466a7c404f8">hl_coeff_vectors_equal</a>(product, reduced_f)) {</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">Result&lt;void&gt;::failure</a>(<a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>                                     <span class="stringliteral">&quot;mod-p factors do not multiply to the input polynomial&quot;</span>,</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>                                     operation);</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>    }</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>}</div>
+</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span><span class="comment"></span> </div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span><span class="comment">/// HenselLiftPair 结构体已在 transcendental_factor.hpp 中声明</span></div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span><span class="comment"></span> </div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span><span class="comment"> * @brief 执行一步二次 Hensel 提升：mod m → mod m²。</span></div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span><span class="comment"> * 给定 f ≡ g*h (mod m) 且 s*g + t*h ≡ 1 (mod m)，</span></div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span><span class="comment"> * 计算 g&#39;, h&#39;, s&#39;, t&#39; 使得 f ≡ g&#39;*h&#39; (mod m²) 且 s&#39;*g&#39; + t&#39;*h&#39; ≡ 1 (mod m²)。</span></div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span><span class="comment"> * 算法步骤：</span></div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span><span class="comment"> * 1. 计算误差 e = f - g*h（所有系数应被 m 整除）</span></div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span><span class="comment"> * 2. 计算修正项：(q, r) = divmod(s*e, h) over Z/m²Z</span></div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span><span class="comment"> *    - h&#39; = h + r (mod m²)</span></div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span><span class="comment"> *    - g&#39; = g + t*e + q*g (mod m²)</span></div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span><span class="comment"> * 3. 更新 Bezout 系数：</span></div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span><span class="comment"> *    - b = s*g&#39; + t*h&#39; - 1 (mod m²)</span></div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span><span class="comment"> *    - (c, d) = divmod(s*b, h&#39;) over Z/m²Z</span></div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span><span class="comment"> *    - s&#39; = s - d (mod m²)</span></div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span><span class="comment"> *    - t&#39; = t - t*b - c*g&#39; (mod m²)</span></div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span><span class="comment"> * @param[in] f       原始多项式系数向量</span></div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span><span class="comment"> * @param[in] current 当前提升状态（g, h, s, t, modulus=m）</span></div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span><span class="comment"> * @return 提升后的状态（g&#39;, h&#39;, s&#39;, t&#39;, modulus=m²）</span></div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span><span class="comment"> * @pre f ≡ g*h (mod m)</span></div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span><span class="comment"> * @pre s*g + t*h ≡ 1 (mod m)</span></div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span><span class="comment"> * @pre deg(s) &lt; deg(h), deg(t) &lt; deg(g)</span></div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span><span class="comment"> * @see Zassenhaus, H. &quot;On Hensel factorization, I.&quot;</span></div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span><span class="comment"> *      Journal of Number Theory, 1(3), 1969.</span></div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00476" data-start="{" data-end="}">
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a5ed779f22973093818c2e3f111724337">  476</a></span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5ed779f22973093818c2e3f111724337">hl_two_factor_lift</a>(</div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>    <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; f,</div>
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a>&amp; current) {</div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span> </div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; g = current.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a0a9fe99983956142bde9f0e104acc587">g</a>;</div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; h = current.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ad2dac8a83fb51509e503dc407462e172">h</a>;</div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s = current.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ac709ba772e5b7c66bafa7fcc673a1fe3">s</a>;</div>
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t = current.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a8d9b5340e5416fa09eb2cea352c67384">t</a>;</div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m = current.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a5b9097da88aeae99c5b64366d658e8fb">modulus</a>;</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span><span class="comment"></span> </div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span><span class="comment">    /// 新模数 m² = m * m</span></div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> m2 = m * m;</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span><span class="comment"></span> </div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span><span class="comment">    /// 步骤 1：计算误差 e = f - g*h (mod m²)</span></div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>    std::vector&lt;BigInt&gt; gh = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(g, h, m2);</div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>    std::vector&lt;BigInt&gt; e = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(f, gh, m2);</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span><span class="comment"></span> </div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span><span class="comment">    /// 步骤 2：计算修正项</span></div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span><span class="comment">    /// se = s * e (mod m²)</span></div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>    std::vector&lt;BigInt&gt; se = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(s, e, m2);</div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span><span class="comment"></span> </div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span><span class="comment">    /// (q, r) = divmod(se, h) over Z/m²Z，其中 deg(r) &lt; deg(h)</span></div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>    <span class="keyword">auto</span> [q, r] = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aab7ee30f4b8ef565a96ee7e5c9cbdb75">hl_poly_divmod</a>(se, h, m2);</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span><span class="comment"></span> </div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span><span class="comment">    /// g&#39; = g + t*e + q*g (mod m²)</span></div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    std::vector&lt;BigInt&gt; te = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(t, e, m2);</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>    std::vector&lt;BigInt&gt; qg = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(q, g, m2);</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>    std::vector&lt;BigInt&gt; g_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">hl_poly_add_mod</a>(g, <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">hl_poly_add_mod</a>(te, qg, m2), m2);</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(g_new, m2);</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span><span class="comment"></span> </div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span><span class="comment">    /// h&#39; = h + r (mod m²)</span></div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>    std::vector&lt;BigInt&gt; h_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">hl_poly_add_mod</a>(h, r, m2);</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(h_new, m2);</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span><span class="comment"></span> </div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span><span class="comment">    /// 步骤 3：更新 Bezout 系数</span></div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span><span class="comment">    /// b = s*g&#39; + t*h&#39; - 1 (mod m²)</span></div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    std::vector&lt;BigInt&gt; sg_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(s, g_new, m2);</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    std::vector&lt;BigInt&gt; th_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(t, h_new, m2);</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    std::vector&lt;BigInt&gt; sg_plus_th = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">hl_poly_add_mod</a>(sg_new, th_new, m2);</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span><span class="comment"></span> </div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span><span class="comment">    /// 减去常数 1</span></div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    std::vector&lt;BigInt&gt; one_poly = {<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1)};</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    std::vector&lt;BigInt&gt; b = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(sg_plus_th, one_poly, m2);</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span><span class="comment"></span> </div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span><span class="comment">    /// (c, d) = divmod(s*b, h&#39;) over Z/m²Z</span></div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    std::vector&lt;BigInt&gt; sb = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(s, b, m2);</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    <span class="keyword">auto</span> [c, d] = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aab7ee30f4b8ef565a96ee7e5c9cbdb75">hl_poly_divmod</a>(sb, h_new, m2);</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span><span class="comment"></span> </div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span><span class="comment">    /// s&#39; = s - d (mod m²)</span></div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    std::vector&lt;BigInt&gt; s_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(s, d, m2);</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(s_new, m2);</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span><span class="comment"></span> </div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span><span class="comment">    /// t&#39; = t - t*b - c*g&#39; (mod m²)</span></div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    std::vector&lt;BigInt&gt; tb = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(t, b, m2);</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    std::vector&lt;BigInt&gt; cg_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(c, g_new, m2);</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    std::vector&lt;BigInt&gt; t_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(t, <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">hl_poly_add_mod</a>(tb, cg_new, m2), m2);</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(t_new, m2);</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span> </div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a>{g_new, h_new, s_new, t_new, m2};</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>}</div>
+</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span><span class="comment"></span> </div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span><span class="comment"> * @brief 计算两个多项式在模 m 下的扩展 GCD 的 Bezout 系数。</span></div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span><span class="comment"> * 给定互素多项式 g, h（mod m），求 s, t 使得 s*g + t*h ≡ 1 (mod m)，</span></div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="comment"> * 且 deg(s) &lt; deg(h), deg(t) &lt; deg(g)。</span></div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="comment"> * 使用扩展欧几里得算法在 Z/mZ[x] 上运算。</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="comment"> * @param[in] g 第一个多项式系数向量</span></div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span><span class="comment"> * @param[in] h 第二个多项式系数向量</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment"> * @param[in] m 模数</span></div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="comment"> * @return pair(s, t) 满足 s*g + t*h ≡ 1 (mod m)</span></div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="keyword">static</span> std::pair&lt;std::vector&lt;BigInt&gt;, std::vector&lt;BigInt&gt;&gt;</div>
+<div class="foldopen" id="foldopen00552" data-start="{" data-end="}">
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aae6a2ef86c927bd5e6ce911fa9416312">  552</a></span><a class="code hl_function" href="../../d1/d42/namespacelamina.html#aae6a2ef86c927bd5e6ce911fa9416312">hl_extended_gcd_poly</a>(<span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; g,</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>                     <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; h,</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>                     <span class="keyword">const</span> <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&amp; m) {<span class="comment"></span></div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="comment">    /// 扩展欧几里得算法：r0 = g, r1 = h</span></div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span><span class="comment">    /// s0*g + t0*h = r0, s1*g + t1*h = r1</span></div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>    std::vector&lt;BigInt&gt; r0 = g, r1 = h;</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    std::vector&lt;BigInt&gt; s0 = {<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1)}, s1 = {};  <span class="comment">// s0=1, s1=0</span></div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    std::vector&lt;BigInt&gt; t0 = {}, t1 = {<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1)};  <span class="comment">// t0=0, t1=1</span></div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="keywordflow">while</span> (!r1.empty()) {</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        <span class="keyword">auto</span> [q, r] = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aab7ee30f4b8ef565a96ee7e5c9cbdb75">hl_poly_divmod</a>(r0, r1, m);</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span><span class="comment"></span> </div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span><span class="comment">        /// r_new = r0 - q*r1</span></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>        std::vector&lt;BigInt&gt; r_new = r;</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="comment"></span> </div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span><span class="comment">        /// s_new = s0 - q*s1</span></div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        std::vector&lt;BigInt&gt; qs1 = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(q, s1, m);</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        std::vector&lt;BigInt&gt; s_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(s0, qs1, m);</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span><span class="comment"></span> </div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span><span class="comment">        /// t_new = t0 - q*t1</span></div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>        std::vector&lt;BigInt&gt; qt1 = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(q, t1, m);</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        std::vector&lt;BigInt&gt; t_new = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">hl_poly_sub_mod</a>(t0, qt1, m);</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span> </div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        r0 = r1; r1 = r_new;</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        s0 = s1; s1 = s_new;</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>        t0 = t1; t1 = t_new;</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>    }</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span><span class="comment"></span> </div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span><span class="comment">    /// r0 = gcd，应为常数（可逆元）</span></div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span><span class="comment">    /// 归一化使 gcd = 1</span></div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    <span class="keywordflow">if</span> (!r0.empty() &amp;&amp; r0[0] != <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(1)) {</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> inv = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ad7c245ba4bca19be95b7b4ca964498de">hl_mod_inverse</a>(r0[0], m);</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; c : s0) {</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>            c = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(c * inv, m);</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        }</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; c : t0) {</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            c = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">hl_symmetric_mod</a>(c * inv, m);</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        }</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    }</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span><span class="comment"></span> </div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span><span class="comment">    /// 去除高次零系数</span></div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordflow">while</span> (!s0.empty() &amp;&amp; s0.back().is_zero()) s0.pop_back();</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    <span class="keywordflow">while</span> (!t0.empty() &amp;&amp; t0.back().is_zero()) t0.pop_back();</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    <span class="keywordflow">return</span> {s0, t0};</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>}</div>
+</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span><span class="comment"></span> </div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span><span class="comment"> * @brief 多因子 Hensel 提升：将 k 个模 p 因子同时提升到 mod p^target_k。</span></div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span><span class="comment"> * 使用顺序剥离策略：</span></div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span><span class="comment"> * 1. 将 f 分解为 g₁ 和 h₁ = g₂*g₃*...*gₖ</span></div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span><span class="comment"> * 2. 对 (g₁, h₁) 执行二因子提升</span></div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span><span class="comment"> * 3. 递归对 h₁ 继续剥离下一个因子</span></div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span><span class="comment"> * 每步提升通过反复调用 hl_two_factor_lift 实现二次提升（mod p → p² → p⁴ → ...），</span></div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span><span class="comment"> * 直到模数达到或超过 p^target_k。</span></div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span><span class="comment"> * @param[in] f         原始多项式系数向量（升幂排列）</span></div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span><span class="comment"> * @param[in] factors   模 p 下的因子列表（各因子系数向量）</span></div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span><span class="comment"> * @param[in] prime     素数 p</span></div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span><span class="comment"> * @param[in] target_k  目标提升高度（提升到 mod p^target_k）</span></div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span><span class="comment"> * @return 提升后的因子列表（各因子系数在对称表示下）</span></div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span><span class="comment"> * @pre f ≡ factors[0] * factors[1] * ... * factors[k-1] (mod p)</span></div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span><span class="comment"> * @pre 各因子两两互素 (mod p)</span></div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span><span class="comment"> * @see Zassenhaus, H. &quot;On Hensel factorization, I.&quot;</span></div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="comment"> *      Journal of Number Theory, 1(3), 1969.</span></div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00623" data-start="{" data-end="}">
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a7566e4c1ba517cde73de9896c81bf692">  623</a></span><span class="keyword">static</span> std::vector&lt;std::vector&lt;BigInt&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a7566e4c1ba517cde73de9896c81bf692">hl_multi_factor_lift</a>(</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; f,</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <span class="keyword">const</span> std::vector&lt;std::vector&lt;BigInt&gt;&gt;&amp; factors,</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    int64_t prime,</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    <span class="keywordtype">int</span> target_k) {</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span> </div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>    <span class="keywordflow">if</span> (factors.empty()) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    <span class="keywordflow">if</span> (factors.size() == 1) {<span class="comment"></span></div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span><span class="comment">        /// 单因子：直接归约到目标模数</span></div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> target_mod(1);</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> big_p(<span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(prime));</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; target_k; ++i) {</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>            target_mod = target_mod * big_p;</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        }</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        std::vector&lt;BigInt&gt; result = f;</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>        <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(result, target_mod);</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        <span class="keywordflow">return</span> {result};</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>    }</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> big_p(<span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(prime));</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> initial_mod(<span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(prime));</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span><span class="comment"></span> </div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span><span class="comment">    /// 计算目标模数 p^target_k</span></div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> target_mod(1);</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; target_k; ++i) {</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        target_mod = target_mod * big_p;</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    }</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span><span class="comment"></span> </div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span><span class="comment">    /// 顺序剥离策略：逐个提升因子</span></div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    std::vector&lt;std::vector&lt;BigInt&gt;&gt; lifted_factors;</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    lifted_factors.reserve(factors.size());</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="comment"></span> </div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span><span class="comment">    /// 当前待分解的多项式（初始为 f）</span></div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    std::vector&lt;BigInt&gt; remaining = f;</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(remaining, target_mod);</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span><span class="comment"></span> </div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span><span class="comment">    /// 剩余因子列表</span></div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>    std::vector&lt;std::vector&lt;BigInt&gt;&gt; remaining_factors = factors;</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; factors.size() - 1; ++i) {<span class="comment"></span></div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span><span class="comment">        /// 取出第一个因子 g</span></div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>        std::vector&lt;BigInt&gt; g = remaining_factors[0];</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span><span class="comment"></span> </div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span><span class="comment">        /// 计算 h = 剩余因子的乘积 (mod p)</span></div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>        std::vector&lt;BigInt&gt; h = remaining_factors[1];</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 2; j &lt; remaining_factors.size(); ++j) {</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>            h = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">hl_poly_mul_mod</a>(h, remaining_factors[j], initial_mod);</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        }</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span><span class="comment"></span> </div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span><span class="comment">        /// 计算 Bezout 系数 s, t 使得 s*g + t*h ≡ 1 (mod p)</span></div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        <span class="keyword">auto</span> [s, t] = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aae6a2ef86c927bd5e6ce911fa9416312">hl_extended_gcd_poly</a>(g, h, initial_mod);</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="comment"></span> </div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span><span class="comment">        /// 构造初始提升状态</span></div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a> state{g, h, s, t, initial_mod};</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span><span class="comment"></span> </div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span><span class="comment">        /// 反复二次提升直到模数 ≥ target_mod</span></div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>        <span class="keywordflow">while</span> (state.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a5b9097da88aeae99c5b64366d658e8fb">modulus</a> &lt; target_mod) {</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>            state = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5ed779f22973093818c2e3f111724337">hl_two_factor_lift</a>(remaining, state);</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>        }</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span><span class="comment"></span> </div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span><span class="comment">        /// 提取提升后的 g（已提升到 target_mod）</span></div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>        std::vector&lt;BigInt&gt; lifted_g = state.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a0a9fe99983956142bde9f0e104acc587">g</a>;</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(lifted_g, target_mod);</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>        lifted_factors.push_back(lifted_g);</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span><span class="comment"></span> </div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span><span class="comment">        /// 更新 remaining 为提升后的 h</span></div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>        remaining = state.<a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ad2dac8a83fb51509e503dc407462e172">h</a>;</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(remaining, target_mod);</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span><span class="comment"></span> </div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span><span class="comment">        /// 更新 remaining_factors：去掉第一个，后续因子保持不变</span></div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        remaining_factors.erase(remaining_factors.begin());</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>    }</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span><span class="comment"></span> </div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span><span class="comment">    /// 最后一个因子就是 remaining</span></div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">hl_reduce_coeffs</a>(remaining, target_mod);</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    lifted_factors.push_back(remaining);</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    <span class="keywordflow">return</span> lifted_factors;</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>}</div>
+</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span> </div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span><span class="comment"></span> </div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span><span class="comment"> * @brief Hensel 提升：将模 p 因子提升到 mod p^k。</span></div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span><span class="comment"> * 将 Berlekamp 分解得到的模 p 不可约因子通过二次 Hensel 提升</span></div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span><span class="comment"> * 升至 mod p^k，其中 k 由 Mignotte 界确定。</span></div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span><span class="comment"> * 流程：</span></div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span><span class="comment"> * 1. 将 Polynomial&lt;ModInt&gt; 因子转换为 vector&lt;BigInt&gt; 内部表示</span></div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span><span class="comment"> * 2. 调用 hl_multi_factor_lift 执行多因子提升</span></div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><span class="comment"> * 3. 将结果转换回 Polynomial&lt;BigInt&gt;</span></div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span><span class="comment"> * @param[in] poly        整系数多项式</span></div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span><span class="comment"> * @param[in] mod_factors 模 p 下的不可约因子</span></div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span><span class="comment"> * @param[in] prime       素数 p</span></div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span><span class="comment"> * @param[in] lift_bound  提升次数上界 k（若为 0 则自动计算）</span></div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span><span class="comment"> * @return 提升后的整系数因子列表（系数在对称表示 [-p^k/2, p^k/2] 下）</span></div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00721" data-start="{" data-end="}">
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a777636c150da2a24fc534bea97c47ec0">  721</a></span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#ad1ec692f098f74ab8bfeabd73ea9865a">HenselLiftResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a777636c150da2a24fc534bea97c47ec0">hensel_lift_checked</a>(</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;ModInt&gt;</a>&gt;&amp; mod_factors,</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    int64_t prime,</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    <span class="keywordtype">int</span> lift_bound) {</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* operation = <span class="stringliteral">&quot;hensel_lift&quot;</span>;</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span><span class="comment"></span> </div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span><span class="comment">    /// 将原始多项式转换为系数向量</span></div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    std::vector&lt;BigInt&gt; f_vec = poly.<a class="code hl_variable" href="../../d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908">coeffs</a>;</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span><span class="comment"></span> </div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span><span class="comment">    /// 将 Polynomial&lt;ModInt&gt; 因子转换为 vector&lt;BigInt&gt; 表示</span></div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    std::vector&lt;std::vector&lt;BigInt&gt;&gt; factor_vecs;</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    factor_vecs.reserve(mod_factors.size());</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; mf : mod_factors) {</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>        std::vector&lt;BigInt&gt; fv;</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>        fv.reserve(mf.coeffs.size());</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : mf.coeffs) {</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>            fv.push_back(<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(c.value())));</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>        }</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>        factor_vecs.push_back(std::move(fv));</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>    }</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span> </div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    <span class="keyword">auto</span> valid = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a2a5b760350eec4b84b300a990b6b04ef">hl_validate_lift_inputs</a>(poly, factor_vecs, prime);</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <span class="keywordflow">if</span> (!valid) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">HenselLiftResult::failure</a>(valid.error());</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span><span class="comment"></span> </div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span><span class="comment">    /// 若调用方未指定提升界，则自动计算</span></div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>    <span class="keywordtype">int</span> k = lift_bound;</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    <span class="keywordflow">if</span> (k &lt;= 0) {</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        k = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a4792c9c0afea429630dcd426ad08008e">hl_compute_lift_height</a>(poly, prime);</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>    }</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span><span class="comment"></span> </div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span><span class="comment">    /// 执行多因子 Hensel 提升</span></div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>    std::vector&lt;std::vector&lt;BigInt&gt;&gt; lifted_vecs;</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>        lifted_vecs = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a7566e4c1ba517cde73de9896c81bf692">hl_multi_factor_lift</a>(f_vec, factor_vecs, prime, k);</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; ex) {</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">HenselLiftResult::failure</a>(<a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                                         ex.what(),</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>                                         operation);</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    }</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span><span class="comment"></span> </div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span><span class="comment">    /// 将结果转换回 Polynomial&lt;BigInt&gt;</span></div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    std::vector&lt;Polynomial&lt;BigInt&gt;&gt; result;</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    result.reserve(lifted_vecs.size());</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; lv : lifted_vecs) {</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>        result.emplace_back(std::move(lv), poly.<a class="code hl_variable" href="../../d8/d1e/classlamina_1_1Polynomial.html#a8f05e5b367805b314017efcf0606681d">variable_name</a>);</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    }</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span> </div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">HenselLiftResult::success</a>(std::move(result));</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>}</div>
+</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
+<div class="foldopen" id="foldopen00772" data-start="{" data-end="}">
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a5fd4e318e6ea07199ee096673bc06f37">  772</a></span>std::vector&lt;Polynomial&lt;BigInt&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5fd4e318e6ea07199ee096673bc06f37">hensel_lift</a>(</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;ModInt&gt;</a>&gt;&amp; mod_factors,</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    int64_t prime,</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    <span class="keywordtype">int</span> lift_bound) {</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>    <span class="keyword">auto</span> result = <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a777636c150da2a24fc534bea97c47ec0">hensel_lift_checked</a>(poly, mod_factors, prime, lift_bound);</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    <span class="keywordflow">return</span> result ? result.value() : std::vector&lt;Polynomial&lt;BigInt&gt;&gt;{};</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>}</div>
+</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span> </div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="aclassBigInt_html"><div class="ttname"><a href="../../da/d5b/classBigInt.html">BigInt</a></div><div class="ttdef"><b>定义</b> <a href="../../d8/d09/bigint_8hpp_source.html#l00029">bigint.hpp:29</a></div></div>
+<div class="ttc" id="aclassBigInt_html_a6ae37e804e0989cb245f32f90a2d5f64"><div class="ttname"><a href="../../da/d5b/classBigInt.html#a6ae37e804e0989cb245f32f90a2d5f64">BigInt::is_zero</a></div><div class="ttdeci">bool is_zero() const</div><div class="ttdoc">判断是否为零</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00317">bigint.cpp:317</a></div></div>
+<div class="ttc" id="aclassBigInt_html_a912850d3f7c9487ebf100b004135c959"><div class="ttname"><a href="../../da/d5b/classBigInt.html#a912850d3f7c9487ebf100b004135c959">BigInt::sqrt</a></div><div class="ttdeci">BigInt sqrt() const</div><div class="ttdoc">整数平方根（向下取整）</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00576">bigint.cpp:576</a></div></div>
+<div class="ttc" id="aclassBigInt_html_ae5d874ccb625319e093bec91b29e5a24"><div class="ttname"><a href="../../da/d5b/classBigInt.html#ae5d874ccb625319e093bec91b29e5a24">BigInt::IsNegative</a></div><div class="ttdeci">bool IsNegative() const</div><div class="ttdoc">判断是否为负数</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00348">bigint.cpp:348</a></div></div>
+<div class="ttc" id="aclassBigInt_html_af677021c0987fc2a48da06837ed29c58"><div class="ttname"><a href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt::BigInt</a></div><div class="ttdeci">BigInt()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00059">bigint.cpp:59</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html">lamina::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00048">polynomial.hpp:48</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_a5ab9f08024d7084b47a746f72ba9f850"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#a5ab9f08024d7084b47a746f72ba9f850">lamina::Polynomial::is_zero</a></div><div class="ttdeci">bool is_zero() const</div><div class="ttdoc">判断是否为零多项式</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00088">polynomial.hpp:88</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_a8f05e5b367805b314017efcf0606681d"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#a8f05e5b367805b314017efcf0606681d">lamina::Polynomial::variable_name</a></div><div class="ttdeci">std::string variable_name</div><div class="ttdoc">变量名</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00052">polynomial.hpp:52</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_aa4209c719c18fc882b702d88e397bdf4"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4">lamina::Polynomial::degree</a></div><div class="ttdeci">int degree() const</div><div class="ttdoc">获取多项式的次数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00096">polynomial.hpp:96</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_ab01744d72dd2edf9f0742ec818e73908"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908">lamina::Polynomial::coeffs</a></div><div class="ttdeci">std::vector&lt; CoeffType &gt; coeffs</div><div class="ttdoc">系数数组，coeffs[i] 为 x^i 的系数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00051">polynomial.hpp:51</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html_ae491492c9a43d1dee5f86b4adf803cfa"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html#ae491492c9a43d1dee5f86b4adf803cfa">lamina::Polynomial::lead_coeff</a></div><div class="ttdeci">CoeffType lead_coeff() const</div><div class="ttdoc">获取首项系数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00105">polynomial.hpp:105</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html">lamina::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00050">result.hpp:50</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html_a70191f302f20c27ad54a360736f2ab47"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html#a70191f302f20c27ad54a360736f2ab47">lamina::Result::success</a></div><div class="ttdeci">static Result success(T value)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html_a98c750bac3d54d9b81d02a5c64a0f860"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html#a98c750bac3d54d9b81d02a5c64a0f860">lamina::Result::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00056">result.hpp:56</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a002f8555dbc76563724c4c316b33b715"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a002f8555dbc76563724c4c316b33b715">lamina::hl_l2_norm_squared</a></div><div class="ttdeci">static BigInt hl_l2_norm_squared(const Polynomial&lt; BigInt &gt; &amp;poly)</div><div class="ttdoc">计算多项式系数的 L2 范数的平方。</div><div class="ttdef"><b>定义</b> <a href="#l00064">hensel_lift.cpp:64</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b">lamina::CasErrc::InvalidArgument</a></div><div class="ttdeci">@ InvalidArgument</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00011">result.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a09cfdcec1470c99d325539f3a1deb98ba5b2c6ff58370ee6e4fdc7308e09cd698"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98ba5b2c6ff58370ee6e4fdc7308e09cd698">lamina::CasErrc::InternalInvariant</a></div><div class="ttdeci">@ InternalInvariant</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00026">result.hpp:26</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a0a9fe99983956142bde9f0e104acc587"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a0a9fe99983956142bde9f0e104acc587">lamina::HenselLiftPair::g</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; g</div><div class="ttdoc">第一个因子系数向量</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00154">transcendental_factor.hpp:154</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a1628cc79868b622b3a26847acb6ee429"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a1628cc79868b622b3a26847acb6ee429">lamina::hl_poly_mul_mod</a></div><div class="ttdeci">static std::vector&lt; BigInt &gt; hl_poly_mul_mod(const std::vector&lt; BigInt &gt; &amp;a, const std::vector&lt; BigInt &gt; &amp;b, const BigInt &amp;m)</div><div class="ttdoc">多项式乘法（BigInt 系数），结果模 m 归约。</div><div class="ttdef"><b>定义</b> <a href="#l00211">hensel_lift.cpp:211</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a24b7b5caa0eb4e9bdefa3466a7c404f8"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a24b7b5caa0eb4e9bdefa3466a7c404f8">lamina::hl_coeff_vectors_equal</a></div><div class="ttdeci">static bool hl_coeff_vectors_equal(std::vector&lt; BigInt &gt; left, std::vector&lt; BigInt &gt; right)</div><div class="ttdef"><b>定义</b> <a href="#l00392">hensel_lift.cpp:392</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a2a5b760350eec4b84b300a990b6b04ef"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a2a5b760350eec4b84b300a990b6b04ef">lamina::hl_validate_lift_inputs</a></div><div class="ttdeci">static Result&lt; void &gt; hl_validate_lift_inputs(const Polynomial&lt; BigInt &gt; &amp;poly, const std::vector&lt; std::vector&lt; BigInt &gt; &gt; &amp;factor_vecs, int64_t prime)</div><div class="ttdef"><b>定义</b> <a href="#l00402">hensel_lift.cpp:402</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a2b6598674d80fa60f2285514ca87959f"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a2b6598674d80fa60f2285514ca87959f">lamina::hl_mignotte_bound</a></div><div class="ttdeci">static BigInt hl_mignotte_bound(const Polynomial&lt; BigInt &gt; &amp;poly)</div><div class="ttdoc">计算多项式的 Mignotte 界。</div><div class="ttdef"><b>定义</b> <a href="#l00090">hensel_lift.cpp:90</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a4792c9c0afea429630dcd426ad08008e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a4792c9c0afea429630dcd426ad08008e">lamina::hl_compute_lift_height</a></div><div class="ttdeci">static int hl_compute_lift_height(const Polynomial&lt; BigInt &gt; &amp;poly, int64_t prime)</div><div class="ttdoc">计算 Hensel 提升所需的高度 k。</div><div class="ttdef"><b>定义</b> <a href="#l00128">hensel_lift.cpp:128</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5a71c70706d39bb998d3bda3b198fc67"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5a71c70706d39bb998d3bda3b198fc67">lamina::hl_poly_sub_mod</a></div><div class="ttdeci">static std::vector&lt; BigInt &gt; hl_poly_sub_mod(const std::vector&lt; BigInt &gt; &amp;a, const std::vector&lt; BigInt &gt; &amp;b, const BigInt &amp;m)</div><div class="ttdoc">多项式减法（BigInt 系数），结果模 m 归约。</div><div class="ttdef"><b>定义</b> <a href="#l00240">hensel_lift.cpp:240</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5b9097da88aeae99c5b64366d658e8fb"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5b9097da88aeae99c5b64366d658e8fb">lamina::HenselLiftPair::modulus</a></div><div class="ttdeci">BigInt modulus</div><div class="ttdoc">当前模数</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00158">transcendental_factor.hpp:158</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5ed779f22973093818c2e3f111724337"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5ed779f22973093818c2e3f111724337">lamina::hl_two_factor_lift</a></div><div class="ttdeci">HenselLiftPair hl_two_factor_lift(const std::vector&lt; BigInt &gt; &amp;f, const HenselLiftPair &amp;current)</div><div class="ttdoc">执行一步二次 Hensel 提升：mod m → mod m²。</div><div class="ttdef"><b>定义</b> <a href="#l00476">hensel_lift.cpp:476</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5fd4e318e6ea07199ee096673bc06f37"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5fd4e318e6ea07199ee096673bc06f37">lamina::hensel_lift</a></div><div class="ttdeci">std::vector&lt; Polynomial&lt; BigInt &gt; &gt; hensel_lift(const Polynomial&lt; BigInt &gt; &amp;poly, const std::vector&lt; Polynomial&lt; ModInt &gt; &gt; &amp;mod_factors, int64_t prime, int lift_bound)</div><div class="ttdoc">Hensel 提升（内部接口）。</div><div class="ttdef"><b>定义</b> <a href="#l00772">hensel_lift.cpp:772</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a7566e4c1ba517cde73de9896c81bf692"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a7566e4c1ba517cde73de9896c81bf692">lamina::hl_multi_factor_lift</a></div><div class="ttdeci">static std::vector&lt; std::vector&lt; BigInt &gt; &gt; hl_multi_factor_lift(const std::vector&lt; BigInt &gt; &amp;f, const std::vector&lt; std::vector&lt; BigInt &gt; &gt; &amp;factors, int64_t prime, int target_k)</div><div class="ttdoc">多因子 Hensel 提升：将 k 个模 p 因子同时提升到 mod p^target_k。</div><div class="ttdef"><b>定义</b> <a href="#l00623">hensel_lift.cpp:623</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a777636c150da2a24fc534bea97c47ec0"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a777636c150da2a24fc534bea97c47ec0">lamina::hensel_lift_checked</a></div><div class="ttdeci">HenselLiftResult hensel_lift_checked(const Polynomial&lt; BigInt &gt; &amp;poly, const std::vector&lt; Polynomial&lt; ModInt &gt; &gt; &amp;mod_factors, int64_t prime, int lift_bound)</div><div class="ttdoc">Checked Hensel lifting with explicit precondition failures.</div><div class="ttdef"><b>定义</b> <a href="#l00721">hensel_lift.cpp:721</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8b6877bea862bef4b5937b84588aaacd"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8b6877bea862bef4b5937b84588aaacd">lamina::hl_reduce_coeffs</a></div><div class="ttdeci">static void hl_reduce_coeffs(std::vector&lt; BigInt &gt; &amp;poly, const BigInt &amp;m)</div><div class="ttdoc">对多项式系数向量执行模归约（对称表示）。</div><div class="ttdef"><b>定义</b> <a href="#l00190">hensel_lift.cpp:190</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8b8ab82e2e6b6e5e9de7c56923a80e67"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8b8ab82e2e6b6e5e9de7c56923a80e67">lamina::hl_poly_add_mod</a></div><div class="ttdeci">static std::vector&lt; BigInt &gt; hl_poly_add_mod(const std::vector&lt; BigInt &gt; &amp;a, const std::vector&lt; BigInt &gt; &amp;b, const BigInt &amp;m)</div><div class="ttdoc">多项式加法（BigInt 系数），结果模 m 归约。</div><div class="ttdef"><b>定义</b> <a href="#l00265">hensel_lift.cpp:265</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8d9b5340e5416fa09eb2cea352c67384"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8d9b5340e5416fa09eb2cea352c67384">lamina::HenselLiftPair::t</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; t</div><div class="ttdoc">h 的 Bezout 系数向量</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00157">transcendental_factor.hpp:157</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aab7ee30f4b8ef565a96ee7e5c9cbdb75"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aab7ee30f4b8ef565a96ee7e5c9cbdb75">lamina::hl_poly_divmod</a></div><div class="ttdeci">static std::pair&lt; std::vector&lt; BigInt &gt;, std::vector&lt; BigInt &gt; &gt; hl_poly_divmod(const std::vector&lt; BigInt &gt; &amp;a, const std::vector&lt; BigInt &gt; &amp;b, const BigInt &amp;m)</div><div class="ttdoc">多项式带余除法（BigInt 系数），模 m 下运算。</div><div class="ttdef"><b>定义</b> <a href="#l00340">hensel_lift.cpp:340</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aae6a2ef86c927bd5e6ce911fa9416312"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aae6a2ef86c927bd5e6ce911fa9416312">lamina::hl_extended_gcd_poly</a></div><div class="ttdeci">static std::pair&lt; std::vector&lt; BigInt &gt;, std::vector&lt; BigInt &gt; &gt; hl_extended_gcd_poly(const std::vector&lt; BigInt &gt; &amp;g, const std::vector&lt; BigInt &gt; &amp;h, const BigInt &amp;m)</div><div class="ttdoc">计算两个多项式在模 m 下的扩展 GCD 的 Bezout 系数。</div><div class="ttdef"><b>定义</b> <a href="#l00552">hensel_lift.cpp:552</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aaf24db9bf1e94f034853c1c078d3a0a3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aaf24db9bf1e94f034853c1c078d3a0a3">lamina::hl_binomial</a></div><div class="ttdeci">static BigInt hl_binomial(int n, int k)</div><div class="ttdoc">计算二项式系数 C(n, k)。</div><div class="ttdef"><b>定义</b> <a href="#l00038">hensel_lift.cpp:38</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab67845bdd35b9af17e093648f60dbbdd"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab67845bdd35b9af17e093648f60dbbdd">lamina::hl_symmetric_mod</a></div><div class="ttdeci">static BigInt hl_symmetric_mod(const BigInt &amp;c, const BigInt &amp;m)</div><div class="ttdoc">将 BigInt 系数归约到对称表示 [-m/2, m/2)。</div><div class="ttdef"><b>定义</b> <a href="#l00164">hensel_lift.cpp:164</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab9c48c8144dbdc33229dd27ce2027d7e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab9c48c8144dbdc33229dd27ce2027d7e">lamina::hl_is_prime</a></div><div class="ttdeci">static bool hl_is_prime(int64_t value)</div><div class="ttdef"><b>定义</b> <a href="#l00382">hensel_lift.cpp:382</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac709ba772e5b7c66bafa7fcc673a1fe3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac709ba772e5b7c66bafa7fcc673a1fe3">lamina::HenselLiftPair::s</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; s</div><div class="ttdoc">g 的 Bezout 系数向量</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00156">transcendental_factor.hpp:156</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad1ec692f098f74ab8bfeabd73ea9865a"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad1ec692f098f74ab8bfeabd73ea9865a">lamina::HenselLiftResult</a></div><div class="ttdeci">Result&lt; std::vector&lt; Polynomial&lt; BigInt &gt; &gt; &gt; HenselLiftResult</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00111">transcendental_factor.hpp:111</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad2dac8a83fb51509e503dc407462e172"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad2dac8a83fb51509e503dc407462e172">lamina::HenselLiftPair::h</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; h</div><div class="ttdoc">第二个因子系数向量</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00155">transcendental_factor.hpp:155</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad7c245ba4bca19be95b7b4ca964498de"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad7c245ba4bca19be95b7b4ca964498de">lamina::hl_mod_inverse</a></div><div class="ttdeci">static BigInt hl_mod_inverse(const BigInt &amp;a, const BigInt &amp;m)</div><div class="ttdoc">计算 BigInt 在模 m 下的乘法逆元。</div><div class="ttdef"><b>定义</b> <a href="#l00293">hensel_lift.cpp:293</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d2/d09/structlamina_1_1HenselLiftPair"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">lamina::HenselLiftPair</a></div><div class="ttdoc">二因子二次 Hensel 提升的状态结构。</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00153">transcendental_factor.hpp:153</a></div></div>
+<div class="ttc" id="atranscendental__factor_8hpp_html"><div class="ttname"><a href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a></div><div class="ttdoc">混合超越方程不可约因式分解器公共 API。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/d22/hensel__lift_8cpp.html">hensel_lift.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

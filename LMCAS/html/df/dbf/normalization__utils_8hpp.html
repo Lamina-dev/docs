@@ -1,0 +1,770 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/internal/normalization_utils.hpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('df/dbf/normalization__utils_8hpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">normalization_utils.hpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;lmmc/config.h&quot;</code><br />
+<code>#include &quot;lmmc/numeric.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d10/assumption__context_8hpp_source.html">assumption_context.hpp</a>&quot;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>normalization_utils.hpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/dcb/normalization__utils_8hpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>此图展示该文件被哪些文件直接或间接地引用了:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d7/d38/normalization__utils_8hpp__dep__incl.svg" width="100%" height="393"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../df/dbf/normalization__utils_8hpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:NodeCompare" id="r_NodeCompare"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d3/d84/structNodeCompare.html">NodeCompare</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">节点比较器，按多项式次数降序排列，用于同类项合并  <a href="../../d3/d84/structNodeCompare.html#details">更多...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a9260866180e11c2bcc379b2c9c421336" id="r_a9260866180e11c2bcc379b2c9c421336"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9260866180e11c2bcc379b2c9c421336">add_numbers</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;a, const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;b)</td></tr>
+<tr class="memdesc:a9260866180e11c2bcc379b2c9c421336"><td class="mdescLeft">&#160;</td><td class="mdescRight">两个数值节点相加  <br /></td></tr>
+<tr class="memitem:a56c355f7b3de1b84ce8583f14a5dd163" id="r_a56c355f7b3de1b84ce8583f14a5dd163"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a56c355f7b3de1b84ce8583f14a5dd163">check_negative_arg</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;arg, std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;out_positive)</td></tr>
+<tr class="memdesc:a56c355f7b3de1b84ce8583f14a5dd163"><td class="mdescLeft">&#160;</td><td class="mdescRight">检查节点是否为负数或带负系数，若是则输出其正值部分  <br /></td></tr>
+<tr class="memitem:af8a991c73ced7db4a24b3c80a6425254" id="r_af8a991c73ced7db4a24b3c80a6425254"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af8a991c73ced7db4a24b3c80a6425254">get_node_degree_helper</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="memdesc:af8a991c73ced7db4a24b3c80a6425254"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算 AST 节点的多项式次数  <br /></td></tr>
+<tr class="memitem:a2b65ee4bb321c9fe617196e139efb972" id="r_a2b65ee4bb321c9fe617196e139efb972"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2b65ee4bb321c9fe617196e139efb972">get_pi_coeff</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;k)</td></tr>
+<tr class="memdesc:a2b65ee4bb321c9fe617196e139efb972"><td class="mdescLeft">&#160;</td><td class="mdescRight">提取节点中 π 的有理系数（如 2π/3 中的 2/3）  <br /></td></tr>
+<tr class="memitem:a43774f41992d0d9ae71cdf30d037e223" id="r_a43774f41992d0d9ae71cdf30d037e223"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a43774f41992d0d9ae71cdf30d037e223">make_normalized_multiply_node</a> (const std::vector&lt; std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &gt; &amp;ops)</td></tr>
+<tr class="memitem:aac83f3462a4dd9cfc6910b75124aac93" id="r_aac83f3462a4dd9cfc6910b75124aac93"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aac83f3462a4dd9cfc6910b75124aac93">multiply_numbers</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;a, const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;b)</td></tr>
+<tr class="memdesc:aac83f3462a4dd9cfc6910b75124aac93"><td class="mdescLeft">&#160;</td><td class="mdescRight">两个数值节点相乘  <br /></td></tr>
+<tr class="memitem:a1b7c41c18c2cc83eb5cd078383122011" id="r_a1b7c41c18c2cc83eb5cd078383122011"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;index_var, const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;value)</td></tr>
+<tr class="memdesc:a1b7c41c18c2cc83eb5cd078383122011"><td class="mdescLeft">&#160;</td><td class="mdescRight">将节点树中名为 index_var 的变量替换为指定数值（用于展开有限求和/连乘）。  <br /></td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="a9260866180e11c2bcc379b2c9c421336" name="a9260866180e11c2bcc379b2c9c421336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9260866180e11c2bcc379b2c9c421336">&#9670;&#160;</a></span>add_numbers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; add_numbers </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>两个数值节点相加 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>加数节点 </td></tr>
+    <tr><td class="paramname">b</td><td>加数节点 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>和的数值节点 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00111">111</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>                                                                                                                                       {</div>
+<div class="line"><span class="lineno">  112</span>     <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(a-&gt;value()) || std::holds_alternative&lt;lmmc_real_t&gt;(b-&gt;value())) {</div>
+<div class="line"><span class="lineno">  113</span>         lmmc_real_t v1 = std::holds_alternative&lt;lmmc_real_t&gt;(a-&gt;value()) ? std::get&lt;lmmc_real_t&gt;(a-&gt;value()) :</div>
+<div class="line"><span class="lineno">  114</span>                     (std::holds_alternative&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(a-&gt;value()) ? (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(a-&gt;value()).to_double() : (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(a-&gt;value()).to_double());</div>
+<div class="line"><span class="lineno">  115</span>         lmmc_real_t v2 = std::holds_alternative&lt;lmmc_real_t&gt;(b-&gt;value()) ? std::get&lt;lmmc_real_t&gt;(b-&gt;value()) :</div>
+<div class="line"><span class="lineno">  116</span>                     (std::holds_alternative&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(b-&gt;value()) ? (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(b-&gt;value()).to_double() : (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(b-&gt;value()).to_double());</div>
+<div class="line"><span class="lineno">  117</span>         lmmc_real_t sum = v1 + v2;</div>
+<div class="line"><span class="lineno">  118</span>         <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(sum);</div>
+<div class="line"><span class="lineno">  119</span>     }</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>     <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(a-&gt;value()) || std::holds_alternative&lt;Rational&gt;(b-&gt;value())) {</div>
+<div class="line"><span class="lineno">  122</span>         <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> r1 = std::holds_alternative&lt;Rational&gt;(a-&gt;value()) ? std::get&lt;Rational&gt;(a-&gt;value()) :</div>
+<div class="line"><span class="lineno">  123</span>                       (std::holds_alternative&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(a-&gt;value()) ? <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(a-&gt;value())) : <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(0));</div>
+<div class="line"><span class="lineno">  124</span>         <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> r2 = std::holds_alternative&lt;Rational&gt;(b-&gt;value()) ? std::get&lt;Rational&gt;(b-&gt;value()) :</div>
+<div class="line"><span class="lineno">  125</span>                       (std::holds_alternative&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(b-&gt;value()) ? <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(b-&gt;value())) : <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(0));</div>
+<div class="line"><span class="lineno">  126</span>         <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(r1 + r2);</div>
+<div class="line"><span class="lineno">  127</span>     }</div>
+<div class="line"><span class="lineno">  128</span> </div>
+<div class="line"><span class="lineno">  129</span>     <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> i1 = std::get&lt;BigInt&gt;(a-&gt;value());</div>
+<div class="line"><span class="lineno">  130</span>     <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> i2 = std::get&lt;BigInt&gt;(b-&gt;value());</div>
+<div class="line"><span class="lineno">  131</span>     <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(i1 + i2);</div>
+<div class="line"><span class="lineno">  132</span>}</div>
+<div class="ttc" id="aclassBigInt_html"><div class="ttname"><a href="../../da/d5b/classBigInt.html">BigInt</a></div><div class="ttdef"><b>定义</b> <a href="../../d8/d09/bigint_8hpp_source.html#l00029">bigint.hpp:29</a></div></div>
+<div class="ttc" id="aclassRational_html"><div class="ttname"><a href="../../d8/da7/classRational.html">Rational</a></div><div class="ttdoc">精确有理数类，以 BigInt 分子/分母表示，构造时自动约分</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00020">rational.hpp:20</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aea502a76fff503e0f55363f674f65fa4"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00114">base.hpp:114</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a>, <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00111">add_numbers()</a> , 以及 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00111">add_numbers()</a>, <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00008">NormalizationVisitor::expand_product()</a>, <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00163">NormalizationVisitor::visit()</a> , 以及 <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00361">NormalizationVisitor::visit()</a>.</p>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a9260866180e11c2bcc379b2c9c421336_cgraph.svg" width="364" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a9260866180e11c2bcc379b2c9c421336_icgraph.svg" width="522" height="203"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a56c355f7b3de1b84ce8583f14a5dd163" name="a56c355f7b3de1b84ce8583f14a5dd163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c355f7b3de1b84ce8583f14a5dd163">&#9670;&#160;</a></span>check_negative_arg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool check_negative_arg </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>arg</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>out_positive</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>检查节点是否为负数或带负系数，若是则输出其正值部分 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arg</td><td>待检查的节点 </td></tr>
+    <tr><td class="paramname">out_positive</td><td>输出参数，存放取正后的节点 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>若节点为负则返回 true </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00169">169</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  169</span>                                                                                                                              {</div>
+<div class="line"><span class="lineno">  170</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(arg)) {</div>
+<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(num-&gt;value()) &amp;&amp; std::get&lt;lmmc_real_t&gt;(num-&gt;value()) &lt; 0) {</div>
+<div class="line"><span class="lineno">  172</span>             out_positive = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(std::abs(std::get&lt;lmmc_real_t&gt;(num-&gt;value())));</div>
+<div class="line"><span class="lineno">  173</span>             <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  174</span>        }</div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value()) &amp;&amp;</div>
+<div class="line"><span class="lineno">  176</span>            std::get&lt;BigInt&gt;(num-&gt;value()).IsNegative()) {</div>
+<div class="line"><span class="lineno">  177</span>             out_positive = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(std::get&lt;BigInt&gt;(num-&gt;value()) * <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(-1));</div>
+<div class="line"><span class="lineno">  178</span>             <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  179</span>        }</div>
+<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value()) &amp;&amp;</div>
+<div class="line"><span class="lineno">  181</span>            std::get&lt;Rational&gt;(num-&gt;value()).get_numerator().IsNegative()) {</div>
+<div class="line"><span class="lineno">  182</span>             out_positive = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(std::get&lt;Rational&gt;(num-&gt;value()) * <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(-1));</div>
+<div class="line"><span class="lineno">  183</span>             <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  184</span>        }</div>
+<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  186</span>    }</div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> mul = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(arg)) {</div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands().empty()) {</div>
+<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()[0])) {</div>
+<div class="line"><span class="lineno">  190</span>                 <span class="keywordtype">bool</span> is_neg = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  191</span>                 std::shared_ptr&lt;const NumberNode&gt; pos_num = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  192</span>                 <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(num-&gt;value()) &amp;&amp; std::get&lt;lmmc_real_t&gt;(num-&gt;value()) &lt; 0) {</div>
+<div class="line"><span class="lineno">  193</span>                     is_neg = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  194</span>                     pos_num = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(std::abs(std::get&lt;lmmc_real_t&gt;(num-&gt;value())));</div>
+<div class="line"><span class="lineno">  195</span>                 } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value()) &amp;&amp;</div>
+<div class="line"><span class="lineno">  196</span>                            std::get&lt;BigInt&gt;(num-&gt;value()).IsNegative()) {</div>
+<div class="line"><span class="lineno">  197</span>                     is_neg = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  198</span>                     pos_num = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(std::get&lt;BigInt&gt;(num-&gt;value()) * <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>(-1));</div>
+<div class="line"><span class="lineno">  199</span>                 } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value()) &amp;&amp;</div>
+<div class="line"><span class="lineno">  200</span>                            std::get&lt;Rational&gt;(num-&gt;value()).get_numerator().IsNegative()) {</div>
+<div class="line"><span class="lineno">  201</span>                     is_neg = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  202</span>                     pos_num = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(std::get&lt;Rational&gt;(num-&gt;value()) * <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(-1));</div>
+<div class="line"><span class="lineno">  203</span>                 }</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>                 <span class="keywordflow">if</span> (is_neg) {</div>
+<div class="line"><span class="lineno">  206</span>                     std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; new_ops = <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands();</div>
+<div class="line"><span class="lineno">  207</span> </div>
+<div class="line"><span class="lineno">  208</span>                     <span class="keywordtype">bool</span> is_minus_one = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  209</span>                     <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(num-&gt;value())) {</div>
+<div class="line"><span class="lineno">  210</span>                         <span class="keywordtype">int</span> eq_1;</div>
+<div class="line"><span class="lineno">  211</span>                         lmmc_double_nearly_equal_tol(std::get&lt;lmmc_real_t&gt;(num-&gt;value()), -1.0, 1e-9, 1e-9, &amp;eq_1);</div>
+<div class="line"><span class="lineno">  212</span>                         is_minus_one = (eq_1 != 0);</div>
+<div class="line"><span class="lineno">  213</span>                     }</div>
+<div class="line"><span class="lineno">  214</span>                     <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value())) is_minus_one = (std::get&lt;BigInt&gt;(num-&gt;value()) == <a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(-1));</div>
+<div class="line"><span class="lineno">  215</span>                     <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value())) is_minus_one = (std::get&lt;Rational&gt;(num-&gt;value()) == <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(-1));</div>
+<div class="line"><span class="lineno">  216</span> </div>
+<div class="line"><span class="lineno">  217</span>                     <span class="keywordflow">if</span> (is_minus_one) {</div>
+<div class="line"><span class="lineno">  218</span>                         new_ops.erase(new_ops.begin());</div>
+<div class="line"><span class="lineno">  219</span>                         <span class="keywordflow">if</span> (new_ops.empty()) out_positive = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1));</div>
+<div class="line"><span class="lineno">  220</span>                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (new_ops.size() == 1) out_positive = new_ops[0];</div>
+<div class="line"><span class="lineno">  221</span>                         <span class="keywordflow">else</span> out_positive = <a class="code hl_function" href="#a43774f41992d0d9ae71cdf30d037e223">make_normalized_multiply_node</a>(new_ops);</div>
+<div class="line"><span class="lineno">  222</span>                     } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  223</span> </div>
+<div class="line"><span class="lineno">  224</span>                         new_ops[0] = pos_num;</div>
+<div class="line"><span class="lineno">  225</span>                         out_positive = <a class="code hl_function" href="#a43774f41992d0d9ae71cdf30d037e223">make_normalized_multiply_node</a>(new_ops);</div>
+<div class="line"><span class="lineno">  226</span>                     }</div>
+<div class="line"><span class="lineno">  227</span>                     <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  228</span>                 }</div>
+<div class="line"><span class="lineno">  229</span>            }</div>
+<div class="line"><span class="lineno">  230</span>        }</div>
+<div class="line"><span class="lineno">  231</span>    }</div>
+<div class="line"><span class="lineno">  232</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  233</span>}</div>
+<div class="ttc" id="aclassBigInt_html_af677021c0987fc2a48da06837ed29c58"><div class="ttname"><a href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt::BigInt</a></div><div class="ttdeci">BigInt()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d5/dc7/bigint_8cpp_source.html#l00059">bigint.cpp:59</a></div></div>
+<div class="ttc" id="aclassRational_html_a3bbd6ff67c590da76ddfcbd48cd3de0a"><div class="ttname"><a href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational::Rational</a></div><div class="ttdeci">Rational()</div><div class="ttdoc">默认构造，值为 0</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00090">rational.hpp:90</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_ada335511ba75e35d44a3cb620637eaea"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">lamina::lsr::mul</a></div><div class="ttdeci">ExprResult mul(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00405">lsr_expr_facade.cpp:405</a></div></div>
+<div class="ttc" id="anormalization__utils_8hpp_html_a43774f41992d0d9ae71cdf30d037e223"><div class="ttname"><a href="#a43774f41992d0d9ae71cdf30d037e223">make_normalized_multiply_node</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; make_normalized_multiply_node(const std::vector&lt; std::shared_ptr&lt; const SymbolicNode &gt; &gt; &amp;ops)</div><div class="ttdef"><b>定义</b> <a href="../../df/dbf/normalization__utils_8hpp_source.html#l00037">normalization_utils.hpp:37</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d5/dc7/bigint_8cpp_source.html#l00059">BigInt::BigInt()</a>, <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a>, <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00169">check_negative_arg()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a> , 以及 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00037">make_normalized_multiply_node()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00169">check_negative_arg()</a> , 以及 <a class="el" href="../../d7/d7d/normalization__functions_8cpp_source.html#l00331">NormalizationVisitor::visit()</a>.</p>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a56c355f7b3de1b84ce8583f14a5dd163_cgraph.svg" width="100%" height="426"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a56c355f7b3de1b84ce8583f14a5dd163_icgraph.svg" width="367" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af8a991c73ced7db4a24b3c80a6425254" name="af8a991c73ced7db4a24b3c80a6425254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a991c73ced7db4a24b3c80a6425254">&#9670;&#160;</a></span>get_node_degree_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int get_node_degree_helper </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>计算 AST 节点的多项式次数 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>输入节点 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>节点对应的多项式次数 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00019">19</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>                                                                                 {</div>
+<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;const VariableNode&gt;(node)) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   22</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> p = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> e = std::dynamic_pointer_cast&lt;const NumberNode&gt;(p-&gt;exponent())) {</div>
+<div class="line"><span class="lineno">   24</span>             <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">e</a>-&gt;<a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a171951479cd40ed98bf945d9d8c9a64b">value</a>())) <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)std::get&lt;BigInt&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">e</a>-&gt;<a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a171951479cd40ed98bf945d9d8c9a64b">value</a>()).to_int();</div>
+<div class="line"><span class="lineno">   25</span>             <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">e</a>-&gt;<a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a171951479cd40ed98bf945d9d8c9a64b">value</a>())) <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)std::get&lt;lmmc_real_t&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">e</a>-&gt;<a class="code hl_function" href="../../d4/d81/classlamina_1_1Result.html#a171951479cd40ed98bf945d9d8c9a64b">value</a>());</div>
+<div class="line"><span class="lineno">   26</span>        }</div>
+<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   28</span>    }</div>
+<div class="line"><span class="lineno">   29</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> m = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   30</span>        <span class="keywordtype">int</span> d = 0;</div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; op : m-&gt;operands()) d += <a class="code hl_function" href="#af8a991c73ced7db4a24b3c80a6425254">get_node_degree_helper</a>(op);</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">return</span> d;</div>
+<div class="line"><span class="lineno">   33</span>    }</div>
+<div class="line"><span class="lineno">   34</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   35</span>}</div>
+<div class="ttc" id="aclasslamina_1_1Result_html_a171951479cd40ed98bf945d9d8c9a64b"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html#a171951479cd40ed98bf945d9d8c9a64b">lamina::Result::value</a></div><div class="ttdeci">T &amp; value()</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00071">result.hpp:71</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a40f20aa7662c13c015b694d19dcece9d"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a40f20aa7662c13c015b694d19dcece9d">lamina::lsr::e</a></div><div class="ttdeci">ExprResult e()</div><div class="ttdef"><b>定义</b> <a href="../../df/da6/lsr__expr__facade_8cpp_source.html#l00354">lsr_expr_facade.cpp:354</a></div></div>
+<div class="ttc" id="anormalization__utils_8hpp_html_af8a991c73ced7db4a24b3c80a6425254"><div class="ttname"><a href="#af8a991c73ced7db4a24b3c80a6425254">get_node_degree_helper</a></div><div class="ttdeci">int get_node_degree_helper(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdoc">计算 AST 节点的多项式次数</div><div class="ttdef"><b>定义</b> <a href="../../df/dbf/normalization__utils_8hpp_source.html#l00019">normalization_utils.hpp:19</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00019">get_node_degree_helper()</a> , 以及 <a class="el" href="../../de/d80/result_8hpp_source.html#l00071">lamina::Result&lt; T &gt;::value()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00019">get_node_degree_helper()</a> , 以及 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00084">NodeCompare::operator()()</a>.</p>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_af8a991c73ced7db4a24b3c80a6425254_cgraph.svg" width="402" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_af8a991c73ced7db4a24b3c80a6425254_icgraph.svg" width="430" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2b65ee4bb321c9fe617196e139efb972" name="a2b65ee4bb321c9fe617196e139efb972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b65ee4bb321c9fe617196e139efb972">&#9670;&#160;</a></span>get_pi_coeff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool get_pi_coeff </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>k</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>提取节点中 π 的有理系数（如 2π/3 中的 2/3） </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>待检查的节点 </td></tr>
+    <tr><td class="paramname">k</td><td>输出参数，存放 π 的有理系数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>若节点为 k*π 形式则返回 true </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00241">241</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  241</span>                                                                                     {</div>
+<div class="line"><span class="lineno">  242</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> v = std::dynamic_pointer_cast&lt;const VariableNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  243</span>        <span class="keywordflow">if</span> (v-&gt;name() == <span class="stringliteral">&quot;pi&quot;</span>) {</div>
+<div class="line"><span class="lineno">  244</span>            k = <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1);</div>
+<div class="line"><span class="lineno">  245</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  246</span>        }</div>
+<div class="line"><span class="lineno">  247</span>    }</div>
+<div class="line"><span class="lineno">  248</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> mul = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">  249</span>        <span class="keywordtype">bool</span> has_pi = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  250</span>        k = <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(1);</div>
+<div class="line"><span class="lineno">  251</span> </div>
+<div class="line"><span class="lineno">  252</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; op : <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()) {</div>
+<div class="line"><span class="lineno">  253</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> v = std::dynamic_pointer_cast&lt;const VariableNode&gt;(op)) {</div>
+<div class="line"><span class="lineno">  254</span>                <span class="keywordflow">if</span> (v-&gt;name() == <span class="stringliteral">&quot;pi&quot;</span>) {</div>
+<div class="line"><span class="lineno">  255</span>                    <span class="keywordflow">if</span> (has_pi) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  256</span>                    has_pi = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  257</span>                } <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  258</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">auto</span> n = std::dynamic_pointer_cast&lt;const NumberNode&gt;(op)) {</div>
+<div class="line"><span class="lineno">  259</span>                <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(n-&gt;value())) k = k * std::get&lt;Rational&gt;(n-&gt;value());</div>
+<div class="line"><span class="lineno">  260</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(n-&gt;value())) k = k * <a class="code hl_function" href="../../d8/da7/classRational.html#a3bbd6ff67c590da76ddfcbd48cd3de0a">Rational</a>(std::get&lt;BigInt&gt;(n-&gt;value()));</div>
+<div class="line"><span class="lineno">  261</span>                <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  262</span>            } <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  263</span>        }</div>
+<div class="line"><span class="lineno">  264</span>        <span class="keywordflow">return</span> has_pi;</div>
+<div class="line"><span class="lineno">  265</span>    }</div>
+<div class="line"><span class="lineno">  266</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  267</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a> , 以及 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00241">get_pi_coeff()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00241">get_pi_coeff()</a> , 以及 <a class="el" href="../../d7/d7d/normalization__functions_8cpp_source.html#l00331">NormalizationVisitor::visit()</a>.</p>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a2b65ee4bb321c9fe617196e139efb972_cgraph.svg" width="299" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a2b65ee4bb321c9fe617196e139efb972_icgraph.svg" width="316" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a43774f41992d0d9ae71cdf30d037e223" name="a43774f41992d0d9ae71cdf30d037e223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43774f41992d0d9ae71cdf30d037e223">&#9670;&#160;</a></span>make_normalized_multiply_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; make_normalized_multiply_node </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ops</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00037">37</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   38</span>                                                             {</div>
+<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">if</span> (ops.empty()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(<a class="code hl_function" href="../../da/d5b/classBigInt.html#af677021c0987fc2a48da06837ed29c58">BigInt</a>(1));</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">if</span> (ops.size() == 1) <span class="keywordflow">return</span> ops[0];</div>
+<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;MultiplyNode&gt;</a>(ops);</div>
+<div class="line"><span class="lineno">   42</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d5/dc7/bigint_8cpp_source.html#l00059">BigInt::BigInt()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a> , 以及 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00037">make_normalized_multiply_node()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00169">check_negative_arg()</a>, <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00008">NormalizationVisitor::expand_product()</a>, <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00037">make_normalized_multiply_node()</a>, <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00049">norm_subst_index()</a>, <a class="el" href="../../d7/d7d/normalization__functions_8cpp_source.html#l00763">NormalizationVisitor::try_assumption_simplify()</a>, <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00163">NormalizationVisitor::visit()</a>, <a class="el" href="../../d7/d7d/normalization__functions_8cpp_source.html#l00331">NormalizationVisitor::visit()</a>, <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00361">NormalizationVisitor::visit()</a>, <a class="el" href="../../d7/d7d/normalization__functions_8cpp_source.html#l00004">NormalizationVisitor::visit()</a> , 以及 <a class="el" href="../../d2/dff/normalization__structural_8cpp_source.html#l00176">NormalizationVisitor::visit()</a>.</p>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a43774f41992d0d9ae71cdf30d037e223_cgraph.svg" width="492" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a43774f41992d0d9ae71cdf30d037e223_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aac83f3462a4dd9cfc6910b75124aac93" name="aac83f3462a4dd9cfc6910b75124aac93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac83f3462a4dd9cfc6910b75124aac93">&#9670;&#160;</a></span>multiply_numbers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; multiply_numbers </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dea/classNumberNode.html">NumberNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>两个数值节点相乘 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>乘数节点 </td></tr>
+    <tr><td class="paramname">b</td><td>乘数节点 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>积的数值节点 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00140">140</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>                                                                                                                                            {</div>
+<div class="line"><span class="lineno">  141</span>     <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(a-&gt;value()) || std::holds_alternative&lt;lmmc_real_t&gt;(b-&gt;value())) {</div>
+<div class="line"><span class="lineno">  142</span>         lmmc_real_t v1 = std::holds_alternative&lt;lmmc_real_t&gt;(a-&gt;value()) ? std::get&lt;lmmc_real_t&gt;(a-&gt;value()) :</div>
+<div class="line"><span class="lineno">  143</span>                     (std::holds_alternative&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(a-&gt;value()) ? (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(a-&gt;value()).to_double() : (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(a-&gt;value()).to_double());</div>
+<div class="line"><span class="lineno">  144</span>         lmmc_real_t v2 = std::holds_alternative&lt;lmmc_real_t&gt;(b-&gt;value()) ? std::get&lt;lmmc_real_t&gt;(b-&gt;value()) :</div>
+<div class="line"><span class="lineno">  145</span>                     (std::holds_alternative&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(b-&gt;value()) ? (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&gt;(b-&gt;value()).to_double() : (lmmc_real_t)std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(b-&gt;value()).to_double());</div>
+<div class="line"><span class="lineno">  146</span>         lmmc_real_t prod = v1 * v2;</div>
+<div class="line"><span class="lineno">  147</span>         <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(prod);</div>
+<div class="line"><span class="lineno">  148</span>     }</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>     <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(a-&gt;value()) || std::holds_alternative&lt;Rational&gt;(b-&gt;value())) {</div>
+<div class="line"><span class="lineno">  151</span>         <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> r1 = std::holds_alternative&lt;Rational&gt;(a-&gt;value()) ? std::get&lt;Rational&gt;(a-&gt;value()) :</div>
+<div class="line"><span class="lineno">  152</span>                       (std::holds_alternative&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(a-&gt;value()) ? <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(a-&gt;value())) : <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(1));</div>
+<div class="line"><span class="lineno">  153</span>         <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> r2 = std::holds_alternative&lt;Rational&gt;(b-&gt;value()) ? std::get&lt;Rational&gt;(b-&gt;value()) :</div>
+<div class="line"><span class="lineno">  154</span>                       (std::holds_alternative&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(b-&gt;value()) ? <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(std::get&lt;<a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a>&gt;(b-&gt;value())) : <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>(1));</div>
+<div class="line"><span class="lineno">  155</span>         <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(r1 * r2);</div>
+<div class="line"><span class="lineno">  156</span>     }</div>
+<div class="line"><span class="lineno">  157</span> </div>
+<div class="line"><span class="lineno">  158</span>     <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> i1 = std::get&lt;BigInt&gt;(a-&gt;value());</div>
+<div class="line"><span class="lineno">  159</span>     <a class="code hl_class" href="../../da/d5b/classBigInt.html">BigInt</a> i2 = std::get&lt;BigInt&gt;(b-&gt;value());</div>
+<div class="line"><span class="lineno">  160</span>     <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;NumberNode&gt;</a>(i1 * i2);</div>
+<div class="line"><span class="lineno">  161</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/de8/rational_8hpp_source.html#l00090">Rational::Rational()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a> , 以及 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00140">multiply_numbers()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00008">NormalizationVisitor::expand_product()</a>, <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00140">multiply_numbers()</a> , 以及 <a class="el" href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00361">NormalizationVisitor::visit()</a>.</p>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_aac83f3462a4dd9cfc6910b75124aac93_cgraph.svg" width="394" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_aac83f3462a4dd9cfc6910b75124aac93_icgraph.svg" width="551" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1b7c41c18c2cc83eb5cd078383122011" name="a1b7c41c18c2cc83eb5cd078383122011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7c41c18c2cc83eb5cd078383122011">&#9670;&#160;</a></span>norm_subst_index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; norm_subst_index </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>index_var</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>将节点树中名为 index_var 的变量替换为指定数值（用于展开有限求和/连乘）。 </p>
+<p>仅处理求和展开所需的节点类型；嵌套的 Summation/Product 若使用同名指标则不深入其绑定体。 </p>
+<p>其它节点类型：保守地原样克隆</p>
+
+<p class="definition">在文件 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html">normalization_utils.hpp</a> 第 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00049">49</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>                                                    {</div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">if</span> (!node) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a>;</div>
+<div class="line"><span class="lineno">   54</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> v = std::dynamic_pointer_cast&lt;const VariableNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">if</span> (v-&gt;name() == index_var) <span class="keywordflow">return</span> value-&gt;<a class="code hl_function" href="../../dc/dc3/classSymbolicNode.html#a6dd0d2bc8d0dd9f0720f1a083a7ef746">clone</a>();</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a>-&gt;<a class="code hl_function" href="../../dc/dc3/classSymbolicNode.html#a6dd0d2bc8d0dd9f0720f1a083a7ef746">clone</a>();</div>
+<div class="line"><span class="lineno">   57</span>    }</div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;const NumberNode&gt;(node)) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a>-&gt;<a class="code hl_function" href="../../dc/dc3/classSymbolicNode.html#a6dd0d2bc8d0dd9f0720f1a083a7ef746">clone</a>();</div>
+<div class="line"><span class="lineno">   59</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> a = std::dynamic_pointer_cast&lt;const AddNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   60</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; ops;</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; op : a-&gt;operands()) ops.push_back(<a class="code hl_function" href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a>(op, index_var, value));</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;AddNode&gt;</a>(ops);</div>
+<div class="line"><span class="lineno">   63</span>    }</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> m = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   65</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; ops;</div>
+<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; op : m-&gt;operands()) ops.push_back(<a class="code hl_function" href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a>(op, index_var, value));</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="#a43774f41992d0d9ae71cdf30d037e223">make_normalized_multiply_node</a>(ops);</div>
+<div class="line"><span class="lineno">   68</span>    }</div>
+<div class="line"><span class="lineno">   69</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> p = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;PowerNode&gt;</a>(</div>
+<div class="line"><span class="lineno">   71</span>            <a class="code hl_function" href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a>(p-&gt;base(), index_var, value),</div>
+<div class="line"><span class="lineno">   72</span>            <a class="code hl_function" href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a>(p-&gt;exponent(), index_var, value));</div>
+<div class="line"><span class="lineno">   73</span>    }</div>
+<div class="line"><span class="lineno">   74</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> f = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(node)) {</div>
+<div class="line"><span class="lineno">   75</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; args;</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; arg : f-&gt;arguments()) args.push_back(<a class="code hl_function" href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a>(arg, index_var, value));</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(f-&gt;type(), args);</div>
+<div class="line"><span class="lineno">   78</span>    }<span class="comment"></span></div>
+<div class="line"><span class="lineno">   79</span><span class="comment">    /// 其它节点类型：保守地原样克隆</span></div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">node</a>-&gt;<a class="code hl_function" href="../../dc/dc3/classSymbolicNode.html#a6dd0d2bc8d0dd9f0720f1a083a7ef746">clone</a>();</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+<div class="ttc" id="aclassSymbolicNode_html_a6dd0d2bc8d0dd9f0720f1a083a7ef746"><div class="ttname"><a href="../../dc/dc3/classSymbolicNode.html#a6dd0d2bc8d0dd9f0720f1a083a7ef746">SymbolicNode::clone</a></div><div class="ttdeci">virtual std::shared_ptr&lt; const SymbolicNode &gt; clone() const =0</div><div class="ttdoc">深拷贝当前节点及其子树。</div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a9e31448c7d53c33d5be1a6bd9a631cbf"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00082">base.hpp:82</a></div></div>
+<div class="ttc" id="anormalization__utils_8hpp_html_a1b7c41c18c2cc83eb5cd078383122011"><div class="ttname"><a href="#a1b7c41c18c2cc83eb5cd078383122011">norm_subst_index</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; norm_subst_index(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, const std::string &amp;index_var, const std::shared_ptr&lt; const SymbolicNode &gt; &amp;value)</div><div class="ttdoc">将节点树中名为 index_var 的变量替换为指定数值（用于展开有限求和/连乘）。</div><div class="ttdef"><b>定义</b> <a href="../../df/dbf/normalization__utils_8hpp_source.html#l00049">normalization_utils.hpp:49</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dc/dc3/classSymbolicNode.html#a6dd0d2bc8d0dd9f0720f1a083a7ef746">SymbolicNode::clone()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00114">lamina::detail::make_node()</a>, <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00037">make_normalized_multiply_node()</a> , 以及 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00049">norm_subst_index()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../df/dbf/normalization__utils_8hpp_source.html#l00049">norm_subst_index()</a>, <a class="el" href="../../d2/dff/normalization__structural_8cpp_source.html#l00176">NormalizationVisitor::visit()</a> , 以及 <a class="el" href="../../d2/dff/normalization__structural_8cpp_source.html#l00140">NormalizationVisitor::visit()</a>.</p>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a1b7c41c18c2cc83eb5cd078383122011_cgraph.svg" width="100%" height="421"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dbf/normalization__utils_8hpp_a1b7c41c18c2cc83eb5cd078383122011_icgraph.svg" width="356" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_3756d50f4003bc63fa3fe49460f9c79d.html">internal</a></li><li class="navelem"><a href="../../df/dbf/normalization__utils_8hpp.html">normalization_utils.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

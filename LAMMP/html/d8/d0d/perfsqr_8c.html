@@ -1,0 +1,1334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAMMP: src/lammp/numth/perfsqr.c 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LAMMP<span id="projectnumber">&#160;4.2.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d8/d0d/perfsqr_8c.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">perfsqr.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d8/daa/tmp__alloc_8h_source.html">../../../include/lammp/impl/tmp_alloc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/da4/numth_8h_source.html">../../../include/lammp/numth.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d39/lmmpn_8h_source.html">../../../include/lammp/lmmpn.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>perfsqr.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dd/d89/perfsqr_8c__incl.svg" width="523" height="271"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="../../d8/d0d/perfsqr_8c_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a122eff5e4a028dd4c224febaf379951e" id="r_a122eff5e4a028dd4c224febaf379951e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="el" href="../../d4/dbe/divexact_8c.html#aafc737ea9ef91f59cf9acd287fb8d085">c</a>,  a,  val)</td></tr>
+<tr class="memitem:a7b21d6a6a4573b4997b1f04b01cd4efb" id="r_a7b21d6a6a4573b4997b1f04b01cd4efb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a>&#160;&#160;&#160;(<a class="el" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a> / 4)</td></tr>
+<tr class="memitem:a6945d50f798e1fde624d70c74457090e" id="r_a6945d50f798e1fde624d70c74457090e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6945d50f798e1fde624d70c74457090e">B2</a>&#160;&#160;&#160;(<a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a> * 2)</td></tr>
+<tr class="memitem:ae6ac0edb1e2c9c7672ab9488d8b65be9" id="r_ae6ac0edb1e2c9c7672ab9488d8b65be9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a>&#160;&#160;&#160;(<a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a> * 3)</td></tr>
+<tr class="memitem:a5968d9e9bf016ac25bd0e4a657955b3c" id="r_a5968d9e9bf016ac25bd0e4a657955b3c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5968d9e9bf016ac25bd0e4a657955b3c">HIGH0</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:a5e6a5e553352969e9a3b431a7c6cdc83" id="r_a5e6a5e553352969e9a3b431a7c6cdc83"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5e6a5e553352969e9a3b431a7c6cdc83">HIGH1</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:a7e0e5daebcede0ea425b29e26bc19d4f" id="r_a7e0e5daebcede0ea425b29e26bc19d4f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7e0e5daebcede0ea425b29e26bc19d4f">HIGH2</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:a94d4d1b3c126954051626723f97bd2b7" id="r_a94d4d1b3c126954051626723f97bd2b7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a94d4d1b3c126954051626723f97bd2b7">LOW0</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:ac19c562d45a6a51b87e450ef263e9f20" id="r_ac19c562d45a6a51b87e450ef263e9f20"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac19c562d45a6a51b87e450ef263e9f20">LOW1</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:aeea7ca36beb71689ca9bdaff26c3b6c6" id="r_aeea7ca36beb71689ca9bdaff26c3b6c6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aeea7ca36beb71689ca9bdaff26c3b6c6">LOW2</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:ac597abe7cf610f262f7aaec53ed1d413" id="r_ac597abe7cf610f262f7aaec53ed1d413"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac597abe7cf610f262f7aaec53ed1d413">M1</a>&#160;&#160;&#160;((1ULL &lt;&lt; <a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a>) - 1)</td></tr>
+<tr class="memitem:a2a187ef3afced0eb4c4cb99515e5429c" id="r_a2a187ef3afced0eb4c4cb99515e5429c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2a187ef3afced0eb4c4cb99515e5429c">M2</a>&#160;&#160;&#160;((1ULL &lt;&lt; <a class="el" href="#a6945d50f798e1fde624d70c74457090e">B2</a>) - 1)</td></tr>
+<tr class="memitem:ad801d72bd01ef1ac9b86dbf4de0d355d" id="r_ad801d72bd01ef1ac9b86dbf4de0d355d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad801d72bd01ef1ac9b86dbf4de0d355d">M3</a>&#160;&#160;&#160;((1ULL &lt;&lt; <a class="el" href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a>) - 1)</td></tr>
+<tr class="memitem:a194a6e1583fedf2054046ed05c64f8de" id="r_a194a6e1583fedf2054046ed05c64f8de"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>&#160;&#160;&#160;(0xFFFFFFFFFFFF)</td></tr>
+<tr class="memdesc:a194a6e1583fedf2054046ed05c64f8de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright (C) 2026 HJimmyK(Jericho Knox)  <br /></td></tr>
+<tr class="memitem:a1abfefd231ba550bc6a8722ee4441b09" id="r_a1abfefd231ba550bc6a8722ee4441b09"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:ab78e8d4a51b69776c2b8e4e6e9828c8c" id="r_ab78e8d4a51b69776c2b8e4e6e9828c8c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+<tr class="memitem:aef3728ca7a651a456ed28717049be46a" id="r_aef3728ca7a651a456ed28717049be46a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aef3728ca7a651a456ed28717049be46a">PARTS2</a>(<a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aaa5696afeeb4e11e722175f5e208fd41" id="r_aaa5696afeeb4e11e722175f5e208fd41"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:a439e4f47d5eb1fadc5e9a3cea3370d2c" id="r_a439e4f47d5eb1fadc5e9a3cea3370d2c"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:a25ee624514f4f3a05e2fabb8d65cbebc" id="r_a25ee624514f4f3a05e2fabb8d65cbebc"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a> (<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> r)</td></tr>
+<tr class="memitem:a4aed5afb63a10feede63166f3dae3efe" id="r_a4aed5afb63a10feede63166f3dae3efe"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:ab85c40a1aeb85cb29075e20b8a8d23f0" id="r_ab85c40a1aeb85cb29075e20b8a8d23f0"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a> (<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> r)</td></tr>
+<tr class="memitem:ae10cdeec4d3bc4dc1c1c8db02eabadd8" id="r_ae10cdeec4d3bc4dc1c1c8db02eabadd8"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:a7bb98a25b2e18df71690793a3fef5770" id="r_a7bb98a25b2e18df71690793a3fef5770"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a> (<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> r)</td></tr>
+<tr class="memitem:a0f25c59a1877fdbe98f34b4bb90111ed" id="r_a0f25c59a1877fdbe98f34b4bb90111ed"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:ac016feb0003381e6f54b0bd44089eced" id="r_ac016feb0003381e6f54b0bd44089eced"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:ae8c112ff5c8d94124786fee91ef87790" id="r_ae8c112ff5c8d94124786fee91ef87790"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a> (<a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> r)</td></tr>
+<tr class="memitem:ad59b0cc86c62d3c2ae0530ab29b0bb33" id="r_ad59b0cc86c62d3c2ae0530ab29b0bb33"><td class="memItemLeft"><a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad59b0cc86c62d3c2ae0530ab29b0bb33">lmmp_mod_2p48sub1_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> n)</td></tr>
+<tr class="memdesc:ad59b0cc86c62d3c2ae0530ab29b0bb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算 [p,n] % 2^48-1  <br /></td></tr>
+<tr class="memitem:a8ebd5368944d807d16767547260a671e" id="r_a8ebd5368944d807d16767547260a671e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8ebd5368944d807d16767547260a671e">lmmp_perfsqr_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> n)</td></tr>
+<tr class="memdesc:a8ebd5368944d807d16767547260a671e"><td class="mdescLeft">&#160;</td><td class="mdescRight">判断[p,n]是否为完全平方数  <br /></td></tr>
+<tr class="memitem:af6fd8351626fa438e87e41d3d32bdb3b" id="r_af6fd8351626fa438e87e41d3d32bdb3b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af6fd8351626fa438e87e41d3d32bdb3b">lmmp_perfsqr_filter_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> n)</td></tr>
+<tr class="memdesc:af6fd8351626fa438e87e41d3d32bdb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">非完全平方数过滤器  <br /></td></tr>
+<tr class="memitem:a36c6b408cfdefc5bba5e90354208f8a5" id="r_a36c6b408cfdefc5bba5e90354208f8a5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a36c6b408cfdefc5bba5e90354208f8a5">lmmp_perfsqr_filter_1_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> p)</td></tr>
+<tr class="memdesc:a36c6b408cfdefc5bba5e90354208f8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">非完全平方数过滤器  <br /></td></tr>
+</table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">宏定义说明</h2>
+<a id="a122eff5e4a028dd4c224febaf379951e" name="a122eff5e4a028dd4c224febaf379951e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122eff5e4a028dd4c224febaf379951e">&#9670;&#160;</a></span>ADD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ADD</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d4/dbe/divexact_8c.html#aafc737ea9ef91f59cf9acd287fb8d085">c</a></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                               \</div>
+<div class="line">    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> new_a = (a) + (val); \</div>
+<div class="line">    (<a class="code hl_define" href="../../d4/dbe/divexact_8c.html#aafc737ea9ef91f59cf9acd287fb8d085">c</a>) += new_a &lt; (a);            \</div>
+<div class="line">    (a) = new_a;                   \</div>
+<div class="line">} <span class="keywordflow">while</span> (0)</div>
+<div class="ttc" id="adivexact_8c_html_aafc737ea9ef91f59cf9acd287fb8d085"><div class="ttname"><a href="../../d4/dbe/divexact_8c.html#aafc737ea9ef91f59cf9acd287fb8d085">c</a></div><div class="ttdeci">#define c</div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00113">lmmp.h:113</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00045">45</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>.</p>
+
+</div>
+</div>
+<a id="a7b21d6a6a4573b4997b1f04b01cd4efb" name="a7b21d6a6a4573b4997b1f04b01cd4efb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b21d6a6a4573b4997b1f04b01cd4efb">&#9670;&#160;</a></span>B1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define B1&#160;&#160;&#160;(<a class="el" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a> / 4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00023">23</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a6945d50f798e1fde624d70c74457090e" name="a6945d50f798e1fde624d70c74457090e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6945d50f798e1fde624d70c74457090e">&#9670;&#160;</a></span>B2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define B2&#160;&#160;&#160;(<a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a> * 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00024">24</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae6ac0edb1e2c9c7672ab9488d8b65be9" name="ae6ac0edb1e2c9c7672ab9488d8b65be9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">&#9670;&#160;</a></span>B3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define B3&#160;&#160;&#160;(<a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a> * 3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00025">25</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>.</p>
+
+</div>
+</div>
+<a id="a5968d9e9bf016ac25bd0e4a657955b3c" name="a5968d9e9bf016ac25bd0e4a657955b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5968d9e9bf016ac25bd0e4a657955b3c">&#9670;&#160;</a></span>HIGH0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HIGH0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) &gt;&gt; <a class="code hl_define" href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a>)</div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="aperfsqr_8c_html_ae6ac0edb1e2c9c7672ab9488d8b65be9"><div class="ttname"><a href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a></div><div class="ttdeci">#define B3</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00025">perfsqr.c:25</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00032">32</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a5e6a5e553352969e9a3b431a7c6cdc83" name="a5e6a5e553352969e9a3b431a7c6cdc83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e6a5e553352969e9a3b431a7c6cdc83">&#9670;&#160;</a></span>HIGH1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HIGH1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) &gt;&gt; <a class="code hl_define" href="#a6945d50f798e1fde624d70c74457090e">B2</a>)</div>
+<div class="ttc" id="aperfsqr_8c_html_a6945d50f798e1fde624d70c74457090e"><div class="ttname"><a href="#a6945d50f798e1fde624d70c74457090e">B2</a></div><div class="ttdeci">#define B2</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00024">perfsqr.c:24</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00035">35</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a7e0e5daebcede0ea425b29e26bc19d4f" name="a7e0e5daebcede0ea425b29e26bc19d4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e0e5daebcede0ea425b29e26bc19d4f">&#9670;&#160;</a></span>HIGH2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HIGH2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) &gt;&gt; <a class="code hl_define" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a>)</div>
+<div class="ttc" id="aperfsqr_8c_html_a7b21d6a6a4573b4997b1f04b01cd4efb"><div class="ttname"><a href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a></div><div class="ttdeci">#define B1</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00023">perfsqr.c:23</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00038">38</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a94d4d1b3c126954051626723f97bd2b7" name="a94d4d1b3c126954051626723f97bd2b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d4d1b3c126954051626723f97bd2b7">&#9670;&#160;</a></span>LOW0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOW0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) &amp; <a class="code hl_define" href="#ad801d72bd01ef1ac9b86dbf4de0d355d">M3</a>)</div>
+<div class="ttc" id="aperfsqr_8c_html_ad801d72bd01ef1ac9b86dbf4de0d355d"><div class="ttname"><a href="#ad801d72bd01ef1ac9b86dbf4de0d355d">M3</a></div><div class="ttdeci">#define M3</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00029">perfsqr.c:29</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00031">31</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac19c562d45a6a51b87e450ef263e9f20" name="ac19c562d45a6a51b87e450ef263e9f20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac19c562d45a6a51b87e450ef263e9f20">&#9670;&#160;</a></span>LOW1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOW1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">(((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) &amp; <a class="code hl_define" href="#a2a187ef3afced0eb4c4cb99515e5429c">M2</a>) &lt;&lt; <a class="code hl_define" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a>)</div>
+<div class="ttc" id="aperfsqr_8c_html_a2a187ef3afced0eb4c4cb99515e5429c"><div class="ttname"><a href="#a2a187ef3afced0eb4c4cb99515e5429c">M2</a></div><div class="ttdeci">#define M2</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00028">perfsqr.c:28</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00034">34</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aeea7ca36beb71689ca9bdaff26c3b6c6" name="aeea7ca36beb71689ca9bdaff26c3b6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea7ca36beb71689ca9bdaff26c3b6c6">&#9670;&#160;</a></span>LOW2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOW2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">(((<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) &amp; <a class="code hl_define" href="#ac597abe7cf610f262f7aaec53ed1d413">M1</a>) &lt;&lt; <a class="code hl_define" href="#a6945d50f798e1fde624d70c74457090e">B2</a>)</div>
+<div class="ttc" id="aperfsqr_8c_html_ac597abe7cf610f262f7aaec53ed1d413"><div class="ttname"><a href="#ac597abe7cf610f262f7aaec53ed1d413">M1</a></div><div class="ttdeci">#define M1</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00027">perfsqr.c:27</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00037">37</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac597abe7cf610f262f7aaec53ed1d413" name="ac597abe7cf610f262f7aaec53ed1d413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac597abe7cf610f262f7aaec53ed1d413">&#9670;&#160;</a></span>M1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define M1&#160;&#160;&#160;((1ULL &lt;&lt; <a class="el" href="#a7b21d6a6a4573b4997b1f04b01cd4efb">B1</a>) - 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00027">27</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2a187ef3afced0eb4c4cb99515e5429c" name="a2a187ef3afced0eb4c4cb99515e5429c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a187ef3afced0eb4c4cb99515e5429c">&#9670;&#160;</a></span>M2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define M2&#160;&#160;&#160;((1ULL &lt;&lt; <a class="el" href="#a6945d50f798e1fde624d70c74457090e">B2</a>) - 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00028">28</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad801d72bd01ef1ac9b86dbf4de0d355d" name="ad801d72bd01ef1ac9b86dbf4de0d355d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad801d72bd01ef1ac9b86dbf4de0d355d">&#9670;&#160;</a></span>M3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define M3&#160;&#160;&#160;((1ULL &lt;&lt; <a class="el" href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a>) - 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00029">29</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a194a6e1583fedf2054046ed05c64f8de" name="a194a6e1583fedf2054046ed05c64f8de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194a6e1583fedf2054046ed05c64f8de">&#9670;&#160;</a></span>MASK48</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MASK48&#160;&#160;&#160;(0xFFFFFFFFFFFF)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copyright (C) 2026 HJimmyK(Jericho Knox) </p>
+<p>This file is part of LAMMP.</p>
+<p>LAMMP is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License (LGPL) as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed WITHOUT ANY WARRANTY.</p>
+<p>See <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00021">21</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+
+</div>
+</div>
+<a id="a1abfefd231ba550bc6a8722ee4441b09" name="a1abfefd231ba550bc6a8722ee4441b09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1abfefd231ba550bc6a8722ee4441b09">&#9670;&#160;</a></span>PARTS0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARTS0</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="#a94d4d1b3c126954051626723f97bd2b7">LOW0</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) + <a class="code hl_define" href="#a5968d9e9bf016ac25bd0e4a657955b3c">HIGH0</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>))</div>
+<div class="ttc" id="aperfsqr_8c_html_a5968d9e9bf016ac25bd0e4a657955b3c"><div class="ttname"><a href="#a5968d9e9bf016ac25bd0e4a657955b3c">HIGH0</a></div><div class="ttdeci">#define HIGH0(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00032">perfsqr.c:32</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a94d4d1b3c126954051626723f97bd2b7"><div class="ttname"><a href="#a94d4d1b3c126954051626723f97bd2b7">LOW0</a></div><div class="ttdeci">#define LOW0(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00031">perfsqr.c:31</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00040">40</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>.</p>
+
+</div>
+</div>
+<a id="ab78e8d4a51b69776c2b8e4e6e9828c8c" name="ab78e8d4a51b69776c2b8e4e6e9828c8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab78e8d4a51b69776c2b8e4e6e9828c8c">&#9670;&#160;</a></span>PARTS1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARTS1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="#ac19c562d45a6a51b87e450ef263e9f20">LOW1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) + <a class="code hl_define" href="#a5e6a5e553352969e9a3b431a7c6cdc83">HIGH1</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>))</div>
+<div class="ttc" id="aperfsqr_8c_html_a5e6a5e553352969e9a3b431a7c6cdc83"><div class="ttname"><a href="#a5e6a5e553352969e9a3b431a7c6cdc83">HIGH1</a></div><div class="ttdeci">#define HIGH1(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00035">perfsqr.c:35</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ac19c562d45a6a51b87e450ef263e9f20"><div class="ttname"><a href="#ac19c562d45a6a51b87e450ef263e9f20">LOW1</a></div><div class="ttdeci">#define LOW1(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00034">perfsqr.c:34</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00041">41</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>.</p>
+
+</div>
+</div>
+<a id="aef3728ca7a651a456ed28717049be46a" name="aef3728ca7a651a456ed28717049be46a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef3728ca7a651a456ed28717049be46a">&#9670;&#160;</a></span>PARTS2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARTS2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="#aeea7ca36beb71689ca9bdaff26c3b6c6">LOW2</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) + <a class="code hl_define" href="#a7e0e5daebcede0ea425b29e26bc19d4f">HIGH2</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>))</div>
+<div class="ttc" id="aperfsqr_8c_html_a7e0e5daebcede0ea425b29e26bc19d4f"><div class="ttname"><a href="#a7e0e5daebcede0ea425b29e26bc19d4f">HIGH2</a></div><div class="ttdeci">#define HIGH2(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00038">perfsqr.c:38</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_aeea7ca36beb71689ca9bdaff26c3b6c6"><div class="ttname"><a href="#aeea7ca36beb71689ca9bdaff26c3b6c6">LOW2</a></div><div class="ttdeci">#define LOW2(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00037">perfsqr.c:37</a></div></div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00042">42</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="aaa5696afeeb4e11e722175f5e208fd41" name="aaa5696afeeb4e11e722175f5e208fd41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa5696afeeb4e11e722175f5e208fd41">&#9670;&#160;</a></span>is_perfsqr_p13()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p13 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00123">123</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  123</span>                                           {</div>
+<div class="line"><span class="lineno">  124</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 3 || r == 4 || r == 9 || r == 10 || r == 12;</div>
+<div class="line"><span class="lineno">  125</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00123">is_perfsqr_p13()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00123">is_perfsqr_p13()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_aaa5696afeeb4e11e722175f5e208fd41_cgraph.svg" width="128" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_aaa5696afeeb4e11e722175f5e208fd41_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a439e4f47d5eb1fadc5e9a3cea3370d2c" name="a439e4f47d5eb1fadc5e9a3cea3370d2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a439e4f47d5eb1fadc5e9a3cea3370d2c">&#9670;&#160;</a></span>is_perfsqr_p17()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p17 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00127">127</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  127</span>                                           {</div>
+<div class="line"><span class="lineno">  128</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 2 || r == 4 || r == 8 || r == 9 || r == 13 || r == 15 || r == 16;</div>
+<div class="line"><span class="lineno">  129</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00127">is_perfsqr_p17()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00127">is_perfsqr_p17()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a439e4f47d5eb1fadc5e9a3cea3370d2c_cgraph.svg" width="128" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a439e4f47d5eb1fadc5e9a3cea3370d2c_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a25ee624514f4f3a05e2fabb8d65cbebc" name="a25ee624514f4f3a05e2fabb8d65cbebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25ee624514f4f3a05e2fabb8d65cbebc">&#9670;&#160;</a></span>is_perfsqr_p241()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p241 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00139">139</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  139</span>                                             {</div>
+<div class="line"><span class="lineno">  140</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p241[] = {0x3C67A3116B15977F, 0x2FD21C174C8FA909, 0x98F24257C4CBA0E1, 0x0001FBA6A35A2317};</div>
+<div class="line"><span class="lineno">  141</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><span class="lineno">  142</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 4);</div>
+<div class="line"><span class="lineno">  143</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><span class="lineno">  144</span>    <span class="keywordflow">return</span> (p241[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><span class="lineno">  145</span>}</div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp.h:496</a></div></div>
+<div class="ttc" id="anumth_8h_html_a9e58a7bf060b7a5fbf6a401d3020adca"><div class="ttname"><a href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></div><div class="ttdeci">uint16_t ushort</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00029">numth.h:29</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00139">is_perfsqr_p241()</a> , 以及 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00139">is_perfsqr_p241()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a25ee624514f4f3a05e2fabb8d65cbebc_cgraph.svg" width="136" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a25ee624514f4f3a05e2fabb8d65cbebc_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a4aed5afb63a10feede63166f3dae3efe" name="a4aed5afb63a10feede63166f3dae3efe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aed5afb63a10feede63166f3dae3efe">&#9670;&#160;</a></span>is_perfsqr_p256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p256 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00166">166</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  166</span>                                            {</div>
+<div class="line"><span class="lineno">  167</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p256[] = {0x0202021202030213, 0x0202021202020213, 0x0202021202030212, 0x0202021202020212};</div>
+<div class="line"><span class="lineno">  168</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><span class="lineno">  169</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 4);</div>
+<div class="line"><span class="lineno">  170</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><span class="lineno">  171</span>    <span class="keywordflow">return</span> (p256[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><span class="lineno">  172</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00166">is_perfsqr_p256()</a> , 以及 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00166">is_perfsqr_p256()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a4aed5afb63a10feede63166f3dae3efe_cgraph.svg" width="136" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a4aed5afb63a10feede63166f3dae3efe_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab85c40a1aeb85cb29075e20b8a8d23f0" name="ab85c40a1aeb85cb29075e20b8a8d23f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab85c40a1aeb85cb29075e20b8a8d23f0">&#9670;&#160;</a></span>is_perfsqr_p257()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p257 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00147">147</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  147</span>                                             {</div>
+<div class="line"><span class="lineno">  148</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p257[] = {0x7E16541DE6E7AB17, 0x1F76811C93128359, 0x6B052324E205BBE3, 0xA3579D9EE0A9A1FA,</div>
+<div class="line"><span class="lineno">  149</span>                                     0x0000000000000001};</div>
+<div class="line"><span class="lineno">  150</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><span class="lineno">  151</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 5);</div>
+<div class="line"><span class="lineno">  152</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">return</span> (p257[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><span class="lineno">  154</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00147">is_perfsqr_p257()</a> , 以及 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00147">is_perfsqr_p257()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ab85c40a1aeb85cb29075e20b8a8d23f0_cgraph.svg" width="136" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ab85c40a1aeb85cb29075e20b8a8d23f0_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ae10cdeec4d3bc4dc1c1c8db02eabadd8" name="ae10cdeec4d3bc4dc1c1c8db02eabadd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae10cdeec4d3bc4dc1c1c8db02eabadd8">&#9670;&#160;</a></span>is_perfsqr_p5()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p5 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00115">115</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  115</span>                                          {</div>
+<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 4;</div>
+<div class="line"><span class="lineno">  117</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00115">is_perfsqr_p5()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00115">is_perfsqr_p5()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ae10cdeec4d3bc4dc1c1c8db02eabadd8_cgraph.svg" width="120" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ae10cdeec4d3bc4dc1c1c8db02eabadd8_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7bb98a25b2e18df71690793a3fef5770" name="a7bb98a25b2e18df71690793a3fef5770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb98a25b2e18df71690793a3fef5770">&#9670;&#160;</a></span>is_perfsqr_p673()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p673 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00156">156</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>                                             {</div>
+<div class="line"><span class="lineno">  157</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint64_t p673[] = {0x85F744B13FA573DF, 0xC231D5979ABA4F21, 0xE944C76E98DD0C01, 0xD20E0F2BD993E915,</div>
+<div class="line"><span class="lineno">  158</span>                                     0x616259FB225208AB, 0x7E691A18F8B7B47C, 0x53C1C12F54412913, 0xDB8C8A5EA25F266F,</div>
+<div class="line"><span class="lineno">  159</span>                                     0xA6AE310E00C2EC65, 0x348BBE8613C97567, 0x00000001EF3A97F2};</div>
+<div class="line"><span class="lineno">  160</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> elem = r / 64;</div>
+<div class="line"><span class="lineno">  161</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(elem &lt; 11);</div>
+<div class="line"><span class="lineno">  162</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> bit = r % 64;</div>
+<div class="line"><span class="lineno">  163</span>    <span class="keywordflow">return</span> (p673[elem] &gt;&gt; bit) &amp; 1ULL;</div>
+<div class="line"><span class="lineno">  164</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00156">is_perfsqr_p673()</a> , 以及 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00156">is_perfsqr_p673()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a7bb98a25b2e18df71690793a3fef5770_cgraph.svg" width="136" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a7bb98a25b2e18df71690793a3fef5770_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0f25c59a1877fdbe98f34b4bb90111ed" name="a0f25c59a1877fdbe98f34b4bb90111ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f25c59a1877fdbe98f34b4bb90111ed">&#9670;&#160;</a></span>is_perfsqr_p7()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p7 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00119">119</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>                                          {</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 2 || r == 4;</div>
+<div class="line"><span class="lineno">  121</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00119">is_perfsqr_p7()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00119">is_perfsqr_p7()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a0f25c59a1877fdbe98f34b4bb90111ed_cgraph.svg" width="120" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a0f25c59a1877fdbe98f34b4bb90111ed_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ac016feb0003381e6f54b0bd44089eced" name="ac016feb0003381e6f54b0bd44089eced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac016feb0003381e6f54b0bd44089eced">&#9670;&#160;</a></span>is_perfsqr_p9()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p9 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00111">111</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>                                          {</div>
+<div class="line"><span class="lineno">  112</span>    <span class="keywordflow">return</span> r == 0 || r == 1 || r == 4 || r == 7;</div>
+<div class="line"><span class="lineno">  113</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00111">is_perfsqr_p9()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00111">is_perfsqr_p9()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ac016feb0003381e6f54b0bd44089eced_cgraph.svg" width="120" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ac016feb0003381e6f54b0bd44089eced_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ae8c112ff5c8d94124786fee91ef87790" name="ae8c112ff5c8d94124786fee91ef87790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8c112ff5c8d94124786fee91ef87790">&#9670;&#160;</a></span>is_perfsqr_p97()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_perfsqr_p97 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00131">131</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>                                           {</div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">return</span> r ==  0 || r ==  1 || r ==  2 || r ==  3 || r ==  4 || r ==  6 || r ==  8 || r ==  9 || r == 11 || r == 12 ||</div>
+<div class="line"><span class="lineno">  133</span>           r == 16 || r == 18 || r == 22 || r == 24 || r == 25 || r == 27 || r == 31 || r == 32 || r == 33 || r == 35 ||</div>
+<div class="line"><span class="lineno">  134</span>           r == 36 || r == 43 || r == 44 || r == 47 || r == 48 || r == 49 || r == 50 || r == 53 || r == 54 || r == 61 ||</div>
+<div class="line"><span class="lineno">  135</span>           r == 62 || r == 64 || r == 65 || r == 66 || r == 70 || r == 72 || r == 73 || r == 75 || r == 79 || r == 81 ||</div>
+<div class="line"><span class="lineno">  136</span>           r == 85 || r == 86 || r == 88 || r == 89 || r == 91 || r == 93 || r == 94 || r == 95 || r == 96;</div>
+<div class="line"><span class="lineno">  137</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00131">is_perfsqr_p97()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00131">is_perfsqr_p97()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ae8c112ff5c8d94124786fee91ef87790_cgraph.svg" width="128" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ae8c112ff5c8d94124786fee91ef87790_icgraph.svg" width="100%" height="398"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ad59b0cc86c62d3c2ae0530ab29b0bb33" name="ad59b0cc86c62d3c2ae0530ab29b0bb33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad59b0cc86c62d3c2ae0530ab29b0bb33">&#9670;&#160;</a></span>lmmp_mod_2p48sub1_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> lmmp_mod_2p48sub1_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>计算 [p,n] % 2^48-1 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>被除数指针 </td></tr>
+    <tr><td class="paramname">n</td><td>被除数的 limb 长度 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>警告</dt><dd>p!=NULL, n&gt;0 </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>[numa,na] % 2^48-1 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">52</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>                                                       {</div>
+<div class="line"><span class="lineno">   53</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; p != NULL);</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a> = 0, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a> = 0, c2 = 0;</div>
+<div class="line"><span class="lineno">   56</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a> = 0, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a> = 0, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a> = 0;</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt;= 3) {</div>
+<div class="line"><span class="lineno">   59</span>        <a class="code hl_define" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, p[0]);</div>
+<div class="line"><span class="lineno">   60</span>        <a class="code hl_define" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>, p[1]);</div>
+<div class="line"><span class="lineno">   61</span>        <a class="code hl_define" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(c2, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a>, p[2]);</div>
+<div class="line"><span class="lineno">   62</span>        p += 3;</div>
+<div class="line"><span class="lineno">   63</span>        <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> -= 3;</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 2) {</div>
+<div class="line"><span class="lineno">   66</span>        <a class="code hl_define" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, p[0]);</div>
+<div class="line"><span class="lineno">   67</span>        <a class="code hl_define" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>, p[1]);</div>
+<div class="line"><span class="lineno">   68</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 1) {</div>
+<div class="line"><span class="lineno">   69</span>        <a class="code hl_define" href="#a122eff5e4a028dd4c224febaf379951e">ADD</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, p[0]);</div>
+<div class="line"><span class="lineno">   70</span>    }</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> res = <a class="code hl_define" href="#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a>(<a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>) + <a class="code hl_define" href="#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a>(<a class="code hl_define" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>) + <a class="code hl_define" href="#aef3728ca7a651a456ed28717049be46a">PARTS2</a>(<a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a>) </div>
+<div class="line"><span class="lineno">   73</span>                  + <a class="code hl_define" href="#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>) + <a class="code hl_define" href="#aef3728ca7a651a456ed28717049be46a">PARTS2</a>(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>) + <a class="code hl_define" href="#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a>(c2);</div>
+<div class="line"><span class="lineno">   74</span> </div>
+<div class="line"><span class="lineno">   75</span>    res = (res &amp; <a class="code hl_define" href="#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>) + (res &gt;&gt; <a class="code hl_define" href="#ae6ac0edb1e2c9c7672ab9488d8b65be9">B3</a>);</div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">if</span> (res &gt;= <a class="code hl_define" href="#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>)</div>
+<div class="line"><span class="lineno">   77</span>        res -= <a class="code hl_define" href="#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>;</div>
+<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">return</span> res;</div>
+<div class="line"><span class="lineno">   79</span>}</div>
+<div class="ttc" id="amul__toom22_8c_html_aa42b800f0f58b50bc7604c67cc2853ab"><div class="ttname"><a href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a></div><div class="ttdeci">#define a0</div></div>
+<div class="ttc" id="amul__toom22_8c_html_ab89a77e63a7226fffaecb2e2c2ab5219"><div class="ttname"><a href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a></div><div class="ttdeci">#define a1</div></div>
+<div class="ttc" id="amul__toom32_8c_html_aa3fd046b2956875cf908d73a51a96b42"><div class="ttname"><a href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a></div><div class="ttdeci">#define a2</div></div>
+<div class="ttc" id="amullo_8c_html_a8f9aca421a560153a31ebb326da34216"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a></div><div class="ttdeci">#define c1</div></div>
+<div class="ttc" id="amullo_8c_html_ac18b3d0edccb2b9062a09d00b0d8b83b"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a></div><div class="ttdeci">#define c0</div></div>
+<div class="ttc" id="aperfsqr_8c_html_a122eff5e4a028dd4c224febaf379951e"><div class="ttname"><a href="#a122eff5e4a028dd4c224febaf379951e">ADD</a></div><div class="ttdeci">#define ADD(c, a, val)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00045">perfsqr.c:45</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a194a6e1583fedf2054046ed05c64f8de"><div class="ttname"><a href="#a194a6e1583fedf2054046ed05c64f8de">MASK48</a></div><div class="ttdeci">#define MASK48</div><div class="ttdoc">Copyright (C) 2026 HJimmyK(Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00021">perfsqr.c:21</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a1abfefd231ba550bc6a8722ee4441b09"><div class="ttname"><a href="#a1abfefd231ba550bc6a8722ee4441b09">PARTS0</a></div><div class="ttdeci">#define PARTS0(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00040">perfsqr.c:40</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ab78e8d4a51b69776c2b8e4e6e9828c8c"><div class="ttname"><a href="#ab78e8d4a51b69776c2b8e4e6e9828c8c">PARTS1</a></div><div class="ttdeci">#define PARTS1(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00041">perfsqr.c:41</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_aef3728ca7a651a456ed28717049be46a"><div class="ttname"><a href="#aef3728ca7a651a456ed28717049be46a">PARTS2</a></div><div class="ttdeci">#define PARTS2(n)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00042">perfsqr.c:42</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../de/d10/mul__toom22_8c.html#aa42b800f0f58b50bc7604c67cc2853ab">a0</a>, <a class="el" href="../../de/d10/mul__toom22_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>, <a class="el" href="../../d4/d6a/mul__toom32_8c.html#aa3fd046b2956875cf908d73a51a96b42">a2</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00045">ADD</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00025">B3</a>, <a class="el" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="el" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00021">MASK48</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00040">PARTS0</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00041">PARTS1</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00042">PARTS2</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../de/da4/numth_8h.html#af6a211b0d05d04efcd0643a895e3fcbd">lmmp_cbrt_divide_()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ad59b0cc86c62d3c2ae0530ab29b0bb33_cgraph.svg" width="184" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_ad59b0cc86c62d3c2ae0530ab29b0bb33_icgraph.svg" width="100%" height="411"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a8ebd5368944d807d16767547260a671e" name="a8ebd5368944d807d16767547260a671e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ebd5368944d807d16767547260a671e">&#9670;&#160;</a></span>lmmp_perfsqr_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lmmp_perfsqr_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>判断[p,n]是否为完全平方数 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>输入指针 </td></tr>
+    <tr><td class="paramname">n</td><td>输入的 limb 长度 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>警告</dt><dd>p!=NULL, n&gt;0, p[n-1]&gt;0 </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>为完全平方数返回 true，否则返回 false </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00197">197</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  197</span>                                             {</div>
+<div class="line"><span class="lineno">  198</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; p != NULL);</div>
+<div class="line"><span class="lineno">  199</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1] &gt; 0);</div>
+<div class="line"><span class="lineno">  200</span>    <span class="keywordtype">bool</span> filter, ret;</div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="line"><span class="lineno">  202</span>    filter = <a class="code hl_function" href="../../de/da4/numth_8h.html#af6fd8351626fa438e87e41d3d32bdb3b">lmmp_perfsqr_filter_</a>(p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  203</span>    <span class="keywordflow">if</span> (filter == <span class="keyword">false</span>) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a>;</div>
+<div class="line"><span class="lineno">  206</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> restrict <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> + 2, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><span class="lineno">  207</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> restrict dstr = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 2 + 1;</div>
+<div class="line"><span class="lineno">  208</span>    <a class="code hl_function" href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, dstr, p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, 0);</div>
+<div class="line"><span class="lineno">  209</span>    ret = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#afa8f36d4b874f3c5482caaf4c63ef6d5">lmmp_zero_q_</a>(dstr, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 2 + 1);</div>
+<div class="line"><span class="lineno">  210</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a>;</div>
+<div class="line"><span class="lineno">  211</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  212</span>}</div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00117">lmmp.h:117</a></div></div>
+<div class="ttc" id="almmpn_8h_html_afa8f36d4b874f3c5482caaf4c63ef6d5"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#afa8f36d4b874f3c5482caaf4c63ef6d5">lmmp_zero_q_</a></div><div class="ttdeci">static int lmmp_zero_q_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">判零函数（内联）</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01016">lmmpn.h:1016</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_ab025e87040bd241c89f5a880c12fc80c"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a></div><div class="ttdeci">#define tp</div></div>
+<div class="ttc" id="anumth_8h_html_ae0b4726620c46767b8fa9dd6a2b9ae28"><div class="ttname"><a href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a></div><div class="ttdeci">void lmmp_sqrt_(mp_ptr dsts, mp_ptr dstr, mp_srcptr numa, mp_size_t na, mp_size_t nf)</div><div class="ttdoc">计算 [numa,na] * B^(2*nf) 的平方根和余数</div><div class="ttdef"><b>定义</b> <a href="../../dd/de3/sqrt_8c_source.html#l00322">sqrt.c:322</a></div></div>
+<div class="ttc" id="anumth_8h_html_af6fd8351626fa438e87e41d3d32bdb3b"><div class="ttname"><a href="../../de/da4/numth_8h.html#af6fd8351626fa438e87e41d3d32bdb3b">lmmp_perfsqr_filter_</a></div><div class="ttdeci">bool lmmp_perfsqr_filter_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">非完全平方数过滤器</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00184">perfsqr.c:184</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a2cdfd912649d3b47e211733cee82105c"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a2cdfd912649d3b47e211733cee82105c">TEMP_DECL</a></div><div class="ttdeci">#define TEMP_DECL</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00131">tmp_alloc.h:131</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a6a24d6c991fa35bcb5ed6a0c015b636b"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a6a24d6c991fa35bcb5ed6a0c015b636b">TEMP_FREE</a></div><div class="ttdeci">#define TEMP_FREE</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00158">tmp_alloc.h:158</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a89accda8969763fd5645da4171590502"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a89accda8969763fd5645da4171590502">TALLOC_TYPE</a></div><div class="ttdeci">#define TALLOC_TYPE(n, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00156">tmp_alloc.h:156</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00197">lmmp_perfsqr_()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a>, <a class="el" href="../../dd/de3/sqrt_8c_source.html#l00322">lmmp_sqrt_()</a>, <a class="el" href="../../d6/d39/lmmpn_8h_source.html#l01016">lmmp_zero_q_()</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00156">TALLOC_TYPE</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00131">TEMP_DECL</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00158">TEMP_FREE</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../de/da4/numth_8h.html#af6a211b0d05d04efcd0643a895e3fcbd">lmmp_cbrt_divide_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00197">lmmp_perfsqr_()</a>.</p>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a8ebd5368944d807d16767547260a671e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a8ebd5368944d807d16767547260a671e_icgraph.svg" width="520" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af6fd8351626fa438e87e41d3d32bdb3b" name="af6fd8351626fa438e87e41d3d32bdb3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6fd8351626fa438e87e41d3d32bdb3b">&#9670;&#160;</a></span>lmmp_perfsqr_filter_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lmmp_perfsqr_filter_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>非完全平方数过滤器 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>输入指针 </td></tr>
+    <tr><td class="paramname">n</td><td>输入的 limb 长度 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>警告</dt><dd>p!=NULL, n&gt;0, p[n-1]&gt;0 </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>false 意味着必定为非完全平方数，所有完全平方数和部分非完全平方数会返回 true </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>此过滤器主要针对随机输入情况，对于大概率是完全平方数的输入，可以无需此函数。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">184</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  184</span>                                                    {</div>
+<div class="line"><span class="lineno">  185</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; p != NULL);</div>
+<div class="line"><span class="lineno">  186</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1] &gt; 0);</div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 1) <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/da4/numth_8h.html#a36c6b408cfdefc5bba5e90354208f8a5">lmmp_perfsqr_filter_1_</a>(p[0]);</div>
+<div class="line"><span class="lineno">  188</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a = p[0] % 256;</div>
+<div class="line"><span class="lineno">  189</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a>(a))</div>
+<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  191</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> r = <a class="code hl_function" href="../../de/da4/numth_8h.html#ad59b0cc86c62d3c2ae0530ab29b0bb33">lmmp_mod_2p48sub1_</a>(p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  192</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a>(r % 9) &amp;&amp; <a class="code hl_function" href="#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a>(r % 5) &amp;&amp; <a class="code hl_function" href="#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a>(r % 7) &amp;&amp; <a class="code hl_function" href="#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a>(r % 13) &amp;&amp;</div>
+<div class="line"><span class="lineno">  193</span>           <a class="code hl_function" href="#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a>(r % 17) &amp;&amp; <a class="code hl_function" href="#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a>(r % 97) &amp;&amp; <a class="code hl_function" href="#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a>(r % 241) &amp;&amp;</div>
+<div class="line"><span class="lineno">  194</span>           <a class="code hl_function" href="#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a>(r % 257) &amp;&amp; <a class="code hl_function" href="#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a>(r % 673);</div>
+<div class="line"><span class="lineno">  195</span>}</div>
+<div class="ttc" id="anumth_8h_html_a36c6b408cfdefc5bba5e90354208f8a5"><div class="ttname"><a href="../../de/da4/numth_8h.html#a36c6b408cfdefc5bba5e90354208f8a5">lmmp_perfsqr_filter_1_</a></div><div class="ttdeci">bool lmmp_perfsqr_filter_1_(mp_limb_t p)</div><div class="ttdoc">非完全平方数过滤器</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00174">perfsqr.c:174</a></div></div>
+<div class="ttc" id="anumth_8h_html_ad59b0cc86c62d3c2ae0530ab29b0bb33"><div class="ttname"><a href="../../de/da4/numth_8h.html#ad59b0cc86c62d3c2ae0530ab29b0bb33">lmmp_mod_2p48sub1_</a></div><div class="ttdeci">mp_limb_t lmmp_mod_2p48sub1_(mp_srcptr p, mp_size_t n)</div><div class="ttdoc">计算 [p,n] % 2^48-1</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00052">perfsqr.c:52</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a0f25c59a1877fdbe98f34b4bb90111ed"><div class="ttname"><a href="#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a></div><div class="ttdeci">static bool is_perfsqr_p7(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00119">perfsqr.c:119</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a25ee624514f4f3a05e2fabb8d65cbebc"><div class="ttname"><a href="#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a></div><div class="ttdeci">static bool is_perfsqr_p241(ushort r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00139">perfsqr.c:139</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a439e4f47d5eb1fadc5e9a3cea3370d2c"><div class="ttname"><a href="#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a></div><div class="ttdeci">static bool is_perfsqr_p17(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00127">perfsqr.c:127</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a4aed5afb63a10feede63166f3dae3efe"><div class="ttname"><a href="#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a></div><div class="ttdeci">static bool is_perfsqr_p256(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00166">perfsqr.c:166</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_a7bb98a25b2e18df71690793a3fef5770"><div class="ttname"><a href="#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a></div><div class="ttdeci">static bool is_perfsqr_p673(ushort r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00156">perfsqr.c:156</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_aaa5696afeeb4e11e722175f5e208fd41"><div class="ttname"><a href="#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a></div><div class="ttdeci">static bool is_perfsqr_p13(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00123">perfsqr.c:123</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ab85c40a1aeb85cb29075e20b8a8d23f0"><div class="ttname"><a href="#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a></div><div class="ttdeci">static bool is_perfsqr_p257(ushort r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00147">perfsqr.c:147</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ac016feb0003381e6f54b0bd44089eced"><div class="ttname"><a href="#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a></div><div class="ttdeci">static bool is_perfsqr_p9(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00111">perfsqr.c:111</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ae10cdeec4d3bc4dc1c1c8db02eabadd8"><div class="ttname"><a href="#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a></div><div class="ttdeci">static bool is_perfsqr_p5(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00115">perfsqr.c:115</a></div></div>
+<div class="ttc" id="aperfsqr_8c_html_ae8c112ff5c8d94124786fee91ef87790"><div class="ttname"><a href="#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a></div><div class="ttdeci">static bool is_perfsqr_p97(uchar r)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d0d/perfsqr_8c_source.html#l00131">perfsqr.c:131</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00123">is_perfsqr_p13()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00127">is_perfsqr_p17()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00139">is_perfsqr_p241()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00166">is_perfsqr_p256()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00147">is_perfsqr_p257()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00115">is_perfsqr_p5()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00156">is_perfsqr_p673()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00119">is_perfsqr_p7()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00111">is_perfsqr_p9()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00131">is_perfsqr_p97()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00052">lmmp_mod_2p48sub1_()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../de/da4/numth_8h.html#af6a211b0d05d04efcd0643a895e3fcbd">lmmp_cbrt_divide_()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00197">lmmp_perfsqr_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a>.</p>
+<div id="dynsection-25" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-25-summary" class="dynsummary">
+</div>
+<div id="dynsection-25-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_af6fd8351626fa438e87e41d3d32bdb3b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-26-summary" class="dynsummary">
+</div>
+<div id="dynsection-26-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_af6fd8351626fa438e87e41d3d32bdb3b_icgraph.svg" width="100%" height="373"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a36c6b408cfdefc5bba5e90354208f8a5" name="a36c6b408cfdefc5bba5e90354208f8a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c6b408cfdefc5bba5e90354208f8a5">&#9670;&#160;</a></span>lmmp_perfsqr_filter_1_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lmmp_perfsqr_filter_1_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>非完全平方数过滤器 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>输入数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>警告</dt><dd>p&gt;0 </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>false 意味着必定为非完全平方数，所有完全平方数和部分非完全平方数会返回 true </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>此过滤器主要针对随机输入情况，对于大概率是完全平方数的输入，可以无需此函数。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html">perfsqr.c</a> 第 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">174</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  174</span>                                         {</div>
+<div class="line"><span class="lineno">  175</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p &gt; 0);</div>
+<div class="line"><span class="lineno">  176</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a = p % 256;</div>
+<div class="line"><span class="lineno">  177</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#a4aed5afb63a10feede63166f3dae3efe">is_perfsqr_p256</a>(a)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  178</span>    p = p % <a class="code hl_define" href="#a194a6e1583fedf2054046ed05c64f8de">MASK48</a>;</div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#ac016feb0003381e6f54b0bd44089eced">is_perfsqr_p9</a>(p % 9) &amp;&amp; <a class="code hl_function" href="#ae10cdeec4d3bc4dc1c1c8db02eabadd8">is_perfsqr_p5</a>(p % 5) &amp;&amp; <a class="code hl_function" href="#a0f25c59a1877fdbe98f34b4bb90111ed">is_perfsqr_p7</a>(p % 7) &amp;&amp; <a class="code hl_function" href="#aaa5696afeeb4e11e722175f5e208fd41">is_perfsqr_p13</a>(p % 13) &amp;&amp;</div>
+<div class="line"><span class="lineno">  180</span>           <a class="code hl_function" href="#a439e4f47d5eb1fadc5e9a3cea3370d2c">is_perfsqr_p17</a>(p % 17) &amp;&amp; <a class="code hl_function" href="#ae8c112ff5c8d94124786fee91ef87790">is_perfsqr_p97</a>(p % 97) &amp;&amp; <a class="code hl_function" href="#a25ee624514f4f3a05e2fabb8d65cbebc">is_perfsqr_p241</a>(p % 241) &amp;&amp;</div>
+<div class="line"><span class="lineno">  181</span>           <a class="code hl_function" href="#ab85c40a1aeb85cb29075e20b8a8d23f0">is_perfsqr_p257</a>(p % 257) &amp;&amp; <a class="code hl_function" href="#a7bb98a25b2e18df71690793a3fef5770">is_perfsqr_p673</a>(p % 673);</div>
+<div class="line"><span class="lineno">  182</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00123">is_perfsqr_p13()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00127">is_perfsqr_p17()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00139">is_perfsqr_p241()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00166">is_perfsqr_p256()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00147">is_perfsqr_p257()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00115">is_perfsqr_p5()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00156">is_perfsqr_p673()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00119">is_perfsqr_p7()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00111">is_perfsqr_p9()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00131">is_perfsqr_p97()</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00496">lmmp_param_assert</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00021">MASK48</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../de/da4/numth_8h.html#af6a211b0d05d04efcd0643a895e3fcbd">lmmp_cbrt_divide_()</a>, <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00184">lmmp_perfsqr_filter_()</a> , 以及 <a class="el" href="../../d8/d0d/perfsqr_8c_source.html#l00174">lmmp_perfsqr_filter_1_()</a>.</p>
+<div id="dynsection-27" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-27-summary" class="dynsummary">
+</div>
+<div id="dynsection-27-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a36c6b408cfdefc5bba5e90354208f8a5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-28" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-28-summary" class="dynsummary">
+</div>
+<div id="dynsection-28-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d0d/perfsqr_8c_a36c6b408cfdefc5bba5e90354208f8a5_icgraph.svg" width="100%" height="411"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_d77cbddddf37de395302ec58cb811daa.html">lammp</a></li><li class="navelem"><a href="../../dir_b0e95e20361ee944571d17c4928a58d8.html">numth</a></li><li class="navelem"><a href="../../d8/d0d/perfsqr_8c.html">perfsqr.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LAMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

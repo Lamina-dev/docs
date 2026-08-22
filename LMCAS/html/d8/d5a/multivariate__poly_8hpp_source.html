@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/multivariate_poly.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d8/d5a/multivariate__poly_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">multivariate_poly.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d8/d5a/multivariate__poly_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file multivariate_poly.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 多元多项式类 MultiPoly，稀疏表示，支持任意数量变量上的环运算。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * 以 (Monomial, Rational) 对的有序列表表示多元多项式，单项式按指定的</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * MonomialOrder 排序。提供加减乘、求值、度数查询、一元转换等完整接口。</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d05/lamina__export_8hpp.html">lamina_export.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d4d/monomial__order_8hpp.html">monomial_order.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/de8/rational_8hpp.html">rational.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/d3e/polynomial_8hpp.html">polynomial.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"></span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> * @brief 多元多项式类，稀疏表示</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * 以 (Monomial, Rational) 对的有序列表表示多元多项式。</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * 单项式按指定的 MonomialOrder 排序，系数为有理数。</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * 支持加减乘、求值、度数查询、一元转换等完整环运算接口。</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../de/d3a/classlamina_1_1MultiPoly.html">   29</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">    /// 项类型：(单项式, 系数)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../de/d3a/classlamina_1_1MultiPoly.html#a1d960ae2a07fac0bda4fc4243dc9ba05">   32</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="../../de/d3a/classlamina_1_1MultiPoly.html#a1d960ae2a07fac0bda4fc4243dc9ba05">Term</a> = std::pair&lt;Monomial, Rational&gt;;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"></span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">    /// @brief 构造零多项式</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"></span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">     * @brief 从项列表和变量名列表构造多元多项式</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">     * @param[in] terms 项列表，每项为 (单项式, 系数) 对</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">     * @param[in] vars 变量名列表，确定各分量对应的变量</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">     * @param[in] order 单项式序类型，默认分次逆字典序</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>(std::vector&lt;Term&gt; <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a69969fe5bd05bace7ad4c6ca41963102">terms</a>, std::vector&lt;std::string&gt; vars,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>              <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a116f1aab3e67ef67ae9afb86cfd55513">MonomialOrderType</a> order = <a class="code hl_enumvalue" href="../../d1/d42/namespacelamina.html#a116f1aab3e67ef67ae9afb86cfd55513ae00443228a0ac152436c34d81381c25d">MonomialOrderType::GrevLex</a>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"></span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">     * @brief 从常数构造多元多项式</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">     * @param[in] constant 常数值</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">     * @param[in] vars 变量名列表</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&amp; constant, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; vars);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"></span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">    /// --- 算术运算 ---</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"></span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">    /** @brief 多项式加法 */</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a7cea840c8a16b2021e52712ecb6ede77">operator+</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"></span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">    /** @brief 多项式减法 */</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ab0274d395488934c890ee1f70fe32400">operator-</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"></span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    /** @brief 多项式乘法 */</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a81c4168e3b946f2a2300361ecc490c54">operator*</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"></span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">    /** @brief 一元取负 */</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ab0274d395488934c890ee1f70fe32400">operator-</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"></span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">    /** @brief 判等 */</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a59833967bff5655e80cac656526f9332">operator==</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"></span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">    /** @brief 判不等 */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#af6bc7bce160a8e6e844573be68630f5a">operator!=</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"></span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">     * @brief 标量乘法</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">     * @param[in] scalar 有理数标量</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">     * @return 各项系数乘以 scalar 后的多项式</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a81c4168e3b946f2a2300361ecc490c54">operator*</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&amp; scalar) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"></span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">     * @brief 精确除法（假设整除）</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">     * @param[in] divisor 除数多项式</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">     * @return 商多项式</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">     * @throw std::runtime_error 除数为零或不整除时抛出</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#af2a1944e604dab0f39c1810b9b73ad2c">exact_div</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a>&amp; divisor) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"></span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">    /// --- 求值 ---</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">     * @brief 将指定变量代入有理数值，返回降维后的多项式</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">     * @param[in] var 待代入的变量名</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">     * @param[in] val 代入值</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">     * @return 代入后的多项式（变量数减一或不变）</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#afd6b68e665d6ea20c8f7ab3f2a5a9459">eval</a>(<span class="keyword">const</span> std::string&amp; var, <span class="keyword">const</span> <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&amp; val) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"></span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">     * @brief 将多个变量同时代入有理数值</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">     * @param[in] substitution 变量名到值的映射</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">     * @return 代入后的多项式</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#afd6b68e665d6ea20c8f7ab3f2a5a9459">eval</a>(<span class="keyword">const</span> std::map&lt;std::string, Rational&gt;&amp; substitution) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"></span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">    /// --- 度数查询 ---</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"></span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">     * @brief 计算多项式的全次数</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">     * @return 所有项中单项式全次数的最大值；零多项式返回 -1</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a1370c0d47af20b4949f7dcfcd3444a1a">total_degree</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"></span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment">     * @brief 计算关于指定变量的次数</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">     * @param[in] var 变量名</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">     * @return 该变量在所有项中指数的最大值；零多项式返回 -1</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#aedf8d3166d799eebe4e6fa39d1a23596">degree</a>(<span class="keyword">const</span> std::string&amp; var) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment"></span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">     * @brief 获取关于指定变量的首项系数</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">     * 将多项式视为 var 的一元多项式，返回最高次项的系数（为辅助变量的多项式）。</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">     * @param[in] var 主变量名</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">     * @return 首项系数多项式</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a509d40c47fde1a97e7da85687428f4f9">leading_coeff</a>(<span class="keyword">const</span> std::string&amp; var) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment"></span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">    /// --- 转换 ---</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment"></span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">     * @brief 转换为一元 Polynomial&lt;Rational&gt;</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">     * 仅当多项式实际只含一个变量时有效。</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">     * @return 对应的一元多项式</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">     * @throw std::invalid_argument 含多个有效变量时抛出</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a52308e863528f79e5505ed24a02c94ea">to_univariate</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment"></span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">     * @brief 从一元多项式构造多元多项式</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">     * @param[in] poly 一元多项式</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">     * @param[in] var 对应的变量名</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">     * @return 等价的 MultiPoly 表示</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">static</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#aec80bafc6ecd22d4a54c6c6036929156">from_univariate</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                                     <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment"></span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">    /// --- 属性查询 ---</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment"></span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">    /** @brief 判断是否为零多项式 */</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#acce8e0df5151511364672f55a6234221">is_zero</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"></span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">    /** @brief 判断是否为常数多项式 */</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a836519c001ab55df9e03073a70eabf5e">is_constant</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment"></span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">    /** @brief 判断是否实质为一元多项式（仅一个变量出现非零指数） */</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a5a30000f44ab7ec1edc9b45a94851506">is_univariate</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment"></span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">    /** @brief 判断是否为齐次多项式（所有项全次数相同） */</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#af3d0f70727e38729b8c01a4daf5ad55d">is_homogeneous</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"></span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">    /** @brief 获取非零项数 */</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#aec3bcb5e66c310d05c7e4af152699018">num_terms</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment"></span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">    /** @brief 获取变量个数 */</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ad42acd9546a85cacf426644af4e56414">num_vars</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment"></span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">     * @brief 获取变量名列表</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">     * @return 变量名列表的常引用</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a66ce8baff5b790372691509ad4d41f76">variables</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment"></span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">     * @brief 获取项列表</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">     * @return 有序项列表的常引用</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keyword">const</span> std::vector&lt;Term&gt;&amp; <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a69969fe5bd05bace7ad4c6ca41963102">terms</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"></span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">    /// --- 工具方法 ---</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"></span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">     * @brief 提取数值内容（所有系数的 GCD）</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">     * @return 所有系数绝对值的最大公约数（有理数形式）</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#afe84e2114f754620c889007e38ad7c00">numeric_content</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"></span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">     * @brief 使多项式本原化（除以数值内容）</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment">     * @return 本原多项式（数值内容为 1）</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">MultiPoly</a> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a4e311c8a2baa6dbccf171a9f1018064f">make_primitive</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment"></span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">     * @brief 转换为可读字符串表示</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">     * @return 多项式的字符串形式</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    std::string <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#aae35b4efa3b97b231293b47ced507a25">to_string</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="../../de/d3a/classlamina_1_1MultiPoly.html#a5f019563d49428463c3a92c81e6297e2">  202</a></span>    std::vector&lt;Term&gt; <a class="code hl_variable" href="../../de/d3a/classlamina_1_1MultiPoly.html#a5f019563d49428463c3a92c81e6297e2">terms_</a>;           <span class="comment">///&lt; 有序项列表（按 order_ 降序）</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae96b1b0b5cf8297ba8bc129396e734c2">  203</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="../../de/d3a/classlamina_1_1MultiPoly.html#ae96b1b0b5cf8297ba8bc129396e734c2">vars_</a>;     <span class="comment">///&lt; 变量名列表</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="../../de/d3a/classlamina_1_1MultiPoly.html#aeab62edb3d54cb381b4c89e20cdbd206">  204</a></span>    <a class="code hl_enumeration" href="../../d1/d42/namespacelamina.html#a116f1aab3e67ef67ae9afb86cfd55513">MonomialOrderType</a> <a class="code hl_variable" href="../../de/d3a/classlamina_1_1MultiPoly.html#aeab62edb3d54cb381b4c89e20cdbd206">order_</a>;           <span class="comment">///&lt; 单项式序类型</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"></span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">     * @internal</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment">     * @brief 规范化：合并同类项、去零项、按单项式序排序</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../de/d3a/classlamina_1_1MultiPoly.html#a07f80ae9f83c949ba46267eb646f8ffe">normalize</a>();</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>};</div>
+</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="aclassRational_html"><div class="ttname"><a href="../../d8/da7/classRational.html">Rational</a></div><div class="ttdoc">精确有理数类，以 BigInt 分子/分母表示，构造时自动约分</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00020">rational.hpp:20</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a07f80ae9f83c949ba46267eb646f8ffe"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a07f80ae9f83c949ba46267eb646f8ffe">lamina::MultiPoly::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdoc">规范化：合并同类项、去零项、按单项式序排序</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00085">multivariate_poly.cpp:85</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a1370c0d47af20b4949f7dcfcd3444a1a"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a1370c0d47af20b4949f7dcfcd3444a1a">lamina::MultiPoly::total_degree</a></div><div class="ttdeci">int total_degree() const</div><div class="ttdoc">— 度数查询 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00188">multivariate_poly.cpp:188</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a1d960ae2a07fac0bda4fc4243dc9ba05"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a1d960ae2a07fac0bda4fc4243dc9ba05">lamina::MultiPoly::Term</a></div><div class="ttdeci">std::pair&lt; Monomial, Rational &gt; Term</div><div class="ttdoc">项类型：(单项式, 系数)</div><div class="ttdef"><b>定义</b> <a href="#l00032">multivariate_poly.hpp:32</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a4e311c8a2baa6dbccf171a9f1018064f"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a4e311c8a2baa6dbccf171a9f1018064f">lamina::MultiPoly::make_primitive</a></div><div class="ttdeci">MultiPoly make_primitive() const</div><div class="ttdoc">使多项式本原化（除以数值内容）</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00768">multivariate_poly.cpp:768</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a509d40c47fde1a97e7da85687428f4f9"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a509d40c47fde1a97e7da85687428f4f9">lamina::MultiPoly::leading_coeff</a></div><div class="ttdeci">MultiPoly leading_coeff(const std::string &amp;var) const</div><div class="ttdoc">获取关于指定变量的首项系数</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00232">multivariate_poly.cpp:232</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a52308e863528f79e5505ed24a02c94ea"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a52308e863528f79e5505ed24a02c94ea">lamina::MultiPoly::to_univariate</a></div><div class="ttdeci">Polynomial&lt; Rational &gt; to_univariate() const</div><div class="ttdoc">— 转换 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00640">multivariate_poly.cpp:640</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a59833967bff5655e80cac656526f9332"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a59833967bff5655e80cac656526f9332">lamina::MultiPoly::operator==</a></div><div class="ttdeci">bool operator==(const MultiPoly &amp;other) const</div><div class="ttdoc">判等</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00423">multivariate_poly.cpp:423</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a5a30000f44ab7ec1edc9b45a94851506"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a5a30000f44ab7ec1edc9b45a94851506">lamina::MultiPoly::is_univariate</a></div><div class="ttdeci">bool is_univariate() const</div><div class="ttdoc">判断是否实质为一元多项式（仅一个变量出现非零指数）</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00139">multivariate_poly.cpp:139</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a5f019563d49428463c3a92c81e6297e2"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a5f019563d49428463c3a92c81e6297e2">lamina::MultiPoly::terms_</a></div><div class="ttdeci">std::vector&lt; Term &gt; terms_</div><div class="ttdoc">有序项列表（按 order_ 降序）</div><div class="ttdef"><b>定义</b> <a href="#l00202">multivariate_poly.hpp:202</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a66ce8baff5b790372691509ad4d41f76"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a66ce8baff5b790372691509ad4d41f76">lamina::MultiPoly::variables</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; variables() const</div><div class="ttdoc">获取变量名列表</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00178">multivariate_poly.cpp:178</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a69969fe5bd05bace7ad4c6ca41963102"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a69969fe5bd05bace7ad4c6ca41963102">lamina::MultiPoly::terms</a></div><div class="ttdeci">const std::vector&lt; Term &gt; &amp; terms() const</div><div class="ttdoc">获取项列表</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00183">multivariate_poly.cpp:183</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a7cea840c8a16b2021e52712ecb6ede77"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a7cea840c8a16b2021e52712ecb6ede77">lamina::MultiPoly::operator+</a></div><div class="ttdeci">MultiPoly operator+(const MultiPoly &amp;other) const</div><div class="ttdoc">— 算术运算 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00301">multivariate_poly.cpp:301</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a81c4168e3b946f2a2300361ecc490c54"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a81c4168e3b946f2a2300361ecc490c54">lamina::MultiPoly::operator*</a></div><div class="ttdeci">MultiPoly operator*(const MultiPoly &amp;other) const</div><div class="ttdoc">多项式乘法</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00353">multivariate_poly.cpp:353</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_a836519c001ab55df9e03073a70eabf5e"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#a836519c001ab55df9e03073a70eabf5e">lamina::MultiPoly::is_constant</a></div><div class="ttdeci">bool is_constant() const</div><div class="ttdoc">判断是否为常数多项式</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00128">multivariate_poly.cpp:128</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_aae35b4efa3b97b231293b47ced507a25"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#aae35b4efa3b97b231293b47ced507a25">lamina::MultiPoly::to_string</a></div><div class="ttdeci">std::string to_string() const</div><div class="ttdoc">转换为可读字符串表示</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00819">multivariate_poly.cpp:819</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_ab0274d395488934c890ee1f70fe32400"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#ab0274d395488934c890ee1f70fe32400">lamina::MultiPoly::operator-</a></div><div class="ttdeci">MultiPoly operator-(const MultiPoly &amp;other) const</div><div class="ttdoc">多项式减法</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00324">multivariate_poly.cpp:324</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_acce8e0df5151511364672f55a6234221"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#acce8e0df5151511364672f55a6234221">lamina::MultiPoly::is_zero</a></div><div class="ttdeci">bool is_zero() const</div><div class="ttdoc">— 属性查询 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00123">multivariate_poly.cpp:123</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_ad42acd9546a85cacf426644af4e56414"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#ad42acd9546a85cacf426644af4e56414">lamina::MultiPoly::num_vars</a></div><div class="ttdeci">int num_vars() const</div><div class="ttdoc">获取变量个数</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00173">multivariate_poly.cpp:173</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_ae39fee64431b195c4a34166680a5ef2e"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#ae39fee64431b195c4a34166680a5ef2e">lamina::MultiPoly::MultiPoly</a></div><div class="ttdeci">MultiPoly()</div><div class="ttdoc">构造零多项式</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00027">multivariate_poly.cpp:27</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_ae96b1b0b5cf8297ba8bc129396e734c2"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#ae96b1b0b5cf8297ba8bc129396e734c2">lamina::MultiPoly::vars_</a></div><div class="ttdeci">std::vector&lt; std::string &gt; vars_</div><div class="ttdoc">变量名列表</div><div class="ttdef"><b>定义</b> <a href="#l00203">multivariate_poly.hpp:203</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_aeab62edb3d54cb381b4c89e20cdbd206"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#aeab62edb3d54cb381b4c89e20cdbd206">lamina::MultiPoly::order_</a></div><div class="ttdeci">MonomialOrderType order_</div><div class="ttdoc">单项式序类型</div><div class="ttdef"><b>定义</b> <a href="#l00204">multivariate_poly.hpp:204</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_aec3bcb5e66c310d05c7e4af152699018"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#aec3bcb5e66c310d05c7e4af152699018">lamina::MultiPoly::num_terms</a></div><div class="ttdeci">int num_terms() const</div><div class="ttdoc">获取非零项数</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00168">multivariate_poly.cpp:168</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_aec80bafc6ecd22d4a54c6c6036929156"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#aec80bafc6ecd22d4a54c6c6036929156">lamina::MultiPoly::from_univariate</a></div><div class="ttdeci">static MultiPoly from_univariate(const Polynomial&lt; Rational &gt; &amp;poly, const std::string &amp;var)</div><div class="ttdoc">从一元多项式构造多元多项式</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00699">multivariate_poly.cpp:699</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_aedf8d3166d799eebe4e6fa39d1a23596"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#aedf8d3166d799eebe4e6fa39d1a23596">lamina::MultiPoly::degree</a></div><div class="ttdeci">int degree(const std::string &amp;var) const</div><div class="ttdoc">计算关于指定变量的次数</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00199">multivariate_poly.cpp:199</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_af2a1944e604dab0f39c1810b9b73ad2c"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#af2a1944e604dab0f39c1810b9b73ad2c">lamina::MultiPoly::exact_div</a></div><div class="ttdeci">MultiPoly exact_div(const MultiPoly &amp;divisor) const</div><div class="ttdoc">精确除法（假设整除）</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00488">multivariate_poly.cpp:488</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_af3d0f70727e38729b8c01a4daf5ad55d"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#af3d0f70727e38729b8c01a4daf5ad55d">lamina::MultiPoly::is_homogeneous</a></div><div class="ttdeci">bool is_homogeneous() const</div><div class="ttdoc">判断是否为齐次多项式（所有项全次数相同）</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00158">multivariate_poly.cpp:158</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_af6bc7bce160a8e6e844573be68630f5a"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#af6bc7bce160a8e6e844573be68630f5a">lamina::MultiPoly::operator!=</a></div><div class="ttdeci">bool operator!=(const MultiPoly &amp;other) const</div><div class="ttdoc">判不等</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00439">multivariate_poly.cpp:439</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_afd6b68e665d6ea20c8f7ab3f2a5a9459"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#afd6b68e665d6ea20c8f7ab3f2a5a9459">lamina::MultiPoly::eval</a></div><div class="ttdeci">MultiPoly eval(const std::string &amp;var, const Rational &amp;val) const</div><div class="ttdoc">— 求值 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00554">multivariate_poly.cpp:554</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html_afe84e2114f754620c889007e38ad7c00"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html#afe84e2114f754620c889007e38ad7c00">lamina::MultiPoly::numeric_content</a></div><div class="ttdeci">Rational numeric_content() const</div><div class="ttdoc">— 工具方法 —</div><div class="ttdef"><b>定义</b> <a href="../../dd/d8e/multivariate__poly_8cpp_source.html#l00730">multivariate_poly.cpp:730</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html">lamina::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00048">polynomial.hpp:48</a></div></div>
+<div class="ttc" id="alamina__export_8hpp_html"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html">lamina_export.hpp</a></div></div>
+<div class="ttc" id="alamina__export_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>定义</b> <a href="../../d1/d05/lamina__export_8hpp_source.html#l00011">lamina_export.hpp:11</a></div></div>
+<div class="ttc" id="amonomial__order_8hpp_html"><div class="ttname"><a href="../../db/d4d/monomial__order_8hpp.html">monomial_order.hpp</a></div><div class="ttdoc">单项式序：Lex, GrevLex, DegLex, DegRevLex 及相关工具函数。</div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a116f1aab3e67ef67ae9afb86cfd55513"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a116f1aab3e67ef67ae9afb86cfd55513">lamina::MonomialOrderType</a></div><div class="ttdeci">MonomialOrderType</div><div class="ttdoc">单项式序的类型枚举</div><div class="ttdef"><b>定义</b> <a href="../../db/d4d/monomial__order_8hpp_source.html#l00018">monomial_order.hpp:18</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a116f1aab3e67ef67ae9afb86cfd55513ae00443228a0ac152436c34d81381c25d"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a116f1aab3e67ef67ae9afb86cfd55513ae00443228a0ac152436c34d81381c25d">lamina::MonomialOrderType::GrevLex</a></div><div class="ttdeci">@ GrevLex</div><div class="ttdoc">分次逆字典序</div><div class="ttdef"><b>定义</b> <a href="../../db/d4d/monomial__order_8hpp_source.html#l00020">monomial_order.hpp:20</a></div></div>
+<div class="ttc" id="apolynomial_8hpp_html"><div class="ttname"><a href="../../d0/d3e/polynomial_8hpp.html">polynomial.hpp</a></div><div class="ttdoc">一元多项式模板类 Polynomial&lt;T&gt;，支持四则运算、GCD、求导、求值。</div></div>
+<div class="ttc" id="arational_8hpp_html"><div class="ttname"><a href="../../d1/de8/rational_8hpp.html">rational.hpp</a></div><div class="ttdoc">精确有理数 Rational，基于 BigInt 分子/分母表示，自动约分。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../d8/d5a/multivariate__poly_8hpp.html">multivariate_poly.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

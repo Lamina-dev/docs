@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['d_0',['d',['../interp_8c.html#a438f26cd552900052e4f05c1671d3174',1,'lmmc_interp_pchip_t::d'],['../interp_8c.html#abe860afea90f183270b8214dd2fddd6e',1,'lmmc_interp_akima_t::d']]],
+  ['data_1',['data',['../complex_8h.html#a6ad963ac489ffb9393a7ddc712083e44',1,'lmmc_cvec_t::data'],['../complex_8h.html#a3993c5704f3352b1932a486c83ead958',1,'lmmc_cmat_t::data'],['../dense_8h.html#a8c72b81b3a507308e133e2da998e1a5d',1,'lmmc_mat_t::data'],['../dense_8h.html#abb79242c5db253df66bf7a369fbce3d9',1,'lmmc_vec_t::data'],['../lsr__stdlib_8h.html#a6b9e0eb5f8f343149584e9df21db9fbd',1,'lmmc_lsr_bool_vec_t::data'],['../lsr__stdlib_8h.html#a4246bac4ee5133e065ae7c708b0c9033',1,'lmmc_lsr_bool_mat_t::data'],['../lsr__stdlib_8h.html#a13b5753409f5e79a94ed164f993abf05',1,'lmmc_lsr_num_set_t::data'],['../lsr__stdlib_8h.html#a9b62c6948deb91f100b993b91bfd72c5',1,'lmmc_lsr_complex_set_t::data'],['../lsr__stdlib_8h.html#a23c4b0a65ab2fbea614a042eaff962b4',1,'lmmc_lsr_bool_set_t::data'],['../lsr__stdlib_8h.html#a1edd8909711d878012ce17ba58eb44ed',1,'lmmc_lsr_text_set_t::data'],['../tensor_8h.html#acd8be84045cfbb9db5f57cb237f02c20',1,'lmmc_tensor_nd_t::data'],['../tensor_8h.html#a109ca101c403287fee1646a1e1ca5bba',1,'lmmc_tensor_t::data']]],
+  ['dense_2ec_2',['dense.c',['../dense_8c.html',1,'']]],
+  ['dense_2eh_3',['dense.h',['../dense_8h.html',1,'']]],
+  ['derivative_5fstep_4',['derivative_step',['../nonlinear_8h.html#ac3cda012f7ae3cc3d883650af147dbec',1,'lmmc_nonlinear_config_t']]],
+  ['dgeqrf_5f_5',['dgeqrf_',['../blas__backend_8c.html#a1ef7c4fabac5b25f0433201902cc6ea6',1,'blas_backend.c']]],
+  ['dgesvd_5f_6',['dgesvd_',['../blas__backend_8c.html#a5db6aef754b12e6cb2c9995dc8614fa0',1,'blas_backend.c']]],
+  ['dgetrf_5f_7',['dgetrf_',['../blas__backend_8c.html#a8b6e4afdfc82e0d8024928738768f9c4',1,'blas_backend.c']]],
+  ['dgetrs_5f_8',['dgetrs_',['../blas__backend_8c.html#a10468aa467d692b03594a1ae0bc7ba6e',1,'blas_backend.c']]],
+  ['diag_5fpos_9',['diag_pos',['../precond_8c.html#a8abc1014bb14a81fa582968b4610e3c6',1,'lmmc_precond_ilu_impl_t']]],
+  ['diagnostic_2ec_10',['diagnostic.c',['../diagnostic_8c.html',1,'']]],
+  ['diagnostic_2eh_11',['diagnostic.h',['../diagnostic_8h.html',1,'']]],
+  ['diagnostics_12',['diagnostics',['../itersolve_8h.html#a0730747828964460677a1a1fd0461099',1,'lmmc_itersolve_config_t::diagnostics'],['../nonlinear_8h.html#a38dc1268757cc50516f80ba8b3f6ddc3',1,'lmmc_nonlinear_config_t::diagnostics'],['../ode_8h.html#a23ca34da23c2acb2085c73cc1c52d575',1,'lmmc_ode_config_t::diagnostics'],['../optimize_8h.html#a8401a37307312862dda78f3680f61110',1,'lmmc_optimize_config_t::diagnostics']]],
+  ['dim_13',['dim',['../ode_8c.html#a42d7ae70cfd36c9e34b93cb592b86d30',1,'ode_implicit_euler_ctx_t::dim'],['../ode_8c.html#a9e9f28b22412135f921ffc3ca37fee06',1,'ode_trapezoidal_ctx_t::dim'],['../ode_8c.html#a80696c3cfad458c3493c17d441717b2d',1,'ode_sdirk_stage_ctx_t::dim']]],
+  ['dim0_14',['dim0',['../tensor_8h.html#a0f902bea9e9ab7edcdaf8459bf27ca11',1,'lmmc_tensor_t']]],
+  ['dim1_15',['dim1',['../tensor_8h.html#ab41930c413d0b7b2070314a634cf8f0a',1,'lmmc_tensor_t']]],
+  ['dim2_16',['dim2',['../tensor_8h.html#a0adece2b5d353f40fb292599f8af2931',1,'lmmc_tensor_t']]],
+  ['dims_17',['dims',['../tensor_8h.html#ade9170a3429a71a7fac6bae2a9e865cd',1,'lmmc_tensor_nd_t::dims'],['../lsr__stdlib_8c.html#aed67421bbae9403efc2aa628fbed69fb',1,'lmmc_lsr_unit_sig_t::dims'],['../lsr__stdlib_8c.html#a431e34772f51d6a0f85e056ade9dab79',1,'lmmc_lsr_unit_entry_t::dims']]],
+  ['dpotrf_5f_18',['dpotrf_',['../blas__backend_8c.html#ae3f1a78de69fc6e08f6aebd85009078e',1,'blas_backend.c']]],
+  ['dpotrs_5f_19',['dpotrs_',['../blas__backend_8c.html#ab66249e3ef12c574472a8bb6f437a4cb',1,'blas_backend.c']]]
+];

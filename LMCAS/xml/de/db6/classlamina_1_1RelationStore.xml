@@ -1,0 +1,561 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="zh">
+  <compounddef id="de/db6/classlamina_1_1RelationStore" kind="class" language="C++" prot="public">
+    <compoundname>lamina::RelationStore</compoundname>
+    <includes refid="d1/ddb/relation__store_8hpp" local="no">relation_store.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="dd/d91/structlamina_1_1Relation" kindref="compound">Relation</ref> &gt;</type>
+        <definition>std::vector&lt;Relation&gt; lamina::RelationStore::relations_</definition>
+        <argsstring></argsstring>
+        <name>relations_</name>
+        <qualifiedname>lamina::RelationStore::relations_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="100" column="17" bodyfile="include/relation_store.hpp" bodystart="100" bodyend="-1"/>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a32e3f5ff30c168fc1cc67507e1f3b564" compoundref="d6/d25/relation__store_8cpp" startline="61" endline="107">add_relation_unchecked</referencedby>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1adcba0ec830119ab01d62d6ee1a2e2a95" compoundref="d6/d25/relation__store_8cpp" startline="338" endline="340">clear</referencedby>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" compoundref="d6/d25/relation__store_8cpp" startline="161" endline="265">compute_transitive_closure</referencedby>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a3b4fb9340907a7428c78d50cf29a8c71" compoundref="d6/d25/relation__store_8cpp" startline="308" endline="310">get_relations</referencedby>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a1f2cfd899ec04a332db2f6e7088819b4" compoundref="d6/d25/relation__store_8cpp" startline="312" endline="336">has_relation</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="de/db6/classlamina_1_1RelationStore_1af56b97648187d043a6ab0071c2f8ecfd" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int lamina::RelationStore::MAX_TRANSITIVE_DEDUCTIONS</definition>
+        <argsstring></argsstring>
+        <name>MAX_TRANSITIVE_DEDUCTIONS</name>
+        <qualifiedname>lamina::RelationStore::MAX_TRANSITIVE_DEDUCTIONS</qualifiedname>
+        <initializer>= 64</initializer>
+        <briefdescription>
+<para>Maximum number of new relations deduced per add_relation call via transitive closure. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="108" column="26" bodyfile="include/relation_store.hpp" bodystart="108" bodyend="-1"/>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" compoundref="d6/d25/relation__store_8cpp" startline="161" endline="265">compute_transitive_closure</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1ae72f33350568f731fbb3f4b6bacd32dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lamina::RelationStore::add_relation</definition>
+        <argsstring>(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op, PropertyStore &amp;prop_store)</argsstring>
+        <name>add_relation</name>
+        <qualifiedname>lamina::RelationStore::add_relation</qualifiedname>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <param>
+          <type><ref refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5" kindref="member">RelationOp</ref></type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> &amp;</type>
+          <declname>prop_store</declname>
+        </param>
+        <briefdescription>
+<para>Store a relation and optionally derive sign properties. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If the relation compares one variable with exact zero, the corresponding sign property is declared on the <ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left-hand side expression </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Right-hand side expression </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Relational operator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prop_store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> to notify for simple variable &gt; 0 patterns </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="61" column="10" bodyfile="src/relation_store.cpp" bodystart="109" bodyend="126"/>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a63c3184c58e9be03648d02076e65f25d" compoundref="d6/d25/relation__store_8cpp" startline="128" endline="159">add_relation_checked</references>
+        <references refid="d1/d42/namespacelamina_1a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b" compoundref="de/d80/result_8hpp" startline="11">lamina::InvalidArgument</references>
+        <references refid="d1/d42/namespacelamina_1a09cfdcec1470c99d325539f3a1deb98ba5b9e324ce43a64f4976de212c9d3b75d" compoundref="de/d80/result_8hpp" startline="23">lamina::ResourceLimit</references>
+      </memberdef>
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1a63c3184c58e9be03648d02076e65f25d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="d1/d42/namespacelamina_1ac76c84358d69c023e6778fc13a621bb3" kindref="member">RelationStoreResult</ref></type>
+        <definition>RelationStoreResult lamina::RelationStore::add_relation_checked</definition>
+        <argsstring>(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op, PropertyStore &amp;prop_store)</argsstring>
+        <name>add_relation_checked</name>
+        <qualifiedname>lamina::RelationStore::add_relation_checked</qualifiedname>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <param>
+          <type><ref refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5" kindref="member">RelationOp</ref></type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> &amp;</type>
+          <declname>prop_store</declname>
+        </param>
+        <briefdescription>
+<para>Checked relation insertion with explicit failure reporting. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Applies the relation plus derived property declarations transactionally. On failure, neither this store nor the <ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> is modified. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="70" column="25" bodyfile="src/relation_store.cpp" bodystart="128" bodyend="159"/>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a32e3f5ff30c168fc1cc67507e1f3b564" compoundref="d6/d25/relation__store_8cpp" startline="61" endline="107">add_relation_unchecked</references>
+        <references refid="d4/db8/classlamina_1_1Result_3_01void_01_4_1a11f8197a255706b6542ae69edaaa8565" compoundref="de/d80/result_8hpp" startline="113" endline="116">lamina::Result&lt; void &gt;::failure</references>
+        <references refid="d1/d42/namespacelamina_1a09cfdcec1470c99d325539f3a1deb98ba5b2c6ff58370ee6e4fdc7308e09cd698" compoundref="de/d80/result_8hpp" startline="26">lamina::InternalInvariant</references>
+        <references refid="d1/d42/namespacelamina_1a09cfdcec1470c99d325539f3a1deb98ba253ca7dd096ee0956cccee4d376cab8b" compoundref="de/d80/result_8hpp" startline="11">lamina::InvalidArgument</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1a9e31448c7d53c33d5be1a6bd9a631cbf" compoundref="dd/d3c/base_8hpp" startline="82" endline="84">lamina::detail::node</references>
+        <references refid="d1/d42/namespacelamina_1a09cfdcec1470c99d325539f3a1deb98ba5b9e324ce43a64f4976de212c9d3b75d" compoundref="de/d80/result_8hpp" startline="23">lamina::ResourceLimit</references>
+        <references refid="d4/db8/classlamina_1_1Result_3_01void_01_4_1aeeafcc8d635ed132b65c6e89526701c7" compoundref="de/d80/result_8hpp" startline="111" endline="111">lamina::Result&lt; void &gt;::success</references>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1ae72f33350568f731fbb3f4b6bacd32dd" compoundref="d6/d25/relation__store_8cpp" startline="109" endline="126">add_relation</referencedby>
+        <referencedby refid="d2/d48/classlamina_1_1InferenceEngine_1a3867deb7c0ac8728180cfd7e9fc26d42" compoundref="d2/de5/inference__engine__monotonicity_8cpp" startline="235" endline="339">lamina::InferenceEngine::apply_monotonicity_rules_checked</referencedby>
+        <referencedby refid="de/dc6/classlamina_1_1AssumptionContext_1a372596e09b2a62ed89b47e20922734fd" compoundref="df/d4a/assumption__context_8cpp" startline="923" endline="1331">lamina::AssumptionContext::deserialize_impl</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1adcba0ec830119ab01d62d6ee1a2e2a95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lamina::RelationStore::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>lamina::RelationStore::clear</qualifiedname>
+        <briefdescription>
+<para>Clear all stored relations (used during scope pop). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="97" column="10" bodyfile="src/relation_store.cpp" bodystart="338" bodyend="340"/>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" compoundref="d1/ddb/relation__store_8hpp" startline="100">relations_</references>
+      </memberdef>
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1a3b4fb9340907a7428c78d50cf29a8c71" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::vector&lt; <ref refid="dd/d91/structlamina_1_1Relation" kindref="compound">Relation</ref> &gt; &amp;</type>
+        <definition>const std::vector&lt; Relation &gt; &amp; lamina::RelationStore::get_relations</definition>
+        <argsstring>() const</argsstring>
+        <name>get_relations</name>
+        <qualifiedname>lamina::RelationStore::get_relations</qualifiedname>
+        <briefdescription>
+<para>Retrieve all stored relations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Const reference to the vector of stored relations </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="79" column="23" bodyfile="src/relation_store.cpp" bodystart="308" bodyend="310"/>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" compoundref="d1/ddb/relation__store_8hpp" startline="100">relations_</references>
+        <referencedby refid="d1/d42/namespacelamina_1afc17d632a1a0e29f914166b257c5b3aa" compoundref="d2/de5/inference__engine__monotonicity_8cpp" startline="179" endline="228">lamina::collect_power_exponents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1a1f2cfd899ec04a332db2f6e7088819b4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool lamina::RelationStore::has_relation</definition>
+        <argsstring>(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op) const</argsstring>
+        <name>has_relation</name>
+        <qualifiedname>lamina::RelationStore::has_relation</qualifiedname>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <param>
+          <type><ref refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5" kindref="member">RelationOp</ref></type>
+          <declname>op</declname>
+        </param>
+        <briefdescription>
+<para>Check if a specific relation is stored. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Compares LHS, RHS, and operator using structural equality of the AST nodes.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left-hand side expression </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Right-hand side expression </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Relational operator </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the relation is found in the store </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="91" column="10" bodyfile="src/relation_store.cpp" bodystart="312" bodyend="336"/>
+        <references refid="dc/dc3/classSymbolicNode_1a4b30b4a5ba4dda4e6d83eaec90936483" compoundref="dd/d3c/base_8hpp" startline="201" endline="206">SymbolicNode::equals</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1a9e31448c7d53c33d5be1a6bd9a631cbf" compoundref="dd/d3c/base_8hpp" startline="82" endline="84">lamina::detail::node</references>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" compoundref="d1/ddb/relation__store_8hpp" startline="100">relations_</references>
+        <referencedby refid="d2/d48/classlamina_1_1InferenceEngine_1a3867deb7c0ac8728180cfd7e9fc26d42" compoundref="d2/de5/inference__engine__monotonicity_8cpp" startline="235" endline="339">lamina::InferenceEngine::apply_monotonicity_rules_checked</referencedby>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" compoundref="d6/d25/relation__store_8cpp" startline="161" endline="265">compute_transitive_closure</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1a32e3f5ff30c168fc1cc67507e1f3b564" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lamina::RelationStore::add_relation_unchecked</definition>
+        <argsstring>(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op, PropertyStore &amp;prop_store)</argsstring>
+        <name>add_relation_unchecked</name>
+        <qualifiedname>lamina::RelationStore::add_relation_unchecked</qualifiedname>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <param>
+          <type><ref refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5" kindref="member">RelationOp</ref></type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> &amp;</type>
+          <declname>prop_store</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="102" column="10" bodyfile="src/relation_store.cpp" bodystart="61" bodyend="107"/>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" compoundref="d6/d25/relation__store_8cpp" startline="161" endline="265">compute_transitive_closure</references>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a90cc8894a4ebd253cce2e04423982aea" compoundref="d6/d25/relation__store_8cpp" startline="267" endline="306">detect_reversed_pattern</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5a2dcbad7477fd40561e8b8198f173bd47" compoundref="d5/df2/symbolic_8hpp" startline="31">lamina::EQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5af3a19508545196b65d938817de495891" compoundref="d5/df2/symbolic_8hpp" startline="36">lamina::GEQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5acd6a9bd2a175104eed40f0d33a8b4020" compoundref="d5/df2/symbolic_8hpp" startline="34">lamina::GT</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5a2a8fef531add4d7bc6e1a7dcc0f208ec" compoundref="d5/df2/symbolic_8hpp" startline="35">lamina::LEQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5ac562607189d77eb9dfb707464c1e7b0b" compoundref="d5/df2/symbolic_8hpp" startline="33">lamina::LT</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5affb9356ff2b7da85c75c92fa7ea03b8b" compoundref="de/db0/assumption_8hpp" startline="28">lamina::Negative</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5a375b332cf2e0c6d522baf007ef7cb554" compoundref="d5/df2/symbolic_8hpp" startline="32">lamina::NEQ</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1a9e31448c7d53c33d5be1a6bd9a631cbf" compoundref="dd/d3c/base_8hpp" startline="82" endline="84">lamina::detail::node</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8" compoundref="de/db0/assumption_8hpp" startline="29">lamina::NonNegative</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5afdbcbe237c31e02cc70dd5971d4b698f" compoundref="de/db0/assumption_8hpp" startline="30">lamina::NonPositive</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a3d0365a27a39c0af183445fc4d932a8a" compoundref="de/db0/assumption_8hpp" startline="32">lamina::NonZero</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147" compoundref="de/db0/assumption_8hpp" startline="27">lamina::Positive</references>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" compoundref="d1/ddb/relation__store_8hpp" startline="100">relations_</references>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a63c3184c58e9be03648d02076e65f25d" compoundref="d6/d25/relation__store_8cpp" startline="128" endline="159">add_relation_checked</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lamina::RelationStore::compute_transitive_closure</definition>
+        <argsstring>(const Relation &amp;new_rel, PropertyStore &amp;prop_store)</argsstring>
+        <name>compute_transitive_closure</name>
+        <qualifiedname>lamina::RelationStore::compute_transitive_closure</qualifiedname>
+        <param>
+          <type>const <ref refid="dd/d91/structlamina_1_1Relation" kindref="compound">Relation</ref> &amp;</type>
+          <declname>new_rel</declname>
+        </param>
+        <param>
+          <type><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> &amp;</type>
+          <declname>prop_store</declname>
+        </param>
+        <briefdescription>
+<para>Compute transitive closure after adding a new relation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>BFS from the new relation, combining GT/GEQ operators transitively: GT+GT→GT, GT+GEQ→GT, GEQ+GT→GT, GEQ+GEQ→GEQ. Only GT and GEQ participate in transitive closure. Stops after MAX_TRANSITIVE_DEDUCTIONS new relations are deduced.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>new_rel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The newly added relation that triggers closure computation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prop_store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> for sign derivation of deduced relations </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="140" column="10" bodyfile="src/relation_store.cpp" bodystart="161" bodyend="265"/>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a90cc8894a4ebd253cce2e04423982aea" compoundref="d6/d25/relation__store_8cpp" startline="267" endline="306">detect_reversed_pattern</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5af3a19508545196b65d938817de495891" compoundref="d5/df2/symbolic_8hpp" startline="36">lamina::GEQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5acd6a9bd2a175104eed40f0d33a8b4020" compoundref="d5/df2/symbolic_8hpp" startline="34">lamina::GT</references>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a1f2cfd899ec04a332db2f6e7088819b4" compoundref="d6/d25/relation__store_8cpp" startline="312" endline="336">has_relation</references>
+        <references refid="dd/d91/structlamina_1_1Relation_1a1b8d56ca6054d439cb12bf4e958fcd69" compoundref="d1/ddb/relation__store_8hpp" startline="29">lamina::Relation::lhs</references>
+        <references refid="de/db6/classlamina_1_1RelationStore_1af56b97648187d043a6ab0071c2f8ecfd" compoundref="d1/ddb/relation__store_8hpp" startline="108">MAX_TRANSITIVE_DEDUCTIONS</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1a9e31448c7d53c33d5be1a6bd9a631cbf" compoundref="dd/d3c/base_8hpp" startline="82" endline="84">lamina::detail::node</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8" compoundref="de/db0/assumption_8hpp" startline="29">lamina::NonNegative</references>
+        <references refid="dd/d91/structlamina_1_1Relation_1a1989dbd9796b1634dc7c34fe5c20fdcf" compoundref="d1/ddb/relation__store_8hpp" startline="31">lamina::Relation::op</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147" compoundref="de/db0/assumption_8hpp" startline="27">lamina::Positive</references>
+        <references refid="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" compoundref="d1/ddb/relation__store_8hpp" startline="100">relations_</references>
+        <references refid="dd/d91/structlamina_1_1Relation_1a675156e465c3067fd3e7c055af566514" compoundref="d1/ddb/relation__store_8hpp" startline="30">lamina::Relation::rhs</references>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a32e3f5ff30c168fc1cc67507e1f3b564" compoundref="d6/d25/relation__store_8cpp" startline="61" endline="107">add_relation_unchecked</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="de/db6/classlamina_1_1RelationStore_1a90cc8894a4ebd253cce2e04423982aea" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lamina::RelationStore::detect_reversed_pattern</definition>
+        <argsstring>(const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, RelationOp op, PropertyStore &amp;prop_store)</argsstring>
+        <name>detect_reversed_pattern</name>
+        <qualifiedname>lamina::RelationStore::detect_reversed_pattern</qualifiedname>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <param>
+          <type><ref refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5" kindref="member">RelationOp</ref></type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> &amp;</type>
+          <declname>prop_store</declname>
+        </param>
+        <briefdescription>
+<para>Detect reversed &quot;0 op variable&quot; patterns and derive sign properties. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>When exact zero appears on the left and a variable on the right, the operator semantics are reversed to derive the variable&apos;s sign:<itemizedlist>
+<listitem><para>0 LT var → var is Positive (0 &lt; var means var &gt; 0)</para>
+</listitem><listitem><para>0 GT var → var is Negative (0 &gt; var means var &lt; 0)</para>
+</listitem><listitem><para>0 GEQ var → var is NonPositive (0 &gt;= var means var &lt;= 0)</para>
+</listitem><listitem><para>0 LEQ var → var is NonNegative (0 &lt;= var means var &gt;= 0)</para>
+</listitem><listitem><para>0 NEQ var → var is NonZero</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left-hand side expression (expected to be zero) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Right-hand side expression (expected to be a variable) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Relational operator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prop_store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> to update with derived sign </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/relation_store.hpp" line="126" column="10" bodyfile="src/relation_store.cpp" bodystart="267" bodyend="306"/>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5a2dcbad7477fd40561e8b8198f173bd47" compoundref="d5/df2/symbolic_8hpp" startline="31">lamina::EQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5af3a19508545196b65d938817de495891" compoundref="d5/df2/symbolic_8hpp" startline="36">lamina::GEQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5acd6a9bd2a175104eed40f0d33a8b4020" compoundref="d5/df2/symbolic_8hpp" startline="34">lamina::GT</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5a2a8fef531add4d7bc6e1a7dcc0f208ec" compoundref="d5/df2/symbolic_8hpp" startline="35">lamina::LEQ</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5ac562607189d77eb9dfb707464c1e7b0b" compoundref="d5/df2/symbolic_8hpp" startline="33">lamina::LT</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5affb9356ff2b7da85c75c92fa7ea03b8b" compoundref="de/db0/assumption_8hpp" startline="28">lamina::Negative</references>
+        <references refid="d1/d42/namespacelamina_1ae90a249b3be8ecfc5dfd527698fe39b5a375b332cf2e0c6d522baf007ef7cb554" compoundref="d5/df2/symbolic_8hpp" startline="32">lamina::NEQ</references>
+        <references refid="d0/d3a/namespacelamina_1_1detail_1a9e31448c7d53c33d5be1a6bd9a631cbf" compoundref="dd/d3c/base_8hpp" startline="82" endline="84">lamina::detail::node</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a16cb7fb563099bff249482f3a050bad8" compoundref="de/db0/assumption_8hpp" startline="29">lamina::NonNegative</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5afdbcbe237c31e02cc70dd5971d4b698f" compoundref="de/db0/assumption_8hpp" startline="30">lamina::NonPositive</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a3d0365a27a39c0af183445fc4d932a8a" compoundref="de/db0/assumption_8hpp" startline="32">lamina::NonZero</references>
+        <references refid="d1/d42/namespacelamina_1abdfc14c28a6aca3825a6eb0519a3eda5a3289297424e01eda5b788c083bbf3147" compoundref="de/db0/assumption_8hpp" startline="27">lamina::Positive</references>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a32e3f5ff30c168fc1cc67507e1f3b564" compoundref="d6/d25/relation__store_8cpp" startline="61" endline="107">add_relation_unchecked</referencedby>
+        <referencedby refid="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" compoundref="d6/d25/relation__store_8cpp" startline="161" endline="265">compute_transitive_closure</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Stores relational constraints and derives sign properties for simple patterns. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>When a relation of the form <computeroutput>variable op 0</computeroutput> is added, the <ref refid="de/db6/classlamina_1_1RelationStore" kindref="compound">RelationStore</ref> notifies the <ref refid="d3/dba/classlamina_1_1PropertyStore" kindref="compound">PropertyStore</ref> to mark the variable with the corresponding sign:<itemizedlist>
+<listitem><para>GT → Positive</para>
+</listitem><listitem><para>GEQ → NonNegative</para>
+</listitem><listitem><para>LT → Negative</para>
+</listitem><listitem><para>LEQ → NonPositive</para>
+</listitem><listitem><para>NEQ → NonZero</para>
+</listitem></itemizedlist>
+</para>
+<para>Composite relations (multi-variable LHS or non-zero RHS) are stored without decomposition for later use by the <ref refid="d2/d48/classlamina_1_1InferenceEngine" kindref="compound">InferenceEngine</ref>. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>RelationOp</label>
+      </node>
+      <node id="4">
+        <label>SymbolicExpr</label>
+        <link refid="dc/d25/classSymbolicExpr"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>-impl_</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>SymbolicExpr::Impl</label>
+        <link refid="d6/d43/structSymbolicExpr_1_1Impl"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>+root</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>T</label>
+      </node>
+      <node id="13">
+        <label>int</label>
+      </node>
+      <node id="3">
+        <label>lamina::Relation</label>
+        <link refid="dd/d91/structlamina_1_1Relation"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>+lhs</edgelabel>
+          <edgelabel>+rhs</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>+op</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>lamina::RelationStore</label>
+        <link refid="de/db6/classlamina_1_1RelationStore"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>-relations_</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>-MAX_TRANSITIVE_DEDUCTIONS</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>std::enable_shared_from_this&lt; SymbolicExpr &gt;</label>
+      </node>
+      <node id="9">
+        <label>std::shared_ptr&lt; T &gt;</label>
+        <childnode refid="10" relation="usage">
+          <edgelabel>+ptr</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>std::shared_ptr&lt; const SymbolicExpr::Impl &gt;</label>
+        <childnode refid="7" relation="usage">
+          <edgelabel>+ptr</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="template-instance">
+          <edgelabel>&lt; const SymbolicExpr::Impl &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>std::shared_ptr&lt; const SymbolicNode &gt;</label>
+        <childnode refid="9" relation="template-instance">
+          <edgelabel>&lt; const SymbolicNode &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>std::vector&lt; T &gt;</label>
+        <childnode refid="10" relation="usage">
+          <edgelabel>+elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::vector&lt; lamina::Relation &gt;</label>
+        <childnode refid="3" relation="usage">
+          <edgelabel>+elements</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="template-instance">
+          <edgelabel>&lt; lamina::Relation &gt;</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/relation_store.hpp" line="48" column="1" bodyfile="include/relation_store.hpp" bodystart="48" bodyend="141"/>
+    <listofallmembers>
+      <member refid="de/db6/classlamina_1_1RelationStore_1ae72f33350568f731fbb3f4b6bacd32dd" prot="public" virt="non-virtual"><scope>lamina::RelationStore</scope><name>add_relation</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a63c3184c58e9be03648d02076e65f25d" prot="public" virt="non-virtual"><scope>lamina::RelationStore</scope><name>add_relation_checked</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a32e3f5ff30c168fc1cc67507e1f3b564" prot="private" virt="non-virtual"><scope>lamina::RelationStore</scope><name>add_relation_unchecked</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1adcba0ec830119ab01d62d6ee1a2e2a95" prot="public" virt="non-virtual"><scope>lamina::RelationStore</scope><name>clear</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a56fe606785aa9cc80c7b485b3192d88e" prot="private" virt="non-virtual"><scope>lamina::RelationStore</scope><name>compute_transitive_closure</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a90cc8894a4ebd253cce2e04423982aea" prot="private" virt="non-virtual"><scope>lamina::RelationStore</scope><name>detect_reversed_pattern</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a3b4fb9340907a7428c78d50cf29a8c71" prot="public" virt="non-virtual"><scope>lamina::RelationStore</scope><name>get_relations</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a1f2cfd899ec04a332db2f6e7088819b4" prot="public" virt="non-virtual"><scope>lamina::RelationStore</scope><name>has_relation</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1af56b97648187d043a6ab0071c2f8ecfd" prot="private" virt="non-virtual"><scope>lamina::RelationStore</scope><name>MAX_TRANSITIVE_DEDUCTIONS</name></member>
+      <member refid="de/db6/classlamina_1_1RelationStore_1a41f16a4e86a3936d4de4e4564684ee8f" prot="private" virt="non-virtual"><scope>lamina::RelationStore</scope><name>relations_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

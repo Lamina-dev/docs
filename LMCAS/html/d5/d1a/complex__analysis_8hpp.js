@@ -1,0 +1,26 @@
+var complex__analysis_8hpp =
+[
+    [ "lamina::ComplexBoolResult", "d1/d42/namespacelamina.html#ae7b2036fe98b95c71b91366907bea339", null ],
+    [ "lamina::analytic_continuation", "d1/d42/namespacelamina.html#a55ef2ba11790acae8a7b1d8a98452a5a", null ],
+    [ "lamina::calculate_residue", "d1/d42/namespacelamina.html#a823bb187ec1ef0ee4a65febadba203c0", null ],
+    [ "lamina::calculate_residue_checked", "d1/d42/namespacelamina.html#aabd4455ddceb9ba4190e7cf993e058cc", null ],
+    [ "lamina::calculate_residue_checked", "d1/d42/namespacelamina.html#a009f0d2e8a95f365462a608689384567", null ],
+    [ "lamina::cauchy_integral", "d1/d42/namespacelamina.html#a9d189ddc6bed7d855a231ebe4795202b", null ],
+    [ "lamina::cauchy_integral_checked", "d1/d42/namespacelamina.html#a746bd157db5c85a3f845b75bef6f9801", null ],
+    [ "lamina::cauchy_integral_checked", "d1/d42/namespacelamina.html#ad5e393f7882c9fe06872818c9181f841", null ],
+    [ "lamina::conjugate", "d1/d42/namespacelamina.html#ad9da9db2f6cc4be91effee2bb4b2678d", null ],
+    [ "lamina::conjugate_checked", "d1/d42/namespacelamina.html#aa8073f398a51d5ec47922d32bff9647f", null ],
+    [ "lamina::conjugate_checked", "d1/d42/namespacelamina.html#ab94e7d578629b2bbddcbd360c3923690", null ],
+    [ "lamina::imag_part", "d1/d42/namespacelamina.html#ac98fa039c5b35a6c272e6c01630ee867", null ],
+    [ "lamina::imag_part_checked", "d1/d42/namespacelamina.html#a19e6e6c6cd989731ef3e59433f00a2db", null ],
+    [ "lamina::imag_part_checked", "d1/d42/namespacelamina.html#ae5e137f881ebacea35569f74aa498b02", null ],
+    [ "lamina::is_analytic", "d1/d42/namespacelamina.html#af680ba5f64d4f6f2801ae195fd467c72", null ],
+    [ "lamina::is_analytic_checked", "d1/d42/namespacelamina.html#a5d9c2a8dc7bd07cce26432a71a717ecb", null ],
+    [ "lamina::is_analytic_checked", "d1/d42/namespacelamina.html#a32b1b743f961ece3f8fb7ea9b6a298d8", null ],
+    [ "lamina::real_part", "d1/d42/namespacelamina.html#a9f873db2afd5c079b53860db9fe8ad17", null ],
+    [ "lamina::real_part_checked", "d1/d42/namespacelamina.html#ace38721d75c3e2bb2e8b0e7e64b9cf62", null ],
+    [ "lamina::real_part_checked", "d1/d42/namespacelamina.html#ab4b5f64bd077fb8db277a00828e20e1f", null ],
+    [ "lamina::residue", "d1/d42/namespacelamina.html#a7bd86013e592252d324e861a732830fd", null ],
+    [ "lamina::residue_checked", "d1/d42/namespacelamina.html#a3ca895171dce614b8b0a5686a19dea1b", null ],
+    [ "lamina::residue_checked", "d1/d42/namespacelamina.html#a790707a3c5daa2fca2e29b44e730e3c3", null ]
+];

@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/matrix_decomposition.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/dc0/matrix__decomposition_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">matrix_decomposition.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d2/dc0/matrix__decomposition_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file matrix_decomposition.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 矩阵高级分解算法：LU、QR、Cholesky、SVD、特征分解及矩阵指数。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d14/computation__context_8hpp.html">computation_context.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d80/result_8hpp.html">result.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   15</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d8/d06/structlamina_1_1LUDecomposition">LUDecomposition</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ac6b1e161db059563e323e1b43d3d2c89">   16</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ac6b1e161db059563e323e1b43d3d2c89">L</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a67d17c0524dabcec7445589f51c386a4">   17</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a67d17c0524dabcec7445589f51c386a4">U</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
+</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d9/dd4/structlamina_1_1QRDecomposition">QRDecomposition</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a90db081e2332dcdcf153d51088571d42">   21</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a90db081e2332dcdcf153d51088571d42">Q</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a5fc88353d381da35f0d34eba20980c25">   22</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a5fc88353d381da35f0d34eba20980c25">R</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#de/db7/structlamina_1_1CholeskyDecomposition">CholeskyDecomposition</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ab0db051b5620b3e429e0fc040565f281">   26</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ab0db051b5620b3e429e0fc040565f281">L</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   29</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#dc/dfc/structlamina_1_1SVDDecomposition">SVDDecomposition</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ac7dfdea4276f5767be3efdf24fb1566a">   30</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ac7dfdea4276f5767be3efdf24fb1566a">U</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a512def2a3da3651383210a1c9f83124c">   31</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a512def2a3da3651383210a1c9f83124c">S</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a74ae3dfc71052df19ee2e81b8b54f733">   32</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a74ae3dfc71052df19ee2e81b8b54f733">V</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   35</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#da/d13/structlamina_1_1JordanDecomposition">JordanDecomposition</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a7ecb99f0a12e4c8c4bd6c81ad6b134fa">   36</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a7ecb99f0a12e4c8c4bd6c81ad6b134fa">J</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a6c5f15fb727a19f9918253ad16e512c3">   37</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a6c5f15fb727a19f9918253ad16e512c3">P</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">   40</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">LUDecompositionResult</a> = <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;LUDecomposition&gt;</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">   41</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">QRDecompositionResult</a> = <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;QRDecomposition&gt;</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">   42</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">CholeskyDecompositionResult</a> = <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;CholeskyDecomposition&gt;</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">   43</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">SVDDecompositionResult</a> = <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;SVDDecomposition&gt;</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">   44</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">JordanDecompositionResult</a> = <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;JordanDecomposition&gt;</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"></span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * @brief 计算符号矩阵的 LU 分解 (A = L * U)</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * @param A 输入方阵</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * @param L 输出的下三角矩阵</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> * @param U 输出的上三角矩阵</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * @return 成功返回 true</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">LUDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ac6759fbb8f04412be71c1e39998ad8fb">lu_decomposition_checked</a>(</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a>&amp; context</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">LUDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ac6759fbb8f04412be71c1e39998ad8fb">lu_decomposition_checked</a>(</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a59fb2029d6bab0301873ad60e03abb6e">lu_decomposition</a>(</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; L,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; U</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment"></span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"> * @brief 计算符号矩阵的 QR 分解 (A = Q * R)</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> * @param A 输入矩阵</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * @param Q 输出的正交矩阵</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> * @param R 输出的上三角矩阵</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * @return 成功返回 true</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">QRDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a012e577a432e9f30bbc4aabf6afed8b7">qr_decomposition_checked</a>(</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_class" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a>&amp; context</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">QRDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a012e577a432e9f30bbc4aabf6afed8b7">qr_decomposition_checked</a>(</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a446d72a66587bd3bbdac37e44f202ede">qr_decomposition</a>(</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; Q,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; R</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment"> * @brief 计算对称正定矩阵的 Cholesky 分解 (A = L * L^T)</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"> * @param A 输入矩阵</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"> * @param L 输出的下三角矩阵</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * @return 成功返回 true</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">CholeskyDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a79c22394a2450f63f0b246895324d92d">cholesky_decomposition_checked</a>(</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_class" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a>&amp; context</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">CholeskyDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a79c22394a2450f63f0b246895324d92d">cholesky_decomposition_checked</a>(</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#af838ac232526f2c5885956bbd75361b7">cholesky_decomposition</a>(</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; L</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment"></span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment"> * @brief 计算符号矩阵的奇异值分解 (A = U * S * V^T)</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"> * @param A 输入矩阵</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment"> * @param U 输出的左奇异矩阵</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> * @param S 输出的奇异值对角矩阵</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"> * @param V 输出的右奇异矩阵</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment"> * @return 成功返回 true</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">SVDDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8431b060696b71fdcafb41b1c701f082">svd_decomposition_checked</a>(</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_class" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a>&amp; context</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">SVDDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8431b060696b71fdcafb41b1c701f082">svd_decomposition_checked</a>(</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5c9f71ed921d093c897eb92f8f7d21c4">svd_decomposition</a>(</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; U,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; S,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; V</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment"></span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment"> * @brief 计算矩阵指数 e^A</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment"> * @param A 输入矩阵</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment"> * @return 指数矩阵的符号表达式</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a9e9633b3b9ce32430bad72eb70fae272">matrix_exp</a>(</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment"></span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment"> * @brief 计算方阵的迹（对角元之和）。</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment"> * @param A 输入方阵</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment"> * @return 迹的符号表达式；非方阵返回 nullptr</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ae3b1768a23e942ee664eb786953b9730">matrix_trace</a>(</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment"></span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"> * @brief 计算矩阵的秩（通过 RREF 主元计数）。</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment"> * @param A 输入矩阵</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment"> * @return 秩（整数）；输入非矩阵返回 -1</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">int</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a85c2b8ec92c29e242ec7e72d4e0511d5">matrix_rank</a>(</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment"></span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"> * @brief 对一组向量执行 Gram-Schmidt 正交化。</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment"> * @param vectors 输入向量列表（每个向量为分量列表）</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment"> * @param normalize 为 true 时返回标准正交基，否则仅正交</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment"> * @return 正交（或标准正交）向量列表；线性相关的向量被跳过</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ad28f0e7b0a0474e0d3fc9f487d8dcd0a">gram_schmidt</a>(</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keyword">const</span> std::vector&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;&gt;&amp; vectors,</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordtype">bool</span> normalize = <span class="keyword">false</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment"></span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment"> * @brief 计算矩阵自然对数 log(A)（通过特征分解）。</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment"> * @param A 输入方阵</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"> * @return log(A) 的符号表达式；不可对角化或含非正特征值时返回 nullptr</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#aa8523d56203079f377c2f9993f4463ff">matrix_log</a>(</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"></span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> * @brief 计算两个矩阵的 Kronecker 积 A⊗B。</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> * @param A m×n 矩阵</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> * @param B p×q 矩阵</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment"> * @return (mp)×(nq) 矩阵</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a774aac1c403c52e33b9bd9d1cc0aa51a">kronecker</a>(</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; B</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment"></span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment"> * @brief 计算矩阵范数。</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment"> * @param A 输入矩阵</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment"> * @param type 范数类型：&quot;frobenius&quot;、&quot;1&quot;（最大列和）、&quot;inf&quot;（最大行和）</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment"> * @return 范数的符号表达式；类型无效返回 nullptr</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a3e6cb8d480c36995f453e1cabfc52e6e">matrix_norm</a>(</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">const</span> std::string&amp; type = <span class="stringliteral">&quot;frobenius&quot;</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"></span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> * @brief 从二次型表达式提取对称矩阵 A，使得 expr = xᵀAx。</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> * @param expr 二次齐次表达式</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> * @param vars 变量名列表</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"> * @return 对称矩阵；提取失败返回 nullptr</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a6ba735de3b86fb5ae9f67c16f93cbcea">quadratic_form_matrix</a>(</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; vars</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment"></span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="comment"> * @brief 对二次型对称矩阵进行定性分类。</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment"> * @param A 对称矩阵</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment"> * @return 分类字符串：&quot;positive_definite&quot;、&quot;negative_definite&quot;、</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment"> *         &quot;positive_semidefinite&quot;、&quot;negative_semidefinite&quot;、&quot;indefinite&quot;、&quot;unknown&quot;</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::string <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a533465195ef2d1730a06cbc70213c163">classify_quadratic_form</a>(</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment"></span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment"> * @brief 计算方阵的 Jordan 标准型 J 及变换矩阵 P（A = P·J·P⁻¹）。</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment"> * @param A 输入方阵</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment"> * @param J 输出 Jordan 标准型</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment"> * @param P 输出变换矩阵</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment"> * @return 成功返回 true（可对角化或可求 Jordan 块时）</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">JordanDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a71161cbab4a4ccb1661e3512222f62d2">jordan_form_checked</a>(</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <a class="code hl_class" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a>&amp; context</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">JordanDecompositionResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a71161cbab4a4ccb1661e3512222f62d2">jordan_form_checked</a>(</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a6bae38db7e8fba856dcda37b44be0483">jordan_form</a>(</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; J,</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    std::shared_ptr&lt;SymbolicExpr&gt;&amp; P</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="aclasslamina_1_1ComputationContext_html"><div class="ttname"><a href="../../df/dac/classlamina_1_1ComputationContext.html">lamina::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00093">computation_context.hpp:93</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html">lamina::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00050">result.hpp:50</a></div></div>
+<div class="ttc" id="acomputation__context_8hpp_html"><div class="ttname"><a href="../../da/d14/computation__context_8hpp.html">computation_context.hpp</a></div></div>
+<div class="ttc" id="alamina__export_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>定义</b> <a href="../../d1/d05/lamina__export_8hpp_source.html#l00011">lamina_export.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a012e577a432e9f30bbc4aabf6afed8b7"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a012e577a432e9f30bbc4aabf6afed8b7">lamina::qr_decomposition_checked</a></div><div class="ttdeci">QRDecompositionResult qr_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)</div><div class="ttdoc">计算符号矩阵的 QR 分解 (A = Q * R)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00439">matrix_decomposition.cpp:439</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a1ab779dddb46f9d9340af33d47f4dcb2"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a1ab779dddb46f9d9340af33d47f4dcb2">lamina::LUDecompositionResult</a></div><div class="ttdeci">Result&lt; LUDecomposition &gt; LUDecompositionResult</div><div class="ttdef"><b>定义</b> <a href="#l00040">matrix_decomposition.hpp:40</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a35824329fc457f957c439a9fdb0902ab"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a35824329fc457f957c439a9fdb0902ab">lamina::JordanDecompositionResult</a></div><div class="ttdeci">Result&lt; JordanDecomposition &gt; JordanDecompositionResult</div><div class="ttdef"><b>定义</b> <a href="#l00044">matrix_decomposition.hpp:44</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a3e6cb8d480c36995f453e1cabfc52e6e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a3e6cb8d480c36995f453e1cabfc52e6e">lamina::matrix_norm</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_norm(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, const std::string &amp;type=&quot;frobenius&quot;)</div><div class="ttdoc">计算矩阵范数。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00936">matrix_decomposition.cpp:936</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a446d72a66587bd3bbdac37e44f202ede"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a446d72a66587bd3bbdac37e44f202ede">lamina::qr_decomposition</a></div><div class="ttdeci">bool qr_decomposition(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, std::shared_ptr&lt; SymbolicExpr &gt; &amp;Q, std::shared_ptr&lt; SymbolicExpr &gt; &amp;R)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00483">matrix_decomposition.cpp:483</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a512def2a3da3651383210a1c9f83124c"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a512def2a3da3651383210a1c9f83124c">lamina::SVDDecomposition::S</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; S</div><div class="ttdef"><b>定义</b> <a href="#l00031">matrix_decomposition.hpp:31</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a533465195ef2d1730a06cbc70213c163"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a533465195ef2d1730a06cbc70213c163">lamina::classify_quadratic_form</a></div><div class="ttdeci">std::string classify_quadratic_form(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">对二次型对称矩阵进行定性分类。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l01073">matrix_decomposition.cpp:1073</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a59fb2029d6bab0301873ad60e03abb6e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a59fb2029d6bab0301873ad60e03abb6e">lamina::lu_decomposition</a></div><div class="ttdeci">bool lu_decomposition(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, std::shared_ptr&lt; SymbolicExpr &gt; &amp;L, std::shared_ptr&lt; SymbolicExpr &gt; &amp;U)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00403">matrix_decomposition.cpp:403</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5c9f71ed921d093c897eb92f8f7d21c4"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5c9f71ed921d093c897eb92f8f7d21c4">lamina::svd_decomposition</a></div><div class="ttdeci">bool svd_decomposition(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, std::shared_ptr&lt; SymbolicExpr &gt; &amp;U, std::shared_ptr&lt; SymbolicExpr &gt; &amp;S, std::shared_ptr&lt; SymbolicExpr &gt; &amp;V)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00626">matrix_decomposition.cpp:626</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5f49db726362d998f8c3f1d463f3de66"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5f49db726362d998f8c3f1d463f3de66">lamina::CholeskyDecompositionResult</a></div><div class="ttdeci">Result&lt; CholeskyDecomposition &gt; CholeskyDecompositionResult</div><div class="ttdef"><b>定义</b> <a href="#l00042">matrix_decomposition.hpp:42</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5fc88353d381da35f0d34eba20980c25"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5fc88353d381da35f0d34eba20980c25">lamina::QRDecomposition::R</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; R</div><div class="ttdef"><b>定义</b> <a href="#l00022">matrix_decomposition.hpp:22</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a67d17c0524dabcec7445589f51c386a4"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a67d17c0524dabcec7445589f51c386a4">lamina::LUDecomposition::U</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; U</div><div class="ttdef"><b>定义</b> <a href="#l00017">matrix_decomposition.hpp:17</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a6ba735de3b86fb5ae9f67c16f93cbcea"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a6ba735de3b86fb5ae9f67c16f93cbcea">lamina::quadratic_form_matrix</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; quadratic_form_matrix(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::vector&lt; std::string &gt; &amp;vars)</div><div class="ttdoc">从二次型表达式提取对称矩阵 A，使得 expr = xᵀAx。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l01051">matrix_decomposition.cpp:1051</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a6bae38db7e8fba856dcda37b44be0483"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a6bae38db7e8fba856dcda37b44be0483">lamina::jordan_form</a></div><div class="ttdeci">bool jordan_form(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, std::shared_ptr&lt; SymbolicExpr &gt; &amp;J, std::shared_ptr&lt; SymbolicExpr &gt; &amp;P)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l01151">matrix_decomposition.cpp:1151</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a6c5f15fb727a19f9918253ad16e512c3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a6c5f15fb727a19f9918253ad16e512c3">lamina::JordanDecomposition::P</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; P</div><div class="ttdef"><b>定义</b> <a href="#l00037">matrix_decomposition.hpp:37</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a71161cbab4a4ccb1661e3512222f62d2"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a71161cbab4a4ccb1661e3512222f62d2">lamina::jordan_form_checked</a></div><div class="ttdeci">JordanDecompositionResult jordan_form_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)</div><div class="ttdoc">计算方阵的 Jordan 标准型 J 及变换矩阵 P（A = P·J·P⁻¹）。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l01107">matrix_decomposition.cpp:1107</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a74ae3dfc71052df19ee2e81b8b54f733"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a74ae3dfc71052df19ee2e81b8b54f733">lamina::SVDDecomposition::V</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; V</div><div class="ttdef"><b>定义</b> <a href="#l00032">matrix_decomposition.hpp:32</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a774aac1c403c52e33b9bd9d1cc0aa51a"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a774aac1c403c52e33b9bd9d1cc0aa51a">lamina::kronecker</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; kronecker(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;B)</div><div class="ttdoc">计算两个矩阵的 Kronecker 积 A⊗B。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00915">matrix_decomposition.cpp:915</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a79c22394a2450f63f0b246895324d92d"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a79c22394a2450f63f0b246895324d92d">lamina::cholesky_decomposition_checked</a></div><div class="ttdeci">CholeskyDecompositionResult cholesky_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)</div><div class="ttdoc">计算对称正定矩阵的 Cholesky 分解 (A = L * L^T)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00524">matrix_decomposition.cpp:524</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a7ecb99f0a12e4c8c4bd6c81ad6b134fa"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a7ecb99f0a12e4c8c4bd6c81ad6b134fa">lamina::JordanDecomposition::J</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; J</div><div class="ttdef"><b>定义</b> <a href="#l00036">matrix_decomposition.hpp:36</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8431b060696b71fdcafb41b1c701f082"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8431b060696b71fdcafb41b1c701f082">lamina::svd_decomposition_checked</a></div><div class="ttdeci">SVDDecompositionResult svd_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)</div><div class="ttdoc">计算符号矩阵的奇异值分解 (A = U * S * V^T)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00587">matrix_decomposition.cpp:587</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a85c2b8ec92c29e242ec7e72d4e0511d5"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a85c2b8ec92c29e242ec7e72d4e0511d5">lamina::matrix_rank</a></div><div class="ttdeci">int matrix_rank(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算矩阵的秩（通过 RREF 主元计数）。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00782">matrix_decomposition.cpp:782</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a90db081e2332dcdcf153d51088571d42"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a90db081e2332dcdcf153d51088571d42">lamina::QRDecomposition::Q</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; Q</div><div class="ttdef"><b>定义</b> <a href="#l00021">matrix_decomposition.hpp:21</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a9e9633b3b9ce32430bad72eb70fae272"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a9e9633b3b9ce32430bad72eb70fae272">lamina::matrix_exp</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_exp(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算矩阵指数 e^A</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00714">matrix_decomposition.cpp:714</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aa8523d56203079f377c2f9993f4463ff"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aa8523d56203079f377c2f9993f4463ff">lamina::matrix_log</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_log(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算矩阵自然对数 log(A)（通过特征分解）。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00867">matrix_decomposition.cpp:867</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aab9e8c839275e54387a25286b979da85"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aab9e8c839275e54387a25286b979da85">lamina::SVDDecompositionResult</a></div><div class="ttdeci">Result&lt; SVDDecomposition &gt; SVDDecompositionResult</div><div class="ttdef"><b>定义</b> <a href="#l00043">matrix_decomposition.hpp:43</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ab0db051b5620b3e429e0fc040565f281"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ab0db051b5620b3e429e0fc040565f281">lamina::CholeskyDecomposition::L</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; L</div><div class="ttdef"><b>定义</b> <a href="#l00026">matrix_decomposition.hpp:26</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac6759fbb8f04412be71c1e39998ad8fb"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac6759fbb8f04412be71c1e39998ad8fb">lamina::lu_decomposition_checked</a></div><div class="ttdeci">LUDecompositionResult lu_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)</div><div class="ttdoc">计算符号矩阵的 LU 分解 (A = L * U)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00359">matrix_decomposition.cpp:359</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac6b1e161db059563e323e1b43d3d2c89"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac6b1e161db059563e323e1b43d3d2c89">lamina::LUDecomposition::L</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; L</div><div class="ttdef"><b>定义</b> <a href="#l00016">matrix_decomposition.hpp:16</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac7dfdea4276f5767be3efdf24fb1566a"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac7dfdea4276f5767be3efdf24fb1566a">lamina::SVDDecomposition::U</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; U</div><div class="ttdef"><b>定义</b> <a href="#l00030">matrix_decomposition.hpp:30</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad28f0e7b0a0474e0d3fc9f487d8dcd0a"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad28f0e7b0a0474e0d3fc9f487d8dcd0a">lamina::gram_schmidt</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &gt; gram_schmidt(const std::vector&lt; std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &gt; &amp;vectors, bool normalize=false)</div><div class="ttdoc">对一组向量执行 Gram-Schmidt 正交化。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00826">matrix_decomposition.cpp:826</a></div></div>
+<div class="ttc" id="anamespacelamina_html_adf74ed4a23a442920aca3623590534bb"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#adf74ed4a23a442920aca3623590534bb">lamina::QRDecompositionResult</a></div><div class="ttdeci">Result&lt; QRDecomposition &gt; QRDecompositionResult</div><div class="ttdef"><b>定义</b> <a href="#l00041">matrix_decomposition.hpp:41</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ae3b1768a23e942ee664eb786953b9730"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ae3b1768a23e942ee664eb786953b9730">lamina::matrix_trace</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; matrix_trace(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)</div><div class="ttdoc">计算方阵的迹（对角元之和）。</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00772">matrix_decomposition.cpp:772</a></div></div>
+<div class="ttc" id="anamespacelamina_html_af838ac232526f2c5885956bbd75361b7"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#af838ac232526f2c5885956bbd75361b7">lamina::cholesky_decomposition</a></div><div class="ttdeci">bool cholesky_decomposition(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, std::shared_ptr&lt; SymbolicExpr &gt; &amp;L)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d37/matrix__decomposition_8cpp_source.html#l00566">matrix_decomposition.cpp:566</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d8/d06/structlamina_1_1LUDecomposition"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d8/d06/structlamina_1_1LUDecomposition">lamina::LUDecomposition</a></div><div class="ttdef"><b>定义</b> <a href="#l00015">matrix_decomposition.hpp:15</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d9/dd4/structlamina_1_1QRDecomposition"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d9/dd4/structlamina_1_1QRDecomposition">lamina::QRDecomposition</a></div><div class="ttdef"><b>定义</b> <a href="#l00020">matrix_decomposition.hpp:20</a></div></div>
+<div class="ttc" id="anamespacelamina_html_da/d13/structlamina_1_1JordanDecomposition"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#da/d13/structlamina_1_1JordanDecomposition">lamina::JordanDecomposition</a></div><div class="ttdef"><b>定义</b> <a href="#l00035">matrix_decomposition.hpp:35</a></div></div>
+<div class="ttc" id="anamespacelamina_html_dc/dfc/structlamina_1_1SVDDecomposition"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#dc/dfc/structlamina_1_1SVDDecomposition">lamina::SVDDecomposition</a></div><div class="ttdef"><b>定义</b> <a href="#l00029">matrix_decomposition.hpp:29</a></div></div>
+<div class="ttc" id="anamespacelamina_html_de/db7/structlamina_1_1CholeskyDecomposition"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#de/db7/structlamina_1_1CholeskyDecomposition">lamina::CholeskyDecomposition</a></div><div class="ttdef"><b>定义</b> <a href="#l00025">matrix_decomposition.hpp:25</a></div></div>
+<div class="ttc" id="aresult_8hpp_html"><div class="ttname"><a href="../../de/d80/result_8hpp.html">result.hpp</a></div></div>
+<div class="ttc" id="asymbolic_8hpp_html"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a></div><div class="ttdoc">符号表达式主类 SymbolicExpr 及其工厂方法、运算接口。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../d2/dc0/matrix__decomposition_8hpp.html">matrix_decomposition.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

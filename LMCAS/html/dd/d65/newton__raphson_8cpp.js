@@ -1,0 +1,26 @@
+var newton__raphson_8cpp =
+[
+    [ "lamina::bisection", "d1/d42/namespacelamina.html#ae9660de682ab89db8f33a5dcf4752afd", null ],
+    [ "lamina::bisection_checked", "d1/d42/namespacelamina.html#a53b2fe9208e6445a4cc0f8d96977943f", null ],
+    [ "lamina::bisection_checked", "d1/d42/namespacelamina.html#a3fd931ac67d9b6d3ef7a1be9d8e1304d", null ],
+    [ "lamina::cauchy_bound", "d1/d42/namespacelamina.html#a0632f2f4b3e877a63bff2bdbcf8e01c4", null ],
+    [ "lamina::count_sign_changes", "d1/d42/namespacelamina.html#a28626a9eb9359faa72960ba44f175365", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::evaluate_root_function", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#afad24cdefe307122bf2c5d52eab1900a", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::invalid_root_options", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a59ce3751aa01860b6f2443b4c12274a2", null ],
+    [ "lamina::isolate_real_roots", "d1/d42/namespacelamina.html#ab899f5f3cc2b2bca335829a5880f3028", null ],
+    [ "lamina::newton_raphson", "d1/d42/namespacelamina.html#a2b1893ca5f0ef781c476f3fee3d27528", null ],
+    [ "lamina::newton_raphson", "d1/d42/namespacelamina.html#a8ad1f7e98631d59a4edc3b53a74d6e52", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#aea797c16390e5739574ee1d139a7838b", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#af0279012d0ca54c4ef3aa45a4788e0cb", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#a1b6d2298b2ee641c9ecc5a16d4eb290b", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#a5f66389bf67133bef4bc68a4fff2fd78", null ],
+    [ "lamina::roots_in_interval", "d1/d42/namespacelamina.html#afaeb47ec9798e91487ce4cec8c1d2a61", null ],
+    [ "lamina::solve_numeric", "d1/d42/namespacelamina.html#abbdca2540c3361426ba47c5c576de22e", null ],
+    [ "lamina::solve_numeric_checked", "d1/d42/namespacelamina.html#ad642005479d6012b4652744a8934561f", null ],
+    [ "lamina::solve_numeric_checked", "d1/d42/namespacelamina.html#a559b424bc80adef8d5c680dcb28c8695", null ],
+    [ "lamina::sturm_sign_changes_at", "d1/d42/namespacelamina.html#addedbe32987a77bd369068dc87be2c3f", null ],
+    [ "lamina::sturm_sign_changes_at_neg_inf", "d1/d42/namespacelamina.html#a5d6a2ba951ad8ac183b46c57c7a51fe0", null ],
+    [ "lamina::sturm_sign_changes_at_pos_inf", "d1/d42/namespacelamina.html#a2facf6a400368a90387286b2ff59d39b", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::kBisectionOperation", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ab6cda1bd79dc1e9e2c90448ee45c1bda", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::kNewtonOperation", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a8a5ef90589dddcd1a8e7afb4b1774592", null ]
+];

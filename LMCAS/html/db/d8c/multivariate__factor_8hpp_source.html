@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/multivariate_factor.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('db/d8c/multivariate__factor_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">multivariate_factor.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../db/d8c/multivariate__factor_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file multivariate_factor.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 多元多项式因式分解器公共 API。</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * 采用 Wang-EEZ（Enhanced Extended Zassenhaus）算法，将多元多项式分解为</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * 不可约因子的乘积。核心流程：预处理（容度/本原/无平方）→ 求值同态降维 →</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * 一元分解 → 多元 Hensel 提升 → 试除验证。</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * @see Wang, P.S. &quot;An Improved Multivariate Polynomial Factoring Algorithm.&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *      Mathematics of Computation, 32(144), 1978.</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * @see Geddes, Czapor, Labahn. &quot;Algorithms for Computer Algebra.&quot; Chapter 15.</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d05/lamina__export_8hpp.html">lamina_export.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d5a/multivariate__poly_8hpp.html">multivariate_poly.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"></span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * @brief 多元因式分解结果</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * 满足不变量：constant * ∏(factors[i] ^ multiplicities[i]) == 原多项式。</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * 每个 factors[i] 为本原不可约多项式，首项系数为正。</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d8/d99/structlamina_1_1MultiFactorResult">MultiFactorResult</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ad39b4ef40820847626a26d5040af8944">   32</a></span>    <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a> <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ad39b4ef40820847626a26d5040af8944">constant</a>;               <span class="comment">///&lt; 数值常数因子</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a77d76cec752453f7919b632f4c2d90b5">   33</a></span>    std::vector&lt;MultiPoly&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a77d76cec752453f7919b632f4c2d90b5">factors</a>;  <span class="comment">///&lt; 不可约因子列表（各因子本原）</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a752f3d5084012d07d06f8ecec70f76b8">   34</a></span>    std::vector&lt;int&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a752f3d5084012d07d06f8ecec70f76b8">multiplicities</a>; <span class="comment">///&lt; 各因子的重数</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"></span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * @brief 多元多项式因式分解主入口</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * 采用 Wang-EEZ 算法，将多元多项式分解为不可约因子的乘积。</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> * 返回 constant * factors[0]^mult[0] * factors[1]^mult[1] * ... = poly。</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * 对于零多项式返回 {0, [], []}；对于常数多项式返回 {constant, [], []}。</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * 内部错误时返回原多项式作为不可约因子，不抛异常。</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * @param[in] poly 待分解的多元多项式</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * @return 分解结果</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d8/d99/structlamina_1_1MultiFactorResult">MultiFactorResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a87824d123089141d129ff7b501a3d70c">factor_multivariate</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"></span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">/// 内部算法组件（供测试使用）</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"></span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * @brief 计算多元容度</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * 将多项式视为主变量的一元多项式，计算所有系数多项式（辅助变量的多项式）的 GCD。</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"> * @param[in] poly     输入多元多项式</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"> * @param[in] main_var 主变量名</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"> * @return 容度多项式（辅助变量的多项式）</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a738e888f767dd4b3b0dfe90ff955c89c">multivariate_content</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                                          <span class="keyword">const</span> std::string&amp; main_var);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"></span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"> * @brief 计算多元本原部分</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment"> * 将多项式除以其关于主变量的容度，得到本原部分。</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"> * 满足：multivariate_content(poly, var) * multivariate_primitive_part(poly, var) == poly（至多差符号）。</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * @param[in] poly     输入多元多项式</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> * @param[in] main_var 主变量名</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * @return 本原部分多项式</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a79fb89cf258b0ca58ac0c206d103662d">multivariate_primitive_part</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                                                 <span class="keyword">const</span> std::string&amp; main_var);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"></span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> * @brief 计算多元多项式 GCD</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> * 采用递归求值-插值算法，避开降次的坏求值点，并对恢复的</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * 候选多项式执行精确整除验证。</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * @param[in] a 第一个多项式</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> * @param[in] b 第二个多项式</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * @return gcd(a, b)</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#ac265905b23f09f705ece566a00b4c34e">multivariate_gcd</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; b);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment"> * @brief 无平方因子分解结果</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"> * components[i] 的重数为 i+1。</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * 满足：f = components[0] * components[1]² * components[2]³ * ...（至多差常数）。</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="};">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   96</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#de/d2a/structlamina_1_1SquareFreeDecomp">SquareFreeDecomp</a> {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a4c8e62d34b20180f8e14cf65157b139a">   97</a></span>    std::vector&lt;MultiPoly&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a4c8e62d34b20180f8e14cf65157b139a">components</a>; <span class="comment">///&lt; 各无平方分量，components[i] 重数为 i+1</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"></span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment"> * @brief 多元无平方因子分解</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment"> * 通过计算 gcd(f, ∂f/∂x_main) 检测重因子，将多项式分解为</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"> * f = f₁ · f₂² · f₃³ · ... 的形式，其中每个 fᵢ 无平方。</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"> * @param[in] poly     输入多元多项式</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment"> * @param[in] main_var 主变量名</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment"> * @return 无平方因子分解结果</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#de/d2a/structlamina_1_1SquareFreeDecomp">SquareFreeDecomp</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a49e6b15d76709c3b4b79f29049b95d04">square_free_decompose</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                                                  <span class="keyword">const</span> std::string&amp; main_var);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"></span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> * @brief 多元 Hensel 提升（单变量步）</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment"> * 将一元因子逐变量提升，从 f(x₁, a₂, ..., aₙ) 的因子恢复到包含 lift_var 的因子。</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"> * 每次引入一个辅助变量，计算修正项直到达到次数上界。</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment"> * @param[in] poly              原始多元多项式</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment"> * @param[in] univariate_factors 一元分解得到的因子列表</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"> * @param[in] lift_var          当前提升的变量名</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"> * @param[in] eval_point        该变量的求值点</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment"> * @param[in] degree_bound      提升次数上界</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment"> * @return 提升后的多元因子列表</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;MultiPoly&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a9caa95fdb0b17a7f071e81d9019141a3">multivariate_hensel_lift</a>(</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&gt;&amp; univariate_factors,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">const</span> std::string&amp; lift_var,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&amp; eval_point,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordtype">int</span> degree_bound);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment"></span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment"> * @brief 多元丢番图方程求解器</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment"> * 求解 s₁·f₁ + s₂·f₂ + ... + sᵣ·fᵣ ≡ target (mod ideal)，</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment"> * 其中 ideal 由 (var - eval_point)^degree_bound 生成。</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment"> * 用于 Hensel 提升过程中计算修正项。</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment"> * @param[in] factors      互素因子列表</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment"> * @param[in] target       目标多项式</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment"> * @param[in] var          变量名</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment"> * @param[in] eval_point   求值点</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment"> * @param[in] degree_bound 次数上界</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment"> * @return 解多项式列表 [s₁, s₂, ..., sᵣ]</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;MultiPoly&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a8aa101358ffc289d46c573bedbf4382b">multivariate_diophantine</a>(</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">const</span> std::vector&lt;MultiPoly&gt;&amp; factors,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; target,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">const</span> std::string&amp; var,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/da7/classRational.html">Rational</a>&amp; eval_point,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordtype">int</span> degree_bound);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"></span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">/// 快速路径检测（detail 命名空间）</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d0/d3a/namespacelamina_1_1detail.html">detail</a> {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment"></span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment"> * @brief 检测是否为线性多项式</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment"> * 判断多项式关于主变量的次数是否 ≤ 1，线性多项式直接视为不可约。</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment"> * @param[in] poly     输入多项式</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment"> * @param[in] main_var 主变量名</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment"> * @return 若关于 main_var 的次数 ≤ 1 则返回 true</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a87848788e69d6c88797e36f16eb0e798">is_linear</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly, <span class="keyword">const</span> std::string&amp; main_var);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment"></span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment"> * @brief 检测差平方模式 a² - b²</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment"> * 若多项式可表示为两个多项式平方之差，返回 (a, b)，</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment"> * 使得 poly = a² - b² = (a+b)(a-b)。</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"> * @param[in] poly 输入多项式</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> * @return 若匹配则返回 (a, b)，否则返回 nullopt</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::optional&lt;std::pair&lt;MultiPoly, MultiPoly&gt;&gt;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a197ce72d398cc807593f71cd00edd8c0">detect_difference_of_squares</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"></span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> * @brief 检测二项式幂模式 xⁿ - yⁿ</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> * 若多项式为两个变量的纯幂之差（如 x³ - y³），返回变量名和幂次，</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment"> * 以便应用分圆多项式分解公式。</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment"> * @param[in] poly 输入多项式</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> * @return 若匹配则返回 (变量1, 变量2, 幂次)，否则返回 nullopt</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::optional&lt;std::tuple&lt;std::string, std::string, int&gt;&gt;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#ab5bdf9f660bddf2b9d5c1599b17934dd">detect_binomial_power</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment"></span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment"> * @brief 提取公因子单项式</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment"> * 计算所有项的 GCD 单项式并提取，返回公因子单项式和剩余多项式。</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment"> * @param[in] poly 输入多项式</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment"> * @return pair(公因子单项式, 提取后的多项式)</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::pair&lt;Monomial, MultiPoly&gt;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a68b1c2b2e3f13946c1d4f77c7216475a">extract_common_monomial</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"></span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> * @brief 齐次二元多项式分解</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"> * 对齐次二元多项式，利用 f(x,1) 的一元分解结果推导二元因子。</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"> * 仅当多项式恰好含两个变量且为齐次时适用。</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment"> * @param[in] poly 输入多项式（须为齐次二元）</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment"> * @return 若适用则返回分解结果，否则返回 nullopt</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::optional&lt;MultiFactorResult&gt;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a51f14d26496d281921c604fba37e3d48">factor_homogeneous_bivariate</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d3a/classlamina_1_1MultiPoly.html">MultiPoly</a>&amp; poly);</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>} <span class="comment">// namespace detail</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="aclassRational_html"><div class="ttname"><a href="../../d8/da7/classRational.html">Rational</a></div><div class="ttdoc">精确有理数类，以 BigInt 分子/分母表示，构造时自动约分</div><div class="ttdef"><b>定义</b> <a href="../../d1/de8/rational_8hpp_source.html#l00020">rational.hpp:20</a></div></div>
+<div class="ttc" id="aclasslamina_1_1MultiPoly_html"><div class="ttname"><a href="../../de/d3a/classlamina_1_1MultiPoly.html">lamina::MultiPoly</a></div><div class="ttdoc">多元多项式类，稀疏表示</div><div class="ttdef"><b>定义</b> <a href="../../d8/d5a/multivariate__poly_8hpp_source.html#l00029">multivariate_poly.hpp:29</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html">lamina::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00048">polynomial.hpp:48</a></div></div>
+<div class="ttc" id="alamina__export_8hpp_html"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html">lamina_export.hpp</a></div></div>
+<div class="ttc" id="alamina__export_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>定义</b> <a href="../../d1/d05/lamina__export_8hpp_source.html#l00011">lamina_export.hpp:11</a></div></div>
+<div class="ttc" id="amultivariate__poly_8hpp_html"><div class="ttname"><a href="../../d8/d5a/multivariate__poly_8hpp.html">multivariate_poly.hpp</a></div><div class="ttdoc">多元多项式类 MultiPoly，稀疏表示，支持任意数量变量上的环运算。</div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html">lamina::detail</a></div><div class="ttdoc">AST 访问者基类（Visitor 模式）。</div><div class="ttdef"><b>定义</b> <a href="../../df/d77/fglm_8hpp_source.html#l00292">fglm.hpp:292</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a197ce72d398cc807593f71cd00edd8c0"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a197ce72d398cc807593f71cd00edd8c0">lamina::detail::detect_difference_of_squares</a></div><div class="ttdeci">std::optional&lt; std::pair&lt; MultiPoly, MultiPoly &gt; &gt; detect_difference_of_squares(const MultiPoly &amp;poly)</div><div class="ttdoc">检测差平方模式 a² - b²</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00036">multivariate_factor_patterns.cpp:36</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a51f14d26496d281921c604fba37e3d48"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a51f14d26496d281921c604fba37e3d48">lamina::detail::factor_homogeneous_bivariate</a></div><div class="ttdeci">std::optional&lt; MultiFactorResult &gt; factor_homogeneous_bivariate(const MultiPoly &amp;poly)</div><div class="ttdoc">齐次二元多项式分解</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00248">multivariate_factor_patterns.cpp:248</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a68b1c2b2e3f13946c1d4f77c7216475a"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a68b1c2b2e3f13946c1d4f77c7216475a">lamina::detail::extract_common_monomial</a></div><div class="ttdeci">std::pair&lt; Monomial, MultiPoly &gt; extract_common_monomial(const MultiPoly &amp;poly)</div><div class="ttdoc">提取公因子单项式</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00194">multivariate_factor_patterns.cpp:194</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a87848788e69d6c88797e36f16eb0e798"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a87848788e69d6c88797e36f16eb0e798">lamina::detail::is_linear</a></div><div class="ttdeci">bool is_linear(const MultiPoly &amp;poly, const std::string &amp;main_var)</div><div class="ttdoc">检测是否为线性多项式</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00021">multivariate_factor_patterns.cpp:21</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_ab5bdf9f660bddf2b9d5c1599b17934dd"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#ab5bdf9f660bddf2b9d5c1599b17934dd">lamina::detail::detect_binomial_power</a></div><div class="ttdeci">std::optional&lt; std::tuple&lt; std::string, std::string, int &gt; &gt; detect_binomial_power(const MultiPoly &amp;poly)</div><div class="ttdoc">检测二项式幂模式 xⁿ - yⁿ</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00136">multivariate_factor_patterns.cpp:136</a></div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a49e6b15d76709c3b4b79f29049b95d04"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a49e6b15d76709c3b4b79f29049b95d04">lamina::square_free_decompose</a></div><div class="ttdeci">SquareFreeDecomp square_free_decompose(const MultiPoly &amp;poly, const std::string &amp;main_var)</div><div class="ttdoc">多元无平方因子分解</div><div class="ttdef"><b>定义</b> <a href="../../d5/db9/multivariate__factor_8cpp_source.html#l01283">multivariate_factor.cpp:1283</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a4c8e62d34b20180f8e14cf65157b139a"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a4c8e62d34b20180f8e14cf65157b139a">lamina::SquareFreeDecomp::components</a></div><div class="ttdeci">std::vector&lt; MultiPoly &gt; components</div><div class="ttdoc">各无平方分量，components[i] 重数为 i+1</div><div class="ttdef"><b>定义</b> <a href="#l00097">multivariate_factor.hpp:97</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a738e888f767dd4b3b0dfe90ff955c89c"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a738e888f767dd4b3b0dfe90ff955c89c">lamina::multivariate_content</a></div><div class="ttdeci">MultiPoly multivariate_content(const MultiPoly &amp;poly, const std::string &amp;main_var)</div><div class="ttdoc">内部算法组件（供测试使用）</div><div class="ttdef"><b>定义</b> <a href="../../d5/db9/multivariate__factor_8cpp_source.html#l01021">multivariate_factor.cpp:1021</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a752f3d5084012d07d06f8ecec70f76b8"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a752f3d5084012d07d06f8ecec70f76b8">lamina::MultiFactorResult::multiplicities</a></div><div class="ttdeci">std::vector&lt; int &gt; multiplicities</div><div class="ttdoc">各因子的重数</div><div class="ttdef"><b>定义</b> <a href="#l00034">multivariate_factor.hpp:34</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a77d76cec752453f7919b632f4c2d90b5"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a77d76cec752453f7919b632f4c2d90b5">lamina::MultiFactorResult::factors</a></div><div class="ttdeci">std::vector&lt; MultiPoly &gt; factors</div><div class="ttdoc">不可约因子列表（各因子本原）</div><div class="ttdef"><b>定义</b> <a href="#l00033">multivariate_factor.hpp:33</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a79fb89cf258b0ca58ac0c206d103662d"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a79fb89cf258b0ca58ac0c206d103662d">lamina::multivariate_primitive_part</a></div><div class="ttdeci">MultiPoly multivariate_primitive_part(const MultiPoly &amp;poly, const std::string &amp;main_var)</div><div class="ttdoc">计算多元本原部分</div><div class="ttdef"><b>定义</b> <a href="../../d5/db9/multivariate__factor_8cpp_source.html#l01051">multivariate_factor.cpp:1051</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a87824d123089141d129ff7b501a3d70c"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a87824d123089141d129ff7b501a3d70c">lamina::factor_multivariate</a></div><div class="ttdeci">MultiFactorResult factor_multivariate(const MultiPoly &amp;poly)</div><div class="ttdoc">多元多项式因式分解主入口</div><div class="ttdef"><b>定义</b> <a href="../../d5/db9/multivariate__factor_8cpp_source.html#l00781">multivariate_factor.cpp:781</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8aa101358ffc289d46c573bedbf4382b"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8aa101358ffc289d46c573bedbf4382b">lamina::multivariate_diophantine</a></div><div class="ttdeci">std::vector&lt; MultiPoly &gt; multivariate_diophantine(const std::vector&lt; MultiPoly &gt; &amp;factors, const MultiPoly &amp;target, const std::string &amp;var, const Rational &amp;eval_point, int degree_bound)</div><div class="ttdoc">多元丢番图方程求解器</div><div class="ttdef"><b>定义</b> <a href="../../d2/d7f/multivariate__hensel_8cpp_source.html#l00375">multivariate_hensel.cpp:375</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a9caa95fdb0b17a7f071e81d9019141a3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a9caa95fdb0b17a7f071e81d9019141a3">lamina::multivariate_hensel_lift</a></div><div class="ttdeci">std::vector&lt; MultiPoly &gt; multivariate_hensel_lift(const MultiPoly &amp;poly, const std::vector&lt; Polynomial&lt; Rational &gt; &gt; &amp;univariate_factors, const std::string &amp;lift_var, const Rational &amp;eval_point, int degree_bound)</div><div class="ttdoc">多元 Hensel 提升（单变量步）</div><div class="ttdef"><b>定义</b> <a href="../../d2/d7f/multivariate__hensel_8cpp_source.html#l00044">multivariate_hensel.cpp:44</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac265905b23f09f705ece566a00b4c34e"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac265905b23f09f705ece566a00b4c34e">lamina::multivariate_gcd</a></div><div class="ttdeci">MultiPoly multivariate_gcd(const MultiPoly &amp;a, const MultiPoly &amp;b)</div><div class="ttdoc">计算多元多项式 GCD</div><div class="ttdef"><b>定义</b> <a href="../../d5/db9/multivariate__factor_8cpp_source.html#l01087">multivariate_factor.cpp:1087</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad39b4ef40820847626a26d5040af8944"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad39b4ef40820847626a26d5040af8944">lamina::MultiFactorResult::constant</a></div><div class="ttdeci">Rational constant</div><div class="ttdoc">数值常数因子</div><div class="ttdef"><b>定义</b> <a href="#l00032">multivariate_factor.hpp:32</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d8/d99/structlamina_1_1MultiFactorResult"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d8/d99/structlamina_1_1MultiFactorResult">lamina::MultiFactorResult</a></div><div class="ttdoc">多元因式分解结果</div><div class="ttdef"><b>定义</b> <a href="#l00031">multivariate_factor.hpp:31</a></div></div>
+<div class="ttc" id="anamespacelamina_html_de/d2a/structlamina_1_1SquareFreeDecomp"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#de/d2a/structlamina_1_1SquareFreeDecomp">lamina::SquareFreeDecomp</a></div><div class="ttdoc">无平方因子分解结果</div><div class="ttdef"><b>定义</b> <a href="#l00096">multivariate_factor.hpp:96</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../db/d8c/multivariate__factor_8hpp.html">multivariate_factor.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

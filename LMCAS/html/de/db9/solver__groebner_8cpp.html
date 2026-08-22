@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/solver_groebner.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('de/db9/solver__groebner_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solver_groebner.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d2/d1c/solver_8hpp_source.html">solver.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/db5/expression__analysis_8hpp_source.html">internal/expression_analysis.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d10/assumption__context_8hpp_source.html">assumption_context.hpp</a>&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;numeric&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;queue&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d3a/solver__support_8hpp_source.html">internal/solver_support.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>solver_groebner.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/dd4/solver__groebner_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../de/db9/solver__groebner_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3AMonomialLess" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3AMonomialLess"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d2/de0/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1MonomialLess.html">lamina::anonymous_namespace{solver_groebner.cpp}::MonomialLess</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3APoly" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3APoly"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">lamina::anonymous_namespace{solver_groebner.cpp}::Poly</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3APolyBuilder" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3APolyBuilder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d59/classlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyBuilder.html">lamina::anonymous_namespace{solver_groebner.cpp}::PolyBuilder</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3APolyContext" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3APolyContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../dd/d9f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyContext.html">lamina::anonymous_namespace{solver_groebner.cpp}::PolyContext</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3ASugarPair" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3ASugarPair"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d4/d13/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1SugarPair.html">lamina::anonymous_namespace{solver_groebner.cpp}::SugarPair</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3ATerm_5Fd8_2Fd5f_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02solver_5F_5Fgroebner_5F8cpp_5F03_5F1_5F1Term" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D_3A_3ATerm_5Fd8_2Fd5f_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02solver_5F_5Fgroebner_5F8cpp_5F03_5F1_5F1Term"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term">lamina::anonymous_namespace{solver_groebner.cpp}::Term</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bsolver_5Fgroebner_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html">lamina::anonymous_namespace{solver_groebner.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:a6522e512e6e5b7b9a39f4078baddce1e" id="r_a6522e512e6e5b7b9a39f4078baddce1e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">lamina::anonymous_namespace{solver_groebner.cpp}::Monomial</a> = std::vector&lt;int&gt;</td></tr>
+<tr class="memitem:a3c2253a182cee78968829ee255d4032c" id="r_a3c2253a182cee78968829ee255d4032c"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a3c2253a182cee78968829ee255d4032c">lamina::anonymous_namespace{solver_groebner.cpp}::PolyTerms</a> = std::map&lt;<a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a>, <a class="el" href="../../d8/da7/classRational.html">Rational</a>, <a class="el" href="../../d2/de0/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1MonomialLess.html">MonomialLess</a>&gt;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ad7dc75425a403b8cc338606e6e9b369a" id="r_ad7dc75425a403b8cc338606e6e9b369a"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#ad7dc75425a403b8cc338606e6e9b369a">lamina::anonymous_namespace{solver_groebner.cpp}::add_poly</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;a, const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;b)</td></tr>
+<tr class="memitem:a53e35514a4d13bde328e13ea31729c8b" id="r_a53e35514a4d13bde328e13ea31729c8b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a53e35514a4d13bde328e13ea31729c8b">lamina::anonymous_namespace{solver_groebner.cpp}::chain_criterion</a> (const std::vector&lt; <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &gt; &amp;G, size_t i, size_t j, const std::set&lt; std::pair&lt; size_t, size_t &gt; &gt; &amp;processed_pairs)</td></tr>
+<tr class="memitem:ac2e2798d8f9d73831ebf34a07e0a9fac" id="r_ac2e2798d8f9d73831ebf34a07e0a9fac"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#ac2e2798d8f9d73831ebf34a07e0a9fac">lamina::anonymous_namespace{solver_groebner.cpp}::compute_spoly_sugar</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;f, const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;g)</td></tr>
+<tr class="memitem:a31ecc9da809a4113431782aecef7bd12" id="r_a31ecc9da809a4113431782aecef7bd12"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a31ecc9da809a4113431782aecef7bd12">lamina::anonymous_namespace{solver_groebner.cpp}::coprime_leading_monomials</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;f, const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;g)</td></tr>
+<tr class="memitem:aef1b3e4eeb05cfe6be755fc4b9f96572" id="r_aef1b3e4eeb05cfe6be755fc4b9f96572"><td class="memItemLeft"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#aef1b3e4eeb05cfe6be755fc4b9f96572">lamina::anonymous_namespace{solver_groebner.cpp}::div_mono</a> (const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;num, const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;den)</td></tr>
+<tr class="memitem:a282cf97cb524355cb46ec441d77bd5c1" id="r_a282cf97cb524355cb46ec441d77bd5c1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a282cf97cb524355cb46ec441d77bd5c1">lamina::anonymous_namespace{solver_groebner.cpp}::divides_mono</a> (const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;a, const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;b)</td></tr>
+<tr class="memitem:a988afae038d3bae227430ed42e026c87" id="r_a988afae038d3bae227430ed42e026c87"><td class="memItemLeft"><a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a988afae038d3bae227430ed42e026c87">lamina::anonymous_namespace{solver_groebner.cpp}::from_poly</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;p, const std::vector&lt; std::string &gt; &amp;vars)</td></tr>
+<tr class="memitem:a026776d063fea64ded792eeed5592d1a" id="r_a026776d063fea64ded792eeed5592d1a"><td class="memItemLeft"><a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a026776d063fea64ded792eeed5592d1a">lamina::anonymous_namespace{solver_groebner.cpp}::from_poly_ext</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;p, const <a class="el" href="../../dd/d9f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyContext.html">PolyContext</a> &amp;ctx, const std::vector&lt; std::string &gt; &amp;)</td></tr>
+<tr class="memitem:a1fc2ed2cd81fca5398d23c3ee933ff25" id="r_a1fc2ed2cd81fca5398d23c3ee933ff25"><td class="memItemLeft"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a1fc2ed2cd81fca5398d23c3ee933ff25">lamina::anonymous_namespace{solver_groebner.cpp}::lcm_mono</a> (const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;a, const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;b)</td></tr>
+<tr class="memitem:a7261e6be57fd5634c04062e4df523a0e" id="r_a7261e6be57fd5634c04062e4df523a0e"><td class="memItemLeft"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a7261e6be57fd5634c04062e4df523a0e">lamina::anonymous_namespace{solver_groebner.cpp}::mul_mono</a> (const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;a, const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a> &amp;b)</td></tr>
+<tr class="memitem:a1ee8bedc670b961f5f7f3ace9491302c" id="r_a1ee8bedc670b961f5f7f3ace9491302c"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a1ee8bedc670b961f5f7f3ace9491302c">lamina::anonymous_namespace{solver_groebner.cpp}::mul_poly</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;a, const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;b)</td></tr>
+<tr class="memitem:a05876e695c199976a603d8290eb7b98e" id="r_a05876e695c199976a603d8290eb7b98e"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a05876e695c199976a603d8290eb7b98e">lamina::anonymous_namespace{solver_groebner.cpp}::mul_poly_term</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;p, const <a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term">Term</a> &amp;t)</td></tr>
+<tr class="memitem:a815edad6668b469dc3ffc2517ea1874f" id="r_a815edad6668b469dc3ffc2517ea1874f"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a815edad6668b469dc3ffc2517ea1874f">lamina::anonymous_namespace{solver_groebner.cpp}::reduce</a> (<a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> p, const std::vector&lt; <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &gt; &amp;G)</td></tr>
+<tr class="memitem:a3c139477ec67d24ee1c1c53e88e9e8f5" id="r_a3c139477ec67d24ee1c1c53e88e9e8f5"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a3c139477ec67d24ee1c1c53e88e9e8f5">lamina::anonymous_namespace{solver_groebner.cpp}::s_poly</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;f, const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;g)</td></tr>
+<tr class="memitem:a5624421552f1ce6af88f0ab0cd0591be" id="r_a5624421552f1ce6af88f0ab0cd0591be"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a5624421552f1ce6af88f0ab0cd0591be">lamina::anonymous_namespace{solver_groebner.cpp}::sub_poly</a> (const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;a, const <a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a> &amp;b)</td></tr>
+<tr class="memitem:adb5adcbbcf7f7d58491fcc3b0815220b" id="r_adb5adcbbcf7f7d58491fcc3b0815220b"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#adb5adcbbcf7f7d58491fcc3b0815220b">lamina::anonymous_namespace{solver_groebner.cpp}::to_poly</a> (const <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &amp;expr, const std::vector&lt; std::string &gt; &amp;vars)</td></tr>
+<tr class="memitem:aa35432717ed83284fcd489ac3ec6fad5" id="r_aa35432717ed83284fcd489ac3ec6fad5"><td class="memItemLeft"><a class="el" href="../../d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#aa35432717ed83284fcd489ac3ec6fad5">lamina::anonymous_namespace{solver_groebner.cpp}::to_poly</a> (const <a class="el" href="../../dc/d25/classSymbolicExpr.html">SymbolicExpr</a> &amp;expr, <a class="el" href="../../dd/d9f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyContext.html">PolyContext</a> &amp;ctx)</td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term" id="d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term">&#9670;&#160;</a></span>lamina::anonymous_namespace{solver_groebner.cpp}::Term</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::anonymous_namespace{solver_groebner.cpp}::Term</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../de/db9/solver__groebner_8cpp_source.html">solver_groebner.cpp</a> 第 <a class="el" href="../../de/db9/solver__groebner_8cpp_source.html#l00038">38</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::anonymous_namespace{solver_groebner.cpp}::Term 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/daa/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="ac49fe493766c44c9861f83727fa0fd96" name="ac49fe493766c44c9861f83727fa0fd96"></a><a class="el" href="../../d8/da7/classRational.html">Rational</a></td>
+<td class="fieldname">
+coeff</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aedc0076a3926bec9735a52314b772c36" name="aedc0076a3926bec9735a52314b772c36"></a><a class="el" href="../../df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e">Monomial</a></td>
+<td class="fieldname">
+mono</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../de/db9/solver__groebner_8cpp.html">solver_groebner.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

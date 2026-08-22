@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="zh">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>LMCAS Lamina 计算机代数系统</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md_README"/></para>
+<sect1 id="index_1autotoc_md1">
+<title>结构</title><para><programlisting filename=".text"><codeline><highlight class="normal">LMCAS/</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>src/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>源代码实现<sp/>(.cpp)</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>symbolic.cpp<sp/><sp/><sp/><sp/>#<sp/>符号表达式核心实现</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>integration.cpp<sp/>#<sp/>积分模块实现</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>solver.cpp<sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>方程求解器实现</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>└──<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>include/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>头文件声明<sp/>(.hpp)</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>symbolic.hpp<sp/><sp/><sp/><sp/>#<sp/>符号表达式类定义<sp/>(SymbolicExpr)</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>integration.hpp<sp/>#<sp/>积分模块接口</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>solver.hpp<sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>求解器接口</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>value.hpp<sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>通用值类型定义</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>├──<sp/>rational.hpp<sp/><sp/><sp/><sp/>#<sp/>有理数类</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>└──<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>tests/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>单元测试</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>benchmarks/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>性能测试</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>LMMC/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>子模块：Lamina<sp/>数值库，内部携带<sp/>LAMMP</highlight></codeline>
+<codeline><highlight class="normal">└──<sp/>CMakeLists.txt<sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>CMake<sp/>构建配置</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="index_1autotoc_md2">
+<title>构建</title><sect2 id="index_1autotoc_md3">
+<title>要求</title><para><itemizedlist>
+<listitem><para><bold>CMake</bold>: 3.16+</para>
+</listitem><listitem><para><bold>编译器</bold>: GCC 9+, Clang 10+ 或 MinGW (需支持 C++17；MSVC 暂不支持)</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md4">
+<title>MinGW / Windows</title><para><programlisting filename=".powershell"><codeline><highlight class="normal">mkdir<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>build</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">cmake<sp/>..<sp/>-G<sp/>&quot;MinGW<sp/>Makefiles&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.<sp/>--config<sp/>Debug</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>运行测试</highlight></codeline>
+<codeline><highlight class="normal">.\bin\Debug\test_proof.exe</highlight></codeline>
+</programlisting></para>
+<para>注意：如果在运行可执行文件时遇到 DLL 缺失错误，请确保 <computeroutput>lmcas</computeroutput> 和 <computeroutput>LammpCore</computeroutput> 运行库位于可执行文件同级目录，或将 <computeroutput>build/bin</computeroutput> 添加到系统 PATH。</para>
+</sect2>
+<sect2 id="index_1autotoc_md5">
+<title>Linux / macOS</title><para><programlisting><codeline><highlight class="normal"><sp/><sp value="8"/>bash</highlight></codeline>
+<codeline><highlight class="normal">mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>-DCMAKE_BUILD_TYPE=Release<sp/>..</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>-j4</highlight></codeline>
+<codeline><highlight class="normal">./bin/test_proof</highlight></codeline>
+</programlisting></para>
+</sect2>
+</sect1>
+<sect1 id="index_1autotoc_md6">
+<title>核心功能说明</title><sect2 id="index_1autotoc_md7">
+<title>符号系统 (include/symbolic.hpp)</title><para><ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 是 LMCAS 的核心类，表示一个不可变的符号表达式树。<itemizedlist>
+<listitem><para><bold>创建表达式</bold>: 使用静态工厂方法，如 <ref refid="dc/d25/classSymbolicExpr_1ade468ea22874ed2a114a5ee83aae525b" kindref="member">SymbolicExpr::add</ref>, <ref refid="dc/d25/classSymbolicExpr_1ae4ce46624e6b27008d9061029e4399a7" kindref="member">SymbolicExpr::variable</ref>, <ref refid="dc/d25/classSymbolicExpr_1a3bdf282c74b91aedb1dc529c047390db" kindref="member">SymbolicExpr::number</ref>, <ref refid="dc/d25/classSymbolicExpr_1af42a8655a0b0bd36e25a75881547164d" kindref="member">SymbolicExpr::sin</ref> 等。</para>
+</listitem><listitem><para><bold>内存管理</bold>: 基于 std::shared_ptr 的自动内存管理。</para>
+</listitem><listitem><para><bold>不可变性</bold>: 所有对表达式的操作（如相加、求导）都会返回一个新的 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 对象，原对象保持不变。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md8">
+<title>计算机代数算法</title><para>核心算法作为 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 的成员函数或静态方法提供：<itemizedlist>
+<listitem><para><bold>求导</bold>: expr-&gt;differentiate(&quot;x&quot;) - 对变量 x 求导。</para>
+</listitem><listitem><para><bold>积分</bold>: expr-&gt;integrate(&quot;x&quot;) - 对变量 x 进行符号积分。</para>
+</listitem><listitem><para><bold>化简</bold>: expr-&gt;simplify() - 调用化简引擎对表达式进行代数化简。</para>
+</listitem><listitem><para><bold>展开</bold>: expr-&gt;expand() - 展开多项式或乘积。</para>
+</listitem><listitem><para><bold>代入</bold>: expr-&gt;substitute(&quot;y&quot;, val) - 将变量 y 替换为表达式 val。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md9">
+<title>矩阵运算</title><para>支持符号矩阵操作（通常通过 <ref refid="dc/d25/classSymbolicExpr" kindref="compound">SymbolicExpr</ref> 静态方法调用）：<itemizedlist>
+<listitem><para>SymbolicExpr::determinant(mat): 计算行列式。</para>
+</listitem><listitem><para>SymbolicExpr::inverse(mat): 计算逆矩阵。</para>
+</listitem><listitem><para>SymbolicExpr::eigenvalues(mat): 计算特征值。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md10">
+<title>数值系统</title><para><itemizedlist>
+<listitem><para><bold><ref refid="da/d5b/classBigInt" kindref="compound">BigInt</ref></bold>: 任意精度整数（基于 LAMMP）。</para>
+</listitem><listitem><para><bold><ref refid="d8/da7/classRational" kindref="compound">Rational</ref></bold>: 任意精度有理数。</para>
+</listitem><listitem><para><bold><ref refid="d8/df2/classIrrational" kindref="compound">Irrational</ref></bold>: 简单的无理数包装（如 sqrt(2), pi, e）。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="index_1autotoc_md11">
+<title>文档</title><para><itemizedlist>
+<listitem><para>说明文档</para>
+</listitem><listitem><para>核心架构</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="index_1autotoc_md12">
+<title>许可证</title><para>GNU Lesser General Public License v3.0 (LGPL-3.0)</para>
+</sect1>
+<sect1 id="index_1autotoc_md13">
+<title>贡献</title><para><itemizedlist>
+<listitem><para>Lamina MP LAMMP - Jecricho Knox - Lamina-dev</para>
+</listitem><listitem><para>Lamina CAS - Ziyang Bai - Lamina-dev</para>
+</listitem><listitem><para>All contributors are contributed to the Lamina project. </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

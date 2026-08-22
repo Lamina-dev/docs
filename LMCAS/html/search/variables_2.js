@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['base_0',['base',['../d1/d42/namespacelamina.html#a26a7dc148767e70380965131c93671a2',1,'lamina::ExpBasePattern']]],
+  ['base_5f_1',['base_',['../d5/d72/classPowerNode.html#ae479377e76e7de4109f3192456e94472',1,'PowerNode']]],
+  ['basis_5fcount_5f_2',['basis_count_',['../df/d30/classlamina_1_1detail_1_1GaussianEliminator.html#adfb2cb042236bae8335741f45d2d1352',1,'lamina::detail::GaussianEliminator']]],
+  ['bernoulli_5fn_3',['bernoulli_n',['../d1/d42/namespacelamina.html#a67e78149de28bf8a3600d31c4ffcb6f6',1,'lamina::ODEClassification']]],
+  ['bernoulli_5fp_4',['bernoulli_P',['../d1/d42/namespacelamina.html#af4821e6025659f28b74dbeeaa6fe7d6c',1,'lamina::ODEClassification']]],
+  ['bernoulli_5fq_5',['bernoulli_Q',['../d1/d42/namespacelamina.html#a18161ea7a726002f1f732d5572b62239',1,'lamina::ODEClassification']]],
+  ['bindings_6',['bindings',['../d4/d53/namespacelamina_1_1lsr.html#a391036000a7d03a9b3f6482e4aba37fd',1,'lamina::lsr::ExprMatch::bindings'],['../d5/ddd/classlamina_1_1ReplacementVisitor.html#a5c04cc961c020e262cdf59ef7ffd367f',1,'lamina::ReplacementVisitor::bindings']]],
+  ['bk_5fnum_5fsmall_5fprimes_7',['BK_NUM_SMALL_PRIMES',['../d1/d42/namespacelamina.html#a39edc4876231334a35c402f9444290a7',1,'lamina']]],
+  ['bk_5fsmall_5fprimes_8',['BK_SMALL_PRIMES',['../d1/d42/namespacelamina.html#a53f7040baa9fb3d15cd8fafe28b4d822',1,'lamina']]],
+  ['body_5f_9',['body_',['../db/da6/classSummationNode.html#a716dbb5bdbfd2f040bdb85ac8204738c',1,'SummationNode::body_'],['../d6/da7/classProductNode.html#a000dbff24353854da6868224b74c7243',1,'ProductNode::body_'],['../db/dac/classTransformNode.html#a5e1c274184433b9b27c19fe668f21d32',1,'TransformNode::body_']]],
+  ['bound_5fvar_5f_10',['bound_var_',['../d5/d0c/classQuantifierNode.html#a0b5ecc15bba6047e7f73d8776f7affaa',1,'QuantifierNode']]],
+  ['bound_5fvars_11',['bound_vars',['../d3/d37/classVariablesVisitor.html#a3ad94c6f29d18ab3db8beecb64aea334',1,'VariablesVisitor::bound_vars'],['../d5/dd5/classanonymous__namespace_02symbolic__factor_8cpp_03_1_1FactorVariablesVisitor.html#ab478b9e26eac4f65aefe2514bf9f3936',1,'anonymous_namespace{symbolic_factor.cpp}::FactorVariablesVisitor::bound_vars']]],
+  ['boundedness_12',['boundedness',['../d3/dba/classlamina_1_1PropertyStore.html#ad3186d807430847e1bd4a4ae84ef508c',1,'lamina::PropertyStore::SymbolProperties']]],
+  ['bounds_13',['bounds',['../d3/dba/classlamina_1_1PropertyStore.html#a608f7bc5b7e1d8c99329f48679aa1881',1,'lamina::PropertyStore::SymbolProperties']]],
+  ['branches_5f_14',['branches_',['../d3/d99/classPiecewiseNode.html#ac501f816875c634723626c8f94192d4d',1,'PiecewiseNode']]],
+  ['budget_15',['budget',['../d4/d53/namespacelamina_1_1lsr.html#a3b164fb4f70ffa71abe73aa09536d574',1,'lamina::lsr::EqvOptions']]],
+  ['buffer_16',['buffer',['../d5/d46/classPrintVisitor.html#a1d0c0822894b3be1b7739faa3b94667b',1,'PrintVisitor']]]
+];
