@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/complex_root_isolation.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d9/ddb/complex__root__isolation_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">complex_root_isolation.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d3/d90/exact__root_8hpp_source.html">internal/exact_root.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d10/exact__sturm_8hpp_source.html">internal/exact_sturm.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d05/multivariate__factor__support_8hpp_source.html">internal/multivariate_factor_support.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d12/solve__polynomial_8hpp_source.html">solve_polynomial.hpp</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>complex_root_isolation.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/d07/complex__root__isolation_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d9/ddb/complex__root__isolation_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ABiPolynomial" id="r_lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ABiPolynomial"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::BiPolynomial</a></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3AComplexBivariate_5Fdb_2Fd0d_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1ComplexBivariate" id="r_lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3AComplexBivariate_5Fdb_2Fd0d_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1ComplexBivariate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#db/d0d/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1ComplexBivariate">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::ComplexBivariate</a></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ARationalRectangle_5Fd1_2Fd57_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1RationalRectangle" id="r_lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ARationalRectangle_5Fd1_2Fd57_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1RationalRectangle"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d1/d57/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RationalRectangle</a></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ARectangleCount_5Fd1_2Fd8e_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1RectangleCount" id="r_lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ARectangleCount_5Fd1_2Fd8e_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1RectangleCount"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d1/d8e/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RectangleCount">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RectangleCount</a></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ARootIsolationCacheEntry_5Fd8_2Fd9a_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1RootIsolationCacheEntry" id="r_lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D_3A_3ARootIsolationCacheEntry_5Fd8_2Fd9a_2Fstructlamina_5F1_5F1detail_5F1_5F1anonymous_5F_5Fnamespace_5F02complex_5F_5Froot_5F_5Fisolation_5F8cpp_5F03_5F1_5F1RootIsolationCacheEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d8/d9a/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RootIsolationCacheEntry">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RootIsolationCacheEntry</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Adetail" id="r_lamina_3A_3Adetail"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html">lamina::detail</a></td></tr>
+<tr class="memdesc:d0/d3a/namespacelamina_1_1detail"><td class="mdescLeft">&#160;</td><td class="mdescRight">AST 访问者基类(Visitor 模式). <br /></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D" id="r_lamina_3A_3Adetail_3A_3Aanonymous_5Fnamespace_7Bcomplex_5Froot_5Fisolation_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:a2d34bc30fe623c0fac21ae0c42bf0bc0" id="r_a2d34bc30fe623c0fac21ae0c42bf0bc0"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::Poly</a> = <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt;<a class="el" href="../../d8/da7/classRational.html">Rational</a>&gt;</td></tr>
+<tr class="memitem:a1ff2207f42333f7d1b70e286490c788e" id="r_a1ff2207f42333f7d1b70e286490c788e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a1ff2207f42333f7d1b70e286490c788e">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::PolyMatrix</a> = std::vector&lt;std::vector&lt;<a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a>&gt;&gt;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a10e96a9afaf04c03b62a981a91fc1186" id="r_a10e96a9afaf04c03b62a981a91fc1186"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a10e96a9afaf04c03b62a981a91fc1186">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::add_scaled</a> (<a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a> &amp;destination, const <a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a> &amp;source, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;scalar)</td></tr>
+<tr class="memitem:acfcba18bb27c3cf51a061e4584e338b8" id="r_acfcba18bb27c3cf51a061e4584e338b8"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#acfcba18bb27c3cf51a061e4584e338b8">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::cauchy_index_on_edge</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;denominator, const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;numerator, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a9947766e6aead51c760058d7dc8e910e" id="r_a9947766e6aead51c760058d7dc8e910e"><td class="memItemLeft"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a9947766e6aead51c760058d7dc8e910e">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::clear_denominators</a> (<a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> polynomial)</td></tr>
+<tr class="memitem:ab8b50c007708d82ffca2d4513181d6c8" id="r_ab8b50c007708d82ffca2d4513181d6c8"><td class="memItemLeft">std::vector&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#ab8b50c007708d82ffca2d4513181d6c8">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::coefficients_in_x</a> (const <a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a> &amp;polynomial, const std::string &amp;remaining_variable)</td></tr>
+<tr class="memitem:a50c0a79a23823246144e5dec7e46bfa9" id="r_a50c0a79a23823246144e5dec7e46bfa9"><td class="memItemLeft">std::vector&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a50c0a79a23823246144e5dec7e46bfa9">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::coefficients_in_y</a> (const <a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a> &amp;polynomial, const std::string &amp;remaining_variable)</td></tr>
+<tr class="memitem:a4570c6dee8360c15e45190dce54cbbae" id="r_a4570c6dee8360c15e45190dce54cbbae"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a4570c6dee8360c15e45190dce54cbbae">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::compare_isolations</a> (const <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a1066681575f618df10be9704f0808b60">RootIsolation</a> &amp;left, const <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a1066681575f618df10be9704f0808b60">RootIsolation</a> &amp;right, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a84e982868514d0c03d92e3aae8a3b38b" id="r_a84e982868514d0c03d92e3aae8a3b38b"><td class="memItemLeft"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#db/d0d/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1ComplexBivariate">ComplexBivariate</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a84e982868514d0c03d92e3aae8a3b38b">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::complex_bivariate_parts</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial)</td></tr>
+<tr class="memitem:a342c5c30266bbb23e155ef6c37b2a5de" id="r_a342c5c30266bbb23e155ef6c37b2a5de"><td class="memItemLeft"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a342c5c30266bbb23e155ef6c37b2a5de">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::constant_poly</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value, const std::string &amp;variable)</td></tr>
+<tr class="memitem:a069d18d6ca93986fd5165ae236645bd6" id="r_a069d18d6ca93986fd5165ae236645bd6"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d1/d8e/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RectangleCount">RectangleCount</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a069d18d6ca93986fd5165ae236645bd6">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::count_rectangle_roots</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial, const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d1/d57/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle">RationalRectangle</a> &amp;rectangle, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:ae1bc299a0a3779d25964a601c80c3e71" id="r_ae1bc299a0a3779d25964a601c80c3e71"><td class="memItemLeft">std::pair&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a>, <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#ae1bc299a0a3779d25964a601c80c3e71">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::edge_image</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;real_start, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;imaginary_start, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;real_delta, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;imaginary_delta)</td></tr>
+<tr class="memitem:a29ac06afa15a0fe07f40ddecc4951ab7" id="r_a29ac06afa15a0fe07f40ddecc4951ab7"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a29ac06afa15a0fe07f40ddecc4951ab7">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::edge_is_clear</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;real, const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;imaginary, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a241aaadc3d69d26a6c6dbebb3d0e7f43" id="r_a241aaadc3d69d26a6c6dbebb3d0e7f43"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a241aaadc3d69d26a6c6dbebb3d0e7f43">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::exact_poly_divide</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;numerator, const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;denominator, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a4674e0a7f9c888966f37f5343a908dda" id="r_a4674e0a7f9c888966f37f5343a908dda"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a4674e0a7f9c888966f37f5343a908dda">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::exact_rational_square_root</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value)</td></tr>
+<tr class="memitem:abcf4c218b9cd53f33465c405f38ccd3e" id="r_abcf4c218b9cd53f33465c405f38ccd3e"><td class="memItemLeft">std::vector&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#abcf4c218b9cd53f33465c405f38ccd3e">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::factor_biquadratic</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial)</td></tr>
+<tr class="memitem:a4b60e4b08ae21eddb681feb7355aceb2" id="r_a4b60e4b08ae21eddb681feb7355aceb2"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a1066681575f618df10be9704f0808b60">RootIsolation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a4b60e4b08ae21eddb681feb7355aceb2">lamina::detail::isolate_exact_root</a> (const <a class="el" href="../../d9/dc8/structlamina_1_1detail_1_1ExactRootId.html">ExactRootId</a> &amp;root, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a11a13a30c28e61f07f3897baa56e2dc7" id="r_a11a13a30c28e61f07f3897baa56e2dc7"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; std::vector&lt; <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a1066681575f618df10be9704f0808b60">RootIsolation</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a11a13a30c28e61f07f3897baa56e2dc7">lamina::detail::isolate_exact_roots</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;input, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:aaef17a117e0601e96a6c58b1ca910eb3" id="r_aaef17a117e0601e96a6c58b1ca910eb3"><td class="memItemLeft">std::vector&lt; <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a4d130cc8dc8c77a47a4a9f94dafc24c4">RationalInterval</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#aaef17a117e0601e96a6c58b1ca910eb3">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::projection_bands</a> (const std::vector&lt; <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a4d130cc8dc8c77a47a4a9f94dafc24c4">RationalInterval</a> &gt; &amp;intervals, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;bound)</td></tr>
+<tr class="memitem:a5ec80fd4026ed1f0ffff52b00108e618" id="r_a5ec80fd4026ed1f0ffff52b00108e618"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a5ec80fd4026ed1f0ffff52b00108e618">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::rational_sign</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value)</td></tr>
+<tr class="memitem:a4cadffb504b292a143a2394bc0470723" id="r_a4cadffb504b292a143a2394bc0470723"><td class="memItemLeft">std::vector&lt; std::pair&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a>, <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a4cadffb504b292a143a2394bc0470723">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::rectangle_edges</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial, const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d1/d57/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle">RationalRectangle</a> &amp;rectangle)</td></tr>
+<tr class="memitem:a405e028fb27c8daf72daf648cc4253a2" id="r_a405e028fb27c8daf72daf648cc4253a2"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a405e028fb27c8daf72daf648cc4253a2">lamina::detail::refine_complex_isolation</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;, <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#d7/ddd/structlamina_1_1detail_1_1ComplexIsolation">ComplexIsolation</a> &amp;isolation, const <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#d1/d7b/structlamina_1_1detail_1_1NumericEvaluationOptions">NumericEvaluationOptions</a> &amp;options, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a14caa9bd92675bb56275e800e9bbcb1e" id="r_a14caa9bd92675bb56275e800e9bbcb1e"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a14caa9bd92675bb56275e800e9bbcb1e">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::refine_interval</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial, <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a4d130cc8dc8c77a47a4a9f94dafc24c4">RationalInterval</a> &amp;interval, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a959747e47b9966767f8d7f281fd344a0" id="r_a959747e47b9966767f8d7f281fd344a0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a959747e47b9966767f8d7f281fd344a0">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::same_polynomial</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;left, const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;right)</td></tr>
+<tr class="memitem:a44321858627fb0535ab398b6452b6232" id="r_a44321858627fb0535ab398b6452b6232"><td class="memItemLeft"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a44321858627fb0535ab398b6452b6232">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::scale_poly</a> (<a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> polynomial, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;scalar)</td></tr>
+<tr class="memitem:ab842793e75fdd45843d39d8808287352" id="r_ab842793e75fdd45843d39d8808287352"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#ab842793e75fdd45843d39d8808287352">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::separate_projection_intervals</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;projection, std::vector&lt; <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a4d130cc8dc8c77a47a4a9f94dafc24c4">RationalInterval</a> &gt; &amp;intervals, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a1f8b29f402ec005314347ef427062182" id="r_a1f8b29f402ec005314347ef427062182"><td class="memItemLeft"><a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a1f8b29f402ec005314347ef427062182">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::shift_x</a> (const <a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a> &amp;input)</td></tr>
+<tr class="memitem:a84807731e5307fa08e92ff3641f626bd" id="r_a84807731e5307fa08e92ff3641f626bd"><td class="memItemLeft"><a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a84807731e5307fa08e92ff3641f626bd">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::shift_y</a> (const <a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a> &amp;input)</td></tr>
+<tr class="memitem:a437e897f74f4a545265b5d502be5f1b6" id="r_a437e897f74f4a545265b5d502be5f1b6"><td class="memItemLeft"><a class="el" href="../../d8/da7/classRational.html">Rational</a>&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a437e897f74f4a545265b5d502be5f1b6">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::strict_root_bound</a> (const <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &amp;polynomial)</td></tr>
+<tr class="memitem:aa1e48624cfe9c825a0e4eb006da826ca" id="r_aa1e48624cfe9c825a0e4eb006da826ca"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#aa1e48624cfe9c825a0e4eb006da826ca">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::sylvester_resultant</a> (std::vector&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt; left, std::vector&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a> &gt; right, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a2045d23e70358d7730b93e791f5ed039" id="r_a2045d23e70358d7730b93e791f5ed039"><td class="memItemLeft">std::vector&lt; <a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#d8/d9a/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RootIsolationCacheEntry">RootIsolationCacheEntry</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2045d23e70358d7730b93e791f5ed039">lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::root_isolation_cache</a></td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="db/d0d/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1ComplexBivariate" id="db/d0d/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1ComplexBivariate"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#db/d0d/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1ComplexBivariate">&#9670;&#160;</a></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::ComplexBivariate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::ComplexBivariate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html">complex_root_isolation.cpp</a> 第 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html#l00051">51</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::ComplexBivariate 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/dc9/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1ComplexBivariate__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="aa3bb543028c26f07769e2f9c3568500b" name="aa3bb543028c26f07769e2f9c3568500b"></a><a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a></td>
+<td class="fieldname">
+imaginary</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a3f83181f15811e661a1d3b2e296d7b51" name="a3f83181f15811e661a1d3b2e296d7b51"></a><a class="el" href="../../d7/dfc/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1BiPolynomial.html">BiPolynomial</a></td>
+<td class="fieldname">
+real</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="d1/d57/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle" id="d1/d57/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d1/d57/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle">&#9670;&#160;</a></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RationalRectangle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RationalRectangle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html">complex_root_isolation.cpp</a> 第 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html#l00022">22</a> 行定义.</p>
+</div><div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RationalRectangle 的协作图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d50/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RationalRectangle__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a5995fbedeeb4ac037b56fa010a88f38b" name="a5995fbedeeb4ac037b56fa010a88f38b"></a><a class="el" href="../../d8/da7/classRational.html">Rational</a></td>
+<td class="fieldname">
+imaginary_lower</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a004ef8ac8b02c1f41fccc605e4197c16" name="a004ef8ac8b02c1f41fccc605e4197c16"></a><a class="el" href="../../d8/da7/classRational.html">Rational</a></td>
+<td class="fieldname">
+imaginary_upper</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ad1c104bdd0507c920be052d123ea59ec" name="ad1c104bdd0507c920be052d123ea59ec"></a><a class="el" href="../../d8/da7/classRational.html">Rational</a></td>
+<td class="fieldname">
+real_lower</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a89f993d3bb930e8d6cd658f32445e102" name="a89f993d3bb930e8d6cd658f32445e102"></a><a class="el" href="../../d8/da7/classRational.html">Rational</a></td>
+<td class="fieldname">
+real_upper</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="d1/d8e/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RectangleCount" id="d1/d8e/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RectangleCount"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d1/d8e/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RectangleCount">&#9670;&#160;</a></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RectangleCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RectangleCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html">complex_root_isolation.cpp</a> 第 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html#l00029">29</a> 行定义.</p>
+</div><div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RectangleCount 的协作图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../da/da1/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RectangleCount__coll__graph.svg" width="235" height="242"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a1ac9bae7eed4907231cd540544574e5f" name="a1ac9bae7eed4907231cd540544574e5f"></a>bool</td>
+<td class="fieldname">
+boundary_clear = false</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a09f75ef8bf0488e7a1921e0397be47ba" name="a09f75ef8bf0488e7a1921e0397be47ba"></a>size_t</td>
+<td class="fieldname">
+count = 0</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="d8/d9a/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RootIsolationCacheEntry" id="d8/d9a/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RootIsolationCacheEntry"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d8/d9a/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RootIsolationCacheEntry">&#9670;&#160;</a></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RootIsolationCacheEntry</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RootIsolationCacheEntry</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html">complex_root_isolation.cpp</a> 第 <a class="el" href="../../d9/ddb/complex__root__isolation_8cpp_source.html#l00677">677</a> 行定义.</p>
+</div><div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RootIsolationCacheEntry 的协作图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d06/structlamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03_1_1RootIsolationCacheEntry__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a71e0b54fdd5673f6ba4acf86591f631c" name="a71e0b54fdd5673f6ba4acf86591f631c"></a><a class="el" href="../../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a2d34bc30fe623c0fac21ae0c42bf0bc0">Poly</a></td>
+<td class="fieldname">
+polynomial</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ab3655853a86e143be7413cf3056dccdc" name="ab3655853a86e143be7413cf3056dccdc"></a>vector&lt; <a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html#a1066681575f618df10be9704f0808b60">RootIsolation</a> &gt;</td>
+<td class="fieldname">
+roots</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a4e9ef56c8734d1f125f9fe442c186eb0" name="a4e9ef56c8734d1f125f9fe442c186eb0"></a>size_t</td>
+<td class="fieldname">
+step_cost = 1</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d9/ddb/complex__root__isolation_8cpp.html">complex_root_isolation.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

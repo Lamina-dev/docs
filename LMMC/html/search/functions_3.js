@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['regularized_5fbeta_0',['regularized_beta',['../statistics__internal_8c.html#ad3971d22ebb6cceb66ab943bf6e8e904',1,'regularized_beta(lmmc_real_t x, lmmc_real_t a, lmmc_real_t b):&#160;statistics_internal.c'],['../statistics__internal_8h.html#ad3971d22ebb6cceb66ab943bf6e8e904',1,'regularized_beta(lmmc_real_t x, lmmc_real_t a, lmmc_real_t b):&#160;statistics_internal.c']]],
+  ['regularized_5fbeta_5fcf_1',['regularized_beta_cf',['../statistics__internal_8c.html#adf53d620bf8cd944d31ba99cf4dd2c17',1,'regularized_beta_cf(lmmc_real_t x, lmmc_real_t a, lmmc_real_t b):&#160;statistics_internal.c'],['../statistics__internal_8h.html#adf53d620bf8cd944d31ba99cf4dd2c17',1,'regularized_beta_cf(lmmc_real_t x, lmmc_real_t a, lmmc_real_t b):&#160;statistics_internal.c']]],
+  ['regularized_5fgamma_5flower_2',['regularized_gamma_lower',['../statistics__internal_8c.html#a3ccb1d55ff10921f785cd5c97c8d0e79',1,'regularized_gamma_lower(lmmc_real_t a, lmmc_real_t x):&#160;statistics_internal.c'],['../statistics__internal_8h.html#a3ccb1d55ff10921f785cd5c97c8d0e79',1,'regularized_gamma_lower(lmmc_real_t a, lmmc_real_t x):&#160;statistics_internal.c']]],
+  ['regularized_5fgamma_5fupper_5fcf_3',['regularized_gamma_upper_cf',['../statistics__internal_8c.html#ae2cf46f891cddb9aca3b9d57438eaca8',1,'regularized_gamma_upper_cf(lmmc_real_t a, lmmc_real_t x):&#160;statistics_internal.c'],['../statistics__internal_8h.html#ae2cf46f891cddb9aca3b9d57438eaca8',1,'regularized_gamma_upper_cf(lmmc_real_t a, lmmc_real_t x):&#160;statistics_internal.c']]]
+];

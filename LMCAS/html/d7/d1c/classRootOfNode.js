@@ -1,0 +1,25 @@
+var classRootOfNode =
+[
+    [ "RootOfNode", "d7/d1c/classRootOfNode.html#a3b72cd47b80c6a9214e1783015479bd9", null ],
+    [ "accept", "d7/d1c/classRootOfNode.html#a79b94e08465e6c939393190a6ef31e24", null ],
+    [ "clone", "d7/d1c/classRootOfNode.html#a3b6f806e4fb8a6ee2aab7f83f1304ade", null ],
+    [ "compare", "d7/d1c/classRootOfNode.html#a96b47a1caa1dc47e95352c6446abc332", null ],
+    [ "compare_same_type", "d7/d1c/classRootOfNode.html#a7634483f7ff52610fba1fcfcba8db109", null ],
+    [ "compute_hash", "d7/d1c/classRootOfNode.html#ab97d7752639d7b0dfd86acb5741cc8a7", null ],
+    [ "equals", "d7/d1c/classRootOfNode.html#a4b30b4a5ba4dda4e6d83eaec90936483", null ],
+    [ "exact_id", "d7/d1c/classRootOfNode.html#ad3faf5dadf3a217f9f7012d6eb103acb", null ],
+    [ "hash", "d7/d1c/classRootOfNode.html#aec3226d6d7624165b0589c9240d65af8", null ],
+    [ "index", "d7/d1c/classRootOfNode.html#a931186c6ef7239392d946aa951be986a", null ],
+    [ "is_number", "d7/d1c/classRootOfNode.html#ade9217cf512c861b0f0acaa30bd600ba", null ],
+    [ "is_one", "d7/d1c/classRootOfNode.html#a694976e7b023707f8b5d7ac76e8a79fa", null ],
+    [ "is_positive", "d7/d1c/classRootOfNode.html#a910e4b6b70e1218bd298dd2b5af032e6", null ],
+    [ "is_zero", "d7/d1c/classRootOfNode.html#acb7b027c27f4aa1ae44c4b809184423c", null ],
+    [ "polynomial", "d7/d1c/classRootOfNode.html#a75410dcb1fe03b5469f444897e24b849", null ],
+    [ "type_priority", "d7/d1c/classRootOfNode.html#a6e8976a0afef9777c90a82e38d89cb74", null ],
+    [ "variable", "d7/d1c/classRootOfNode.html#ac3ccf18ea1a0ee545a0176e35aa03c0c", null ],
+    [ "lamina::detail::make_node", "d7/d1c/classRootOfNode.html#adce5239ffd4c03cf3b0cbc40bb270c98", null ],
+    [ "cached_hash", "d7/d1c/classRootOfNode.html#a22e155ca6608a987eaf2ddd1573ba426", null ],
+    [ "display_variable_", "d7/d1c/classRootOfNode.html#ab3d5e56d3b077407a0b7825d28d36aef", null ],
+    [ "hash_computed", "d7/d1c/classRootOfNode.html#af88113a5f8dd419f64628883e0c82fd0", null ],
+    [ "id_", "d7/d1c/classRootOfNode.html#a643b977d52a436987762698e09e76469", null ]
+];

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/lsr_expr_solving.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('df/d45/lsr__expr__solving_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">lsr_expr_solving.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d53/lsr__expr_8hpp_source.html">lsr_expr.hpp</a>&quot;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/de6/lsr__expr__internal_8hpp_source.html">lsr_expr_internal.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lsr_expr_solving.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d74/lsr__expr__solving_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../df/d45/lsr__expr__solving_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Alsr" id="r_lamina_3A_3Alsr"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html">lamina::lsr</a></td></tr>
+<tr class="memitem:lamina_3A_3Alsr_3A_3Aanonymous_5Fnamespace_7Blsr_5Fexpr_5Fsolving_2Ecpp_7D" id="r_lamina_3A_3Alsr_3A_3Aanonymous_5Fnamespace_7Blsr_5Fexpr_5Fsolving_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a442f60b9f434f8fdf9b09e945cc24ced" id="r_a442f60b9f434f8fdf9b09e945cc24ced"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#a442f60b9f434f8fdf9b09e945cc24ced">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::exact_rational_sqrt</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value, <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;root)</td></tr>
+<tr class="memitem:a9b7758a5af114babe0c4e580c00e2b33" id="r_a9b7758a5af114babe0c4e580c00e2b33"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#a9b7758a5af114babe0c4e580c00e2b33">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::normalize_equation_to_zero</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, const bool require_equality, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:abbe68717cdbf68d030268fa3ae2d2d61" id="r_abbe68717cdbf68d030268fa3ae2d2d61"><td class="memItemLeft"><a class="el" href="../../d8/da7/classRational.html">Rational</a>&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#abbe68717cdbf68d030268fa3ae2d2d61">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::polynomial_coeff_or_zero</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, std::size_t degree)</td></tr>
+<tr class="memitem:a3af32b77e69f64a68ed3dc8c54ddd4ed" id="r_a3af32b77e69f64a68ed3dc8c54ddd4ed"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#a3af32b77e69f64a68ed3dc8c54ddd4ed">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::rational_expression</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value)</td></tr>
+<tr class="memitem:a8b3ff272b26c16131399d2d557c7a067" id="r_a8b3ff272b26c16131399d2d557c7a067"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a8b3ff272b26c16131399d2d557c7a067">lamina::lsr::roots</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:aec5a05ca24d7478b7ca4cd11e98cba4d" id="r_aec5a05ca24d7478b7ca4cd11e98cba4d"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#aec5a05ca24d7478b7ca4cd11e98cba4d">lamina::lsr::roots</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, const std::string &amp;variable, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:ac381d828b90390e8fba5c37633ef858f" id="r_ac381d828b90390e8fba5c37633ef858f"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ac381d828b90390e8fba5c37633ef858f">lamina::lsr::solve</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a96b9f01bec80988722934e3c031b0564" id="r_a96b9f01bec80988722934e3c031b0564"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a96b9f01bec80988722934e3c031b0564">lamina::lsr::solve</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a22ae31e44996c2d18471c8e77192804e" id="r_a22ae31e44996c2d18471c8e77192804e"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a22ae31e44996c2d18471c8e77192804e">lamina::lsr::solve_expr_set</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:ac9dc071a61ef948f3e9e92705e185983" id="r_ac9dc071a61ef948f3e9e92705e185983"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ac9dc071a61ef948f3e9e92705e185983">lamina::lsr::solve_expr_set</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a16de024a450d4dc2aa4d3f3c8b78afe0" id="r_a16de024a450d4dc2aa4d3f3c8b78afe0"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1ea03ca1287deec97660043e2ef26cba">ExprSetResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a16de024a450d4dc2aa4d3f3c8b78afe0">lamina::lsr::solve_normalized_expr_set</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;normalized, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:af24157be50158c79aa939381a98b2dca" id="r_af24157be50158c79aa939381a98b2dca"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ae5fe720461aba8fc4feb8ffb4f87c172">SolveResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#af24157be50158c79aa939381a98b2dca">lamina::lsr::solve_set</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a807f46b6d818e5e2b731f2477ade47fc" id="r_a807f46b6d818e5e2b731f2477ade47fc"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ae5fe720461aba8fc4feb8ffb4f87c172">SolveResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a807f46b6d818e5e2b731f2477ade47fc">lamina::lsr::solve_set</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:aa8d159558027f7625008c338208fc8c0" id="r_aa8d159558027f7625008c338208fc8c0"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#aa8d159558027f7625008c338208fc8c0">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::sqrt_rational_expression</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value)</td></tr>
+<tr class="memitem:a007d14e4f0c5040c852d4989bda7ca6c" id="r_a007d14e4f0c5040c852d4989bda7ca6c"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; std::optional&lt; ExprSet &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#a007d14e4f0c5040c852d4989bda7ca6c">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::try_lsr_closed_form_rational_poly_roots</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;equation, const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ae1f12c2ad2393f9047952e67431974a3" id="r_ae1f12c2ad2393f9047952e67431974a3"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../dc/dbc/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__solving_8cpp_03.html#ae1f12c2ad2393f9047952e67431974a3">lamina::lsr::anonymous_namespace{lsr_expr_solving.cpp}::verified_lsr_complex</a> (<a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> real_part, <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> imag_part)</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../df/d45/lsr__expr__solving_8cpp.html">lsr_expr_solving.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

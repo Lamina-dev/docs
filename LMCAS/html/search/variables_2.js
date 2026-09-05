@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['b_0',['b',['../d1/d42/namespacelamina.html#a5ecb60ff1e7892cc5e69ff94e8bc5fde',1,'lamina']]],
+  ['base_1',['base',['../d1/d42/namespacelamina.html#a26a7dc148767e70380965131c93671a2',1,'lamina::ExpBasePattern']]],
+  ['base_5f_2',['base_',['../d5/d72/classPowerNode.html#ae479377e76e7de4109f3192456e94472',1,'PowerNode']]],
+  ['basis_5fcount_5f_3',['basis_count_',['../df/d30/classlamina_1_1detail_1_1GaussianEliminator.html#adfb2cb042236bae8335741f45d2d1352',1,'lamina::detail::GaussianEliminator']]],
+  ['bernoulli_5fn_4',['bernoulli_n',['../d1/d42/namespacelamina.html#a67e78149de28bf8a3600d31c4ffcb6f6',1,'lamina::ODEClassification']]],
+  ['bernoulli_5fp_5',['bernoulli_P',['../d1/d42/namespacelamina.html#af4821e6025659f28b74dbeeaa6fe7d6c',1,'lamina::ODEClassification']]],
+  ['bernoulli_5fq_6',['bernoulli_Q',['../d1/d42/namespacelamina.html#a18161ea7a726002f1f732d5572b62239',1,'lamina::ODEClassification']]],
+  ['binding_7',['binding',['../d4/d53/namespacelamina_1_1lsr.html#aca07f5e926faca0badc505d139f3cf5b',1,'lamina::lsr']]],
+  ['bindings_8',['bindings',['../d4/d53/namespacelamina_1_1lsr.html#a391036000a7d03a9b3f6482e4aba37fd',1,'lamina::lsr::ExprMatch::bindings'],['../d4/d53/namespacelamina_1_1lsr.html#a3f21b32b084b29b02fcd16572ce6c0fc',1,'lamina::lsr::bindings'],['../d1/d42/namespacelamina.html#a7fb33bd5c1301d12827001792ba4b6fd',1,'lamina::bindings']]],
+  ['bk_5fnum_5fsmall_5fprimes_9',['BK_NUM_SMALL_PRIMES',['../d1/d42/namespacelamina.html#a39edc4876231334a35c402f9444290a7',1,'lamina']]],
+  ['bk_5fsmall_5fprimes_10',['BK_SMALL_PRIMES',['../d1/d42/namespacelamina.html#a53f7040baa9fb3d15cd8fafe28b4d822',1,'lamina']]],
+  ['body_5f_11',['body_',['../db/da6/classSummationNode.html#a716dbb5bdbfd2f040bdb85ac8204738c',1,'SummationNode::body_'],['../d6/da7/classProductNode.html#a000dbff24353854da6868224b74c7243',1,'ProductNode::body_'],['../db/dac/classTransformNode.html#a5e1c274184433b9b27c19fe668f21d32',1,'TransformNode::body_'],['../db/d2d/classIntegralNode.html#adf5967b83e2b5c0a49c93966aaff6421',1,'IntegralNode::body_'],['../d2/d7a/classLimitNode.html#a80f5562c3c6b51fdadbfae9e786d4e12',1,'LimitNode::body_']]],
+  ['bound_5f_12',['bound_',['../d6/dd7/classlamina_1_1anonymous__namespace_02expression__analysis_8cpp_03_1_1FreeVariableCollector.html#a6fa438ffba5376ecbb4c366c8f9d31bc',1,'lamina::anonymous_namespace{expression_analysis.cpp}::FreeVariableCollector']]],
+  ['bound_5fname_13',['bound_name',['../d0/d3a/namespacelamina_1_1detail.html#ac020a199ceee056ada9c3c396c09d7e5',1,'lamina::detail::BinderView']]],
+  ['bound_5fvar_5f_14',['bound_var_',['../d5/d0c/classQuantifierNode.html#a0b5ecc15bba6047e7f73d8776f7affaa',1,'QuantifierNode']]],
+  ['boundary_5fclear_15',['boundary_clear',['../de/db7/namespacelamina_1_1detail_1_1anonymous__namespace_02complex__root__isolation_8cpp_03.html#a1ac9bae7eed4907231cd540544574e5f',1,'lamina::detail::anonymous_namespace{complex_root_isolation.cpp}::RectangleCount']]],
+  ['bracket_5flower_16',['bracket_lower',['../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#acde3ca032121cdd02968b315345f143f',1,'lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks']]],
+  ['bracket_5fupper_17',['bracket_upper',['../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a5361dc21dec64a8178adb524107bcddc',1,'lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks']]],
+  ['branches_5f_18',['branches_',['../d3/d99/classPiecewiseNode.html#ac501f816875c634723626c8f94192d4d',1,'PiecewiseNode']]],
+  ['budget_19',['budget',['../d4/d53/namespacelamina_1_1lsr.html#a3b164fb4f70ffa71abe73aa09536d574',1,'lamina::lsr::EqvOptions']]]
+];

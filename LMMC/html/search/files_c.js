@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['singular_5fvalue_5fdecomposition_2ec_0',['singular_value_decomposition.c',['../singular__value__decomposition_8c.html',1,'']]],
+  ['sparse_2eh_1',['sparse.h',['../sparse_8h.html',1,'']]],
+  ['sparse_5farithmetic_2ec_2',['sparse_arithmetic.c',['../sparse__arithmetic_8c.html',1,'']]],
+  ['sparse_5fblock_2ec_3',['sparse_block.c',['../sparse__block_8c.html',1,'']]],
+  ['sparse_5fbuilder_2ec_4',['sparse_builder.c',['../sparse__builder_8c.html',1,'']]],
+  ['sparse_5fconversion_2ec_5',['sparse_conversion.c',['../sparse__conversion_8c.html',1,'']]],
+  ['sparse_5fdirect_2ec_6',['sparse_direct.c',['../sparse__direct_8c.html',1,'']]],
+  ['sparse_5finternal_2eh_7',['sparse_internal.h',['../sparse__internal_8h.html',1,'']]],
+  ['sparse_5fproducts_2ec_8',['sparse_products.c',['../sparse__products_8c.html',1,'']]],
+  ['sparse_5fstorage_2ec_9',['sparse_storage.c',['../sparse__storage_8c.html',1,'']]],
+  ['sparse_5fsymmetric_2ec_10',['sparse_symmetric.c',['../sparse__symmetric_8c.html',1,'']]],
+  ['statistics_5fcombinatorics_2ec_11',['statistics_combinatorics.c',['../statistics__combinatorics_8c.html',1,'']]],
+  ['statistics_5fdescriptive_2ec_12',['statistics_descriptive.c',['../statistics__descriptive_8c.html',1,'']]],
+  ['statistics_5finternal_2ec_13',['statistics_internal.c',['../statistics__internal_8c.html',1,'']]],
+  ['statistics_5finternal_2eh_14',['statistics_internal.h',['../statistics__internal_8h.html',1,'']]],
+  ['stats_2eh_15',['stats.h',['../stats_8h.html',1,'']]],
+  ['status_2ec_16',['status.c',['../status_8c.html',1,'']]],
+  ['status_2eh_17',['status.h',['../status_8h.html',1,'']]]
+];

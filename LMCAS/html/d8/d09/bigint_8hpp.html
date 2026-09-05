@@ -1,0 +1,747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/bigint.hpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d8/d09/bigint_8hpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">bigint.hpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>任意精度整数 BigInt，底层调用 LMMP 实现高性能大数运算。  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;lmmp.h&gt;</code><br />
+<code>#include &lt;lmmpn.h&gt;</code><br />
+<code>#include &lt;numth.h&gt;</code><br />
+<code>#include &quot;lmmc/init.h&quot;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &quot;lmmc/config.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/d05/lamina__export_8hpp_source.html">lamina_export.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>bigint.hpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d6/dee/bigint_8hpp__incl.svg" width="100%" height="382"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>此图展示该文件被哪些文件直接或间接地引用了:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d6/d21/bigint_8hpp__dep__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d8/d09/bigint_8hpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:ad2a15b4ed795c570b723293b4b074487" id="r_ad2a15b4ed795c570b723293b4b074487"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad2a15b4ed795c570b723293b4b074487">_STATIC_ASSERT</a>(x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ac21581d9e6e275b3b3fa651d1111cce3" id="r_ac21581d9e6e275b3b3fa651d1111cce3"><td class="memItemLeft">class&#160;</td><td class="memItemRight"><a class="el" href="#ac21581d9e6e275b3b3fa651d1111cce3">__attribute__</a> ((visibility(&quot;default&quot;))) BigInt</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">详细描述</h2>
+<div class="textblock"><p>任意精度整数 BigInt，底层调用 LMMP 实现高性能大数运算。 </p>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d09/bigint_8hpp_source.html">bigint.hpp</a> 中定义.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">宏定义说明</h2>
+<a id="ad2a15b4ed795c570b723293b4b074487" name="ad2a15b4ed795c570b723293b4b074487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2a15b4ed795c570b723293b4b074487">&#9670;&#160;</a></span>_STATIC_ASSERT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _STATIC_ASSERT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line"><span class="keyword">static_assert</span>(x, #x)</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d8/d09/bigint_8hpp_source.html">bigint.hpp</a> 第 <a class="el" href="../../d8/d09/bigint_8hpp_source.html#l00008">8</a> 行定义.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="ac21581d9e6e275b3b3fa651d1111cce3" name="ac21581d9e6e275b3b3fa651d1111cce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac21581d9e6e275b3b3fa651d1111cce3">&#9670;&#160;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">class __attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(visibility(&quot;default&quot;))</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>符号枚举</p>
+<p>默认构造，值为 0</p>
+<p>拷贝构造</p>
+<p>移动构造</p>
+<p>拷贝赋值</p>
+<p>移动赋值</p>
+<p>从 long long 构造 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>整数值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>从 int 构造</p>
+<p>从 unsigned long long 构造 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>无符号整数值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>从 unsigned int 构造</p>
+<p>从 unsigned long 构造</p>
+<p>从十进制字符串构造 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>十进制数字字符串，可带正负号</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>转换为十进制字符串 </p><dl class="section return"><dt>返回</dt><dd>十进制表示的字符串</dd></dl>
+<p>转换为十进制字符串（同 ToString）</p>
+<p>转换为 int（溢出时饱和到 int 范围） </p><dl class="section return"><dt>返回</dt><dd>对应的 int 值</dd></dl>
+<p>精确转换为 int64_t；超出范围时返回空。</p>
+<p>转换为浮点数 </p><dl class="section return"><dt>返回</dt><dd>对应的 double 值</dd></dl>
+<p>比较两个 BigInt 的绝对值 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个操作数 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个操作数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>1 表示 |a|&gt;|b|，-1 表示 |a|&lt;|b|，0 表示相等</dd></dl>
+<p>判断是否为零</p>
+<p>获取 limb 数组的副本 </p><dl class="section return"><dt>返回</dt><dd>各 limb 值组成的 vector</dd></dl>
+<p>计算哈希值 </p><dl class="section return"><dt>返回</dt><dd>哈希值</dd></dl>
+<p>取绝对值 </p><dl class="section return"><dt>返回</dt><dd>|*this|</dd></dl>
+<p>判断是否为负数</p>
+<p>取相反数 </p><dl class="section return"><dt>返回</dt><dd>-*this</dd></dl>
+<p>一元负号运算符</p>
+<p>绝对值加法（内部使用） </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dst</td><td>结果 </td></tr>
+    <tr><td class="paramname">a</td><td>加数 </td></tr>
+    <tr><td class="paramname">b</td><td>加数</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>绝对值减法（内部使用，要求 |a| &gt;= |b|） </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dst</td><td>结果 </td></tr>
+    <tr><td class="paramname">a</td><td>被减数 </td></tr>
+    <tr><td class="paramname">b</td><td>减数</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>加法运算符</p>
+<p>减法运算符</p>
+<p>乘法运算符</p>
+<p>除法运算符（整数除法，截断） </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>除数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>商 </dd></dl>
+<dl class="exception"><dt>异常</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>除数为零时抛出</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>取模运算符 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>模数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>余数 </dd></dl>
+<dl class="exception"><dt>异常</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>模数为零时抛出</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>整数幂运算 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exp</td><td>非负指数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>this^exp</dd></dl>
+<p>整数幂运算（BigInt 指数） </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exp</td><td>非负 BigInt 指数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>this^exp </dd></dl>
+<dl class="exception"><dt>异常</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>指数为负时抛出</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>整数平方根（向下取整） </p><dl class="section return"><dt>返回</dt><dd>floor(sqrt(*this)) </dd></dl>
+<dl class="exception"><dt>异常</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>负数时抛出</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>判断是否为奇数</p>
+<p>判断是否为偶数</p>
+<p>计算末尾零比特数 </p><dl class="section return"><dt>返回</dt><dd>二进制表示中末尾连续 0 的个数</dd></dl>
+<p>右移赋值 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shift</td><td>移位比特数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>*this</dd></dl>
+<p>左移赋值 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shift</td><td>移位比特数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>*this</dd></dl>
+<p>右移运算符</p>
+<p>左移运算符</p>
+<p>计算阶乘 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>非负整数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>n!</dd></dl>
+<p>计算排列数 P(n, r) </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>总数 </td></tr>
+    <tr><td class="paramname">r</td><td>选取数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>n! / (n-r)!</dd></dl>
+<p>计算组合数 C(n, r) </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>总数 </td></tr>
+    <tr><td class="paramname">r</td><td>选取数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>n! / (r! * (n-r)!)</dd></dl>
+<p>计算多项式系数（多重组合数） </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>总数（应等于 r 各元素之和） </td></tr>
+    <tr><td class="paramname">r</td><td>各组大小 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>n! / (r[0]! * r[1]! * ... * r[k]!) </dd></dl>
+<dl class="exception"><dt>异常</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>r 之和不等于 n 时抛出</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>计算最大公约数 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个大整数 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个大整数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>gcd(|a|, |b|)</dd></dl>
+<p>计算最小公倍数 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个大整数 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个大整数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>lcm(|a|, |b|)</dd></dl>
+<p>模幂运算 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>底数 </td></tr>
+    <tr><td class="paramname">exp</td><td>指数 </td></tr>
+    <tr><td class="paramname">mod</td><td>模数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>base^exp mod mod </dd></dl>
+<dl class="exception"><dt>异常</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>模数为零时抛出</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>素性测试（Miller-Rabin） </p><dl class="section return"><dt>返回</dt><dd>是素数返回 true</dd></dl>
+<p>判断是否为完全平方数 </p><dl class="section return"><dt>返回</dt><dd>是完全平方数返回 true</dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d8/d09/bigint_8hpp_source.html">bigint.hpp</a> 第 <a class="el" href="../../d8/d09/bigint_8hpp_source.html#l00001">1</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>                        {</div>
+<div class="line"><span class="lineno">   30</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><span class="lineno">   31</span><span class="comment">    /** @brief 符号枚举 */</span></div>
+<div class="line"><span class="lineno">   32</span>    <span class="keyword">enum</span> Sign {</div>
+<div class="line"><span class="lineno">   33</span>        POSITIVE = 1,</div>
+<div class="line"><span class="lineno">   34</span>        ZERO = 0,</div>
+<div class="line"><span class="lineno">   35</span>        NEGATIVE = -1</div>
+<div class="line"><span class="lineno">   36</span>    };</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span><span class="keyword">private</span>:</div>
+<div class="line"><span class="lineno">   39</span>    mp_ptr _data = <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">   40</span>    mp_size_t _size = 0;</div>
+<div class="line"><span class="lineno">   41</span>    mp_size_t _alloc = 0;</div>
+<div class="line"><span class="lineno">   42</span>    <span class="keywordtype">int</span> _sign = ZERO;</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordtype">void</span> realloc_to(mp_size_t new_alloc);</div>
+<div class="line"><span class="lineno">   45</span> </div>
+<div class="line"><span class="lineno">   46</span>    <span class="keywordtype">void</span> normalize();</div>
+<div class="line"><span class="lineno">   47</span> </div>
+<div class="line"><span class="lineno">   48</span>    <span class="keywordtype">void</span> zero();</div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><span class="lineno">   51</span><span class="comment">    /** @brief 默认构造，值为 0 */</span></div>
+<div class="line"><span class="lineno">   52</span>    BigInt();</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>    ~BigInt();</div>
+<div class="line"><span class="lineno">   55</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   56</span><span class="comment">    /** @brief 拷贝构造 */</span></div>
+<div class="line"><span class="lineno">   57</span>    BigInt(<span class="keyword">const</span> BigInt&amp; other);</div>
+<div class="line"><span class="lineno">   58</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   59</span><span class="comment">    /** @brief 移动构造 */</span></div>
+<div class="line"><span class="lineno">   60</span>    BigInt(BigInt&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><span class="lineno">   61</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   62</span><span class="comment">    /** @brief 拷贝赋值 */</span></div>
+<div class="line"><span class="lineno">   63</span>    BigInt&amp; operator=(<span class="keyword">const</span> BigInt&amp; other);</div>
+<div class="line"><span class="lineno">   64</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   65</span><span class="comment">    /** @brief 移动赋值 */</span></div>
+<div class="line"><span class="lineno">   66</span>    BigInt&amp; operator=(BigInt&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><span class="lineno">   67</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   68</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">   69</span><span class="comment">     * @brief 从 long long 构造</span></div>
+<div class="line"><span class="lineno">   70</span><span class="comment">     * @param val 整数值</span></div>
+<div class="line"><span class="lineno">   71</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">   72</span>    BigInt(<span class="keywordtype">long</span> <span class="keywordtype">long</span> val);<span class="comment"></span></div>
+<div class="line"><span class="lineno">   73</span><span class="comment">    /** @brief 从 int 构造 */</span></div>
+<div class="line"><span class="lineno">   74</span>    BigInt(<span class="keywordtype">int</span> val);</div>
+<div class="line"><span class="lineno">   75</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   76</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">     * @brief 从 unsigned long long 构造</span></div>
+<div class="line"><span class="lineno">   78</span><span class="comment">     * @param val 无符号整数值</span></div>
+<div class="line"><span class="lineno">   79</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">   80</span>    BigInt(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> val);<span class="comment"></span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">    /** @brief 从 unsigned int 构造 */</span></div>
+<div class="line"><span class="lineno">   82</span>    BigInt(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val);<span class="comment"></span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">    /** @brief 从 unsigned long 构造 */</span></div>
+<div class="line"><span class="lineno">   84</span>    BigInt(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> val);</div>
+<div class="line"><span class="lineno">   85</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   86</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">     * @brief 从十进制字符串构造</span></div>
+<div class="line"><span class="lineno">   88</span><span class="comment">     * @param str 十进制数字字符串，可带正负号</span></div>
+<div class="line"><span class="lineno">   89</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">   90</span>    BigInt(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><span class="lineno">   91</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   92</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment">     * @brief 转换为十进制字符串</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">     * @return 十进制表示的字符串</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">   96</span>    std::string ToString() <span class="keyword">const</span>;</div>
+<div class="line"><span class="lineno">   97</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   98</span><span class="comment">    /** @brief 转换为十进制字符串（同 ToString） */</span></div>
+<div class="line"><span class="lineno">   99</span>    std::string to_string() <span class="keyword">const</span>;</div>
+<div class="line"><span class="lineno">  100</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  101</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment">     * @brief 转换为 int（溢出时饱和到 int 范围）</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment">     * @return 对应的 int 值</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  105</span>    <span class="keywordtype">int</span> to_int() <span class="keyword">const</span>;</div>
+<div class="line"><span class="lineno">  106</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  107</span><span class="comment">    /** @brief 精确转换为 int64_t；超出范围时返回空。 */</span></div>
+<div class="line"><span class="lineno">  108</span>    std::optional&lt;std::int64_t&gt; try_to_int64() const noexcept;</div>
+<div class="line"><span class="lineno">  109</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  110</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">     * @brief 转换为浮点数</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">     * @return 对应的 double 值</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  114</span>    lmmc_real_t to_double() const;</div>
+<div class="line"><span class="lineno">  115</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  116</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  117</span><span class="comment">     * @brief 比较两个 BigInt 的绝对值</span></div>
+<div class="line"><span class="lineno">  118</span><span class="comment">     * @param a 第一个操作数</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">     * @param b 第二个操作数</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment">     * @return 1 表示 |a|&gt;|b|，-1 表示 |a|&lt;|b|，0 表示相等</span></div>
+<div class="line"><span class="lineno">  121</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  122</span>    static <span class="keywordtype">int</span> cmp_abs(const BigInt&amp; a, const BigInt&amp; b);</div>
+<div class="line"><span class="lineno">  123</span> </div>
+<div class="line"><span class="lineno">  124</span>    <span class="keywordtype">bool</span> operator==(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  125</span>    <span class="keywordtype">bool</span> operator!=(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  126</span>    <span class="keywordtype">bool</span> operator&lt;(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  127</span>    <span class="keywordtype">bool</span> operator&gt;(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  128</span>    <span class="keywordtype">bool</span> operator&lt;=(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  129</span>    <span class="keywordtype">bool</span> operator&gt;=(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  130</span>    <span class="keywordtype">bool</span> operator!() const;</div>
+<div class="line"><span class="lineno">  131</span>    explicit operator <span class="keywordtype">bool</span>() const;</div>
+<div class="line"><span class="lineno">  132</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  133</span><span class="comment">    /** @brief 判断是否为零 */</span></div>
+<div class="line"><span class="lineno">  134</span>    <span class="keywordtype">bool</span> is_zero() const;</div>
+<div class="line"><span class="lineno">  135</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  136</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  137</span><span class="comment">     * @brief 获取 limb 数组的副本</span></div>
+<div class="line"><span class="lineno">  138</span><span class="comment">     * @return 各 limb 值组成的 vector</span></div>
+<div class="line"><span class="lineno">  139</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  140</span>    std::vector&lt;uint64_t&gt; get_digits() const;</div>
+<div class="line"><span class="lineno">  141</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  142</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  143</span><span class="comment">     * @brief 计算哈希值</span></div>
+<div class="line"><span class="lineno">  144</span><span class="comment">     * @return 哈希值</span></div>
+<div class="line"><span class="lineno">  145</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  146</span>    std::<span class="keywordtype">size_t</span> hash() const;</div>
+<div class="line"><span class="lineno">  147</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  148</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  149</span><span class="comment">     * @brief 取绝对值</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment">     * @return |*this|</span></div>
+<div class="line"><span class="lineno">  151</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  152</span>    BigInt Abs() const;</div>
+<div class="line"><span class="lineno">  153</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  154</span><span class="comment">    /** @brief 判断是否为负数 */</span></div>
+<div class="line"><span class="lineno">  155</span>    <span class="keywordtype">bool</span> IsNegative() const;</div>
+<div class="line"><span class="lineno">  156</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  157</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  158</span><span class="comment">     * @brief 取相反数</span></div>
+<div class="line"><span class="lineno">  159</span><span class="comment">     * @return -*this</span></div>
+<div class="line"><span class="lineno">  160</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  161</span>    BigInt negate() const;</div>
+<div class="line"><span class="lineno">  162</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  163</span><span class="comment">    /** @brief 一元负号运算符 */</span></div>
+<div class="line"><span class="lineno">  164</span>    BigInt operator-() const;</div>
+<div class="line"><span class="lineno">  165</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  166</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  167</span><span class="comment">     * @brief 绝对值加法（内部使用）</span></div>
+<div class="line"><span class="lineno">  168</span><span class="comment">     * @param dst 结果</span></div>
+<div class="line"><span class="lineno">  169</span><span class="comment">     * @param a 加数</span></div>
+<div class="line"><span class="lineno">  170</span><span class="comment">     * @param b 加数</span></div>
+<div class="line"><span class="lineno">  171</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  172</span>    static <span class="keywordtype">void</span> add_abs(BigInt&amp; dst, const BigInt&amp; a, const BigInt&amp; b);</div>
+<div class="line"><span class="lineno">  173</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  174</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  175</span><span class="comment">     * @brief 绝对值减法（内部使用，要求 |a| &gt;= |b|）</span></div>
+<div class="line"><span class="lineno">  176</span><span class="comment">     * @param dst 结果</span></div>
+<div class="line"><span class="lineno">  177</span><span class="comment">     * @param a 被减数</span></div>
+<div class="line"><span class="lineno">  178</span><span class="comment">     * @param b 减数</span></div>
+<div class="line"><span class="lineno">  179</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  180</span>    static <span class="keywordtype">void</span> sub_abs(BigInt&amp; dst, const BigInt&amp; a, const BigInt&amp; b);</div>
+<div class="line"><span class="lineno">  181</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  182</span><span class="comment">    /** @brief 加法运算符 */</span></div>
+<div class="line"><span class="lineno">  183</span>    BigInt operator+(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  184</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  185</span><span class="comment">    /** @brief 减法运算符 */</span></div>
+<div class="line"><span class="lineno">  186</span>    BigInt operator-(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  187</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  188</span><span class="comment">    /** @brief 乘法运算符 */</span></div>
+<div class="line"><span class="lineno">  189</span>    BigInt operator*(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  190</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  191</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  192</span><span class="comment">     * @brief 除法运算符（整数除法，截断）</span></div>
+<div class="line"><span class="lineno">  193</span><span class="comment">     * @param other 除数</span></div>
+<div class="line"><span class="lineno">  194</span><span class="comment">     * @return 商</span></div>
+<div class="line"><span class="lineno">  195</span><span class="comment">     * @throw std::domain_error 除数为零时抛出</span></div>
+<div class="line"><span class="lineno">  196</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  197</span>    BigInt operator/(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  198</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  199</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  200</span><span class="comment">     * @brief 取模运算符</span></div>
+<div class="line"><span class="lineno">  201</span><span class="comment">     * @param other 模数</span></div>
+<div class="line"><span class="lineno">  202</span><span class="comment">     * @return 余数</span></div>
+<div class="line"><span class="lineno">  203</span><span class="comment">     * @throw std::domain_error 模数为零时抛出</span></div>
+<div class="line"><span class="lineno">  204</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  205</span>    BigInt operator%(const BigInt&amp; other) const;</div>
+<div class="line"><span class="lineno">  206</span> </div>
+<div class="line"><span class="lineno">  207</span>    BigInt&amp; operator+=(const BigInt&amp; other);</div>
+<div class="line"><span class="lineno">  208</span>    BigInt&amp; operator-=(const BigInt&amp; other);</div>
+<div class="line"><span class="lineno">  209</span>    BigInt&amp; operator*=(const BigInt&amp; other);</div>
+<div class="line"><span class="lineno">  210</span>    BigInt&amp; operator/=(const BigInt&amp; other);</div>
+<div class="line"><span class="lineno">  211</span>    BigInt&amp; operator%=(const BigInt&amp; other);</div>
+<div class="line"><span class="lineno">  212</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  213</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  214</span><span class="comment">     * @brief 整数幂运算</span></div>
+<div class="line"><span class="lineno">  215</span><span class="comment">     * @param exp 非负指数</span></div>
+<div class="line"><span class="lineno">  216</span><span class="comment">     * @return this^exp</span></div>
+<div class="line"><span class="lineno">  217</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  218</span>    BigInt power(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> exp) const;</div>
+<div class="line"><span class="lineno">  219</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  220</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  221</span><span class="comment">     * @brief 整数幂运算（BigInt 指数）</span></div>
+<div class="line"><span class="lineno">  222</span><span class="comment">     * @param exp 非负 BigInt 指数</span></div>
+<div class="line"><span class="lineno">  223</span><span class="comment">     * @return this^exp</span></div>
+<div class="line"><span class="lineno">  224</span><span class="comment">     * @throw std::domain_error 指数为负时抛出</span></div>
+<div class="line"><span class="lineno">  225</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  226</span>    BigInt power(BigInt exp) const;</div>
+<div class="line"><span class="lineno">  227</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  228</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  229</span><span class="comment">     * @brief 整数平方根（向下取整）</span></div>
+<div class="line"><span class="lineno">  230</span><span class="comment">     * @return floor(sqrt(*this))</span></div>
+<div class="line"><span class="lineno">  231</span><span class="comment">     * @throw std::domain_error 负数时抛出</span></div>
+<div class="line"><span class="lineno">  232</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  233</span>    BigInt sqrt() const;</div>
+<div class="line"><span class="lineno">  234</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  235</span><span class="comment">    /** @brief 判断是否为奇数 */</span></div>
+<div class="line"><span class="lineno">  236</span>    <span class="keywordtype">bool</span> is_odd() const;</div>
+<div class="line"><span class="lineno">  237</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  238</span><span class="comment">    /** @brief 判断是否为偶数 */</span></div>
+<div class="line"><span class="lineno">  239</span>    <span class="keywordtype">bool</span> is_even() const;</div>
+<div class="line"><span class="lineno">  240</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  241</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  242</span><span class="comment">     * @brief 计算末尾零比特数</span></div>
+<div class="line"><span class="lineno">  243</span><span class="comment">     * @return 二进制表示中末尾连续 0 的个数</span></div>
+<div class="line"><span class="lineno">  244</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  245</span>    mp_size_t trailing_zeros() const;</div>
+<div class="line"><span class="lineno">  246</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  247</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  248</span><span class="comment">     * @brief 右移赋值</span></div>
+<div class="line"><span class="lineno">  249</span><span class="comment">     * @param shift 移位比特数</span></div>
+<div class="line"><span class="lineno">  250</span><span class="comment">     * @return *this</span></div>
+<div class="line"><span class="lineno">  251</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  252</span>    BigInt&amp; operator&gt;&gt;=(mp_size_t shift);</div>
+<div class="line"><span class="lineno">  253</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  254</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  255</span><span class="comment">     * @brief 左移赋值</span></div>
+<div class="line"><span class="lineno">  256</span><span class="comment">     * @param shift 移位比特数</span></div>
+<div class="line"><span class="lineno">  257</span><span class="comment">     * @return *this</span></div>
+<div class="line"><span class="lineno">  258</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  259</span>    BigInt&amp; operator&lt;&lt;=(mp_size_t shift);</div>
+<div class="line"><span class="lineno">  260</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  261</span><span class="comment">    /** @brief 右移运算符 */</span></div>
+<div class="line"><span class="lineno">  262</span>    BigInt operator&gt;&gt;(mp_size_t shift) const;</div>
+<div class="line"><span class="lineno">  263</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  264</span><span class="comment">    /** @brief 左移运算符 */</span></div>
+<div class="line"><span class="lineno">  265</span>    BigInt operator&lt;&lt;(mp_size_t shift) const;</div>
+<div class="line"><span class="lineno">  266</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  267</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  268</span><span class="comment">     * @brief 计算阶乘</span></div>
+<div class="line"><span class="lineno">  269</span><span class="comment">     * @param n 非负整数</span></div>
+<div class="line"><span class="lineno">  270</span><span class="comment">     * @return n!</span></div>
+<div class="line"><span class="lineno">  271</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  272</span>    static BigInt factorial(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n);</div>
+<div class="line"><span class="lineno">  273</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  274</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  275</span><span class="comment">     * @brief 计算排列数 P(n, r)</span></div>
+<div class="line"><span class="lineno">  276</span><span class="comment">     * @param n 总数</span></div>
+<div class="line"><span class="lineno">  277</span><span class="comment">     * @param r 选取数</span></div>
+<div class="line"><span class="lineno">  278</span><span class="comment">     * @return n! / (n-r)!</span></div>
+<div class="line"><span class="lineno">  279</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  280</span>    static BigInt nPr(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> r);</div>
+<div class="line"><span class="lineno">  281</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  282</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  283</span><span class="comment">     * @brief 计算组合数 C(n, r)</span></div>
+<div class="line"><span class="lineno">  284</span><span class="comment">     * @param n 总数</span></div>
+<div class="line"><span class="lineno">  285</span><span class="comment">     * @param r 选取数</span></div>
+<div class="line"><span class="lineno">  286</span><span class="comment">     * @return n! / (r! * (n-r)!)</span></div>
+<div class="line"><span class="lineno">  287</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  288</span>    static BigInt nCr(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> r);</div>
+<div class="line"><span class="lineno">  289</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  290</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  291</span><span class="comment">     * @brief 计算多项式系数（多重组合数）</span></div>
+<div class="line"><span class="lineno">  292</span><span class="comment">     * @param n 总数（应等于 r 各元素之和）</span></div>
+<div class="line"><span class="lineno">  293</span><span class="comment">     * @param r 各组大小</span></div>
+<div class="line"><span class="lineno">  294</span><span class="comment">     * @return n! / (r[0]! * r[1]! * ... * r[k]!)</span></div>
+<div class="line"><span class="lineno">  295</span><span class="comment">     * @throw std::invalid_argument r 之和不等于 n 时抛出</span></div>
+<div class="line"><span class="lineno">  296</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  297</span>    static BigInt multinomial(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n, const std::vector&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&gt;&amp; r);</div>
+<div class="line"><span class="lineno">  298</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  299</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  300</span><span class="comment">     * @brief 计算最大公约数</span></div>
+<div class="line"><span class="lineno">  301</span><span class="comment">     * @param a 第一个大整数</span></div>
+<div class="line"><span class="lineno">  302</span><span class="comment">     * @param b 第二个大整数</span></div>
+<div class="line"><span class="lineno">  303</span><span class="comment">     * @return gcd(|a|, |b|)</span></div>
+<div class="line"><span class="lineno">  304</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  305</span>    static BigInt gcd(const BigInt&amp; a, const BigInt&amp; b);</div>
+<div class="line"><span class="lineno">  306</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  307</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  308</span><span class="comment">     * @brief 计算最小公倍数</span></div>
+<div class="line"><span class="lineno">  309</span><span class="comment">     * @param a 第一个大整数</span></div>
+<div class="line"><span class="lineno">  310</span><span class="comment">     * @param b 第二个大整数</span></div>
+<div class="line"><span class="lineno">  311</span><span class="comment">     * @return lcm(|a|, |b|)</span></div>
+<div class="line"><span class="lineno">  312</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  313</span>    static BigInt lcm(const BigInt&amp; a, const BigInt&amp; b);</div>
+<div class="line"><span class="lineno">  314</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  315</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  316</span><span class="comment">     * @brief 模幂运算</span></div>
+<div class="line"><span class="lineno">  317</span><span class="comment">     * @param base 底数</span></div>
+<div class="line"><span class="lineno">  318</span><span class="comment">     * @param exp 指数</span></div>
+<div class="line"><span class="lineno">  319</span><span class="comment">     * @param mod 模数</span></div>
+<div class="line"><span class="lineno">  320</span><span class="comment">     * @return base^exp mod mod</span></div>
+<div class="line"><span class="lineno">  321</span><span class="comment">     * @throw std::runtime_error 模数为零时抛出</span></div>
+<div class="line"><span class="lineno">  322</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  323</span>    static BigInt pow_mod(const BigInt&amp; base, const BigInt&amp; exp, const BigInt&amp; mod);</div>
+<div class="line"><span class="lineno">  324</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  325</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  326</span><span class="comment">     * @brief 素性测试（Miller-Rabin）</span></div>
+<div class="line"><span class="lineno">  327</span><span class="comment">     * @return 是素数返回 true</span></div>
+<div class="line"><span class="lineno">  328</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  329</span>    <span class="keywordtype">bool</span> is_prime() const;</div>
+<div class="line"><span class="lineno">  330</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  331</span><span class="comment">    /**</span></div>
+<div class="line"><span class="lineno">  332</span><span class="comment">     * @brief 判断是否为完全平方数</span></div>
+<div class="line"><span class="lineno">  333</span><span class="comment">     * @return 是完全平方数返回 true</span></div>
+<div class="line"><span class="lineno">  334</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  335</span>    <span class="keywordtype">bool</span> is_perfect_square() const;</div>
+<div class="line"><span class="lineno">  336</span>};</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../d8/d09/bigint_8hpp.html">bigint.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

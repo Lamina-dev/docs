@@ -1,0 +1,5 @@
+var namespacelamina_1_1anonymous__namespace_02integration__trig__substitution_8cpp_03 =
+[
+    [ "QuadRadical", "db/d4f/namespacelamina_1_1anonymous__namespace_02integration__trig__substitution_8cpp_03.html#db/d5d/structlamina_1_1anonymous__namespace_02integration__trig__substitution_8cpp_03_1_1QuadRadical", "db/d4f/namespacelamina_1_1anonymous__namespace_02integration__trig__substitution_8cpp_03_db/d5d/structlamina_1_1anonymous__namespace_02integration__trig__substitution_8cpp_03_1_1QuadRadical_dup" ],
+    [ "trigsub_match_radical", "db/d4f/namespacelamina_1_1anonymous__namespace_02integration__trig__substitution_8cpp_03.html#a7111be58d2f6c160fd1b2cb1b1cf21c1", null ]
+];

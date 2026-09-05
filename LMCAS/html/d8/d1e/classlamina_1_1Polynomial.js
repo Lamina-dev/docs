@@ -1,0 +1,28 @@
+var classlamina_1_1Polynomial =
+[
+    [ "Polynomial", "d8/d1e/classlamina_1_1Polynomial.html#af5f51ffdafe194782f5adfa3dfcb5506", null ],
+    [ "Polynomial", "d8/d1e/classlamina_1_1Polynomial.html#a6736432cffa777ebdd6ba851f785afb3", null ],
+    [ "Polynomial", "d8/d1e/classlamina_1_1Polynomial.html#a8da80bfbbb92c25df28b2566e1afd4ec", null ],
+    [ "content", "d8/d1e/classlamina_1_1Polynomial.html#aeea5e02e02b3af76f80308582bfff121", null ],
+    [ "degree", "d8/d1e/classlamina_1_1Polynomial.html#aa4209c719c18fc882b702d88e397bdf4", null ],
+    [ "differentiate", "d8/d1e/classlamina_1_1Polynomial.html#a74463cdfa7335f426f86ecbc1ec770fd", null ],
+    [ "div_mod", "d8/d1e/classlamina_1_1Polynomial.html#aa814387a30feaf66a7487b1f9aac3354", null ],
+    [ "eval", "d8/d1e/classlamina_1_1Polynomial.html#a7d278bea05df0eededf0f56a1ad5ee2d", null ],
+    [ "gcd", "d8/d1e/classlamina_1_1Polynomial.html#a1a3abf00054bcec5935ac071cdb6cc8d", null ],
+    [ "gcd_coeff", "d8/d1e/classlamina_1_1Polynomial.html#ab66e92f97e1c25c6f0b78648c1168d75", null ],
+    [ "is_zero", "d8/d1e/classlamina_1_1Polynomial.html#a5ab9f08024d7084b47a746f72ba9f850", null ],
+    [ "lead_coeff", "d8/d1e/classlamina_1_1Polynomial.html#ae491492c9a43d1dee5f86b4adf803cfa", null ],
+    [ "make_monic", "d8/d1e/classlamina_1_1Polynomial.html#aea846ecf48739ada13d438905d8cdca9", null ],
+    [ "operator*", "d8/d1e/classlamina_1_1Polynomial.html#adca0b4b964dddaecaadf468dbcf0b447", null ],
+    [ "operator+", "d8/d1e/classlamina_1_1Polynomial.html#ad4f193aaef6dab57e2036dc77cc6c42a", null ],
+    [ "operator-", "d8/d1e/classlamina_1_1Polynomial.html#ac062cdf7aaa15dde1d0ed58e8e1321ef", null ],
+    [ "operator==", "d8/d1e/classlamina_1_1Polynomial.html#a326f3677d36d8960538efde9ee633efb", null ],
+    [ "primitive_part", "d8/d1e/classlamina_1_1Polynomial.html#a0ab1623e5f1c3587d361292bf62fc68a", null ],
+    [ "pseudo_div_mod", "d8/d1e/classlamina_1_1Polynomial.html#a61d0cc44fc869a818deca9c2653162ac", null ],
+    [ "pseudo_div_mod_rem", "d8/d1e/classlamina_1_1Polynomial.html#a347fea59dd31a520b739bb542fb6ae00", null ],
+    [ "square_free_part", "d8/d1e/classlamina_1_1Polynomial.html#a87554165ccc298dde6bf4074e2831a40", null ],
+    [ "to_string", "d8/d1e/classlamina_1_1Polynomial.html#a8df835f0539c5cec1c82bdfb4c77a949", null ],
+    [ "trim", "d8/d1e/classlamina_1_1Polynomial.html#aa1bfcf8f305d62777bcfbebda559d87e", null ],
+    [ "coeffs", "d8/d1e/classlamina_1_1Polynomial.html#ab01744d72dd2edf9f0742ec818e73908", null ],
+    [ "variable_name", "d8/d1e/classlamina_1_1Polynomial.html#a8f05e5b367805b314017efcf0606681d", null ]
+];

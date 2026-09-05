@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/inequality_solver_polynomial.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d5/d02/inequality__solver__polynomial_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">inequality_solver_polynomial.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d1/d0e/inequality__solver_8hpp_source.html">inequality_solver.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d12/solve__polynomial_8hpp_source.html">solve_polynomial.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/dd2/solve__strategies_8hpp_source.html">solve_strategies.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d53/newton__raphson_8hpp_source.html">newton_raphson.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d0a/root__of__utils_8hpp_source.html">root_of_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/dab/exact__algebraic_8hpp_source.html">internal/exact_algebraic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/ddb/inequality__solver__support_8hpp_source.html">internal/inequality_solver_support.hpp</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>inequality_solver_polynomial.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/dcd/inequality__solver__polynomial_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d5/d02/inequality__solver__polynomial_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Binequality_5Fsolver_5Fpolynomial_2Ecpp_7D_3A_3AExactInequalityRoot_5Fd0_2Fd76_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02inequality_5F_5Fsolver_5F_5Fpolynomial_5F8cpp_5F03_5F1_5F1ExactInequalityRoot" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Binequality_5Fsolver_5Fpolynomial_2Ecpp_7D_3A_3AExactInequalityRoot_5Fd0_2Fd76_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02inequality_5F_5Fsolver_5F_5Fpolynomial_5F8cpp_5F03_5F1_5F1ExactInequalityRoot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#d0/d76/structlamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03_1_1ExactInequalityRoot">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::ExactInequalityRoot</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Binequality_5Fsolver_5Fpolynomial_2Ecpp_7D" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Binequality_5Fsolver_5Fpolynomial_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}</a></td></tr>
+<tr class="memitem:lamina_3A_3Adetail" id="r_lamina_3A_3Adetail"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d3a/namespacelamina_1_1detail.html">lamina::detail</a></td></tr>
+<tr class="memdesc:d0/d3a/namespacelamina_1_1detail"><td class="mdescLeft">&#160;</td><td class="mdescRight">AST 访问者基类(Visitor 模式). <br /></td></tr>
+<tr class="memitem:lamina_3A_3Adetail_3A_3Ainequality_5Fsupport" id="r_lamina_3A_3Adetail_3A_3Ainequality_5Fsupport"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d2/de8/namespacelamina_1_1detail_1_1inequality__support.html">lamina::detail::inequality_support</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a8cb290cdb70d3959e2f2cb68f695098a" id="r_a8cb290cdb70d3959e2f2cb68f695098a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#a8cb290cdb70d3959e2f2cb68f695098a">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::constant_satisfies</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value, <a class="el" href="../../d1/d42/namespacelamina.html#a87992dd2f90fdfbac32b9ad82c4c8417">InequalityType</a> type)</td></tr>
+<tr class="memitem:ac034d5ea16bf52d59d3f41bca1a4651f" id="r_ac034d5ea16bf52d59d3f41bca1a4651f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ac034d5ea16bf52d59d3f41bca1a4651f">lamina::determine_leading_sign</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d1/df9/structlamina_1_1SymbolicPolyCoeff.html">SymbolicPolyCoeff</a> &gt; &amp;poly)</td></tr>
+<tr class="memitem:ad639c773b76523989bf441cc636be561" id="r_ad639c773b76523989bf441cc636be561"><td class="memItemLeft">std::vector&lt; std::pair&lt; std::shared_ptr&lt; SymbolicExpr &gt;, int &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ad639c773b76523989bf441cc636be561">lamina::find_roots_with_multiplicity</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;variable)</td></tr>
+<tr class="memitem:a6ee02a4104a9a1ea68e0500da37e38fb" id="r_a6ee02a4104a9a1ea68e0500da37e38fb"><td class="memItemLeft">Endpoint&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#a6ee02a4104a9a1ea68e0500da37e38fb">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::finite_endpoint</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;value, bool strict)</td></tr>
+<tr class="memitem:aa31fc08474b5ebad8b17b528d927e08d" id="r_aa31fc08474b5ebad8b17b528d927e08d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#aa31fc08474b5ebad8b17b528d927e08d">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::rational_is_negative</a> (const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;value)</td></tr>
+<tr class="memitem:a50849fa88330d7a151ee0344ca339aa2" id="r_a50849fa88330d7a151ee0344ca339aa2"><td class="memItemLeft">std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#a50849fa88330d7a151ee0344ca339aa2">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::rational_polynomial_expression</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial)</td></tr>
+<tr class="memitem:a1a09b7fe008f73274513975ad9e82aa0" id="r_a1a09b7fe008f73274513975ad9e82aa0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a1a09b7fe008f73274513975ad9e82aa0">lamina::root_less_than</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;b)</td></tr>
+<tr class="memitem:abb82a2b91888a6c1342af2646d5a7ef2" id="r_abb82a2b91888a6c1342af2646d5a7ef2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#abb82a2b91888a6c1342af2646d5a7ef2">lamina::roots_equal</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;b)</td></tr>
+<tr class="memitem:a923a9851182099dd05615099dcb65c38" id="r_a923a9851182099dd05615099dcb65c38"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; IntervalUnion &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d2/de8/namespacelamina_1_1detail_1_1inequality__support.html#a923a9851182099dd05615099dcb65c38">lamina::detail::inequality_support::solve_exact_affine_inequality</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, <a class="el" href="../../d1/d42/namespacelamina.html#a87992dd2f90fdfbac32b9ad82c4c8417">InequalityType</a> type, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a45c9649839d094f6fee7be9e3a7648a2" id="r_a45c9649839d094f6fee7be9e3a7648a2"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; IntervalUnion &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#a45c9649839d094f6fee7be9e3a7648a2">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::solve_exact_affine_inequality_impl</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, <a class="el" href="../../d1/d42/namespacelamina.html#a87992dd2f90fdfbac32b9ad82c4c8417">InequalityType</a> type, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a39a67664dc1c1f5e78d17259c1e9d7e2" id="r_a39a67664dc1c1f5e78d17259c1e9d7e2"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; IntervalUnion &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d2/de8/namespacelamina_1_1detail_1_1inequality__support.html#a39a67664dc1c1f5e78d17259c1e9d7e2">lamina::detail::inequality_support::solve_exact_polynomial_inequality</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, <a class="el" href="../../d1/d42/namespacelamina.html#a87992dd2f90fdfbac32b9ad82c4c8417">InequalityType</a> type, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:afd3341de6c61f8a22cb181014dea1905" id="r_afd3341de6c61f8a22cb181014dea1905"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; IntervalUnion &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#afd3341de6c61f8a22cb181014dea1905">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::solve_exact_polynomial_inequality_impl</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, <a class="el" href="../../d1/d42/namespacelamina.html#a87992dd2f90fdfbac32b9ad82c4c8417">InequalityType</a> type, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:aeb16630aa20b3ba0f612cdd9ad1f0bcb" id="r_aeb16630aa20b3ba0f612cdd9ad1f0bcb"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#aeb16630aa20b3ba0f612cdd9ad1f0bcb">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::verify_quadratic_boundary</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;boundary, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;rational_part, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;radical_coefficient, const <a class="el" href="../../d8/da7/classRational.html">Rational</a> &amp;radicand, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a6da48247564c77238bd9ba1df48b5585" id="r_a6da48247564c77238bd9ba1df48b5585"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="../../df/da1/namespacelamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03.html#a6da48247564c77238bd9ba1df48b5585">lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::kCheckedInequalityOperation</a> = &quot;solve_inequality_checked&quot;</td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="d0/d76/structlamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03_1_1ExactInequalityRoot" id="d0/d76/structlamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03_1_1ExactInequalityRoot"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d0/d76/structlamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03_1_1ExactInequalityRoot">&#9670;&#160;</a></span>lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::ExactInequalityRoot</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::ExactInequalityRoot</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d5/d02/inequality__solver__polynomial_8cpp_source.html">inequality_solver_polynomial.cpp</a> 第 <a class="el" href="../../d5/d02/inequality__solver__polynomial_8cpp_source.html#l00228">228</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::anonymous_namespace{inequality_solver_polynomial.cpp}::ExactInequalityRoot 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dd/d74/structlamina_1_1anonymous__namespace_02inequality__solver__polynomial_8cpp_03_1_1ExactInequalityRoot__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="aede186baea7049cef253978592e914a0" name="aede186baea7049cef253978592e914a0"></a>ExactRealAlgebraic</td>
+<td class="fieldname">
+algebraic</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aaf93ae9532eb0278b96ea99eb34046f8" name="aaf93ae9532eb0278b96ea99eb34046f8"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+expression</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7043a8496079052dd09327ae2d640043" name="a7043a8496079052dd09327ae2d640043"></a>int</td>
+<td class="fieldname">
+multiplicity = 1</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d5/d02/inequality__solver__polynomial_8cpp.html">inequality_solver_polynomial.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

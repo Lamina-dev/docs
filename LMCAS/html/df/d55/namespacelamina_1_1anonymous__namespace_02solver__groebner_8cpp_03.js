@@ -1,0 +1,28 @@
+var namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03 =
+[
+    [ "MonomialLess", "d2/de0/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1MonomialLess.html", "d2/de0/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1MonomialLess" ],
+    [ "Poly", "d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly.html", "d7/d2a/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Poly" ],
+    [ "PolyBuilder", "dc/d59/classlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyBuilder.html", "dc/d59/classlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyBuilder" ],
+    [ "PolyContext", "dd/d9f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyContext.html", "dd/d9f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1PolyContext" ],
+    [ "SugarPair", "d4/d13/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1SugarPair.html", "d4/d13/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1SugarPair" ],
+    [ "Term", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_d8/d5f/structlamina_1_1anonymous__namespace_02solver__groebner_8cpp_03_1_1Term_dup" ],
+    [ "Monomial", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a6522e512e6e5b7b9a39f4078baddce1e", null ],
+    [ "PolyTerms", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a3c2253a182cee78968829ee255d4032c", null ],
+    [ "add_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#ad7dc75425a403b8cc338606e6e9b369a", null ],
+    [ "chain_criterion", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a53e35514a4d13bde328e13ea31729c8b", null ],
+    [ "compute_spoly_sugar", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#ac2e2798d8f9d73831ebf34a07e0a9fac", null ],
+    [ "coprime_leading_monomials", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a31ecc9da809a4113431782aecef7bd12", null ],
+    [ "div_mono", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#aef1b3e4eeb05cfe6be755fc4b9f96572", null ],
+    [ "divides_mono", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a282cf97cb524355cb46ec441d77bd5c1", null ],
+    [ "from_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a988afae038d3bae227430ed42e026c87", null ],
+    [ "from_poly_ext", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a026776d063fea64ded792eeed5592d1a", null ],
+    [ "lcm_mono", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a1fc2ed2cd81fca5398d23c3ee933ff25", null ],
+    [ "mul_mono", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a7261e6be57fd5634c04062e4df523a0e", null ],
+    [ "mul_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a1ee8bedc670b961f5f7f3ace9491302c", null ],
+    [ "mul_poly_term", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a05876e695c199976a603d8290eb7b98e", null ],
+    [ "reduce", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a815edad6668b469dc3ffc2517ea1874f", null ],
+    [ "s_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a3c139477ec67d24ee1c1c53e88e9e8f5", null ],
+    [ "sub_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#a5624421552f1ce6af88f0ab0cd0591be", null ],
+    [ "to_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#adb5adcbbcf7f7d58491fcc3b0815220b", null ],
+    [ "to_poly", "df/d55/namespacelamina_1_1anonymous__namespace_02solver__groebner_8cpp_03.html#aa35432717ed83284fcd489ac3ec6fad5", null ]
+];

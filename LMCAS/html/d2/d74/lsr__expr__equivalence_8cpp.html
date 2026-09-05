@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/lsr_expr_equivalence.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/d74/lsr__expr__equivalence_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">lsr_expr_equivalence.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d53/lsr__expr_8hpp_source.html">lsr_expr.hpp</a>&quot;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/d10/assumption__context_8hpp_source.html">assumption_context.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/de6/lsr__expr__internal_8hpp_source.html">lsr_expr_internal.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lsr_expr_equivalence.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/dae/lsr__expr__equivalence_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d2/d74/lsr__expr__equivalence_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Alsr" id="r_lamina_3A_3Alsr"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html">lamina::lsr</a></td></tr>
+<tr class="memitem:lamina_3A_3Alsr_3A_3Aanonymous_5Fnamespace_7Blsr_5Fexpr_5Fequivalence_2Ecpp_7D" id="r_lamina_3A_3Alsr_3A_3Aanonymous_5Fnamespace_7Blsr_5Fexpr_5Fequivalence_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a4979425ca7b7e847d5b1817cb2ab9558" id="r_a4979425ca7b7e847d5b1817cb2ab9558"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a4979425ca7b7e847d5b1817cb2ab9558">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::canonicalize_lsr_complex_product</a> (const SymbolicExpr &amp;expression)</td></tr>
+<tr class="memitem:afd7c1a32f62c0f48b601a52526727723" id="r_afd7c1a32f62c0f48b601a52526727723"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#afd7c1a32f62c0f48b601a52526727723">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::collect_variable_names</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, std::set&lt; std::string &gt; &amp;variables)</td></tr>
+<tr class="memitem:a6e58cf6e15b53f5e203ba20178cb5388" id="r_a6e58cf6e15b53f5e203ba20178cb5388"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a6e58cf6e15b53f5e203ba20178cb5388">lamina::lsr::equivalent</a> (const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a4f31b1d27576ec1a0e6faff15eb74127" id="r_a4f31b1d27576ec1a0e6faff15eb74127"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a4f31b1d27576ec1a0e6faff15eb74127">lamina::lsr::equivalent</a> (const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#d5/d11/structlamina_1_1lsr_1_1EqvOptions">EqvOptions</a> &amp;options)</td></tr>
+<tr class="memitem:ab259c3772bf54c2c5dee9b2c0314c251" id="r_ab259c3772bf54c2c5dee9b2c0314c251"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ab259c3772bf54c2c5dee9b2c0314c251">lamina::lsr::equivalent_core</a> (const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a13ba41c95d5dcd1324b98db720240897" id="r_a13ba41c95d5dcd1324b98db720240897"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a13ba41c95d5dcd1324b98db720240897">lamina::lsr::equivalent_core</a> (const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#d5/d11/structlamina_1_1lsr_1_1EqvOptions">EqvOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a3915c9fad77476b4e070ceeb08bfc398" id="r_a3915c9fad77476b4e070ceeb08bfc398"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3514e9075212275ab55dec53b1907646">EqvProfile</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a3915c9fad77476b4e070ceeb08bfc398">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::eqv_profile_failure</a> (std::string message)</td></tr>
+<tr class="memitem:a221fb7c259d2b9145e2c57cf4d7c265a" id="r_a221fb7c259d2b9145e2c57cf4d7c265a"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3514e9075212275ab55dec53b1907646">EqvProfile</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a221fb7c259d2b9145e2c57cf4d7c265a">lamina::lsr::eqv_profile_from_name</a> (const std::string &amp;name)</td></tr>
+<tr class="memitem:a09bfb69ffbed7080effff56d1b15a23e" id="r_a09bfb69ffbed7080effff56d1b15a23e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a09bfb69ffbed7080effff56d1b15a23e">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::exact_integer_node</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, int expected)</td></tr>
+<tr class="memitem:a8c03a17a4ed9e161ecf497861a4942f6" id="r_a8c03a17a4ed9e161ecf497861a4942f6"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; std::optional&lt; bool &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a8c03a17a4ed9e161ecf497861a4942f6">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::prove_rational_polynomial_equivalence</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;difference, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#d5/d11/structlamina_1_1lsr_1_1EqvOptions">EqvOptions</a> &amp;options)</td></tr>
+<tr class="memitem:aa74360d5f07a49ecc55450fb35f7deae" id="r_aa74360d5f07a49ecc55450fb35f7deae"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#aa74360d5f07a49ecc55450fb35f7deae">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::rewrite_exp_log_basic_identity</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const AssumptionContext *assumptions)</td></tr>
+<tr class="memitem:a895bf537aa976a465639e4a820287e32" id="r_a895bf537aa976a465639e4a820287e32"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a895bf537aa976a465639e4a820287e32">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::rewrite_trig_basic_identity</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="memitem:a7ff6ebbac1ee33060263bbe0dc4041a6" id="r_a7ff6ebbac1ee33060263bbe0dc4041a6"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a7ff6ebbac1ee33060263bbe0dc4041a6">lamina::lsr::set_eqv_budget</a> (<a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#d5/d11/structlamina_1_1lsr_1_1EqvOptions">EqvOptions</a> &amp;options, std::size_t steps, std::size_t depth, std::size_t growth)</td></tr>
+<tr class="memitem:a3ac776f94d4f9e85d2008f64dcae9f98" id="r_a3ac776f94d4f9e85d2008f64dcae9f98"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3ac776f94d4f9e85d2008f64dcae9f98">lamina::lsr::set_eqv_profile</a> (<a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#d5/d11/structlamina_1_1lsr_1_1EqvOptions">EqvOptions</a> &amp;options, const std::string &amp;name)</td></tr>
+<tr class="memitem:a0e2ada233c6d4d7295e5eb56bdaa5bfa" id="r_a0e2ada233c6d4d7295e5eb56bdaa5bfa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a0e2ada233c6d4d7295e5eb56bdaa5bfa">lamina::lsr::structurally_equal</a> (const SymbolicExpr &amp;lhs, const SymbolicExpr &amp;rhs)</td></tr>
+<tr class="memitem:a1392275f304f3fa89c399614d8edd511" id="r_a1392275f304f3fa89c399614d8edd511"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a1392275f304f3fa89c399614d8edd511">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::trig_square_argument</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, <a class="el" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5">FunctionNode::FuncType</a> type, std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;argument)</td></tr>
+<tr class="memitem:a8cebaa36caf69962c92edc15aed5a9c7" id="r_a8cebaa36caf69962c92edc15aed5a9c7"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a8cebaa36caf69962c92edc15aed5a9c7">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::unwrap_trig_negated_argument</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node)</td></tr>
+<tr class="memitem:a7d17b7f1a0c1a629183196fb54a750ca" id="r_a7d17b7f1a0c1a629183196fb54a750ca"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d39/namespacelamina_1_1lsr_1_1anonymous__namespace_02lsr__expr__equivalence_8cpp_03.html#a7d17b7f1a0c1a629183196fb54a750ca">lamina::lsr::anonymous_namespace{lsr_expr_equivalence.cpp}::validate_eqv_options</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#d5/d11/structlamina_1_1lsr_1_1EqvOptions">EqvOptions</a> &amp;options)</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/d74/lsr__expr__equivalence_8cpp.html">lsr_expr_equivalence.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

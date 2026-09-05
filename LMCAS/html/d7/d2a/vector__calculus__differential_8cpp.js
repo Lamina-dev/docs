@@ -1,0 +1,26 @@
+var vector__calculus__differential_8cpp =
+[
+    [ "lamina::curl", "d1/d42/namespacelamina.html#a87dc046ae4e97dc69b0d0486a57c1387", null ],
+    [ "lamina::curl_checked", "d1/d42/namespacelamina.html#afd006951f459850c745a340962c896e5", null ],
+    [ "lamina::curl_checked", "d1/d42/namespacelamina.html#a88840cad79b6bd72c40d264f7351e9ec", null ],
+    [ "lamina::directional_derivative", "d1/d42/namespacelamina.html#aa3666d12cbc283042cbf0ac8fe4bc377", null ],
+    [ "lamina::directional_derivative_checked", "d1/d42/namespacelamina.html#a4fb886b76a7abd41f7b96e0608c8306e", null ],
+    [ "lamina::directional_derivative_checked", "d1/d42/namespacelamina.html#ae55517a136d3899f6fa5cb3fbb874b4b", null ],
+    [ "lamina::divergence", "d1/d42/namespacelamina.html#a42277509751cc7b4b354b46a707bd7ca", null ],
+    [ "lamina::divergence_checked", "d1/d42/namespacelamina.html#aa5608a471c49b07f16450ac3b11042a7", null ],
+    [ "lamina::divergence_checked", "d1/d42/namespacelamina.html#a7b264d88b15840c07bc7250e0ce5982c", null ],
+    [ "lamina::gradient", "d1/d42/namespacelamina.html#a25d29f4d6bdc7f9584a0e695441bc736", null ],
+    [ "lamina::gradient_checked", "d1/d42/namespacelamina.html#ac5b1a1d4e38d5767d926faf696143b3d", null ],
+    [ "lamina::gradient_checked", "d1/d42/namespacelamina.html#a22c343bea28928d81740ca8fe1421953", null ],
+    [ "lamina::hessian", "d1/d42/namespacelamina.html#a2ce363bf2634f77a7aa9d4c5e838bb0f", null ],
+    [ "lamina::hessian_checked", "d1/d42/namespacelamina.html#a6fd14de07135a5ccf57c740a4e552126", null ],
+    [ "lamina::hessian_checked", "d1/d42/namespacelamina.html#af9cc51296430b8577fbb546098f01ee8", null ],
+    [ "lamina::jacobian", "d1/d42/namespacelamina.html#a54e104f1afef86d94250e5318922bacc", null ],
+    [ "lamina::jacobian_checked", "d1/d42/namespacelamina.html#a7fb0a442d3d56d727d70b9c0b4e452d2", null ],
+    [ "lamina::jacobian_checked", "d1/d42/namespacelamina.html#a037125f65f25dc5de75161bb2fe95e21", null ],
+    [ "lamina::laplacian", "d1/d42/namespacelamina.html#a2b44856b3a301c0b12e6e86dfe8cc35b", null ],
+    [ "lamina::laplacian_checked", "d1/d42/namespacelamina.html#aa023df46f5e54f5ddc8e79ce3512e409", null ],
+    [ "lamina::laplacian_checked", "d1/d42/namespacelamina.html#acf8ac4b8f291a0f0a3a20e9ad0d8b8f7", null ],
+    [ "lamina::vector_calculus_magnitude_squared", "d1/d42/namespacelamina.html#a6763eb68bef1bf032972c00aea02ed2e", null ],
+    [ "lamina::vector_calculus_single_dir_deriv", "d1/d42/namespacelamina.html#aea5eee1f6bca13414856ad87508897f2", null ]
+];

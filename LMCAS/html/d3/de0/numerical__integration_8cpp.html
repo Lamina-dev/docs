@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/numerical_integration.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d3/de0/numerical__integration_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">numerical_integration.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>数值积分实现.  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../db/d9e/numerical__integration_8hpp_source.html">numerical_integration.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/ddb/lmmc__lifecycle_8hpp_source.html">internal/lmmc_lifecycle.hpp</a>&quot;</code><br />
+<code>#include &quot;lmmc/quadrature.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>numerical_integration.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dd/d5d/numerical__integration_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d3/de0/numerical__integration_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bnumerical_5Fintegration_2Ecpp_7D_3A_3ANormalizedInterval_5Fd1_2Fdc7_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02numerical_5F_5Fintegration_5F8cpp_5F03_5F1_5F1NormalizedInterval" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bnumerical_5Fintegration_2Ecpp_7D_3A_3ANormalizedInterval_5Fd1_2Fdc7_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02numerical_5F_5Fintegration_5F8cpp_5F03_5F1_5F1NormalizedInterval"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#d1/dc7/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1NormalizedInterval">lamina::anonymous_namespace{numerical_integration.cpp}::NormalizedInterval</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bnumerical_5Fintegration_2Ecpp_7D_3A_3AQuadratureCallback_5Fd4_2Fd1d_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02numerical_5F_5Fintegration_5F8cpp_5F03_5F1_5F1QuadratureCallback" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bnumerical_5Fintegration_2Ecpp_7D_3A_3AQuadratureCallback_5Fd4_2Fd1d_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02numerical_5F_5Fintegration_5F8cpp_5F03_5F1_5F1QuadratureCallback"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#d4/d1d/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1QuadratureCallback">lamina::anonymous_namespace{numerical_integration.cpp}::QuadratureCallback</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bnumerical_5Fintegration_2Ecpp_7D" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bnumerical_5Fintegration_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html">lamina::anonymous_namespace{numerical_integration.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ae9a979cd61ce30dbb14d9db5eed3e993" id="r_ae9a979cd61ce30dbb14d9db5eed3e993"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae9a979cd61ce30dbb14d9db5eed3e993">lamina::adaptive_simpson_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, double tolerance, int max_depth)</td></tr>
+<tr class="memitem:a3f7a61db4b698ad76784b94dff942ab6" id="r_a3f7a61db4b698ad76784b94dff942ab6"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a3f7a61db4b698ad76784b94dff942ab6">lamina::adaptive_simpson_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, double tolerance, int max_depth)</td></tr>
+<tr class="memitem:a31b0ed69481d01bf53b0b6b1167417c9" id="r_a31b0ed69481d01bf53b0b6b1167417c9"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; double &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a31b0ed69481d01bf53b0b6b1167417c9">lamina::anonymous_namespace{numerical_integration.cpp}::checked_finite_value</a> (<a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt; value, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a685cbb185bf9c76383b66480fe53ccc9" id="r_a685cbb185bf9c76383b66480fe53ccc9"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a685cbb185bf9c76383b66480fe53ccc9">lamina::anonymous_namespace{numerical_integration.cpp}::estimated_quadrature_result</a> (double value, double estimated_error, double sign, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a90fdca02a6a4d744f10bc3ee3ff7698d" id="r_a90fdca02a6a4d744f10bc3ee3ff7698d"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; double &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a90fdca02a6a4d744f10bc3ee3ff7698d">lamina::anonymous_namespace{numerical_integration.cpp}::eval_bound_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:af39e899485a54bc52588226a6cb6f00d" id="r_af39e899485a54bc52588226a6cb6f00d"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#d1/dc7/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1NormalizedInterval">NormalizedInterval</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#af39e899485a54bc52588226a6cb6f00d">lamina::anonymous_namespace{numerical_integration.cpp}::evaluate_interval</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+<tr class="memitem:ad8c146c6c05fe705d741a4dc72d99485" id="r_ad8c146c6c05fe705d741a4dc72d99485"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#ad8c146c6c05fe705d741a4dc72d99485">lamina::anonymous_namespace{numerical_integration.cpp}::evaluate_quadrature_callback</a> (double x, void *user_data)</td></tr>
+<tr class="memitem:af19e0d4fee815909f46434b1e591cf7c" id="r_af19e0d4fee815909f46434b1e591cf7c"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#af19e0d4fee815909f46434b1e591cf7c">lamina::numerical_integrate_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, int subdivisions)</td></tr>
+<tr class="memitem:ac5ca259b0eae8e18fe9d8b348717daf1" id="r_ac5ca259b0eae8e18fe9d8b348717daf1"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ac5ca259b0eae8e18fe9d8b348717daf1">lamina::numerical_integrate_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, int subdivisions)</td></tr>
+<tr class="memitem:a5ecbbd5691ac6bd77b6d0f337a731087" id="r_a5ecbbd5691ac6bd77b6d0f337a731087"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a09cfdcec1470c99d325539f3a1deb98b">CasErrc</a>&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a5ecbbd5691ac6bd77b6d0f337a731087">lamina::anonymous_namespace{numerical_integration.cpp}::quadrature_error_code</a> (lmmc_status_t status)</td></tr>
+<tr class="memitem:a2be0c810406fbd7f5f51258d3955056a" id="r_a2be0c810406fbd7f5f51258d3955056a"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a2be0c810406fbd7f5f51258d3955056a template"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a2be0c810406fbd7f5f51258d3955056a">lamina::anonymous_namespace{numerical_integration.cpp}::quadrature_failure</a> (lmmc_status_t status, const std::string &amp;operation)</td></tr>
+<tr class="memitem:ae328e99027a67404a3a120a91c3ebf6f" id="r_ae328e99027a67404a3a120a91c3ebf6f"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ae328e99027a67404a3a120a91c3ebf6f">lamina::quadrature_gaussian_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, int order)</td></tr>
+<tr class="memitem:a3917af706586864120c21e2e276dc165" id="r_a3917af706586864120c21e2e276dc165"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a3917af706586864120c21e2e276dc165">lamina::quadrature_gaussian_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, int order)</td></tr>
+<tr class="memitem:a1b42b1f314fa1f8105e2cd94cd835ad3" id="r_a1b42b1f314fa1f8105e2cd94cd835ad3"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a1b42b1f314fa1f8105e2cd94cd835ad3">lamina::quadrature_simpson_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, int subdivisions)</td></tr>
+<tr class="memitem:a1d3bbb06ad5cfe15672c7df826b4d54c" id="r_a1d3bbb06ad5cfe15672c7df826b4d54c"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; <a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a1d3bbb06ad5cfe15672c7df826b4d54c">lamina::quadrature_simpson_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, int subdivisions)</td></tr>
+<tr class="memitem:aeb615eda910d740c842eb8fd69dec3b6" id="r_aeb615eda910d740c842eb8fd69dec3b6"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#aeb615eda910d740c842eb8fd69dec3b6">lamina::anonymous_namespace{numerical_integration.cpp}::validate_quadrature_args</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, const std::string &amp;operation)</td></tr>
+<tr class="memitem:a38777f478876b6e7df6772fc675c9748" id="r_a38777f478876b6e7df6772fc675c9748"><td class="memItemLeft"><a class="el" href="../../df/dce/structlamina_1_1ApproxReal.html">ApproxReal</a>&#160;</td><td class="memItemRight"><a class="el" href="../../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a38777f478876b6e7df6772fc675c9748">lamina::anonymous_namespace{numerical_integration.cpp}::zero_quadrature_result</a> ()</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">详细描述</h2>
+<div class="textblock"><p>数值积分实现. </p>
+
+<p class="definition">在文件 <a class="el" href="../../d3/de0/numerical__integration_8cpp_source.html">numerical_integration.cpp</a> 中定义.</p>
+</div><hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="d1/dc7/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1NormalizedInterval" id="d1/dc7/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1NormalizedInterval"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d1/dc7/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1NormalizedInterval">&#9670;&#160;</a></span>lamina::anonymous_namespace{numerical_integration.cpp}::NormalizedInterval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::anonymous_namespace{numerical_integration.cpp}::NormalizedInterval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d3/de0/numerical__integration_8cpp_source.html">numerical_integration.cpp</a> 第 <a class="el" href="../../d3/de0/numerical__integration_8cpp_source.html#l00067">67</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::anonymous_namespace{numerical_integration.cpp}::NormalizedInterval 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/d01/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1NormalizedInterval__coll__graph.svg" width="236" height="282"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a846966aa0728ba3dca478bbe1ef8b754" name="a846966aa0728ba3dca478bbe1ef8b754"></a>double</td>
+<td class="fieldname">
+lower = 0.0</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a17a5308d81bc21e8eaf97558fa620805" name="a17a5308d81bc21e8eaf97558fa620805"></a>double</td>
+<td class="fieldname">
+sign = 1.0</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a610c64b2e1690496578a68a5a764bfff" name="a610c64b2e1690496578a68a5a764bfff"></a>double</td>
+<td class="fieldname">
+upper = 0.0</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="d4/d1d/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1QuadratureCallback" id="d4/d1d/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1QuadratureCallback"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d4/d1d/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1QuadratureCallback">&#9670;&#160;</a></span>lamina::anonymous_namespace{numerical_integration.cpp}::QuadratureCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::anonymous_namespace{numerical_integration.cpp}::QuadratureCallback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d3/de0/numerical__integration_8cpp_source.html">numerical_integration.cpp</a> 第 <a class="el" href="../../d3/de0/numerical__integration_8cpp_source.html#l00100">100</a> 行定义.</p>
+</div><div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::anonymous_namespace{numerical_integration.cpp}::QuadratureCallback 的协作图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d9/d33/structlamina_1_1anonymous__namespace_02numerical__integration_8cpp_03_1_1QuadratureCallback__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a540aa23e3ed96e606d46de42a15a8442" name="a540aa23e3ed96e606d46de42a15a8442"></a><a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> *</td>
+<td class="fieldname">
+context = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ae426baffe6ae5d32bd98cca8b030a5ac" name="ae426baffe6ae5d32bd98cca8b030a5ac"></a>optional&lt; <a class="el" href="../../d1/d42/namespacelamina.html#dc/dbb/structlamina_1_1CasError">CasError</a> &gt;</td>
+<td class="fieldname">
+error</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a5d77f3377d5a4ca9d5d9011297ab53cf" name="a5d77f3377d5a4ca9d5d9011297ab53cf"></a>const shared_ptr&lt; SymbolicExpr &gt; *</td>
+<td class="fieldname">
+function = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a3eae18fd6a9813155d6059fd2656ed67" name="a3eae18fd6a9813155d6059fd2656ed67"></a>const char *</td>
+<td class="fieldname">
+operation = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a44dcd07f7011417c6cdefde3554992b3" name="a44dcd07f7011417c6cdefde3554992b3"></a>const string *</td>
+<td class="fieldname">
+variable = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d3/de0/numerical__integration_8cpp.html">numerical_integration.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

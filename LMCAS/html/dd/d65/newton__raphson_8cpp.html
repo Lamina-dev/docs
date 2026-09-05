@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/newton_raphson.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('dd/d65/newton__raphson_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">newton_raphson.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d53/newton__raphson_8hpp_source.html">newton_raphson.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d10/exact__sturm_8hpp_source.html">internal/exact_sturm.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/ddb/lmmc__lifecycle_8hpp_source.html">internal/lmmc_lifecycle.hpp</a>&quot;</code><br />
+<code>#include &quot;lmmc/nonlinear.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/db2/numeric__evaluation_8hpp_source.html">numeric_evaluation.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>newton_raphson.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/d08/newton__raphson_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../dd/d65/newton__raphson_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bnewton_5Fraphson_2Ecpp_7D_3A_3ARootCallbacks_5Fdb_2Fd97_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02newton_5F_5Fraphson_5F8cpp_5F03_5F1_5F1RootCallbacks" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bnewton_5Fraphson_2Ecpp_7D_3A_3ARootCallbacks_5Fdb_2Fd97_2Fstructlamina_5F1_5F1anonymous_5F_5Fnamespace_5F02newton_5F_5Fraphson_5F8cpp_5F03_5F1_5F1RootCallbacks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#db/d97/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks">lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Aanonymous_5Fnamespace_7Bnewton_5Fraphson_2Ecpp_7D" id="r_lamina_3A_3Aanonymous_5Fnamespace_7Bnewton_5Fraphson_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html">lamina::anonymous_namespace{newton_raphson.cpp}</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aadf3cffe6b51c0df702ed49e9fca29c8" id="r_aadf3cffe6b51c0df702ed49e9fca29c8"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#aadf3cffe6b51c0df702ed49e9fca29c8">lamina::anonymous_namespace{newton_raphson.cpp}::backend_root_result</a> (const lmmc_nonlinear_result_t &amp;backend, double residual_limit)</td></tr>
+<tr class="memitem:a658a8fe83896963253ab32efbc3763b6" id="r_a658a8fe83896963253ab32efbc3763b6"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a658a8fe83896963253ab32efbc3763b6">lamina::bisection_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, lmmc_real_t lower, lmmc_real_t upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a7ace5be1c595d149aa7a4e3d48ddc2f2" id="r_a7ace5be1c595d149aa7a4e3d48ddc2f2"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a7ace5be1c595d149aa7a4e3d48ddc2f2">lamina::bisection_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, lmmc_real_t lower, lmmc_real_t upper, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:ad87fa3457641f81c2650fc5071cbb01a" id="r_ad87fa3457641f81c2650fc5071cbb01a"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ad87fa3457641f81c2650fc5071cbb01a">lamina::anonymous_namespace{newton_raphson.cpp}::evaluate_root_callback</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expression, double x, <a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#db/d97/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks">RootCallbacks</a> &amp;callbacks)</td></tr>
+<tr class="memitem:afad24cdefe307122bf2c5d52eab1900a" id="r_afad24cdefe307122bf2c5d52eab1900a"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; double &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#afad24cdefe307122bf2c5d52eab1900a">lamina::anonymous_namespace{newton_raphson.cpp}::evaluate_root_function</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expression, const std::string &amp;variable, lmmc_real_t value, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const char *operation)</td></tr>
+<tr class="memitem:aa545d93cef0a09e26c43dc56a7587f39" id="r_aa545d93cef0a09e26c43dc56a7587f39"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#aa545d93cef0a09e26c43dc56a7587f39">lamina::anonymous_namespace{newton_raphson.cpp}::invalid_root_options</a> (const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options, const char *operation)</td></tr>
+<tr class="memitem:af1fd5a1d874276328d14372434418b7d" id="r_af1fd5a1d874276328d14372434418b7d"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a>, <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#af1fd5a1d874276328d14372434418b7d">lamina::isolate_real_roots_checked</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial)</td></tr>
+<tr class="memitem:a0b52c7443bc5583820344107956579d5" id="r_a0b52c7443bc5583820344107956579d5"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a>, <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a0b52c7443bc5583820344107956579d5">lamina::isolate_real_roots_checked</a> (const <a class="el" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; &amp;polynomial, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ab66226984a327e8edffce4c5f7be8d72" id="r_ab66226984a327e8edffce4c5f7be8d72"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ab66226984a327e8edffce4c5f7be8d72">lamina::newton_raphson_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;variable, lmmc_real_t initial, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a332abf1046419b28fe8d76c7dc0978f4" id="r_a332abf1046419b28fe8d76c7dc0978f4"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a332abf1046419b28fe8d76c7dc0978f4">lamina::newton_raphson_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;variable, lmmc_real_t initial, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a5c3cd60d10ee1edc017a7832e300c01a" id="r_a5c3cd60d10ee1edc017a7832e300c01a"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a5c3cd60d10ee1edc017a7832e300c01a">lamina::newton_raphson_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;variable, lmmc_real_t initial, lmmc_real_t bracket_lower, lmmc_real_t bracket_upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:a14375d0b17b12495d71b8d2837d882e6" id="r_a14375d0b17b12495d71b8d2837d882e6"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a14375d0b17b12495d71b8d2837d882e6">lamina::newton_raphson_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;variable, lmmc_real_t initial, lmmc_real_t bracket_lower, lmmc_real_t bracket_upper, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options)</td></tr>
+<tr class="memitem:aa8680343764253a2488a8ba920ce644b" id="r_aa8680343764253a2488a8ba920ce644b"><td class="memItemLeft">lmmc_nonlinear_config_t&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#aa8680343764253a2488a8ba920ce644b">lamina::anonymous_namespace{newton_raphson.cpp}::root_config</a> (const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options, std::size_t max_iterations)</td></tr>
+<tr class="memitem:a907e0ea3c53871043a545ffc1c824067" id="r_a907e0ea3c53871043a545ffc1c824067"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a907e0ea3c53871043a545ffc1c824067">lamina::anonymous_namespace{newton_raphson.cpp}::root_derivative_callback</a> (double x, void *user_data)</td></tr>
+<tr class="memitem:ad2208f9572f664775f0a762033b9d029" id="r_ad2208f9572f664775f0a762033b9d029"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ad2208f9572f664775f0a762033b9d029">lamina::anonymous_namespace{newton_raphson.cpp}::root_function_callback</a> (double x, void *user_data)</td></tr>
+<tr class="memitem:a93130d47d1857877b0c85afe4fa0ce6d" id="r_a93130d47d1857877b0c85afe4fa0ce6d"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a93130d47d1857877b0c85afe4fa0ce6d">lamina::anonymous_namespace{newton_raphson.cpp}::run_bisection_backend</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, double lower, double upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options, const char *operation)</td></tr>
+<tr class="memitem:a6d5055a2e08bbd3ff86e44fe5f9d849e" id="r_a6d5055a2e08bbd3ff86e44fe5f9d849e"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a2ed3e0e80fef6a49a7d2f23c231bea6f">NumericRootResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a6d5055a2e08bbd3ff86e44fe5f9d849e">lamina::anonymous_namespace{newton_raphson.cpp}::run_newton_backend</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;derivative, const std::string &amp;variable, double initial, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;options, bool enforce_bracket, double bracket_lower, double bracket_upper)</td></tr>
+<tr class="memitem:a587a738fbe650853f3f34fd3f50d3a88" id="r_a587a738fbe650853f3f34fd3f50d3a88"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#abc80e38255c0a8487f02f3da041de6d3">NumericRootsResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a587a738fbe650853f3f34fd3f50d3a88">lamina::solve_numeric_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+<tr class="memitem:aa741ca1493dbddb68e074ad1871c58eb" id="r_aa741ca1493dbddb68e074ad1871c58eb"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#abc80e38255c0a8487f02f3da041de6d3">NumericRootsResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aa741ca1493dbddb68e074ad1871c58eb">lamina::solve_numeric_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, const <a class="el" href="../../d1/d42/namespacelamina.html#da/d00/structlamina_1_1SolveOptions">SolveOptions</a> &amp;opts)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:ab6cda1bd79dc1e9e2c90448ee45c1bda" id="r_ab6cda1bd79dc1e9e2c90448ee45c1bda"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ab6cda1bd79dc1e9e2c90448ee45c1bda">lamina::anonymous_namespace{newton_raphson.cpp}::kBisectionOperation</a> = &quot;bisection&quot;</td></tr>
+<tr class="memitem:a8a5ef90589dddcd1a8e7afb4b1774592" id="r_a8a5ef90589dddcd1a8e7afb4b1774592"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a8a5ef90589dddcd1a8e7afb4b1774592">lamina::anonymous_namespace{newton_raphson.cpp}::kNewtonOperation</a> = &quot;newton_raphson&quot;</td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="db/d97/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks" id="db/d97/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#db/d97/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks">&#9670;&#160;</a></span>lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../dd/d65/newton__raphson_8cpp_source.html">newton_raphson.cpp</a> 第 <a class="el" href="../../dd/d65/newton__raphson_8cpp_source.html#l00071">71</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db5/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="acde3ca032121cdd02968b315345f143f" name="acde3ca032121cdd02968b315345f143f"></a>double</td>
+<td class="fieldname">
+bracket_lower = 0.0</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a5361dc21dec64a8178adb524107bcddc" name="a5361dc21dec64a8178adb524107bcddc"></a>double</td>
+<td class="fieldname">
+bracket_upper = 0.0</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="af30631e24cd36cc476e3c9e4cf8d2574" name="af30631e24cd36cc476e3c9e4cf8d2574"></a><a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> *</td>
+<td class="fieldname">
+context = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ae776b4eb85123bdcd49d11b675bb8d19" name="ae776b4eb85123bdcd49d11b675bb8d19"></a>const shared_ptr&lt; SymbolicExpr &gt; *</td>
+<td class="fieldname">
+derivative = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a6aa0133bc9edc54e4c58c9afa4669bb2" name="a6aa0133bc9edc54e4c58c9afa4669bb2"></a>bool</td>
+<td class="fieldname">
+enforce_bracket = false</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a1d1d4c4cd6a56dafc4cf118361d718f9" name="a1d1d4c4cd6a56dafc4cf118361d718f9"></a>optional&lt; <a class="el" href="../../d1/d42/namespacelamina.html#dc/dbb/structlamina_1_1CasError">CasError</a> &gt;</td>
+<td class="fieldname">
+error</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a141efbec5f92c8ab2e68e1309a79f678" name="a141efbec5f92c8ab2e68e1309a79f678"></a>const shared_ptr&lt; SymbolicExpr &gt; *</td>
+<td class="fieldname">
+function = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a977e974499475e84480378c63ad360a2" name="a977e974499475e84480378c63ad360a2"></a>bool</td>
+<td class="fieldname">
+left_bracket = false</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a63b1213581bb04d3d9b7861a9f8bcac4" name="a63b1213581bb04d3d9b7861a9f8bcac4"></a>const char *</td>
+<td class="fieldname">
+operation = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a08e7bd233d024525690e3527f324239a" name="a08e7bd233d024525690e3527f324239a"></a>const string *</td>
+<td class="fieldname">
+variable = nullptr</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dd/d65/newton__raphson_8cpp.html">newton_raphson.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+var newton__raphson_8cpp =
+[
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::RootCallbacks", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#db/d97/structlamina_1_1anonymous__namespace_02newton__raphson_8cpp_03_1_1RootCallbacks", [
+      [ "bracket_lower", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#acde3ca032121cdd02968b315345f143f", null ],
+      [ "bracket_upper", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a5361dc21dec64a8178adb524107bcddc", null ],
+      [ "context", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#af30631e24cd36cc476e3c9e4cf8d2574", null ],
+      [ "derivative", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ae776b4eb85123bdcd49d11b675bb8d19", null ],
+      [ "enforce_bracket", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a6aa0133bc9edc54e4c58c9afa4669bb2", null ],
+      [ "error", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a1d1d4c4cd6a56dafc4cf118361d718f9", null ],
+      [ "function", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a141efbec5f92c8ab2e68e1309a79f678", null ],
+      [ "left_bracket", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a977e974499475e84480378c63ad360a2", null ],
+      [ "operation", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a63b1213581bb04d3d9b7861a9f8bcac4", null ],
+      [ "variable", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a08e7bd233d024525690e3527f324239a", null ]
+    ] ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::backend_root_result", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#aadf3cffe6b51c0df702ed49e9fca29c8", null ],
+    [ "lamina::bisection_checked", "d1/d42/namespacelamina.html#a658a8fe83896963253ab32efbc3763b6", null ],
+    [ "lamina::bisection_checked", "d1/d42/namespacelamina.html#a7ace5be1c595d149aa7a4e3d48ddc2f2", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::evaluate_root_callback", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ad87fa3457641f81c2650fc5071cbb01a", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::evaluate_root_function", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#afad24cdefe307122bf2c5d52eab1900a", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::invalid_root_options", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#aa545d93cef0a09e26c43dc56a7587f39", null ],
+    [ "lamina::isolate_real_roots_checked", "d1/d42/namespacelamina.html#af1fd5a1d874276328d14372434418b7d", null ],
+    [ "lamina::isolate_real_roots_checked", "d1/d42/namespacelamina.html#a0b52c7443bc5583820344107956579d5", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#ab66226984a327e8edffce4c5f7be8d72", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#a332abf1046419b28fe8d76c7dc0978f4", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#a5c3cd60d10ee1edc017a7832e300c01a", null ],
+    [ "lamina::newton_raphson_checked", "d1/d42/namespacelamina.html#a14375d0b17b12495d71b8d2837d882e6", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::root_config", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#aa8680343764253a2488a8ba920ce644b", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::root_derivative_callback", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a907e0ea3c53871043a545ffc1c824067", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::root_function_callback", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ad2208f9572f664775f0a762033b9d029", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::run_bisection_backend", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a93130d47d1857877b0c85afe4fa0ce6d", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::run_newton_backend", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a6d5055a2e08bbd3ff86e44fe5f9d849e", null ],
+    [ "lamina::solve_numeric_checked", "d1/d42/namespacelamina.html#a587a738fbe650853f3f34fd3f50d3a88", null ],
+    [ "lamina::solve_numeric_checked", "d1/d42/namespacelamina.html#aa741ca1493dbddb68e074ad1871c58eb", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::kBisectionOperation", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#ab6cda1bd79dc1e9e2c90448ee45c1bda", null ],
+    [ "lamina::anonymous_namespace{newton_raphson.cpp}::kNewtonOperation", "d1/d23/namespacelamina_1_1anonymous__namespace_02newton__raphson_8cpp_03.html#a8a5ef90589dddcd1a8e7afb4b1774592", null ]
+];

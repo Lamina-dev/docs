@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['qr_5fdecomposition_5fchecked_0',['qr_decomposition_checked',['../d1/d42/namespacelamina.html#a012e577a432e9f30bbc4aabf6afed8b7',1,'lamina::qr_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)'],['../d1/d42/namespacelamina.html#a9b391b64bd8708b198a48e69d8c6e377',1,'lamina::qr_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A)']]],
+  ['qr_5fdecomposition_5fimpl_1',['qr_decomposition_impl',['../d1/d42/namespacelamina.html#ac4301995ec6367d9516c9489ebbd85cd',1,'lamina']]],
+  ['quadratic_5fform_5fmatrix_2',['quadratic_form_matrix',['../d1/d42/namespacelamina.html#a6ba735de3b86fb5ae9f67c16f93cbcea',1,'lamina']]],
+  ['quadrature_5ferror_5fcode_3',['quadrature_error_code',['../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a5ecbbd5691ac6bd77b6d0f337a731087',1,'lamina::anonymous_namespace{numerical_integration.cpp}']]],
+  ['quadrature_5ffailure_4',['quadrature_failure',['../da/d1e/namespacelamina_1_1anonymous__namespace_02numerical__integration_8cpp_03.html#a2be0c810406fbd7f5f51258d3955056a',1,'lamina::anonymous_namespace{numerical_integration.cpp}']]],
+  ['quadrature_5fgaussian_5fnumeric_5',['quadrature_gaussian_numeric',['../d1/d42/namespacelamina.html#ae328e99027a67404a3a120a91c3ebf6f',1,'lamina::quadrature_gaussian_numeric(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, ComputationContext &amp;context, int order)'],['../d1/d42/namespacelamina.html#a3917af706586864120c21e2e276dc165',1,'lamina::quadrature_gaussian_numeric(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, int order)']]],
+  ['quadrature_5fsimpson_5fnumeric_6',['quadrature_simpson_numeric',['../d1/d42/namespacelamina.html#a1b42b1f314fa1f8105e2cd94cd835ad3',1,'lamina::quadrature_simpson_numeric(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, ComputationContext &amp;context, int subdivisions)'],['../d1/d42/namespacelamina.html#a1d3bbb06ad5cfe15672c7df826b4d54c',1,'lamina::quadrature_simpson_numeric(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;function, const std::string &amp;variable, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;lower, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;upper, int subdivisions)']]],
+  ['quantifier_5ftype_7',['quantifier_type',['../d5/d0c/classQuantifierNode.html#aa19233b3dceaac12c5f4298e5728b039',1,'QuantifierNode']]],
+  ['quantifiernode_8',['QuantifierNode',['../d5/d0c/classQuantifierNode.html#aa812a900403b4fe506697831ddb7933e',1,'QuantifierNode']]],
+  ['quantity_5fadd_9',['quantity_add',['../d1/d42/namespacelamina.html#a953e878f997ccb9cd0da37bd7f32bb33',1,'lamina']]],
+  ['quantity_5fdivide_10',['quantity_divide',['../d1/d42/namespacelamina.html#a8e90c695c2b86be5103421f3b91b6cd0',1,'lamina']]],
+  ['quantity_5fmultiply_11',['quantity_multiply',['../d1/d42/namespacelamina.html#a6a3bbed80660096a2a8cbeb781a0c2d6',1,'lamina']]],
+  ['quantity_5fpower_12',['quantity_power',['../d1/d42/namespacelamina.html#aa0a4636d0c32735136b488ce7666490c',1,'lamina']]],
+  ['quantity_5fsubtract_13',['quantity_subtract',['../d1/d42/namespacelamina.html#ae15eec8416dd401cf9114107fc19b9ca',1,'lamina']]],
+  ['quantitynode_14',['QuantityNode',['../d4/da1/classQuantityNode.html#a22522b68de85330366ef5524fed40ff1',1,'QuantityNode']]],
+  ['query_5for_5funknown_15',['query_or_unknown',['../d8/dab/namespacelamina_1_1anonymous__namespace_02query__interface_8cpp_03.html#aae9692cd5379e5ef6260d71b405f4ab6',1,'lamina::anonymous_namespace{query_interface.cpp}']]],
+  ['quotient_5fdimension_16',['quotient_dimension',['../d1/d42/namespacelamina.html#a809ed2cd961ec7298f777fe36883cd27',1,'lamina']]]
+];

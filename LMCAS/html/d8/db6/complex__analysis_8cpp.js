@@ -1,0 +1,27 @@
+var complex__analysis_8cpp =
+[
+    [ "lamina::analytic_continuation", "d1/d42/namespacelamina.html#a45e7a52cd9ab2688b5aea4608bc6b3f3", null ],
+    [ "lamina::calculate_residue_checked", "d1/d42/namespacelamina.html#abb97626d06cf0b957c8d08fbc9af65ca", null ],
+    [ "lamina::calculate_residue_checked", "d1/d42/namespacelamina.html#aabd4455ddceb9ba4190e7cf993e058cc", null ],
+    [ "lamina::calculate_residue_impl", "d1/d42/namespacelamina.html#ab674b572fb1958dc7f95a4d2866b328d", null ],
+    [ "lamina::cauchy_integral_checked", "d1/d42/namespacelamina.html#a6f6027a48da87996a2f87b05d725eb12", null ],
+    [ "lamina::cauchy_integral_checked", "d1/d42/namespacelamina.html#a746bd157db5c85a3f845b75bef6f9801", null ],
+    [ "lamina::cauchy_integral_impl", "d1/d42/namespacelamina.html#a7c9c0be9eb2cdd62cc1d5fdeed2f3f49", null ],
+    [ "lamina::conjugate_checked", "d1/d42/namespacelamina.html#aa8073f398a51d5ec47922d32bff9647f", null ],
+    [ "lamina::conjugate_checked", "d1/d42/namespacelamina.html#ab94e7d578629b2bbddcbd360c3923690", null ],
+    [ "lamina::anonymous_namespace{complex_analysis.cpp}::contains_explicit_complex", "d3/d69/namespacelamina_1_1anonymous__namespace_02complex__analysis_8cpp_03.html#a81dada1b97d5960522f885d45dabddfe", null ],
+    [ "lamina::anonymous_namespace{complex_analysis.cpp}::has_function_of_explicit_complex", "d3/d69/namespacelamina_1_1anonymous__namespace_02complex__analysis_8cpp_03.html#a13e1b90df05ddd97d1a23ea78ad01578", null ],
+    [ "lamina::anonymous_namespace{complex_analysis.cpp}::has_z_dependent_function", "d3/d69/namespacelamina_1_1anonymous__namespace_02complex__analysis_8cpp_03.html#a67cfeb07f851b92ae817649ec957e043", null ],
+    [ "lamina::imag_part_checked", "d1/d42/namespacelamina.html#a19e6e6c6cd989731ef3e59433f00a2db", null ],
+    [ "lamina::imag_part_checked", "d1/d42/namespacelamina.html#ae5e137f881ebacea35569f74aa498b02", null ],
+    [ "lamina::is_analytic_checked", "d1/d42/namespacelamina.html#a5d9c2a8dc7bd07cce26432a71a717ecb", null ],
+    [ "lamina::is_analytic_checked", "d1/d42/namespacelamina.html#a32b1b743f961ece3f8fb7ea9b6a298d8", null ],
+    [ "lamina::is_analytic_impl", "d1/d42/namespacelamina.html#aad8feb8e2c6f8421838d80442a77c0c8", null ],
+    [ "lamina::real_part_checked", "d1/d42/namespacelamina.html#ace38721d75c3e2bb2e8b0e7e64b9cf62", null ],
+    [ "lamina::real_part_checked", "d1/d42/namespacelamina.html#ab4b5f64bd077fb8db277a00828e20e1f", null ],
+    [ "lamina::residue_checked", "d1/d42/namespacelamina.html#a8e5b268b1c3037619e0aac1ff49b2a10", null ],
+    [ "lamina::residue_checked", "d1/d42/namespacelamina.html#a3ca895171dce614b8b0a5686a19dea1b", null ],
+    [ "lamina::anonymous_namespace{complex_analysis.cpp}::split_real_imag", "d3/d69/namespacelamina_1_1anonymous__namespace_02complex__analysis_8cpp_03.html#aa618b8096bf5335eb40b7d72717d1f45", null ],
+    [ "lamina::anonymous_namespace{complex_analysis.cpp}::validate_complex_expr_input", "d3/d69/namespacelamina_1_1anonymous__namespace_02complex__analysis_8cpp_03.html#ac46644a3ada48af86ef8851c78df800d", null ],
+    [ "lamina::anonymous_namespace{complex_analysis.cpp}::validate_complex_expr_point_input", "d3/d69/namespacelamina_1_1anonymous__namespace_02complex__analysis_8cpp_03.html#a3d22aae3e1bea5eb2f2fa396bc4a4f70", null ]
+];

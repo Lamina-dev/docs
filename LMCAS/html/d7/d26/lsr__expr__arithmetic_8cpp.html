@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/lsr_expr_arithmetic.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d7/d26/lsr__expr__arithmetic_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">lsr_expr_arithmetic.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d53/lsr__expr_8hpp_source.html">lsr_expr.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d1a/complex__analysis_8hpp_source.html">complex_analysis.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d29/lsr__expr__common_8hpp_source.html">internal/lsr_expr_common.hpp</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>lsr_expr_arithmetic.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d7/d64/lsr__expr__arithmetic_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d7/d26/lsr__expr__arithmetic_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+<tr class="memitem:lamina_3A_3Alsr" id="r_lamina_3A_3Alsr"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html">lamina::lsr</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a1a68472b3b32bdbff2781a6602ca72eb" id="r_a1a68472b3b32bdbff2781a6602ca72eb"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1a68472b3b32bdbff2781a6602ca72eb">lamina::lsr::abs</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a2375ef01d9e1477a763de17fe73858f2" id="r_a2375ef01d9e1477a763de17fe73858f2"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2375ef01d9e1477a763de17fe73858f2">lamina::lsr::abs</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a60e15494cbb6aa714de442b0497c6982" id="r_a60e15494cbb6aa714de442b0497c6982"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a60e15494cbb6aa714de442b0497c6982">lamina::lsr::acos</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:ad9342be4849ef037f9eb2fa413b57dc5" id="r_ad9342be4849ef037f9eb2fa413b57dc5"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ad9342be4849ef037f9eb2fa413b57dc5">lamina::lsr::acos</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a390536d77211fb187bc0b940d6f5f89c" id="r_a390536d77211fb187bc0b940d6f5f89c"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a390536d77211fb187bc0b940d6f5f89c">lamina::lsr::add</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs)</td></tr>
+<tr class="memitem:a7f26e61e1ba27febfad52ada513cf651" id="r_a7f26e61e1ba27febfad52ada513cf651"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a7f26e61e1ba27febfad52ada513cf651">lamina::lsr::add</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a02bce7559e915642f32b43546ad0a351" id="r_a02bce7559e915642f32b43546ad0a351"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a02bce7559e915642f32b43546ad0a351">lamina::lsr::asin</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:af16f8543d27b668e5a8f11aef3d2672e" id="r_af16f8543d27b668e5a8f11aef3d2672e"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#af16f8543d27b668e5a8f11aef3d2672e">lamina::lsr::asin</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ad505543a901ac5c24ff17e8f0d24bf2a" id="r_ad505543a901ac5c24ff17e8f0d24bf2a"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ad505543a901ac5c24ff17e8f0d24bf2a">lamina::lsr::atan</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:afd0f7f3cc658d6667d3465bfa7f70cf6" id="r_afd0f7f3cc658d6667d3465bfa7f70cf6"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#afd0f7f3cc658d6667d3465bfa7f70cf6">lamina::lsr::atan</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a5a7181faf2caef4dd9b76e613ffc49fa" id="r_a5a7181faf2caef4dd9b76e613ffc49fa"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a5a7181faf2caef4dd9b76e613ffc49fa">lamina::lsr::ceil</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:ad33dc131fb63b31031b322e6907b2f80" id="r_ad33dc131fb63b31031b322e6907b2f80"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ad33dc131fb63b31031b322e6907b2f80">lamina::lsr::ceil</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a0f486172814cdf9a03086b06d1e145c3" id="r_a0f486172814cdf9a03086b06d1e145c3"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a0f486172814cdf9a03086b06d1e145c3">lamina::lsr::clamp</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lower, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;upper)</td></tr>
+<tr class="memitem:a9e72305793e1ce5759d3bfa0c5f3eecc" id="r_a9e72305793e1ce5759d3bfa0c5f3eecc"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a9e72305793e1ce5759d3bfa0c5f3eecc">lamina::lsr::clamp</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lower, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;upper, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:aaf7d44a0b3a8de51ef9fda9463614551" id="r_aaf7d44a0b3a8de51ef9fda9463614551"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#aaf7d44a0b3a8de51ef9fda9463614551">lamina::lsr::conj</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a9aae55f95108dfbd27f42a4e6e157a8a" id="r_a9aae55f95108dfbd27f42a4e6e157a8a"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a9aae55f95108dfbd27f42a4e6e157a8a">lamina::lsr::conj</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a1932abade3f74dc74700897a1149726b" id="r_a1932abade3f74dc74700897a1149726b"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1932abade3f74dc74700897a1149726b">lamina::lsr::cos</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a898be25929882be7bf0fe28bdf8dbf87" id="r_a898be25929882be7bf0fe28bdf8dbf87"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a898be25929882be7bf0fe28bdf8dbf87">lamina::lsr::cos</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a814fdf50a2c9ccd81e23b7bdd975a250" id="r_a814fdf50a2c9ccd81e23b7bdd975a250"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a814fdf50a2c9ccd81e23b7bdd975a250">lamina::lsr::div</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;numerator, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;denominator)</td></tr>
+<tr class="memitem:adc9e741b5b3f939552358068e32b9ab7" id="r_adc9e741b5b3f939552358068e32b9ab7"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#adc9e741b5b3f939552358068e32b9ab7">lamina::lsr::div</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;numerator, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;denominator, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a4dddddc9107f680403593e01236c7c47" id="r_a4dddddc9107f680403593e01236c7c47"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a4dddddc9107f680403593e01236c7c47">lamina::lsr::eq</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs)</td></tr>
+<tr class="memitem:ada87500d2e2e03cc782ecbeddcb80b4d" id="r_ada87500d2e2e03cc782ecbeddcb80b4d"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ada87500d2e2e03cc782ecbeddcb80b4d">lamina::lsr::eq</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a7912c726181d744cb5cb37df6551ba72" id="r_a7912c726181d744cb5cb37df6551ba72"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a7912c726181d744cb5cb37df6551ba72">lamina::lsr::exp</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:af44439539079afc850b8d03d8319596b" id="r_af44439539079afc850b8d03d8319596b"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#af44439539079afc850b8d03d8319596b">lamina::lsr::exp</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ab57c6a366c806b002d196a5042de0ae9" id="r_ab57c6a366c806b002d196a5042de0ae9"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ab57c6a366c806b002d196a5042de0ae9">lamina::lsr::floor</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a6d3f9e5ac08d73e557f84da383916b29" id="r_a6d3f9e5ac08d73e557f84da383916b29"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a6d3f9e5ac08d73e557f84da383916b29">lamina::lsr::floor</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a269d00198d697b75fa12e975f4e3d623" id="r_a269d00198d697b75fa12e975f4e3d623"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a269d00198d697b75fa12e975f4e3d623">lamina::lsr::imag</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a1781606318761745ca54ac196735b856" id="r_a1781606318761745ca54ac196735b856"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a1781606318761745ca54ac196735b856">lamina::lsr::imag</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ad37c0d82bf5ce28775ea14ccf8cc8f78" id="r_ad37c0d82bf5ce28775ea14ccf8cc8f78"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ad37c0d82bf5ce28775ea14ccf8cc8f78">lamina::lsr::log</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a607adc187aae8d785352981c89fd58c2" id="r_a607adc187aae8d785352981c89fd58c2"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a607adc187aae8d785352981c89fd58c2">lamina::lsr::log</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a68790b16fa014fb17f66bffdf85deb24" id="r_a68790b16fa014fb17f66bffdf85deb24"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a68790b16fa014fb17f66bffdf85deb24">lamina::lsr::log10</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a481316ee1f51aa54754ac134006d1ab7" id="r_a481316ee1f51aa54754ac134006d1ab7"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a481316ee1f51aa54754ac134006d1ab7">lamina::lsr::log10</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ab216a5e187e0b50dd9cb94c2219b64aa" id="r_ab216a5e187e0b50dd9cb94c2219b64aa"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ab216a5e187e0b50dd9cb94c2219b64aa">lamina::lsr::mul</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs)</td></tr>
+<tr class="memitem:ada335511ba75e35d44a3cb620637eaea" id="r_ada335511ba75e35d44a3cb620637eaea"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">lamina::lsr::mul</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:abf762bce622fe604827e26308c1cd9a9" id="r_abf762bce622fe604827e26308c1cd9a9"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#abf762bce622fe604827e26308c1cd9a9">lamina::lsr::neg</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a7b7d51fed6dd7b8b1346e42050f52a87" id="r_a7b7d51fed6dd7b8b1346e42050f52a87"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a7b7d51fed6dd7b8b1346e42050f52a87">lamina::lsr::neg</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ac4ba10234a2f9ef0d87f54afe9c362a5" id="r_ac4ba10234a2f9ef0d87f54afe9c362a5"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ac4ba10234a2f9ef0d87f54afe9c362a5">lamina::lsr::pow</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;base, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;exponent)</td></tr>
+<tr class="memitem:a64990c257e3fd7e2a75bd4fc77ddeaf3" id="r_a64990c257e3fd7e2a75bd4fc77ddeaf3"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">lamina::lsr::pow</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;base, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;exponent, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a959ebf64fbdcdc84e5ee79eec328d28b" id="r_a959ebf64fbdcdc84e5ee79eec328d28b"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a959ebf64fbdcdc84e5ee79eec328d28b">lamina::lsr::real</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:aa227c9740223eb7169da77ced9db36c7" id="r_aa227c9740223eb7169da77ced9db36c7"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#aa227c9740223eb7169da77ced9db36c7">lamina::lsr::real</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a4bbfba0da8b08bcbcfdfb24c41ae2969" id="r_a4bbfba0da8b08bcbcfdfb24c41ae2969"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a4bbfba0da8b08bcbcfdfb24c41ae2969">lamina::lsr::round</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a4df6a916bf349a7674cb86a52f0dafc7" id="r_a4df6a916bf349a7674cb86a52f0dafc7"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a4df6a916bf349a7674cb86a52f0dafc7">lamina::lsr::round</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:aaa2f59c81efa4e31ff7f0f612efd950a" id="r_aaa2f59c81efa4e31ff7f0f612efd950a"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#aaa2f59c81efa4e31ff7f0f612efd950a">lamina::lsr::sin</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:ae3ccb4130a83daaf4419735356326cfb" id="r_ae3ccb4130a83daaf4419735356326cfb"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#ae3ccb4130a83daaf4419735356326cfb">lamina::lsr::sin</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a4ea93d6b5b41aaba71d8828f375b4776" id="r_a4ea93d6b5b41aaba71d8828f375b4776"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a4ea93d6b5b41aaba71d8828f375b4776">lamina::lsr::sqrt</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:aa0e86aaff15f349b03433a057b9caaa3" id="r_aa0e86aaff15f349b03433a057b9caaa3"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#aa0e86aaff15f349b03433a057b9caaa3">lamina::lsr::sqrt</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a25f1644d1660b88ab71e2403350f43f5" id="r_a25f1644d1660b88ab71e2403350f43f5"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a25f1644d1660b88ab71e2403350f43f5">lamina::lsr::sub</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs)</td></tr>
+<tr class="memitem:aaf477235285573acad48453dfd35e27f" id="r_aaf477235285573acad48453dfd35e27f"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#aaf477235285573acad48453dfd35e27f">lamina::lsr::sub</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;lhs, const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;rhs, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a3bcea7da2fe9c90b0e1ba49141f58b09" id="r_a3bcea7da2fe9c90b0e1ba49141f58b09"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3bcea7da2fe9c90b0e1ba49141f58b09">lamina::lsr::tan</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression)</td></tr>
+<tr class="memitem:a3bb64661ae561927eb8904cff1688828" id="r_a3bb64661ae561927eb8904cff1688828"><td class="memItemLeft"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a2487494f4b193de70b96bc05104a34ce">ExprResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3bb64661ae561927eb8904cff1688828">lamina::lsr::tan</a> (const <a class="el" href="../../d4/d53/namespacelamina_1_1lsr.html#a3f8d2f06cdd490220422bb4266a76b18">ExprPtr</a> &amp;expression, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d7/d26/lsr__expr__arithmetic_8cpp.html">lsr_expr_arithmetic.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

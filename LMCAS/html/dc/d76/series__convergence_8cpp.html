@@ -1,0 +1,695 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/series_convergence.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('dc/d76/series__convergence_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">series_convergence.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/d78/series__engine_8hpp_source.html">series_engine.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/df2/symbolic_8hpp_source.html">symbolic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/db5/expression__analysis_8hpp_source.html">internal/expression_analysis.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d16/series__support_8hpp_source.html">internal/series_support.hpp</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>series_convergence.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/d3f/series__convergence_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../dc/d76/series__convergence_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:lamina" id="r_lamina"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html">lamina</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a40df89143852416a0595ab981fcd9e2d" id="r_a40df89143852416a0595ab981fcd9e2d"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a40df89143852416a0595ab981fcd9e2d">lamina::convergence_radius_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;general_coefficient, const std::string &amp;index_var)</td></tr>
+<tr class="memitem:a5d1930a9fdec1658022886e1e1ced5fe" id="r_a5d1930a9fdec1658022886e1e1ced5fe"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a5d1930a9fdec1658022886e1e1ced5fe">lamina::convergence_radius_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;general_coefficient, const std::string &amp;index_var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:aa5e9ce6d71041d74e42bbe30b09b0d6d" id="r_aa5e9ce6d71041d74e42bbe30b09b0d6d"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aa5e9ce6d71041d74e42bbe30b09b0d6d">lamina::convergence_radius_checked</a> (const std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;coefficients, const std::string &amp;var)</td></tr>
+<tr class="memitem:a621058b018e5b7bc6b5e44894f5d6f46" id="r_a621058b018e5b7bc6b5e44894f5d6f46"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a621058b018e5b7bc6b5e44894f5d6f46">lamina::convergence_radius_checked</a> (const std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;coefficients, const std::string &amp;var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:abdbf81d9597fa4873621d0f6a314f379" id="r_abdbf81d9597fa4873621d0f6a314f379"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a29169a3909dcde99e62e7f279da39d2a">ConvergenceInfoResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#abdbf81d9597fa4873621d0f6a314f379">lamina::convergence_test_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;general_term, const std::string &amp;index_var)</td></tr>
+<tr class="memitem:a9b89e7dc288fd92da5c5dfc99a85a1ca" id="r_a9b89e7dc288fd92da5c5dfc99a85a1ca"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#a29169a3909dcde99e62e7f279da39d2a">ConvergenceInfoResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a9b89e7dc288fd92da5c5dfc99a85a1ca">lamina::convergence_test_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;general_term, const std::string &amp;index_var, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a32f6a75db9bb33d50696bcb45efdfddd" id="r_a32f6a75db9bb33d50696bcb45efdfddd"><td class="memItemLeft">static <a class="el" href="../../d1/d42/namespacelamina.html#d5/d4c/structlamina_1_1ConvergenceInfo">ConvergenceInfo</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a32f6a75db9bb33d50696bcb45efdfddd">lamina::convergence_test_impl</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;, const std::string &amp;, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;)</td></tr>
+<tr class="memitem:aee679c6af6ff3c5f743bfe02ceb13c8d" id="r_aee679c6af6ff3c5f743bfe02ceb13c8d"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aee679c6af6ff3c5f743bfe02ceb13c8d">lamina::lim_inf_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a_n, const std::string &amp;n)</td></tr>
+<tr class="memitem:a2bc1b70bab7cdec28da8fa9f2074ad22" id="r_a2bc1b70bab7cdec28da8fa9f2074ad22"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a2bc1b70bab7cdec28da8fa9f2074ad22">lamina::lim_inf_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a_n, const std::string &amp;n, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a88188f8c9b5cf0ca499dbec2f6a2f3e0" id="r_a88188f8c9b5cf0ca499dbec2f6a2f3e0"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a88188f8c9b5cf0ca499dbec2f6a2f3e0">lamina::lim_sup_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a_n, const std::string &amp;n)</td></tr>
+<tr class="memitem:aa02e8c1454c4671ae94741237237588e" id="r_aa02e8c1454c4671ae94741237237588e"><td class="memItemLeft"><a class="el" href="../../d1/d42/namespacelamina.html#ab7100f20075c9f60649c079c01f9d014">ExpressionResult</a>&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#aa02e8c1454c4671ae94741237237588e">lamina::lim_sup_checked</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a_n, const std::string &amp;n, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:a1b6fd68354946f84ce1a21b54d1979bc" id="r_a1b6fd68354946f84ce1a21b54d1979bc"><td class="memItemLeft">static std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1b6fd68354946f84ce1a21b54d1979bc">series_abs</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</td></tr>
+<tr class="memitem:a6e521f76d12274761a75368fdd24d7d1" id="r_a6e521f76d12274761a75368fdd24d7d1"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a6e521f76d12274761a75368fdd24d7d1">series_depends_on</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memitem:a98c8b2a0b8e624ca3149a145066ef005" id="r_a98c8b2a0b8e624ca3149a145066ef005"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a98c8b2a0b8e624ca3149a145066ef005">series_detect_trig_oscillation</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;n, std::shared_ptr&lt; SymbolicExpr &gt; &amp;amplitude, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">lamina::ComputationContext</a> &amp;context)</td></tr>
+<tr class="memitem:ad152b47b778ad1527e6315563c3feb3f" id="r_ad152b47b778ad1527e6315563c3feb3f"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ad152b47b778ad1527e6315563c3feb3f">series_extract_alternating</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;n, std::shared_ptr&lt; SymbolicExpr &gt; &amp;remainder)</td></tr>
+<tr class="memitem:a0dd0d563ed8b91e3189d06eb753338f2" id="r_a0dd0d563ed8b91e3189d06eb753338f2"><td class="memItemLeft">static double&#160;</td><td class="memItemRight"><a class="el" href="#a0dd0d563ed8b91e3189d06eb753338f2">series_get_double</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</td></tr>
+<tr class="memitem:a24f2a4e1512b0095f2bc8da475161ab0" id="r_a24f2a4e1512b0095f2bc8da475161ab0"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a24f2a4e1512b0095f2bc8da475161ab0">series_is_infinity</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</td></tr>
+<tr class="memitem:ab90cf24a5a87c8c80fcfa9ee8de37473" id="r_ab90cf24a5a87c8c80fcfa9ee8de37473"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ab90cf24a5a87c8c80fcfa9ee8de37473">series_is_number</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</td></tr>
+<tr class="memitem:a8b8ce421480e80c731c6d7afefbd6124" id="r_a8b8ce421480e80c731c6d7afefbd6124"><td class="memItemLeft">static std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8b8ce421480e80c731c6d7afefbd6124">series_negate</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</td></tr>
+<tr class="memitem:ac2f091fecbbddfb2ae69b9bba04127da" id="r_ac2f091fecbbddfb2ae69b9bba04127da"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ac2f091fecbbddfb2ae69b9bba04127da">lamina::supported_laurent_integer_power</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;variable)</td></tr>
+<tr class="memitem:a7c4f0b46d9cf4a71c441c8e1f253e099" id="r_a7c4f0b46d9cf4a71c441c8e1f253e099"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#a7c4f0b46d9cf4a71c441c8e1f253e099">lamina::validate_power_series_coefficients</a> (const std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;coefficients, const std::string &amp;operation, const std::string &amp;name)</td></tr>
+<tr class="memitem:ac005e5a508ca4e0d57e08670b387d7b9" id="r_ac005e5a508ca4e0d57e08670b387d7b9"><td class="memItemLeft"><a class="el" href="../../d4/d81/classlamina_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../d1/d42/namespacelamina.html#ac005e5a508ca4e0d57e08670b387d7b9">lamina::validate_series_variable</a> (const std::string &amp;variable, <a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a> &amp;context, const std::string &amp;operation)</td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="a1b6fd68354946f84ce1a21b54d1979bc" name="a1b6fd68354946f84ce1a21b54d1979bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b6fd68354946f84ce1a21b54d1979bc">&#9670;&#160;</a></span>series_abs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; SymbolicExpr &gt; series_abs </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00131">131</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>                                                                                       {</div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">if</span> (!expr) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="#ab90cf24a5a87c8c80fcfa9ee8de37473">series_is_number</a>(expr)) <span class="keywordflow">return</span> SymbolicExpr::number(std::abs(<a class="code hl_function" href="#a0dd0d563ed8b91e3189d06eb753338f2">series_get_double</a>(expr)));</div>
+<div class="line"><span class="lineno">  134</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;FunctionNode&gt;</a>(<a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a1e34af023adeb7d5f484f8eb4b9826b6">FunctionNode::FuncType::Abs</a>,</div>
+<div class="line"><span class="lineno">  135</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)}));</div>
+<div class="line"><span class="lineno">  136</span>}</div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a1e34af023adeb7d5f484f8eb4b9826b6"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a1e34af023adeb7d5f484f8eb4b9826b6">FunctionNode::FuncType::Abs</a></div><div class="ttdeci">@ Abs</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00015">functions.hpp:15</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a9e31448c7d53c33d5be1a6bd9a631cbf"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00085">base.hpp:85</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aadd9ee6d804ecfa450cbaced381efdeb"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a></div><div class="ttdeci">std::shared_ptr&lt;::SymbolicExpr &gt; make_expression_ptr(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00105">base.hpp:105</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_aea502a76fff503e0f55363f674f65fa4"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00117">base.hpp:117</a></div></div>
+<div class="ttc" id="aseries__convergence_8cpp_html_a0dd0d563ed8b91e3189d06eb753338f2"><div class="ttname"><a href="#a0dd0d563ed8b91e3189d06eb753338f2">series_get_double</a></div><div class="ttdeci">static double series_get_double(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</div><div class="ttdef"><b>定义</b> <a href="../../dc/d76/series__convergence_8cpp_source.html#l00018">series_convergence.cpp:18</a></div></div>
+<div class="ttc" id="aseries__convergence_8cpp_html_ab90cf24a5a87c8c80fcfa9ee8de37473"><div class="ttname"><a href="#ab90cf24a5a87c8c80fcfa9ee8de37473">series_is_number</a></div><div class="ttdeci">static bool series_is_number(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</div><div class="ttdef"><b>定义</b> <a href="../../dc/d76/series__convergence_8cpp_source.html#l00013">series_convergence.cpp:13</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/d1a/functions_8hpp_source.html#l00015">FunctionNode::Abs</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00105">lamina::detail::make_expression_ptr()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00117">lamina::detail::make_node()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00085">lamina::detail::node()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00131">series_abs()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00018">series_get_double()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00013">series_is_number()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00365">lamina::lim_sup_checked()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00131">series_abs()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a1b6fd68354946f84ce1a21b54d1979bc_cgraph.svg" width="100%" height="561"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a1b6fd68354946f84ce1a21b54d1979bc_icgraph.svg" width="571" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6e521f76d12274761a75368fdd24d7d1" name="a6e521f76d12274761a75368fdd24d7d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e521f76d12274761a75368fdd24d7d1">&#9670;&#160;</a></span>series_depends_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool series_depends_on </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>var</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00037">37</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>                                                                                                              {</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">if</span> (!expr || !<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">return</span> expr-&gt;to_string().find(var) != std::string::npos;</div>
+<div class="line"><span class="lineno">   40</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00085">lamina::detail::node()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00037">series_depends_on()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00037">series_depends_on()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a6e521f76d12274761a75368fdd24d7d1_cgraph.svg" width="586" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a6e521f76d12274761a75368fdd24d7d1_icgraph.svg" width="158" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a98c8b2a0b8e624ca3149a145066ef005" name="a98c8b2a0b8e624ca3149a145066ef005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c8b2a0b8e624ca3149a145066ef005">&#9670;&#160;</a></span>series_detect_trig_oscillation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool series_detect_trig_oscillation </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>n</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>amplitude</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/dac/classlamina_1_1ComputationContext.html">lamina::ComputationContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00092">92</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>                                       {</div>
+<div class="line"><span class="lineno">   97</span>    <span class="keyword">auto</span> func = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(node);</div>
+<div class="line"><span class="lineno">   98</span>    <span class="keywordflow">if</span> (func &amp;&amp; (func-&gt;type() == <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd">FunctionNode::FuncType::Sin</a> || func-&gt;type() == <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b">FunctionNode::FuncType::Cos</a>)) {</div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">if</span> (!func-&gt;arguments().empty()) {</div>
+<div class="line"><span class="lineno">  100</span>            <span class="keyword">auto</span> arg_expr = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(func-&gt;arguments()[0]);</div>
+<div class="line"><span class="lineno">  101</span>            <span class="keyword">auto</span> arg_limit = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a915db06e6554c429d50d6ab153f13add">lamina::detail::propagate_result</a>(</div>
+<div class="line"><span class="lineno">  102</span>                <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a00bc4a1e611774c6647bee5e09c20091">lamina::limit_expression_checked</a>(</div>
+<div class="line"><span class="lineno">  103</span>                    arg_expr, n, SymbolicExpr::infinity(),</div>
+<div class="line"><span class="lineno">  104</span>                    <a class="code hl_enumvalue" href="../../d2/de5/limit__direction_8hpp.html#a0af536298a412d20a67566db886375fea130c5b3473c57faa76e2a1c54e26f88e">LimitDirection::Both</a>, context));</div>
+<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="#a24f2a4e1512b0095f2bc8da475161ab0">series_is_infinity</a>(arg_limit)) { amplitude = SymbolicExpr::number(1); <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><span class="lineno">  106</span>        }</div>
+<div class="line"><span class="lineno">  107</span>    }</div>
+<div class="line"><span class="lineno">  108</span>    <span class="keyword">auto</span> <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a> = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node);</div>
+<div class="line"><span class="lineno">  109</span>    <span class="keywordflow">if</span> (!mul) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  110</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands().size(); ++i) {</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keyword">auto</span> f = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()[i]);</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (!f || (f-&gt;type() != <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd">FunctionNode::FuncType::Sin</a> &amp;&amp; f-&gt;type() != <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b">FunctionNode::FuncType::Cos</a>)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">if</span> (f-&gt;arguments().empty()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  114</span>        <span class="keyword">auto</span> arg_expr = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(f-&gt;arguments()[0]);</div>
+<div class="line"><span class="lineno">  115</span>        <span class="keyword">auto</span> arg_limit = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a915db06e6554c429d50d6ab153f13add">lamina::detail::propagate_result</a>(</div>
+<div class="line"><span class="lineno">  116</span>            <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a00bc4a1e611774c6647bee5e09c20091">lamina::limit_expression_checked</a>(</div>
+<div class="line"><span class="lineno">  117</span>                arg_expr, n, SymbolicExpr::infinity(),</div>
+<div class="line"><span class="lineno">  118</span>                <a class="code hl_enumvalue" href="../../d2/de5/limit__direction_8hpp.html#a0af536298a412d20a67566db886375fea130c5b3473c57faa76e2a1c54e26f88e">LimitDirection::Both</a>, context));</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="#a24f2a4e1512b0095f2bc8da475161ab0">series_is_infinity</a>(arg_limit)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  120</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; rest;</div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands().size(); ++j)</div>
+<div class="line"><span class="lineno">  122</span>            <span class="keywordflow">if</span> (j != i) rest.push_back(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()[j]);</div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> (rest.empty()) amplitude = SymbolicExpr::number(1);</div>
+<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rest.size() == 1) amplitude = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(rest[0]);</div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">else</span> amplitude = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;MultiplyNode&gt;</a>(rest));</div>
+<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  127</span>    }</div>
+<div class="line"><span class="lineno">  128</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  129</span>}</div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5a0986d137604183312e6d3599578bc6cd">FunctionNode::FuncType::Sin</a></div><div class="ttdeci">@ Sin</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00012">functions.hpp:12</a></div></div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5affca562be079b9e4e41ea9d6a86c582b">FunctionNode::FuncType::Cos</a></div><div class="ttdeci">@ Cos</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00012">functions.hpp:12</a></div></div>
+<div class="ttc" id="alimit__direction_8hpp_html_a0af536298a412d20a67566db886375fea130c5b3473c57faa76e2a1c54e26f88e"><div class="ttname"><a href="../../d2/de5/limit__direction_8hpp.html#a0af536298a412d20a67566db886375fea130c5b3473c57faa76e2a1c54e26f88e">LimitDirection::Both</a></div><div class="ttdeci">@ Both</div><div class="ttdef"><b>定义</b> <a href="../../d2/de5/limit__direction_8hpp_source.html#l00005">limit_direction.hpp:5</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1detail_html_a915db06e6554c429d50d6ab153f13add"><div class="ttname"><a href="../../d0/d3a/namespacelamina_1_1detail.html#a915db06e6554c429d50d6ab153f13add">lamina::detail::propagate_result</a></div><div class="ttdeci">T &amp; propagate_result(Result&lt; T &gt; &amp;result)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00101">result.hpp:101</a></div></div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_ada335511ba75e35d44a3cb620637eaea"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">lamina::lsr::mul</a></div><div class="ttdeci">ExprResult mul(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d7/d26/lsr__expr__arithmetic_8cpp_source.html#l00027">lsr_expr_arithmetic.cpp:27</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a00bc4a1e611774c6647bee5e09c20091"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a00bc4a1e611774c6647bee5e09c20091">lamina::limit_expression_checked</a></div><div class="ttdeci">LimitExpressionResult limit_expression_checked(const LimitExprPtr &amp;expression, const std::string &amp;variable, const LimitExprPtr &amp;point, LimitDirection direction, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d3/d8a/limit__result_8cpp_source.html#l00117">limit_result.cpp:117</a></div></div>
+<div class="ttc" id="aseries__convergence_8cpp_html_a24f2a4e1512b0095f2bc8da475161ab0"><div class="ttname"><a href="#a24f2a4e1512b0095f2bc8da475161ab0">series_is_infinity</a></div><div class="ttdeci">static bool series_is_infinity(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</div><div class="ttdef"><b>定义</b> <a href="../../dc/d76/series__convergence_8cpp_source.html#l00029">series_convergence.cpp:29</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d2/de5/limit__direction_8hpp_source.html#l00005">Both</a>, <a class="el" href="../../db/d1a/functions_8hpp_source.html#l00012">FunctionNode::Cos</a>, <a class="el" href="../../d3/d8a/limit__result_8cpp_source.html#l00117">lamina::limit_expression_checked()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00105">lamina::detail::make_expression_ptr()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00117">lamina::detail::make_node()</a>, <a class="el" href="../../de/d80/result_8hpp_source.html#l00101">lamina::detail::propagate_result()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00092">series_detect_trig_oscillation()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00029">series_is_infinity()</a> , 以及 <a class="el" href="../../db/d1a/functions_8hpp_source.html#l00012">FunctionNode::Sin</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00365">lamina::lim_sup_checked()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00092">series_detect_trig_oscillation()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a98c8b2a0b8e624ca3149a145066ef005_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a98c8b2a0b8e624ca3149a145066ef005_icgraph.svg" width="619" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad152b47b778ad1527e6315563c3feb3f" name="ad152b47b778ad1527e6315563c3feb3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad152b47b778ad1527e6315563c3feb3f">&#9670;&#160;</a></span>series_extract_alternating()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool series_extract_alternating </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; const <a class="el" href="../../dc/dc3/classSymbolicNode.html">SymbolicNode</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>n</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>remainder</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00042">42</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>                                                                               {</div>
+<div class="line"><span class="lineno">   45</span>    <span class="keyword">auto</span> <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">pow</a> = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node);</div>
+<div class="line"><span class="lineno">   46</span>    <span class="keywordflow">if</span> (pow) {</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keyword">auto</span> base_num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">pow</a>-&gt;base());</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keyword">auto</span> exp_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">pow</a>-&gt;exponent());</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">if</span> (base_num &amp;&amp; exp_var &amp;&amp; exp_var-&gt;name() == n) {</div>
+<div class="line"><span class="lineno">   50</span>            <span class="keywordtype">double</span> base_val = 0.0;</div>
+<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(base_num-&gt;value()))</div>
+<div class="line"><span class="lineno">   52</span>                base_val = std::get&lt;BigInt&gt;(base_num-&gt;value()).to_double();</div>
+<div class="line"><span class="lineno">   53</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(base_num-&gt;value()))</div>
+<div class="line"><span class="lineno">   54</span>                base_val = std::get&lt;Rational&gt;(base_num-&gt;value()).to_double();</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   56</span>                base_val = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(std::get&lt;lmmc_real_t&gt;(base_num-&gt;value()));</div>
+<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">if</span> (std::abs(base_val + 1.0) &lt; 1e-12) {</div>
+<div class="line"><span class="lineno">   58</span>                remainder = SymbolicExpr::number(1);</div>
+<div class="line"><span class="lineno">   59</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   60</span>            }</div>
+<div class="line"><span class="lineno">   61</span>        }</div>
+<div class="line"><span class="lineno">   62</span>    }</div>
+<div class="line"><span class="lineno">   63</span>    <span class="keyword">auto</span> <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a> = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node);</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">if</span> (mul) {</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands().size(); ++i) {</div>
+<div class="line"><span class="lineno">   66</span>            <span class="keyword">auto</span> pw = std::dynamic_pointer_cast&lt;const PowerNode&gt;(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()[i]);</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">if</span> (!pw) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">   68</span>            <span class="keyword">auto</span> base_num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(pw-&gt;base());</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keyword">auto</span> exp_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(pw-&gt;exponent());</div>
+<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">if</span> (!base_num || !exp_var || exp_var-&gt;name() != n) <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">   71</span>            <span class="keywordtype">double</span> base_val = 0.0;</div>
+<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(base_num-&gt;value()))</div>
+<div class="line"><span class="lineno">   73</span>                base_val = std::get&lt;BigInt&gt;(base_num-&gt;value()).to_double();</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(base_num-&gt;value()))</div>
+<div class="line"><span class="lineno">   75</span>                base_val = std::get&lt;Rational&gt;(base_num-&gt;value()).to_double();</div>
+<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   77</span>                base_val = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(std::get&lt;lmmc_real_t&gt;(base_num-&gt;value()));</div>
+<div class="line"><span class="lineno">   78</span>            <span class="keywordflow">if</span> (std::abs(base_val + 1.0) &lt; 1e-12) {</div>
+<div class="line"><span class="lineno">   79</span>                std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; rest;</div>
+<div class="line"><span class="lineno">   80</span>                <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; <a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands().size(); ++j)</div>
+<div class="line"><span class="lineno">   81</span>                    <span class="keywordflow">if</span> (j != i) rest.push_back(<a class="code hl_function" href="../../d4/d53/namespacelamina_1_1lsr.html#ada335511ba75e35d44a3cb620637eaea">mul</a>-&gt;operands()[j]);</div>
+<div class="line"><span class="lineno">   82</span>                <span class="keywordflow">if</span> (rest.empty()) remainder = SymbolicExpr::number(1);</div>
+<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rest.size() == 1) remainder = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(rest[0]);</div>
+<div class="line"><span class="lineno">   84</span>                <span class="keywordflow">else</span> remainder = <a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aadd9ee6d804ecfa450cbaced381efdeb">lamina::detail::make_expression_ptr</a>(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#aea502a76fff503e0f55363f674f65fa4">lamina::detail::make_node&lt;MultiplyNode&gt;</a>(rest));</div>
+<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   86</span>            }</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   88</span>    }</div>
+<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   90</span>}</div>
+<div class="ttc" id="anamespacelamina_1_1lsr_html_a64990c257e3fd7e2a75bd4fc77ddeaf3"><div class="ttname"><a href="../../d4/d53/namespacelamina_1_1lsr.html#a64990c257e3fd7e2a75bd4fc77ddeaf3">lamina::lsr::pow</a></div><div class="ttdeci">ExprResult pow(const ExprPtr &amp;base, const ExprPtr &amp;exponent, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d7/d26/lsr__expr__arithmetic_8cpp_source.html#l00106">lsr_expr_arithmetic.cpp:106</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00105">lamina::detail::make_expression_ptr()</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00117">lamina::detail::make_node()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00042">series_extract_alternating()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00365">lamina::lim_sup_checked()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00042">series_extract_alternating()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_ad152b47b778ad1527e6315563c3feb3f_cgraph.svg" width="100%" height="412"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_ad152b47b778ad1527e6315563c3feb3f_icgraph.svg" width="100%" height="400"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0dd0d563ed8b91e3189d06eb753338f2" name="a0dd0d563ed8b91e3189d06eb753338f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dd0d563ed8b91e3189d06eb753338f2">&#9670;&#160;</a></span>series_get_double()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double series_get_double </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00018">18</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   18</span>                                                                         {</div>
+<div class="line"><span class="lineno">   19</span>    <span class="keywordflow">if</span> (!expr || !<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)) <span class="keywordflow">return</span> 0.0;</div>
+<div class="line"><span class="lineno">   20</span>    <span class="keyword">auto</span> num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr));</div>
+<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">if</span> (!num) <span class="keywordflow">return</span> 0.0;</div>
+<div class="line"><span class="lineno">   22</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num-&gt;value()))</div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">return</span> std::get&lt;BigInt&gt;(num-&gt;value()).to_double();</div>
+<div class="line"><span class="lineno">   24</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num-&gt;value()))</div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">return</span> std::get&lt;Rational&gt;(num-&gt;value()).to_double();</div>
+<div class="line"><span class="lineno">   26</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(std::get&lt;lmmc_real_t&gt;(num-&gt;value()));</div>
+<div class="line"><span class="lineno">   27</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00085">lamina::detail::node()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00018">series_get_double()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00305">lamina::convergence_test_impl()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00365">lamina::lim_sup_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00131">series_abs()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00018">series_get_double()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00029">series_is_infinity()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a0dd0d563ed8b91e3189d06eb753338f2_cgraph.svg" width="579" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a0dd0d563ed8b91e3189d06eb753338f2_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a24f2a4e1512b0095f2bc8da475161ab0" name="a24f2a4e1512b0095f2bc8da475161ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f2a4e1512b0095f2bc8da475161ab0">&#9670;&#160;</a></span>series_is_infinity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool series_is_infinity </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00029">29</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>                                                                        {</div>
+<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">if</span> (!expr || !<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   31</span>    <span class="keyword">auto</span> func = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr));</div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">if</span> (func &amp;&amp; func-&gt;type() == <a class="code hl_enumvalue" href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3">FunctionNode::FuncType::Infinity</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="#ab90cf24a5a87c8c80fcfa9ee8de37473">series_is_number</a>(expr)) <span class="keywordflow">return</span> std::isinf(<a class="code hl_function" href="#a0dd0d563ed8b91e3189d06eb753338f2">series_get_double</a>(expr));</div>
+<div class="line"><span class="lineno">   34</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   35</span>}</div>
+<div class="ttc" id="aclassFunctionNode_html_a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3"><div class="ttname"><a href="../../d7/d06/classFunctionNode.html#a10187ec4c0f41b3bfb221b87c72ac7b5aeb2ac5b04180d8d6011a016aeb8f75b3">FunctionNode::FuncType::Infinity</a></div><div class="ttdeci">@ Infinity</div><div class="ttdoc">无穷大</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00019">functions.hpp:19</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/d1a/functions_8hpp_source.html#l00019">FunctionNode::Infinity</a>, <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00085">lamina::detail::node()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00018">series_get_double()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00029">series_is_infinity()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00013">series_is_number()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00305">lamina::convergence_test_impl()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00365">lamina::lim_sup_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00092">series_detect_trig_oscillation()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00029">series_is_infinity()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a24f2a4e1512b0095f2bc8da475161ab0_cgraph.svg" width="100%" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a24f2a4e1512b0095f2bc8da475161ab0_icgraph.svg" width="100%" height="490"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab90cf24a5a87c8c80fcfa9ee8de37473" name="ab90cf24a5a87c8c80fcfa9ee8de37473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab90cf24a5a87c8c80fcfa9ee8de37473">&#9670;&#160;</a></span>series_is_number()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool series_is_number </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00013">13</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   13</span>                                                                      {</div>
+<div class="line"><span class="lineno">   14</span>    <span class="keywordflow">if</span> (!expr || !<a class="code hl_function" href="../../d0/d3a/namespacelamina_1_1detail.html#a9e31448c7d53c33d5be1a6bd9a631cbf">lamina::detail::node</a>(expr)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   15</span>    <span class="keywordflow">return</span> expr-&gt;is_number();</div>
+<div class="line"><span class="lineno">   16</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/d3c/base_8hpp_source.html#l00085">lamina::detail::node()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00013">series_is_number()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00305">lamina::convergence_test_impl()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00365">lamina::lim_sup_checked()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00131">series_abs()</a>, <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00029">series_is_infinity()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00013">series_is_number()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_ab90cf24a5a87c8c80fcfa9ee8de37473_cgraph.svg" width="575" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_ab90cf24a5a87c8c80fcfa9ee8de37473_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a8b8ce421480e80c731c6d7afefbd6124" name="a8b8ce421480e80c731c6d7afefbd6124"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b8ce421480e80c731c6d7afefbd6124">&#9670;&#160;</a></span>series_negate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; SymbolicExpr &gt; series_negate </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; SymbolicExpr &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html">series_convergence.cpp</a> 第 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00138">138</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  138</span>                                                                                          {</div>
+<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">if</span> (!expr) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><span class="lineno">  140</span>    <span class="keywordflow">return</span> SymbolicExpr::multiply(SymbolicExpr::number(-1), expr)-&gt;simplify();</div>
+<div class="line"><span class="lineno">  141</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00138">series_negate()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00433">lamina::lim_inf_checked()</a> , 以及 <a class="el" href="../../dc/d76/series__convergence_8cpp_source.html#l00138">series_negate()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a8b8ce421480e80c731c6d7afefbd6124_cgraph.svg" width="124" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/d76/series__convergence_8cpp_a8b8ce421480e80c731c6d7afefbd6124_icgraph.svg" width="580" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dc/d76/series__convergence_8cpp.html">series_convergence.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

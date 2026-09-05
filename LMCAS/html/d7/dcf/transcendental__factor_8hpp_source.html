@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: include/transcendental_factor.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d7/dcf/transcendental__factor_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">transcendental_factor.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d7/dcf/transcendental__factor_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file transcendental_factor.hpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 混合超越方程不可约因式分解器公共 API.</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * 将 Berlekamp/Zassenhaus 风格的因式分解算法从纯多项式域推广到含超越函数的</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * 表达式空间.核心流程:换元 -&gt; 多项式构造 -&gt; 模分解 -&gt; Hensel 提升 -&gt; 因子组合 -&gt; 逆换元.</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/d3e/polynomial_8hpp.html">polynomial.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d47/modular__arithmetic_8hpp.html">modular_arithmetic.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d09/bigint_8hpp.html">bigint.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/de8/rational_8hpp.html">rational.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d80/result_8hpp.html">result.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d14/computation__context_8hpp.html">computation_context.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d42/namespacelamina.html">lamina</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"></span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/// 换元映射条目:超越子表达式 -&gt; 代数不定元名</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   26</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d4/d2b/structlamina_1_1TransSubstitution">TransSubstitution</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a6339031ec13ce889d3cef71c97835715">   27</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a6339031ec13ce889d3cef71c97835715">trans_expr</a>;  <span class="comment">///&lt; 原始超越子表达式 (e.g., sin(x))</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aed0681597cce8802d2601256d19dceb4">   28</a></span>    std::string <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#aed0681597cce8802d2601256d19dceb4">indeterminate</a>;                  <span class="comment">///&lt; 代数不定元名 (e.g., &quot;u0&quot;)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"></span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/// 换元结果</span></div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">   32</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#db/db4/structlamina_1_1TransSubstitutionResult">TransSubstitutionResult</a> {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ad10840920726846d29eaa90c1ef229a9">   33</a></span>    std::vector&lt;TransSubstitution&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ad10840920726846d29eaa90c1ef229a9">mappings</a>;    <span class="comment">///&lt; 所有换元映射</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#abc8e515d98502cb11011e55cef82e47c">   34</a></span>    std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#abc8e515d98502cb11011e55cef82e47c">poly_expr</a>;   <span class="comment">///&lt; 换元后的多项式表达式</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a093bb7e25e9f302d283473fdfb955da0">   35</a></span>    std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a093bb7e25e9f302d283473fdfb955da0">constraints</a>; <span class="comment">///&lt; 代数约束 (e.g., u0^2+u1^2-1=0)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"></span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/// Berlekamp 分解结果</span></div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../db/d5f/structlamina_1_1BerlekampResult.html">   39</a></span><span class="keyword">struct </span><a class="code hl_function" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a1a49d5776e1a306b7bb6e48de498a1d8">BerlekampResult</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a11db4442dced9d4c5114987c58d40858">   40</a></span>    int64_t <a class="code hl_variable" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a11db4442dced9d4c5114987c58d40858">prime</a>;                              <span class="comment">///&lt; 使用的素数</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a892994651b7dc4c396f5ed19d8315702">   41</a></span>    std::vector&lt;Polynomial&lt;ModInt&gt;&gt; <a class="code hl_variable" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a892994651b7dc4c396f5ed19d8315702">factors</a>;   <span class="comment">///&lt; 模 p 下的不可约因子</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a0c7c661ed9035e6786af3d69c6b7cf84">   42</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a0c7c661ed9035e6786af3d69c6b7cf84">null_space_dim</a>;                         <span class="comment">///&lt; 零空间维度(= 不可约因子数)</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a8b17de0fb2a848b766efc6d8ec90250b">   43</a></span>    std::vector&lt;std::vector&lt;int64_t&gt;&gt; <a class="code hl_variable" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a8b17de0fb2a848b766efc6d8ec90250b">null_space_basis</a>; <span class="comment">///&lt; 零空间基向量</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a1a49d5776e1a306b7bb6e48de498a1d8">   45</a></span>    <a class="code hl_function" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a1a49d5776e1a306b7bb6e48de498a1d8">BerlekampResult</a>() : <a class="code hl_variable" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a11db4442dced9d4c5114987c58d40858">prime</a>(-1), <a class="code hl_variable" href="../../db/d5f/structlamina_1_1BerlekampResult.html#a0c7c661ed9035e6786af3d69c6b7cf84">null_space_dim</a>(0) {}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"></span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * @brief 混合超越表达式不可约因式分解主入口.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * 对含超越函数(sin,cos,exp,ln 等)的表达式执行因式分解,返回不可约因子列表.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * 若输入为纯多项式,则委托给现有多项式分解;若分解失败或超时,返回原表达式本身.</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * @param[in] expr 待分解的符号表达式</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> * @param[in] var  目标变量名</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * @return 不可约因子的列表(乘积等于原表达式,可能含常数因子)</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a33d75da46e0e9bd88b7bb8f774537af3">factor_transcendental</a>(</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"></span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"> * @brief 检测表达式中的超越函数换元模式.</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment"> * 遍历表达式 AST,识别所有依赖目标变量的超越子表达式,为每个分配代数不定元,</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"> * 并记录不定元之间的代数约束(如三角恒等式 u_sin^2 + u_cos^2 = 1).</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment"> * @param[in] expr 待检测的符号表达式</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"> * @param[in] var  目标变量名</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> * @return 换元结果,包含映射表,换元后多项式表达式及约束列表</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> TransSubstitutionResult <a class="code hl_function" href="../../d1/d42/namespacelamina.html#abdbf9984e99f52fda2c8390b0a0ed1f3">detect_trans_substitutions</a>(</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"></span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"> * @brief Berlekamp 模素数分解(内部接口).</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> * 在有限域 F_p 上对有理系数多项式执行 Berlekamp 算法,</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> * 返回模 p 下的不可约因子列表.</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * @param[in] poly  有理系数多项式</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * @param[in] prime 选定的素数 p</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * @return Berlekamp 分解结果</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> BerlekampResult <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a7bd74fbd719a53a31ef18b64c3289b09">berlekamp_factor</a>(</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> Polynomial&lt;Rational&gt;&amp; poly,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a99c5b11e6e01e46615fd23916b5991c9">   90</a></span>    int64_t <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a99c5b11e6e01e46615fd23916b5991c9">prime</a>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ad1ec692f098f74ab8bfeabd73ea9865a">   92</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#ad1ec692f098f74ab8bfeabd73ea9865a">HenselLiftResult</a> = <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;std::vector&lt;Polynomial&lt;BigInt&gt;</a>&gt;&gt;;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"></span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * @brief 执行带显式前置条件诊断的 Hensel 提升.</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> * 空因子列表,非法素数,零或常数输入,多项式零因子,以及模 p 因子乘积</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment"> * 与原多项式不一致等输入均通过 CasError 返回具体诊断.</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#ad1ec692f098f74ab8bfeabd73ea9865a">HenselLiftResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a777636c150da2a24fc534bea97c47ec0">hensel_lift_checked</a>(</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#aafa342b293ff38f075631d4bcd5371c9">  102</a></span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;ModInt&gt;</a>&gt;&amp; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#aafa342b293ff38f075631d4bcd5371c9">mod_factors</a>,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    int64_t <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a99c5b11e6e01e46615fd23916b5991c9">prime</a>,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a3c26daef326b42411cc390b4b2c82930">  104</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a3c26daef326b42411cc390b4b2c82930">lift_bound</a>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a7e4d89324082a4310237d2b858a92e2c">  106</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a7e4d89324082a4310237d2b858a92e2c">ZassenhausResult</a> =</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_class" href="../../d4/d81/classlamina_1_1Result.html">Result&lt;MathResult&lt;std::vector&lt;Polynomial&lt;Rational&gt;</a>&gt;&gt;&gt;;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment"></span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment"> * @brief 受检且有界的精确 Zassenhaus 因子组合.</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"> * 要求重构模数为正,且提升因子乘积与 @p poly 的整数归一化结果同余.</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment"> * 候选子集按字典序枚举,不受机器字宽限制.计算预算耗尽时,精确部分分解</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> * 以 `Inconclusive` 返回.</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a7e4d89324082a4310237d2b858a92e2c">ZassenhausResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a93f4d64bd1ba9d3b8fda9d0d2bcb41e4">zassenhaus_combine_checked</a>(</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#afff32c115c8dc6f9ee982bf3630262db">  118</a></span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&gt;&amp; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#afff32c115c8dc6f9ee982bf3630262db">lifted_factors</a>,</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ac7d7bf60f0b9a8879648a45550258981">  119</a></span>    <span class="keyword">const</span> BigInt&amp; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ac7d7bf60f0b9a8879648a45550258981">reconstruction_modulus</a>,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_class" href="../../df/dac/classlamina_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a8b1a7bf451331efe4ae0784c5bc4a515">context</a>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_typedef" href="../../d1/d42/namespacelamina.html#a7e4d89324082a4310237d2b858a92e2c">ZassenhausResult</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a93f4d64bd1ba9d3b8fda9d0d2bcb41e4">zassenhaus_combine_checked</a>(</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; poly,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;BigInt&gt;</a>&gt;&amp; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#afff32c115c8dc6f9ee982bf3630262db">lifted_factors</a>,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> BigInt&amp; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ac7d7bf60f0b9a8879648a45550258981">reconstruction_modulus</a>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment"></span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment"> * @brief 二因子二次 Hensel 提升的状态结构.</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment"> * 存储一对因子 g, h 及其 Bezout 系数 s, t,满足:</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment"> * - f == g * h (mod modulus)</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment"> * - s * g + t * h == 1 (mod modulus)</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment"> * 系数按升幂存储:coeffs[i] 对应 x^i 的系数.</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="};">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html">  136</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a> {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a0a9fe99983956142bde9f0e104acc587">  137</a></span>    std::vector&lt;BigInt&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a0a9fe99983956142bde9f0e104acc587">g</a>;      <span class="comment">///&lt; 第一个因子系数向量</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ad2dac8a83fb51509e503dc407462e172">  138</a></span>    std::vector&lt;BigInt&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ad2dac8a83fb51509e503dc407462e172">h</a>;      <span class="comment">///&lt; 第二个因子系数向量</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#ac709ba772e5b7c66bafa7fcc673a1fe3">  139</a></span>    std::vector&lt;BigInt&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#ac709ba772e5b7c66bafa7fcc673a1fe3">s</a>;      <span class="comment">///&lt; g 的 Bezout 系数向量</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a8d9b5340e5416fa09eb2cea352c67384">  140</a></span>    std::vector&lt;BigInt&gt; <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a8d9b5340e5416fa09eb2cea352c67384">t</a>;      <span class="comment">///&lt; h 的 Bezout 系数向量</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="../../d1/d42/namespacelamina.html#a5b9097da88aeae99c5b64366d658e8fb">  141</a></span>    BigInt <a class="code hl_variable" href="../../d1/d42/namespacelamina.html#a5b9097da88aeae99c5b64366d658e8fb">modulus</a>;              <span class="comment">///&lt; 当前模数</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>};</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment"></span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment"> * @brief 执行一步二次 Hensel 提升:mod m -&gt; mod m^2.</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment"> * 给定 f == g*h (mod m) 且 s*g + t*h == 1 (mod m),</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment"> * 计算 g&#39;, h&#39;, s&#39;, t&#39; 使得 f == g&#39;*h&#39; (mod m^2) 且 s&#39;*g&#39; + t&#39;*h&#39; == 1 (mod m^2).</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment"> * @param[in] f       原始多项式系数向量(升幂排列)</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment"> * @param[in] current 当前提升状态(g, h, s, t, modulus=m)</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment"> * @return 提升后的状态(g&#39;, h&#39;, s&#39;, t&#39;, modulus=m^2)</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment"> * @pre f == g*h (mod m)</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment"> * @pre s*g + t*h == 1 (mod m)</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment"> * @pre deg(s) &lt; deg(h), deg(t) &lt; deg(g)</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment"> * @see Zassenhaus, H. &quot;On Hensel factorization, I.&quot;</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment"> *      Journal of Number Theory, 1(3), 1969.</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a> <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a5ed779f22973093818c2e3f111724337">hl_two_factor_lift</a>(</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">const</span> std::vector&lt;BigInt&gt;&amp; f,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">HenselLiftPair</a>&amp; current);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment"></span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">/// 无平方因子预处理结果</span></div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="};">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html">  166</a></span><span class="keyword">struct </span><a class="code hl_function" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa45eef30d824ec7638bd1bc713e8e71b">TfSquareFreeResult</a> {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a48b0fbc46658161bd8e38b1ff0e6a58f">  167</a></span>    <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a> <a class="code hl_variable" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a48b0fbc46658161bd8e38b1ff0e6a58f">square_free</a>;          <span class="comment">///&lt; 无平方因子部分</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa8b53134652a2653f5f67298a7075562">  168</a></span>    <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a> <a class="code hl_variable" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa8b53134652a2653f5f67298a7075562">repeated_factor</a>;      <span class="comment">///&lt; 重复因子 gcd(f, f&#39;)</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a8b6dd2c366671c374ba598c987508bd9">  169</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a8b6dd2c366671c374ba598c987508bd9">had_repeated_factors</a>;                 <span class="comment">///&lt; 是否存在重复因子</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa45eef30d824ec7638bd1bc713e8e71b">  171</a></span>    <a class="code hl_function" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa45eef30d824ec7638bd1bc713e8e71b">TfSquareFreeResult</a>() : <a class="code hl_variable" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a48b0fbc46658161bd8e38b1ff0e6a58f">square_free</a>(<span class="stringliteral">&quot;x&quot;</span>), <a class="code hl_variable" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa8b53134652a2653f5f67298a7075562">repeated_factor</a>(<span class="stringliteral">&quot;x&quot;</span>), <a class="code hl_variable" href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a8b6dd2c366671c374ba598c987508bd9">had_repeated_factors</a>(false) {}</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>};</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment"></span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"> * @brief 计算多项式的无平方因子部分.</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment"> * 通过计算 gcd(f, f&#39;) 检测并去除重复因子,返回无平方因子多项式.</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment"> * 用于模分解前的预处理,确保 Berlekamp 算法的输入满足 square-free 条件.</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"> * @param[in] poly 输入的有理系数多项式</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment"> * @return 无平方因子预处理结果,包含 square-free 部分和重复因子信息</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> TfSquareFreeResult <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a2929a0596e80cc0dc3fabd6c58784187">tf_square_free</a>(<span class="keyword">const</span> Polynomial&lt;Rational&gt;&amp; poly);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"></span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">/// 多项式构造结果</span></div>
+<div class="foldopen" id="foldopen00188" data-start="{" data-end="};">
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html">  188</a></span><span class="keyword">struct </span><a class="code hl_function" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a88ca5b0fdd8c150075b8c3a26647e25e">TfPolyBuildResult</a> {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aecdd2ab49696dd321edec07c824605e7">  189</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aecdd2ab49696dd321edec07c824605e7">success</a>;                              <span class="comment">///&lt; 转换是否成功</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a7e4a8e5197e7ea259a326e8000f7e502">  190</a></span>    <a class="code hl_class" href="../../d8/d1e/classlamina_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a> <a class="code hl_variable" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a7e4a8e5197e7ea259a326e8000f7e502">poly</a>;                 <span class="comment">///&lt; 主变量多项式(单变量或主变量策略)</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aaec0b89eb2fa789227cf767273d889f0">  191</a></span>    std::string <a class="code hl_variable" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aaec0b89eb2fa789227cf767273d889f0">main_variable</a>;                 <span class="comment">///&lt; 选定的主变量名</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aadcde61bdfa604de5b4fcd736fa10494">  192</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aadcde61bdfa604de5b4fcd736fa10494">param_variables</a>;  <span class="comment">///&lt; 参数变量列表(非主变量的不定元)</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a88ca5b0fdd8c150075b8c3a26647e25e">  194</a></span>    <a class="code hl_function" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a88ca5b0fdd8c150075b8c3a26647e25e">TfPolyBuildResult</a>() : <a class="code hl_variable" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aecdd2ab49696dd321edec07c824605e7">success</a>(false), <a class="code hl_variable" href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a7e4a8e5197e7ea259a326e8000f7e502">poly</a>(<span class="stringliteral">&quot;x&quot;</span>) {}</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>};</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment"></span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment"> * @brief 将换元后的表达式构造为有理系数多项式.</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment"> * 对换元后的多项式表达式,选择次数最高的不定元作为主变量,</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"> * 通过 symbolic_to_poly 转换为 Polynomial&lt;Rational&gt;.</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"> * 对于多元情形,非主变量将被视为参数(其系数需为有理数).</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> * @param[in] poly_expr       换元后的符号表达式</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> * @param[in] indeterminates  不定元名称列表(如 {&quot;u0&quot;, &quot;u1&quot;})</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> * @param[in] original_var    原始目标变量名(如 &quot;x&quot;)</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"> * @return 多项式构造结果</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> TfPolyBuildResult <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a01d5a282b9d504996be86a98ca1ed64f">tf_build_polynomial</a>(</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; poly_expr,</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; indeterminates,</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keyword">const</span> std::string&amp; original_var);</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="comment"></span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment"> * @brief 对逆换元后的因子列表执行化简与常数乘子提取.</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment"> * 对每个因子调用 simplify() 规范化,提取数值前导系数,</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment"> * 将所有常数乘子合并为单一数值因子.</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment"> * @param[in,out] factors 因子列表</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment"> * @return 化简后的因子列表(可能含首位常数因子)</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><a class="code hl_define" href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a> std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; <a class="code hl_function" href="../../d1/d42/namespacelamina.html#a11fed1677946085568dc5d272873ba08">tf_simplify_factors</a>(</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;&amp; factors);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>} <span class="comment">// namespace lamina</span></div>
+<div class="ttc" id="abigint_8hpp_html"><div class="ttname"><a href="../../d8/d09/bigint_8hpp.html">bigint.hpp</a></div><div class="ttdoc">任意精度整数 BigInt，底层调用 LMMP 实现高性能大数运算。</div></div>
+<div class="ttc" id="aclasslamina_1_1ComputationContext_html"><div class="ttname"><a href="../../df/dac/classlamina_1_1ComputationContext.html">lamina::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00093">computation_context.hpp:93</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Polynomial_html"><div class="ttname"><a href="../../d8/d1e/classlamina_1_1Polynomial.html">lamina::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00048">polynomial.hpp:48</a></div></div>
+<div class="ttc" id="aclasslamina_1_1Result_html"><div class="ttname"><a href="../../d4/d81/classlamina_1_1Result.html">lamina::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00050">result.hpp:50</a></div></div>
+<div class="ttc" id="acomputation__context_8hpp_html"><div class="ttname"><a href="../../da/d14/computation__context_8hpp.html">computation_context.hpp</a></div></div>
+<div class="ttc" id="alamina__export_8hpp_html_acdda0157ae631e19f63156f53632e03f"><div class="ttname"><a href="../../d1/d05/lamina__export_8hpp.html#acdda0157ae631e19f63156f53632e03f">LAMINA_API</a></div><div class="ttdeci">#define LAMINA_API</div><div class="ttdef"><b>定义</b> <a href="../../d1/d05/lamina__export_8hpp_source.html#l00011">lamina_export.hpp:11</a></div></div>
+<div class="ttc" id="amodular__arithmetic_8hpp_html"><div class="ttname"><a href="../../d6/d47/modular__arithmetic_8hpp.html">modular_arithmetic.hpp</a></div><div class="ttdoc">模运算工具：ModInt 类、扩展欧几里得、CRT、有理重构。</div></div>
+<div class="ttc" id="anamespacelamina_html"><div class="ttname"><a href="../../d1/d42/namespacelamina.html">lamina</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a01d5a282b9d504996be86a98ca1ed64f"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a01d5a282b9d504996be86a98ca1ed64f">lamina::tf_build_polynomial</a></div><div class="ttdeci">TfPolyBuildResult tf_build_polynomial(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;poly_expr, const std::vector&lt; std::string &gt; &amp;indeterminates, const std::string &amp;original_var)</div><div class="ttdoc">将换元后的表达式构造为有理系数多项式.</div><div class="ttdef"><b>定义</b> <a href="../../da/da4/transcendental__factor_8cpp_source.html#l00487">transcendental_factor.cpp:487</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a093bb7e25e9f302d283473fdfb955da0"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a093bb7e25e9f302d283473fdfb955da0">lamina::TransSubstitutionResult::constraints</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; constraints</div><div class="ttdoc">代数约束 (e.g., u0^2+u1^2-1=0)</div><div class="ttdef"><b>定义</b> <a href="#l00035">transcendental_factor.hpp:35</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a0a9fe99983956142bde9f0e104acc587"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a0a9fe99983956142bde9f0e104acc587">lamina::HenselLiftPair::g</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; g</div><div class="ttdoc">第一个因子系数向量</div><div class="ttdef"><b>定义</b> <a href="#l00137">transcendental_factor.hpp:137</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a11fed1677946085568dc5d272873ba08"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a11fed1677946085568dc5d272873ba08">lamina::tf_simplify_factors</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; tf_simplify_factors(std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;factors)</div><div class="ttdoc">对逆换元后的因子列表执行化简与常数乘子提取.</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00105">transcendental_rewrite.cpp:105</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a2929a0596e80cc0dc3fabd6c58784187"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a2929a0596e80cc0dc3fabd6c58784187">lamina::tf_square_free</a></div><div class="ttdeci">TfSquareFreeResult tf_square_free(const Polynomial&lt; Rational &gt; &amp;poly)</div><div class="ttdoc">计算多项式的无平方因子部分.</div><div class="ttdef"><b>定义</b> <a href="../../da/da4/transcendental__factor_8cpp_source.html#l00641">transcendental_factor.cpp:641</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a33d75da46e0e9bd88b7bb8f774537af3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a33d75da46e0e9bd88b7bb8f774537af3">lamina::factor_transcendental</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; factor_transcendental(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</div><div class="ttdoc">计算整数的 popcount(二进制中 1 的个数).</div><div class="ttdef"><b>定义</b> <a href="../../da/da4/transcendental__factor_8cpp_source.html#l00704">transcendental_factor.cpp:704</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a3c26daef326b42411cc390b4b2c82930"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a3c26daef326b42411cc390b4b2c82930">lamina::lift_bound</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; ModInt &gt; &gt; int64_t int lift_bound</div><div class="ttdef"><b>定义</b> <a href="#l00104">transcendental_factor.hpp:104</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5b9097da88aeae99c5b64366d658e8fb"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5b9097da88aeae99c5b64366d658e8fb">lamina::HenselLiftPair::modulus</a></div><div class="ttdeci">BigInt modulus</div><div class="ttdoc">当前模数</div><div class="ttdef"><b>定义</b> <a href="#l00141">transcendental_factor.hpp:141</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a5ed779f22973093818c2e3f111724337"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a5ed779f22973093818c2e3f111724337">lamina::hl_two_factor_lift</a></div><div class="ttdeci">HenselLiftPair hl_two_factor_lift(const std::vector&lt; BigInt &gt; &amp;f, const HenselLiftPair &amp;current)</div><div class="ttdoc">HenselLiftPair 结构体已在 transcendental_factor.hpp 中声明</div><div class="ttdef"><b>定义</b> <a href="../../d2/d22/hensel__lift_8cpp_source.html#l00476">hensel_lift.cpp:476</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a6339031ec13ce889d3cef71c97835715"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a6339031ec13ce889d3cef71c97835715">lamina::TransSubstitution::trans_expr</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; trans_expr</div><div class="ttdoc">原始超越子表达式 (e.g., sin(x))</div><div class="ttdef"><b>定义</b> <a href="#l00027">transcendental_factor.hpp:27</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a777636c150da2a24fc534bea97c47ec0"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a777636c150da2a24fc534bea97c47ec0">lamina::hensel_lift_checked</a></div><div class="ttdeci">HenselLiftResult hensel_lift_checked(const Polynomial&lt; BigInt &gt; &amp;poly, const std::vector&lt; Polynomial&lt; ModInt &gt; &gt; &amp;mod_factors, int64_t prime, int lift_bound)</div><div class="ttdoc">Hensel 提升:将模 p 因子提升到 mod p^k.</div><div class="ttdef"><b>定义</b> <a href="../../d2/d22/hensel__lift_8cpp_source.html#l00721">hensel_lift.cpp:721</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a7bd74fbd719a53a31ef18b64c3289b09"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a7bd74fbd719a53a31ef18b64c3289b09">lamina::berlekamp_factor</a></div><div class="ttdeci">BerlekampResult berlekamp_factor(const Polynomial&lt; Rational &gt; &amp;poly, int64_t prime)</div><div class="ttdoc">Berlekamp 模素数分解.</div><div class="ttdef"><b>定义</b> <a href="../../dc/df2/berlekamp_8cpp_source.html#l00740">berlekamp.cpp:740</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a7e4d89324082a4310237d2b858a92e2c"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a7e4d89324082a4310237d2b858a92e2c">lamina::ZassenhausResult</a></div><div class="ttdeci">Result&lt; MathResult&lt; std::vector&lt; Polynomial&lt; Rational &gt; &gt; &gt; &gt; ZassenhausResult</div><div class="ttdef"><b>定义</b> <a href="#l00106">transcendental_factor.hpp:106</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8b1a7bf451331efe4ae0784c5bc4a515"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8b1a7bf451331efe4ae0784c5bc4a515">lamina::context</a></div><div class="ttdeci">double ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../dc/de2/interval_8hpp_source.html#l00252">interval.hpp:252</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a8d9b5340e5416fa09eb2cea352c67384"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a8d9b5340e5416fa09eb2cea352c67384">lamina::HenselLiftPair::t</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; t</div><div class="ttdoc">h 的 Bezout 系数向量</div><div class="ttdef"><b>定义</b> <a href="#l00140">transcendental_factor.hpp:140</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a93f4d64bd1ba9d3b8fda9d0d2bcb41e4"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a93f4d64bd1ba9d3b8fda9d0d2bcb41e4">lamina::zassenhaus_combine_checked</a></div><div class="ttdeci">ZassenhausResult zassenhaus_combine_checked(const Polynomial&lt; Rational &gt; &amp;poly, const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; &amp;lifted_factors, const BigInt &amp;reconstruction_modulus, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d6/de0/zassenhaus__combine_8cpp_source.html#l00480">zassenhaus_combine.cpp:480</a></div></div>
+<div class="ttc" id="anamespacelamina_html_a99c5b11e6e01e46615fd23916b5991c9"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#a99c5b11e6e01e46615fd23916b5991c9">lamina::prime</a></div><div class="ttdeci">__attribute__((visibility(&quot;default&quot;))) std __attribute__((visibility(&quot;default&quot;))) TransSubstitutionResult detect_trans_substitutions(const std int64_t prime</div><div class="ttdef"><b>定义</b> <a href="#l00090">transcendental_factor.hpp:90</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aafa342b293ff38f075631d4bcd5371c9"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aafa342b293ff38f075631d4bcd5371c9">lamina::mod_factors</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; ModInt &gt; &gt; &amp; mod_factors</div><div class="ttdef"><b>定义</b> <a href="#l00102">transcendental_factor.hpp:102</a></div></div>
+<div class="ttc" id="anamespacelamina_html_abc8e515d98502cb11011e55cef82e47c"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#abc8e515d98502cb11011e55cef82e47c">lamina::TransSubstitutionResult::poly_expr</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; poly_expr</div><div class="ttdoc">换元后的多项式表达式</div><div class="ttdef"><b>定义</b> <a href="#l00034">transcendental_factor.hpp:34</a></div></div>
+<div class="ttc" id="anamespacelamina_html_abdbf9984e99f52fda2c8390b0a0ed1f3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#abdbf9984e99f52fda2c8390b0a0ed1f3">lamina::detect_trans_substitutions</a></div><div class="ttdeci">TransSubstitutionResult detect_trans_substitutions(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</div><div class="ttdoc">检测表达式中的超越函数换元模式.</div><div class="ttdef"><b>定义</b> <a href="../../da/da4/transcendental__factor_8cpp_source.html#l00328">transcendental_factor.cpp:328</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac709ba772e5b7c66bafa7fcc673a1fe3"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac709ba772e5b7c66bafa7fcc673a1fe3">lamina::HenselLiftPair::s</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; s</div><div class="ttdoc">g 的 Bezout 系数向量</div><div class="ttdef"><b>定义</b> <a href="#l00139">transcendental_factor.hpp:139</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ac7d7bf60f0b9a8879648a45550258981"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ac7d7bf60f0b9a8879648a45550258981">lamina::reconstruction_modulus</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; const BigInt &amp; reconstruction_modulus</div><div class="ttdef"><b>定义</b> <a href="#l00119">transcendental_factor.hpp:119</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad10840920726846d29eaa90c1ef229a9"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad10840920726846d29eaa90c1ef229a9">lamina::TransSubstitutionResult::mappings</a></div><div class="ttdeci">std::vector&lt; TransSubstitution &gt; mappings</div><div class="ttdoc">所有换元映射</div><div class="ttdef"><b>定义</b> <a href="#l00033">transcendental_factor.hpp:33</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad1ec692f098f74ab8bfeabd73ea9865a"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad1ec692f098f74ab8bfeabd73ea9865a">lamina::HenselLiftResult</a></div><div class="ttdeci">Result&lt; std::vector&lt; Polynomial&lt; BigInt &gt; &gt; &gt; HenselLiftResult</div><div class="ttdef"><b>定义</b> <a href="#l00092">transcendental_factor.hpp:92</a></div></div>
+<div class="ttc" id="anamespacelamina_html_ad2dac8a83fb51509e503dc407462e172"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#ad2dac8a83fb51509e503dc407462e172">lamina::HenselLiftPair::h</a></div><div class="ttdeci">std::vector&lt; BigInt &gt; h</div><div class="ttdoc">第二个因子系数向量</div><div class="ttdef"><b>定义</b> <a href="#l00138">transcendental_factor.hpp:138</a></div></div>
+<div class="ttc" id="anamespacelamina_html_aed0681597cce8802d2601256d19dceb4"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#aed0681597cce8802d2601256d19dceb4">lamina::TransSubstitution::indeterminate</a></div><div class="ttdeci">std::string indeterminate</div><div class="ttdoc">代数不定元名 (e.g., &quot;u0&quot;)</div><div class="ttdef"><b>定义</b> <a href="#l00028">transcendental_factor.hpp:28</a></div></div>
+<div class="ttc" id="anamespacelamina_html_afff32c115c8dc6f9ee982bf3630262db"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#afff32c115c8dc6f9ee982bf3630262db">lamina::lifted_factors</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; &amp; lifted_factors</div><div class="ttdef"><b>定义</b> <a href="#l00118">transcendental_factor.hpp:118</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d2/d09/structlamina_1_1HenselLiftPair"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d2/d09/structlamina_1_1HenselLiftPair">lamina::HenselLiftPair</a></div><div class="ttdoc">二因子二次 Hensel 提升的状态结构.</div><div class="ttdef"><b>定义</b> <a href="#l00136">transcendental_factor.hpp:136</a></div></div>
+<div class="ttc" id="anamespacelamina_html_d4/d2b/structlamina_1_1TransSubstitution"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#d4/d2b/structlamina_1_1TransSubstitution">lamina::TransSubstitution</a></div><div class="ttdoc">换元映射条目:超越子表达式 -&gt; 代数不定元名</div><div class="ttdef"><b>定义</b> <a href="#l00026">transcendental_factor.hpp:26</a></div></div>
+<div class="ttc" id="anamespacelamina_html_db/db4/structlamina_1_1TransSubstitutionResult"><div class="ttname"><a href="../../d1/d42/namespacelamina.html#db/db4/structlamina_1_1TransSubstitutionResult">lamina::TransSubstitutionResult</a></div><div class="ttdoc">换元结果</div><div class="ttdef"><b>定义</b> <a href="#l00032">transcendental_factor.hpp:32</a></div></div>
+<div class="ttc" id="apolynomial_8hpp_html"><div class="ttname"><a href="../../d0/d3e/polynomial_8hpp.html">polynomial.hpp</a></div><div class="ttdoc">一元多项式模板类 Polynomial&lt;T&gt;,支持四则运算,GCD,求导,求值.</div></div>
+<div class="ttc" id="arational_8hpp_html"><div class="ttname"><a href="../../d1/de8/rational_8hpp.html">rational.hpp</a></div><div class="ttdoc">精确有理数 Rational，基于 BigInt 分子/分母表示，自动约分。</div></div>
+<div class="ttc" id="aresult_8hpp_html"><div class="ttname"><a href="../../de/d80/result_8hpp.html">result.hpp</a></div></div>
+<div class="ttc" id="astructlamina_1_1BerlekampResult_html_a0c7c661ed9035e6786af3d69c6b7cf84"><div class="ttname"><a href="../../db/d5f/structlamina_1_1BerlekampResult.html#a0c7c661ed9035e6786af3d69c6b7cf84">lamina::BerlekampResult::null_space_dim</a></div><div class="ttdeci">int null_space_dim</div><div class="ttdoc">零空间维度(= 不可约因子数)</div><div class="ttdef"><b>定义</b> <a href="#l00042">transcendental_factor.hpp:42</a></div></div>
+<div class="ttc" id="astructlamina_1_1BerlekampResult_html_a11db4442dced9d4c5114987c58d40858"><div class="ttname"><a href="../../db/d5f/structlamina_1_1BerlekampResult.html#a11db4442dced9d4c5114987c58d40858">lamina::BerlekampResult::prime</a></div><div class="ttdeci">int64_t prime</div><div class="ttdoc">使用的素数</div><div class="ttdef"><b>定义</b> <a href="#l00040">transcendental_factor.hpp:40</a></div></div>
+<div class="ttc" id="astructlamina_1_1BerlekampResult_html_a1a49d5776e1a306b7bb6e48de498a1d8"><div class="ttname"><a href="../../db/d5f/structlamina_1_1BerlekampResult.html#a1a49d5776e1a306b7bb6e48de498a1d8">lamina::BerlekampResult::BerlekampResult</a></div><div class="ttdeci">BerlekampResult()</div><div class="ttdef"><b>定义</b> <a href="#l00045">transcendental_factor.hpp:45</a></div></div>
+<div class="ttc" id="astructlamina_1_1BerlekampResult_html_a892994651b7dc4c396f5ed19d8315702"><div class="ttname"><a href="../../db/d5f/structlamina_1_1BerlekampResult.html#a892994651b7dc4c396f5ed19d8315702">lamina::BerlekampResult::factors</a></div><div class="ttdeci">std::vector&lt; Polynomial&lt; ModInt &gt; &gt; factors</div><div class="ttdoc">模 p 下的不可约因子</div><div class="ttdef"><b>定义</b> <a href="#l00041">transcendental_factor.hpp:41</a></div></div>
+<div class="ttc" id="astructlamina_1_1BerlekampResult_html_a8b17de0fb2a848b766efc6d8ec90250b"><div class="ttname"><a href="../../db/d5f/structlamina_1_1BerlekampResult.html#a8b17de0fb2a848b766efc6d8ec90250b">lamina::BerlekampResult::null_space_basis</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; int64_t &gt; &gt; null_space_basis</div><div class="ttdoc">零空间基向量</div><div class="ttdef"><b>定义</b> <a href="#l00043">transcendental_factor.hpp:43</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfPolyBuildResult_html_a7e4a8e5197e7ea259a326e8000f7e502"><div class="ttname"><a href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a7e4a8e5197e7ea259a326e8000f7e502">lamina::TfPolyBuildResult::poly</a></div><div class="ttdeci">Polynomial&lt; Rational &gt; poly</div><div class="ttdoc">主变量多项式(单变量或主变量策略)</div><div class="ttdef"><b>定义</b> <a href="#l00190">transcendental_factor.hpp:190</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfPolyBuildResult_html_a88ca5b0fdd8c150075b8c3a26647e25e"><div class="ttname"><a href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#a88ca5b0fdd8c150075b8c3a26647e25e">lamina::TfPolyBuildResult::TfPolyBuildResult</a></div><div class="ttdeci">TfPolyBuildResult()</div><div class="ttdef"><b>定义</b> <a href="#l00194">transcendental_factor.hpp:194</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfPolyBuildResult_html_aadcde61bdfa604de5b4fcd736fa10494"><div class="ttname"><a href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aadcde61bdfa604de5b4fcd736fa10494">lamina::TfPolyBuildResult::param_variables</a></div><div class="ttdeci">std::vector&lt; std::string &gt; param_variables</div><div class="ttdoc">参数变量列表(非主变量的不定元)</div><div class="ttdef"><b>定义</b> <a href="#l00192">transcendental_factor.hpp:192</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfPolyBuildResult_html_aaec0b89eb2fa789227cf767273d889f0"><div class="ttname"><a href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aaec0b89eb2fa789227cf767273d889f0">lamina::TfPolyBuildResult::main_variable</a></div><div class="ttdeci">std::string main_variable</div><div class="ttdoc">选定的主变量名</div><div class="ttdef"><b>定义</b> <a href="#l00191">transcendental_factor.hpp:191</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfPolyBuildResult_html_aecdd2ab49696dd321edec07c824605e7"><div class="ttname"><a href="../../d2/dee/structlamina_1_1TfPolyBuildResult.html#aecdd2ab49696dd321edec07c824605e7">lamina::TfPolyBuildResult::success</a></div><div class="ttdeci">bool success</div><div class="ttdoc">转换是否成功</div><div class="ttdef"><b>定义</b> <a href="#l00189">transcendental_factor.hpp:189</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfSquareFreeResult_html_a48b0fbc46658161bd8e38b1ff0e6a58f"><div class="ttname"><a href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a48b0fbc46658161bd8e38b1ff0e6a58f">lamina::TfSquareFreeResult::square_free</a></div><div class="ttdeci">Polynomial&lt; Rational &gt; square_free</div><div class="ttdoc">无平方因子部分</div><div class="ttdef"><b>定义</b> <a href="#l00167">transcendental_factor.hpp:167</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfSquareFreeResult_html_a8b6dd2c366671c374ba598c987508bd9"><div class="ttname"><a href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#a8b6dd2c366671c374ba598c987508bd9">lamina::TfSquareFreeResult::had_repeated_factors</a></div><div class="ttdeci">bool had_repeated_factors</div><div class="ttdoc">是否存在重复因子</div><div class="ttdef"><b>定义</b> <a href="#l00169">transcendental_factor.hpp:169</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfSquareFreeResult_html_aa45eef30d824ec7638bd1bc713e8e71b"><div class="ttname"><a href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa45eef30d824ec7638bd1bc713e8e71b">lamina::TfSquareFreeResult::TfSquareFreeResult</a></div><div class="ttdeci">TfSquareFreeResult()</div><div class="ttdef"><b>定义</b> <a href="#l00171">transcendental_factor.hpp:171</a></div></div>
+<div class="ttc" id="astructlamina_1_1TfSquareFreeResult_html_aa8b53134652a2653f5f67298a7075562"><div class="ttname"><a href="../../d3/d8c/structlamina_1_1TfSquareFreeResult.html#aa8b53134652a2653f5f67298a7075562">lamina::TfSquareFreeResult::repeated_factor</a></div><div class="ttdeci">Polynomial&lt; Rational &gt; repeated_factor</div><div class="ttdoc">重复因子 gcd(f, f&#39;)</div><div class="ttdef"><b>定义</b> <a href="#l00168">transcendental_factor.hpp:168</a></div></div>
+<div class="ttc" id="asymbolic_8hpp_html"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a></div><div class="ttdoc">符号表达式主类 SymbolicExpr 及其工厂方法,运算接口.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

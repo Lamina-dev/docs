@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/ode_rosenbrock.c 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('ode__rosenbrock_8c_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ode_rosenbrock.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ode__rosenbrock_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="memory__bridge_8h.html">memory_bridge.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="internal_8h.html">internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="ode__internal_8h.html">ode_internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="ode_8h.html">lmmc/ode.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="dense_8h.html">lmmc/dense.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="linear__algebra_8h.html">lmmc/linear_algebra.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">   18</a></span><span class="preprocessor">#define ROS_STAGES 4</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="ode__rosenbrock_8c.html#a8ceae89ffcecdeadec2309b33e473f7e">   19</a></span><span class="preprocessor">#define ROS_VECTORS 13</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_gamma = 0.231;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_a21 = 2.0;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_a31 = 4.524708207373116;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_a32 = 4.163528788597648;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c21 = -5.071675338776316;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c31 = 6.020152728650786;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c32 = 0.1597506846727117;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c41 = -1.856343618686113;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c42 = -8.505380858179826;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c43 = -2.084075136023187;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_b[<a class="code hl_define" href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a>] = {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    3.957503746640777, 4.624892388363313,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    0.6174772638750108, 1.282612945269037</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_e[<a class="code hl_define" href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a>] = {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    2.302155402932996, 3.073634485392623,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    -0.8732808018045032, -1.282612945269037</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_d[<a class="code hl_define" href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a>] = {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    0.231, -0.03962966775244303,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    0.5507789395789127, -0.05535098457052764</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c2 = 0.462;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ros_c3 = 0.8802083333333334;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> ros_time_derivative(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_typedef" href="ode_8h.html#a23c8b7eaaccec6722bd75b19c9935d1a">lmmc_ode_rhs_t</a> rhs,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_typedef" href="ode_8h.html#af1a5a538bc7f48ca6b12f4500bdd2bbe">lmmc_ode_dfdt_t</a> time_derivative,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span>* user_data,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* y,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* f0,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">size_t</span> dim,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* dfdt,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* f_pert,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_struct" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a>* result</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">int</span> callback_failed = 0;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (time_derivative != NULL) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        st = time_derivative(t, y, dfdt, dim, user_data);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> lmmc_ode_values_are_finite(dfdt, dim);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> delta = sqrt(2.2204460492503131e-16) * fmax(1.0, fabs(t));</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        st = lmmc_ode_rhs_eval(rhs, t + delta, y, f_pert, dim, user_data,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                               &amp;result-&gt;<a class="code hl_variable" href="ode_8h.html#a13f0d8edcb1a992aab16384325d3f63d">num_rhs_evals</a>, &amp;callback_failed);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            dfdt[i] = (f_pert[i] - f0[i]) / delta;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> lmmc_ode_values_are_finite(dfdt, dim);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> ros_solve_stage(</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a>* lu,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span>* pivots,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* rhs,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* stage,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordtype">size_t</span> dim</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> rhs_vec = {dim, (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)rhs, 0};</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <a class="code hl_struct" href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a> stage_vec = {dim, stage, 0};</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_function" href="linear__algebra_8h.html#a69dfc49d5bb5d426b37d220d8b93208e">lmmc_lu_solve</a>(lu, pivots, &amp;rhs_vec, &amp;stage_vec);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">return</span> lmmc_ode_values_are_finite(stage, dim);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="ode_8h.html#a87929e66754ebcc121215966ea76df21">  101</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="ode_8h.html#a87929e66754ebcc121215966ea76df21">lmmc_ode_rosenbrock_grk4t_solve</a>(</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_typedef" href="ode_8h.html#a23c8b7eaaccec6722bd75b19c9935d1a">lmmc_ode_rhs_t</a> rhs,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">void</span>* user_data,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">size_t</span> dim,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_start,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t_end,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* y,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">const</span> <a class="code hl_struct" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a>* cfg,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_struct" href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a>* out_result</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_struct" href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a> local_cfg = {0};</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">size_t</span> work_bytes = 0, vectors_bytes = 0, matrix_count = 0, matrix_bytes = 0;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* work = NULL;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* matrix_data = NULL;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordtype">size_t</span>* pivots = NULL;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* k[<a class="code hl_define" href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a>];</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *f0, *f_stage, *y_stage, *y_pert, *f_pert;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> *rhs_vec, *dfdt, *y_new, *error;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_struct" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a> W = {0};</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> t = t_start, h;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordtype">size_t</span> attempts = 0, i, j;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    st = validate_and_init_ode_config(rhs, dim, t_start, t_end, y, cfg,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                                      &amp;local_cfg, out_result, &amp;work_bytes);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">if</span> (!lmmc_safe_mul_size(work_bytes, <a class="code hl_define" href="ode__rosenbrock_8c.html#a8ceae89ffcecdeadec2309b33e473f7e">ROS_VECTORS</a>, &amp;vectors_bytes) ||</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        !lmmc_safe_mul_size(dim, dim, &amp;matrix_count) ||</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        !lmmc_safe_mul_size(matrix_count, <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>), &amp;matrix_bytes) ||</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        !lmmc_safe_mul_size(dim, <span class="keyword">sizeof</span>(<span class="keywordtype">size_t</span>), &amp;matrix_count)) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a95ce28fb06ec6e4fe58b1e0f7e3887b1">LMMC_ODE_FAILURE_INVALID_DIMENSION</a>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    work = (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(vectors_bytes);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    matrix_data = (<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(matrix_bytes);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    pivots = (<span class="keywordtype">size_t</span>*)<a class="code hl_define" href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a>(matrix_count);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">if</span> (work == NULL || matrix_data == NULL || pivots == NULL) {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code hl_define" href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a>; ++i) {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        k[i] = work + i * dim;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    f0 = work + 4 * dim;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    f_stage = work + 5 * dim;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    y_stage = work + 6 * dim;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    y_pert = work + 7 * dim;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    f_pert = work + 8 * dim;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    rhs_vec = work + 9 * dim;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    dfdt = work + 10 * dim;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    y_new = work + 11 * dim;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    error = work + 12 * dim;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    W = (<a class="code hl_struct" href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a>){dim, dim, dim, matrix_data, 0};</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    h = lmmc_clamp(local_cfg.<a class="code hl_variable" href="ode_8h.html#a28ce7801e6f4ce412d5f19ff5915a9d6">initial_step</a>, local_cfg.<a class="code hl_variable" href="ode_8h.html#aeaf6cc2f3d669df6899d227470f65523">min_step</a>, local_cfg.<a class="code hl_variable" href="ode_8h.html#aae2f144c16446433d2ff417ce247482d">max_step</a>);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">if</span> (h &gt; t_end - t_start) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        h = t_end - t_start;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    lmmc_ode_do_log(&amp;local_cfg, 0, t, y, dim);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">while</span> (t &lt; t_end &amp;&amp; attempts &lt; local_cfg.<a class="code hl_variable" href="ode_8h.html#aa093883ade09aaae21ab6bae584a6b63">max_steps</a>) {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> error_norm = 0.0;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordtype">size_t</span> swap_count = 0;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordtype">int</span> callback_failed = 0;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        ++attempts;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">if</span> (h &gt; t_end - t) {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            h = t_end - t;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        st = lmmc_ode_rhs_eval(rhs, t, y, f0, dim, user_data,</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                               &amp;out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a13f0d8edcb1a992aab16384325d3f63d">num_rhs_evals</a>, &amp;callback_failed);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = callback_failed ? <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8ed8411c4009530f595534e28b888d4a">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                                                         : <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        st = lmmc_ode_jacobian_eval(</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            rhs, local_cfg.<a class="code hl_variable" href="ode_8h.html#ab14cc1de60745289d3c26291622f5ef9">jacobian</a>, user_data, t, y, f0, dim, matrix_data,</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            f_stage, y_pert, f_pert, &amp;out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a13f0d8edcb1a992aab16384325d3f63d">num_rhs_evals</a>,</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            &amp;callback_failed);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> =</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                callback_failed ? <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8ed8411c4009530f595534e28b888d4a">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                                : <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        }</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        st = ros_time_derivative(rhs, local_cfg.<a class="code hl_variable" href="ode_8h.html#a51af9cbae83d6e16c7ff7ac6d7f3a374">time_derivative</a>, user_data, t, y,</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                                 f0, dim, dfdt, f_pert, out_result);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            <span class="keywordflow">for</span> (j = 0; j &lt; dim; ++j) {</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                W.<a class="code hl_variable" href="dense_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[i * dim + j] = -matrix_data[i * dim + j];</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            W.<a class="code hl_variable" href="dense_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[i * dim + i] += 1.0 / (h * ros_gamma);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        st = <a class="code hl_function" href="linear__algebra_8h.html#af355bd29273cd0258ec0175661ed7c66">lmmc_lu_decompose_inplace</a>(&amp;W, pivots, &amp;swap_count);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            rhs_vec[i] = f0[i] + h * ros_d[0] * dfdt[i];</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        st = ros_solve_stage(&amp;W, pivots, rhs_vec, k[0], dim);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            y_stage[i] = y[i] + ros_a21 * k[0][i];</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        st = lmmc_ode_rhs_eval(rhs, t + ros_c2 * h, y_stage, f_stage, dim, user_data,</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                               &amp;out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a13f0d8edcb1a992aab16384325d3f63d">num_rhs_evals</a>, &amp;callback_failed);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = callback_failed ? <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8ed8411c4009530f595534e28b888d4a">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                                                         : <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        }</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            rhs_vec[i] = f_stage[i] + h * ros_d[1] * dfdt[i] + (ros_c21 / h) * k[0][i];</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        st = ros_solve_stage(&amp;W, pivots, rhs_vec, k[1], dim);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            y_stage[i] = y[i] + ros_a31 * k[0][i] + ros_a32 * k[1][i];</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        }</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        st = lmmc_ode_rhs_eval(rhs, t + ros_c3 * h, y_stage, f_stage, dim, user_data,</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                               &amp;out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a13f0d8edcb1a992aab16384325d3f63d">num_rhs_evals</a>, &amp;callback_failed);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = callback_failed ? <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8ed8411c4009530f595534e28b888d4a">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                                                         : <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            rhs_vec[i] = f_stage[i] + h * ros_d[2] * dfdt[i]</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                       + (ros_c31 / h) * k[0][i] + (ros_c32 / h) * k[1][i];</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        }</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        st = ros_solve_stage(&amp;W, pivots, rhs_vec, k[2], dim);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            rhs_vec[i] = f_stage[i] + h * ros_d[3] * dfdt[i]</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                       + (ros_c41 / h) * k[0][i] + (ros_c42 / h) * k[1][i]</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                       + (ros_c43 / h) * k[2][i];</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        st = ros_solve_stage(&amp;W, pivots, rhs_vec, k[3], dim);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        <span class="keywordflow">for</span> (i = 0; i &lt; dim; ++i) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            y_new[i] = y[i] + ros_b[0] * k[0][i] + ros_b[1] * k[1][i]</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>                     + ros_b[2] * k[2][i] + ros_b[3] * k[3][i];</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            error[i] = ros_e[0] * k[0][i] + ros_e[1] * k[1][i]</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>                     + ros_e[2] * k[2][i] + ros_e[3] * k[3][i];</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        st = lmmc_ode_values_are_finite(y_new, dim);</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        st = lmmc_ode_weighted_rms(error, y, y_new, dim, local_cfg.<a class="code hl_variable" href="ode_8h.html#a50d818be7d2eb4927c09cbaebec83c3a">abs_tol</a>,</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                                    local_cfg.<a class="code hl_variable" href="ode_8h.html#a85a6632aad65a9b3224ef4768c4f182d">rel_tol</a>, &amp;error_norm);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">if</span> (error_norm &lt;= 1.0) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            memcpy(y, y_new, work_bytes);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            t += h;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#aa55fc87d022b17dcaf3c6a23c323c921">num_steps</a> += 1;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a47192201db20b9102a7ba053272e12ae">final_t</a> = t;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            lmmc_ode_do_log(&amp;local_cfg, out_result-&gt;<a class="code hl_variable" href="ode_8h.html#aa55fc87d022b17dcaf3c6a23c323c921">num_steps</a>, t, y, dim);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (h &lt;= local_cfg.<a class="code hl_variable" href="ode_8h.html#aeaf6cc2f3d669df6899d227470f65523">min_step</a>) {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81">LMMC_STATUS_CONVERGENCE_FAILED</a>;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a7975a4e4799b37581139d9fabfa1055b">LMMC_ODE_FAILURE_INVALID_STEP</a>;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        }</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        h = lmmc_ode_next_step(h, error_norm, &amp;local_cfg);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">if</span> (t &gt;= t_end) {</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        out_result-&gt;<a class="code hl_variable" href="ode_8h.html#aeda553437213e794449eafeb194bfc21">converged</a> = 1;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8a0d55a9f6b49d39d47c994f6186d0ca">LMMC_ODE_FAILURE_NONE</a>;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8ae31cb640418c4781dce97ced9434e722">LMMC_ODE_FAILURE_MAX_STEPS</a>;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81">LMMC_STATUS_CONVERGENCE_FAILED</a>;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>cleanup:</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> &amp;&amp; out_result != NULL &amp;&amp;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> == <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8a0d55a9f6b49d39d47c994f6186d0ca">LMMC_ODE_FAILURE_NONE</a>) {</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        out_result-&gt;<a class="code hl_variable" href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">failure_reason</a> = <a class="code hl_enumvalue" href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(pivots);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(matrix_data);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <a class="code hl_define" href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a>(work);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>}</div>
+</div>
+<div class="ttc" id="aconfig_8h_html_aa4548c12a1662c29aa98371cb5885543"><div class="ttname"><a href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></div><div class="ttdeci">double lmmc_real_t</div><div class="ttdoc">LMMC 内部使用的实数类型。</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00018">config.h:18</a></div></div>
+<div class="ttc" id="adense_8h_html"><div class="ttname"><a href="dense_8h.html">dense.h</a></div><div class="ttdoc">稠密矩阵 / 向量数据结构与基本运算.</div></div>
+<div class="ttc" id="adense_8h_html_a8c72b81b3a507308e133e2da998e1a5d"><div class="ttname"><a href="dense_8h.html#a8c72b81b3a507308e133e2da998e1a5d">lmmc_mat_t::data</a></div><div class="ttdeci">lmmc_real_t * data</div><div class="ttdef"><b>定义</b> <a href="dense_8h_source.html#l00030">dense.h:30</a></div></div>
+<div class="ttc" id="adense_8h_html_structlmmc__mat__t"><div class="ttname"><a href="dense_8h.html#structlmmc__mat__t">lmmc_mat_t</a></div><div class="ttdoc">行优先存储的稠密矩阵.</div><div class="ttdef"><b>定义</b> <a href="dense_8h_source.html#l00026">dense.h:26</a></div></div>
+<div class="ttc" id="adense_8h_html_structlmmc__vec__t"><div class="ttname"><a href="dense_8h.html#structlmmc__vec__t">lmmc_vec_t</a></div><div class="ttdoc">一维稠密向量.</div><div class="ttdef"><b>定义</b> <a href="dense_8h_source.html#l00039">dense.h:39</a></div></div>
+<div class="ttc" id="ainternal_8h_html"><div class="ttname"><a href="internal_8h.html">internal.h</a></div><div class="ttdoc">LMMC 内部使用的公共工具(仅源文件可见).</div></div>
+<div class="ttc" id="alinear__algebra_8h_html"><div class="ttname"><a href="linear__algebra_8h.html">linear_algebra.h</a></div><div class="ttdoc">稠密矩阵直接分解接口（LU、Cholesky、QR）。</div></div>
+<div class="ttc" id="alinear__algebra_8h_html_a69dfc49d5bb5d426b37d220d8b93208e"><div class="ttname"><a href="linear__algebra_8h.html#a69dfc49d5bb5d426b37d220d8b93208e">lmmc_lu_solve</a></div><div class="ttdeci">lmmc_status_t lmmc_lu_solve(const lmmc_mat_t *lu, const size_t *pivots, const lmmc_vec_t *b, lmmc_vec_t *x)</div><div class="ttdoc">利用 LU 分解结果求解线性系统 A*x = b。</div><div class="ttdef"><b>定义</b> <a href="linear__algebra_8c_source.html#l00113">linear_algebra.c:113</a></div></div>
+<div class="ttc" id="alinear__algebra_8h_html_af355bd29273cd0258ec0175661ed7c66"><div class="ttname"><a href="linear__algebra_8h.html#af355bd29273cd0258ec0175661ed7c66">lmmc_lu_decompose_inplace</a></div><div class="ttdeci">lmmc_status_t lmmc_lu_decompose_inplace(lmmc_mat_t *a, size_t *pivots, size_t *out_swap_count)</div><div class="ttdoc">就地 LU 分解（带部分主元选取）：P*A = L*U。</div><div class="ttdef"><b>定义</b> <a href="linear__algebra_8c_source.html#l00039">linear_algebra.c:39</a></div></div>
+<div class="ttc" id="amemory__bridge_8h_html"><div class="ttname"><a href="memory__bridge_8h.html">memory_bridge.h</a></div><div class="ttdoc">Private recoverable allocator for persistent LMMC ownership.</div></div>
+<div class="ttc" id="amemory__bridge_8h_html_a883f385bde933316ceedda50a2293fc0"><div class="ttname"><a href="memory__bridge_8h.html#a883f385bde933316ceedda50a2293fc0">lmmc_free</a></div><div class="ttdeci">#define lmmc_free(ptr)</div><div class="ttdoc">Release persistent storage on any externally synchronized thread.</div><div class="ttdef"><b>定义</b> <a href="memory__bridge_8h_source.html#l00022">memory_bridge.h:22</a></div></div>
+<div class="ttc" id="amemory__bridge_8h_html_ac171dbb634c8dc145a35b0cbc28ee480"><div class="ttname"><a href="memory__bridge_8h.html#ac171dbb634c8dc145a35b0cbc28ee480">lmmc_alloc</a></div><div class="ttdeci">#define lmmc_alloc(sz)</div><div class="ttdoc">Allocate persistent storage through the recoverable bridge.</div><div class="ttdef"><b>定义</b> <a href="memory__bridge_8h_source.html#l00020">memory_bridge.h:20</a></div></div>
+<div class="ttc" id="aode_8h_html"><div class="ttname"><a href="ode_8h.html">ode.h</a></div><div class="ttdoc">常微分方程初值问题求解器：Euler、RK4、RK45（自适应）。</div></div>
+<div class="ttc" id="aode_8h_html_a13f0d8edcb1a992aab16384325d3f63d"><div class="ttname"><a href="ode_8h.html#a13f0d8edcb1a992aab16384325d3f63d">lmmc_ode_result_t::num_rhs_evals</a></div><div class="ttdeci">size_t num_rhs_evals</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00049">ode.h:49</a></div></div>
+<div class="ttc" id="aode_8h_html_a23c8b7eaaccec6722bd75b19c9935d1a"><div class="ttname"><a href="ode_8h.html#a23c8b7eaaccec6722bd75b19c9935d1a">lmmc_ode_rhs_t</a></div><div class="ttdeci">lmmc_status_t(*) lmmc_ode_rhs_t(lmmc_real_t t, const lmmc_real_t *y, lmmc_real_t *y_prime, size_t dim, void *user_data)</div><div class="ttdoc">ODE 右端函数签名  。</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00026">ode.h:26</a></div></div>
+<div class="ttc" id="aode_8h_html_a28ce7801e6f4ce412d5f19ff5915a9d6"><div class="ttname"><a href="ode_8h.html#a28ce7801e6f4ce412d5f19ff5915a9d6">lmmc_ode_config_t::initial_step</a></div><div class="ttdeci">lmmc_real_t initial_step</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00092">ode.h:92</a></div></div>
+<div class="ttc" id="aode_8h_html_a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240"><div class="ttname"><a href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a1496fde8ebc26458e15bd37aab756240">LMMC_ODE_FAILURE_NUMERICAL_ISSUE</a></div><div class="ttdeci">@ LMMC_ODE_FAILURE_NUMERICAL_ISSUE</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00040">ode.h:40</a></div></div>
+<div class="ttc" id="aode_8h_html_a35a5bee79520afaa1d4089e9c34e41d8a7975a4e4799b37581139d9fabfa1055b"><div class="ttname"><a href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a7975a4e4799b37581139d9fabfa1055b">LMMC_ODE_FAILURE_INVALID_STEP</a></div><div class="ttdeci">@ LMMC_ODE_FAILURE_INVALID_STEP</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00038">ode.h:38</a></div></div>
+<div class="ttc" id="aode_8h_html_a35a5bee79520afaa1d4089e9c34e41d8a8a0d55a9f6b49d39d47c994f6186d0ca"><div class="ttname"><a href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8a0d55a9f6b49d39d47c994f6186d0ca">LMMC_ODE_FAILURE_NONE</a></div><div class="ttdeci">@ LMMC_ODE_FAILURE_NONE</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00036">ode.h:36</a></div></div>
+<div class="ttc" id="aode_8h_html_a35a5bee79520afaa1d4089e9c34e41d8a8ed8411c4009530f595534e28b888d4a"><div class="ttname"><a href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a8ed8411c4009530f595534e28b888d4a">LMMC_ODE_FAILURE_RHS_EVAL_FAILED</a></div><div class="ttdeci">@ LMMC_ODE_FAILURE_RHS_EVAL_FAILED</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00041">ode.h:41</a></div></div>
+<div class="ttc" id="aode_8h_html_a35a5bee79520afaa1d4089e9c34e41d8a95ce28fb06ec6e4fe58b1e0f7e3887b1"><div class="ttname"><a href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8a95ce28fb06ec6e4fe58b1e0f7e3887b1">LMMC_ODE_FAILURE_INVALID_DIMENSION</a></div><div class="ttdeci">@ LMMC_ODE_FAILURE_INVALID_DIMENSION</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00037">ode.h:37</a></div></div>
+<div class="ttc" id="aode_8h_html_a35a5bee79520afaa1d4089e9c34e41d8ae31cb640418c4781dce97ced9434e722"><div class="ttname"><a href="ode_8h.html#a35a5bee79520afaa1d4089e9c34e41d8ae31cb640418c4781dce97ced9434e722">LMMC_ODE_FAILURE_MAX_STEPS</a></div><div class="ttdeci">@ LMMC_ODE_FAILURE_MAX_STEPS</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00039">ode.h:39</a></div></div>
+<div class="ttc" id="aode_8h_html_a47192201db20b9102a7ba053272e12ae"><div class="ttname"><a href="ode_8h.html#a47192201db20b9102a7ba053272e12ae">lmmc_ode_result_t::final_t</a></div><div class="ttdeci">lmmc_real_t final_t</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00050">ode.h:50</a></div></div>
+<div class="ttc" id="aode_8h_html_a50d818be7d2eb4927c09cbaebec83c3a"><div class="ttname"><a href="ode_8h.html#a50d818be7d2eb4927c09cbaebec83c3a">lmmc_ode_config_t::abs_tol</a></div><div class="ttdeci">lmmc_real_t abs_tol</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00095">ode.h:95</a></div></div>
+<div class="ttc" id="aode_8h_html_a51af9cbae83d6e16c7ff7ac6d7f3a374"><div class="ttname"><a href="ode_8h.html#a51af9cbae83d6e16c7ff7ac6d7f3a374">lmmc_ode_config_t::time_derivative</a></div><div class="ttdeci">lmmc_ode_dfdt_t time_derivative</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00101">ode.h:101</a></div></div>
+<div class="ttc" id="aode_8h_html_a85a6632aad65a9b3224ef4768c4f182d"><div class="ttname"><a href="ode_8h.html#a85a6632aad65a9b3224ef4768c4f182d">lmmc_ode_config_t::rel_tol</a></div><div class="ttdeci">lmmc_real_t rel_tol</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00096">ode.h:96</a></div></div>
+<div class="ttc" id="aode_8h_html_a87929e66754ebcc121215966ea76df21"><div class="ttname"><a href="ode_8h.html#a87929e66754ebcc121215966ea76df21">lmmc_ode_rosenbrock_grk4t_solve</a></div><div class="ttdeci">lmmc_status_t lmmc_ode_rosenbrock_grk4t_solve(lmmc_ode_rhs_t rhs, void *user_data, size_t dim, lmmc_real_t t_start, lmmc_real_t t_end, lmmc_real_t *y, const lmmc_ode_config_t *cfg, lmmc_ode_result_t *out_result)</div><div class="ttdoc">Rosenbrock-Wanner GRK4T 求解器（线性隐式，四阶，每步一次 LU）。</div><div class="ttdef"><b>定义</b> <a href="#l00101">ode_rosenbrock.c:101</a></div></div>
+<div class="ttc" id="aode_8h_html_a8824b9c9adedb3b9eae4f3387d051713"><div class="ttname"><a href="ode_8h.html#a8824b9c9adedb3b9eae4f3387d051713">lmmc_ode_result_t::failure_reason</a></div><div class="ttdeci">lmmc_ode_failure_t failure_reason</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00051">ode.h:51</a></div></div>
+<div class="ttc" id="aode_8h_html_aa093883ade09aaae21ab6bae584a6b63"><div class="ttname"><a href="ode_8h.html#aa093883ade09aaae21ab6bae584a6b63">lmmc_ode_config_t::max_steps</a></div><div class="ttdeci">size_t max_steps</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00097">ode.h:97</a></div></div>
+<div class="ttc" id="aode_8h_html_aa55fc87d022b17dcaf3c6a23c323c921"><div class="ttname"><a href="ode_8h.html#aa55fc87d022b17dcaf3c6a23c323c921">lmmc_ode_result_t::num_steps</a></div><div class="ttdeci">size_t num_steps</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00048">ode.h:48</a></div></div>
+<div class="ttc" id="aode_8h_html_aae2f144c16446433d2ff417ce247482d"><div class="ttname"><a href="ode_8h.html#aae2f144c16446433d2ff417ce247482d">lmmc_ode_config_t::max_step</a></div><div class="ttdeci">lmmc_real_t max_step</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00094">ode.h:94</a></div></div>
+<div class="ttc" id="aode_8h_html_ab14cc1de60745289d3c26291622f5ef9"><div class="ttname"><a href="ode_8h.html#ab14cc1de60745289d3c26291622f5ef9">lmmc_ode_config_t::jacobian</a></div><div class="ttdeci">lmmc_ode_jac_t jacobian</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00100">ode.h:100</a></div></div>
+<div class="ttc" id="aode_8h_html_aeaf6cc2f3d669df6899d227470f65523"><div class="ttname"><a href="ode_8h.html#aeaf6cc2f3d669df6899d227470f65523">lmmc_ode_config_t::min_step</a></div><div class="ttdeci">lmmc_real_t min_step</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00093">ode.h:93</a></div></div>
+<div class="ttc" id="aode_8h_html_aeda553437213e794449eafeb194bfc21"><div class="ttname"><a href="ode_8h.html#aeda553437213e794449eafeb194bfc21">lmmc_ode_result_t::converged</a></div><div class="ttdeci">int converged</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00047">ode.h:47</a></div></div>
+<div class="ttc" id="aode_8h_html_af1a5a538bc7f48ca6b12f4500bdd2bbe"><div class="ttname"><a href="ode_8h.html#af1a5a538bc7f48ca6b12f4500bdd2bbe">lmmc_ode_dfdt_t</a></div><div class="ttdeci">lmmc_status_t(*) lmmc_ode_dfdt_t(lmmc_real_t t, const lmmc_real_t *y, lmmc_real_t *dfdt, size_t dim, void *user_data)</div><div class="ttdoc">ODE 对时间偏导回调签名 .</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00081">ode.h:81</a></div></div>
+<div class="ttc" id="aode_8h_html_structlmmc__ode__config__t"><div class="ttname"><a href="ode_8h.html#structlmmc__ode__config__t">lmmc_ode_config_t</a></div><div class="ttdoc">ODE 求解配置。</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00091">ode.h:91</a></div></div>
+<div class="ttc" id="aode_8h_html_structlmmc__ode__result__t"><div class="ttname"><a href="ode_8h.html#structlmmc__ode__result__t">lmmc_ode_result_t</a></div><div class="ttdoc">ODE 求解结果统计。</div><div class="ttdef"><b>定义</b> <a href="ode_8h_source.html#l00046">ode.h:46</a></div></div>
+<div class="ttc" id="aode__internal_8h_html"><div class="ttname"><a href="ode__internal_8h.html">ode_internal.h</a></div><div class="ttdoc">ODE 求解器内部共享辅助函数（仅源文件可见）。</div></div>
+<div class="ttc" id="aode__rosenbrock_8c_html_a8524e410d0651d782ddc432e5b961825"><div class="ttname"><a href="ode__rosenbrock_8c.html#a8524e410d0651d782ddc432e5b961825">ROS_STAGES</a></div><div class="ttdeci">#define ROS_STAGES</div><div class="ttdef"><b>定义</b> <a href="#l00018">ode_rosenbrock.c:18</a></div></div>
+<div class="ttc" id="aode__rosenbrock_8c_html_a8ceae89ffcecdeadec2309b33e473f7e"><div class="ttname"><a href="ode__rosenbrock_8c.html#a8ceae89ffcecdeadec2309b33e473f7e">ROS_VECTORS</a></div><div class="ttdeci">#define ROS_VECTORS</div><div class="ttdef"><b>定义</b> <a href="#l00019">ode_rosenbrock.c:19</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a></div><div class="ttdeci">lmmc_status_t</div><div class="ttdoc">LMMC 库统一返回的状态码.</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00022">status.h:22</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba04bdf1820c3cff8d736177b0e32b1f81">LMMC_STATUS_CONVERGENCE_FAILED</a></div><div class="ttdeci">@ LMMC_STATUS_CONVERGENCE_FAILED</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00031">status.h:31</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a></div><div class="ttdeci">@ LMMC_STATUS_OK</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00023">status.h:23</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a></div><div class="ttdeci">@ LMMC_STATUS_ALLOCATION_FAILED</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00026">status.h:26</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">@ LMMC_STATUS_INVALID_ARGUMENT</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00024">status.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="ode__rosenbrock_8c.html">ode_rosenbrock.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>
