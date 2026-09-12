@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['weier_5fhas_5ftrig_5fof_5fvar_0',['weier_has_trig_of_var',['../db/d68/namespaceLMCAS_1_1anonymous__namespace_02integration__weierstrass_8cpp_03.html#ac819aa334de13e3c93cf0a6f4effb237',1,'LMCAS::anonymous_namespace{integration_weierstrass.cpp}']]],
+  ['weier_5fis_5frational_5ftrig_1',['weier_is_rational_trig',['../db/d68/namespaceLMCAS_1_1anonymous__namespace_02integration__weierstrass_8cpp_03.html#a1f4c506e0e8d9003a44789ca7e556c5c',1,'LMCAS::anonymous_namespace{integration_weierstrass.cpp}']]],
+  ['weier_5freplace_2',['weier_replace',['../db/d68/namespaceLMCAS_1_1anonymous__namespace_02integration__weierstrass_8cpp_03.html#abdeb6b258525016d740eaae473adf5c9',1,'LMCAS::anonymous_namespace{integration_weierstrass.cpp}']]],
+  ['weier_5fto_5frational_3',['weier_to_rational',['../db/d68/namespaceLMCAS_1_1anonymous__namespace_02integration__weierstrass_8cpp_03.html#a720736431e326b56a9d39f930f0e53a8',1,'LMCAS::anonymous_namespace{integration_weierstrass.cpp}']]],
+  ['wildcard_4',['wildcard',['../de/dde/namespaceLMCAS.html#a30859aaf1e89804ea6c9155ffeb0b11f',1,'LMCAS']]],
+  ['with_5fassumptions_5',['with_assumptions',['../de/dde/namespaceLMCAS.html#a8affd22159c6d98a5c4bff7befb0ee2c',1,'LMCAS::with_assumptions(AssumptionContext &amp;ctx, const std::vector&lt; AssumptionDecl &gt; &amp;decls, F &amp;&amp;callable) -&gt; std::enable_if_t&lt;!std::is_void_v&lt; decltype(callable())&gt;, Result&lt; decltype(callable())&gt; &gt;'],['../de/dde/namespaceLMCAS.html#acfb5735a706d20a1f079cedea3de3ac0',1,'LMCAS::with_assumptions(AssumptionContext &amp;ctx, const std::vector&lt; AssumptionDecl &gt; &amp;decls, F &amp;&amp;callable) -&gt; std::enable_if_t&lt; std::is_void_v&lt; decltype(callable())&gt;, AssumptionVoidResult &gt;'],['../de/dde/namespaceLMCAS.html#a52d5e195a38ca834353df5a44c12c471',1,'LMCAS::with_assumptions(AssumptionContext &amp;ctx, std::initializer_list&lt; AssumptionDecl &gt; decls, F &amp;&amp;callable) -&gt; decltype(with_assumptions(ctx, std::vector&lt; AssumptionDecl &gt;(decls), std::forward&lt; F &gt;(callable)))']]],
+  ['with_5funit_6',['with_unit',['../de/dde/namespaceLMCAS.html#a12a90213273b4f5686850a5ce3d92593',1,'LMCAS']]],
+  ['with_5funit_5fdefinition_7',['with_unit_definition',['../de/dde/namespaceLMCAS.html#a2de472d5622f90bc3dd03ec5db3204af',1,'LMCAS']]],
+  ['wrap_5fode_5fsolution_8',['wrap_ode_solution',['../de/dde/namespaceLMCAS.html#a1a50a012782eef2d27343c8b56355fbb',1,'LMCAS']]]
+];

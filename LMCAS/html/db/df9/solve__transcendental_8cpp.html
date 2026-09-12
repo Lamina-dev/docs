@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/solve_transcendental.cpp 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('db/df9/solve__transcendental_8cpp.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solve_transcendental.cpp 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d8/d7f/solve__transcendental_8hpp_source.html">solve_transcendental.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d89/symbolic__ast_8hpp_source.html">symbolic_ast.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/dd2/solve__strategies_8hpp_source.html">solve_strategies.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d12/solve__polynomial_8hpp_source.html">solve_polynomial.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/db2/numeric__evaluation_8hpp_source.html">numeric_evaluation.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d39/poly__utils_8hpp_source.html">poly_utils.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/db5/expression__analysis_8hpp_source.html">internal/expression_analysis.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/dfd/numeric__probe_8hpp_source.html">internal/numeric_probe.hpp</a>&quot;</code><br />
+<code>#include &quot;lmmc/config.h&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>solve_transcendental.cpp 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d8/ddf/solve__transcendental_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../db/df9/solve__transcendental_8cpp_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:LMCAS_3A_3AExpBasePattern_5Fd1_2Fdea_2FstructLMCAS_5F1_5F1ExpBasePattern" id="r_LMCAS_3A_3AExpBasePattern_5Fd1_2Fdea_2FstructLMCAS_5F1_5F1ExpBasePattern"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#d1/dea/structLMCAS_1_1ExpBasePattern">LMCAS::ExpBasePattern</a></td></tr>
+<tr class="memitem:LMCAS_3A_3AInversePattern_5Fd7_2Fd68_2FstructLMCAS_5F1_5F1InversePattern" id="r_LMCAS_3A_3AInversePattern_5Fd7_2Fd68_2FstructLMCAS_5F1_5F1InversePattern"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#d7/d68/structLMCAS_1_1InversePattern">LMCAS::InversePattern</a></td></tr>
+<tr class="memitem:LMCAS_3A_3ALambertWPattern_5Fdd_2Fd83_2FstructLMCAS_5F1_5F1LambertWPattern" id="r_LMCAS_3A_3ALambertWPattern_5Fdd_2Fd83_2FstructLMCAS_5F1_5F1LambertWPattern"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#dd/d83/structLMCAS_1_1LambertWPattern">LMCAS::LambertWPattern</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+命名空间</h2></td></tr>
+<tr class="memitem:LMCAS" id="r_LMCAS"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html">LMCAS</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aa73cb19eebb9d9985c9275c77e2cee91" id="r_aa73cb19eebb9d9985c9275c77e2cee91"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#aa73cb19eebb9d9985c9275c77e2cee91">LMCAS::collect_transcendental_subexprs</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var, std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;candidates)</td></tr>
+<tr class="memitem:aeccbc3f6e717cbf03fc427117d9ecdfe" id="r_aeccbc3f6e717cbf03fc427117d9ecdfe"><td class="memItemLeft">static std::optional&lt; <a class="el" href="../../de/dde/namespaceLMCAS.html#d1/dea/structLMCAS_1_1ExpBasePattern">ExpBasePattern</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#aeccbc3f6e717cbf03fc427117d9ecdfe">LMCAS::decompose_exp_base_pattern</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memitem:af499c64b822231bbfbdf14205a8f6795" id="r_af499c64b822231bbfbdf14205a8f6795"><td class="memItemLeft">static std::optional&lt; <a class="el" href="../../de/dde/namespaceLMCAS.html#dd/d83/structLMCAS_1_1LambertWPattern">LambertWPattern</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#af499c64b822231bbfbdf14205a8f6795">LMCAS::decompose_lambert_w_pattern</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memitem:a3b1bbf49629087537e89dbbfa74547a1" id="r_a3b1bbf49629087537e89dbbfa74547a1"><td class="memItemLeft">static std::optional&lt; <a class="el" href="../../de/dde/namespaceLMCAS.html#d7/d68/structLMCAS_1_1InversePattern">InversePattern</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a3b1bbf49629087537e89dbbfa74547a1">LMCAS::decompose_trig_exp_pattern</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memitem:a5044b27eb82ad9f8eb91168375aa55f1" id="r_a5044b27eb82ad9f8eb91168375aa55f1"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a5044b27eb82ad9f8eb91168375aa55f1">LMCAS::deduplicate_candidates</a> (std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;candidates)</td></tr>
+<tr class="memitem:acf934350e2552b5ee8c245e65e71cdec" id="r_acf934350e2552b5ee8c245e65e71cdec"><td class="memItemLeft">std::optional&lt; <a class="el" href="../../de/dde/namespaceLMCAS.html#de/d76/structLMCAS_1_1SubstitutionResult">SubstitutionResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#acf934350e2552b5ee8c245e65e71cdec">LMCAS::detect_substitution</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memitem:a855bb60714a811a95754c54b796bf88b" id="r_a855bb60714a811a95754c54b796bf88b"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a855bb60714a811a95754c54b796bf88b">LMCAS::extract_exp_multiplier</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var)</td></tr>
+<tr class="memitem:a0e61bfe0acf86bf4c2c7ae54932ba52e" id="r_a0e61bfe0acf86bf4c2c7ae54932ba52e"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a0e61bfe0acf86bf4c2c7ae54932ba52e">LMCAS::has_exp_k_var_terms</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var)</td></tr>
+<tr class="memitem:aa9bddc07c2c2710e02dcaa46f864abde" id="r_aa9bddc07c2c2710e02dcaa46f864abde"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#aa9bddc07c2c2710e02dcaa46f864abde">LMCAS::invert_cos</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c, int max_roots)</td></tr>
+<tr class="memitem:ac56eb876c85d7543d19be9b8c6aa77d0" id="r_ac56eb876c85d7543d19be9b8c6aa77d0"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ac56eb876c85d7543d19be9b8c6aa77d0">LMCAS::invert_exp</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c)</td></tr>
+<tr class="memitem:a4d727212650efa54c622ed107255ccf2" id="r_a4d727212650efa54c622ed107255ccf2"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a4d727212650efa54c622ed107255ccf2">LMCAS::invert_exp_base</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;base, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c)</td></tr>
+<tr class="memitem:a084b628a6c0ec4ca671e8cf0f0137fae" id="r_a084b628a6c0ec4ca671e8cf0f0137fae"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a084b628a6c0ec4ca671e8cf0f0137fae">LMCAS::invert_h_cos</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;u_root, const std::string &amp;)</td></tr>
+<tr class="memitem:a582919edfe2f35b20a730a6643472b4a" id="r_a582919edfe2f35b20a730a6643472b4a"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a582919edfe2f35b20a730a6643472b4a">LMCAS::invert_h_exp</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;u_root, const std::string &amp;)</td></tr>
+<tr class="memitem:a60473cb9a1806e28197a7f25f0776de9" id="r_a60473cb9a1806e28197a7f25f0776de9"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a60473cb9a1806e28197a7f25f0776de9">LMCAS::invert_h_power</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;u_root, const std::string &amp;, int n)</td></tr>
+<tr class="memitem:ade727d4cf019fca8085bd9ecfd3af248" id="r_ade727d4cf019fca8085bd9ecfd3af248"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ade727d4cf019fca8085bd9ecfd3af248">LMCAS::invert_h_sin</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;u_root, const std::string &amp;)</td></tr>
+<tr class="memitem:ae04afa5c529a04c58e8ab3e84b9555ce" id="r_ae04afa5c529a04c58e8ab3e84b9555ce"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ae04afa5c529a04c58e8ab3e84b9555ce">LMCAS::invert_h_tan</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;u_root, const std::string &amp;)</td></tr>
+<tr class="memitem:ab52597a5c187195b50a6d788d631add3" id="r_ab52597a5c187195b50a6d788d631add3"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ab52597a5c187195b50a6d788d631add3">LMCAS::invert_lambert_w</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c)</td></tr>
+<tr class="memitem:ac5040eaf85e292fd0966b8c95a12c9e5" id="r_ac5040eaf85e292fd0966b8c95a12c9e5"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ac5040eaf85e292fd0966b8c95a12c9e5">LMCAS::invert_ln</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c)</td></tr>
+<tr class="memitem:a7c1a7e58700415137c0014f54ba94d3b" id="r_a7c1a7e58700415137c0014f54ba94d3b"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a7c1a7e58700415137c0014f54ba94d3b">LMCAS::invert_sin</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c, int max_roots)</td></tr>
+<tr class="memitem:ac991b2b1b6e6bf5d2c6a91c23cbead52" id="r_ac991b2b1b6e6bf5d2c6a91c23cbead52"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ac991b2b1b6e6bf5d2c6a91c23cbead52">LMCAS::invert_substitution_h</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;h_expr, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;u_root, const std::string &amp;var)</td></tr>
+<tr class="memitem:a5ba56d447b980b90f5a6133c9e119be1" id="r_a5ba56d447b980b90f5a6133c9e119be1"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a5ba56d447b980b90f5a6133c9e119be1">LMCAS::invert_tan</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c, int max_roots)</td></tr>
+<tr class="memitem:ac795bdf167f55b69b20ec039ef0cbcd9" id="r_ac795bdf167f55b69b20ec039ef0cbcd9"><td class="memItemLeft">static std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ac795bdf167f55b69b20ec039ef0cbcd9">LMCAS::make_arccos</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c)</td></tr>
+<tr class="memitem:ae784a0b660dff88bf58ea53779f0c382" id="r_ae784a0b660dff88bf58ea53779f0c382"><td class="memItemLeft">static std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ae784a0b660dff88bf58ea53779f0c382">LMCAS::make_arcsin</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;c)</td></tr>
+<tr class="memitem:a964fa12dafe0b0c485f655b6284d3c55" id="r_a964fa12dafe0b0c485f655b6284d3c55"><td class="memItemLeft">std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a964fa12dafe0b0c485f655b6284d3c55">LMCAS::make_arctan</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;operand)</td></tr>
+<tr class="memitem:ad9ba58ae2855b546ef4912a508a04fd4" id="r_ad9ba58ae2855b546ef4912a508a04fd4"><td class="memItemLeft">static std::shared_ptr&lt; SymbolicExpr &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#ad9ba58ae2855b546ef4912a508a04fd4">LMCAS::make_pi</a> ()</td></tr>
+<tr class="memitem:aa0f7e43af7639a8a810f5f3f497dbecc" id="r_aa0f7e43af7639a8a810f5f3f497dbecc"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#aa0f7e43af7639a8a810f5f3f497dbecc">LMCAS::nodes_equal</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt; &amp;a, const std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt; &amp;b)</td></tr>
+<tr class="memitem:a572126ac77c3b0f01b28190a740cb0e5" id="r_a572126ac77c3b0f01b28190a740cb0e5"><td class="memItemLeft">static std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a572126ac77c3b0f01b28190a740cb0e5">LMCAS::rewrite_exp_as_u_power</a> (const std::shared_ptr&lt; const <a class="el" href="../../dc/d78/classLMCAS_1_1SymbolicNode.html">SymbolicNode</a> &gt; &amp;node, const std::string &amp;var, const std::string &amp;u_var)</td></tr>
+<tr class="memitem:a29e773bf2ffc9c22517581c484e4435a" id="r_a29e773bf2ffc9c22517581c484e4435a"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a29e773bf2ffc9c22517581c484e4435a">LMCAS::solve_inner_equation</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;inner, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;value, const std::string &amp;var, int depth)</td></tr>
+<tr class="memitem:a085f4511866a567467570bcb9720b5f7" id="r_a085f4511866a567467570bcb9720b5f7"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a085f4511866a567467570bcb9720b5f7">LMCAS::solve_polynomial_values</a> (const <a class="el" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial</a>&lt; <a class="el" href="../../d1/d86/structLMCAS_1_1SymbolicPolyCoeff.html">SymbolicPolyCoeff</a> &gt; &amp;polynomial, const std::string &amp;variable)</td></tr>
+<tr class="memitem:abb61be57398e5684ea7499ffd1bcfca6" id="r_abb61be57398e5684ea7499ffd1bcfca6"><td class="memItemLeft">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#abb61be57398e5684ea7499ffd1bcfca6">LMCAS::solve_transcendental</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</td></tr>
+<tr class="memitem:a0c86f819f8db4d2331f9eca7b2643900" id="r_a0c86f819f8db4d2331f9eca7b2643900"><td class="memItemLeft">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a0c86f819f8db4d2331f9eca7b2643900">LMCAS::solve_transcendental_impl</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, int depth)</td></tr>
+<tr class="memitem:a6d92c045c990402c024dad7bf403a240" id="r_a6d92c045c990402c024dad7bf403a240"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a6d92c045c990402c024dad7bf403a240">LMCAS::try_evaluate_numeric</a> (const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, lmmc_real_t &amp;out)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a62ea9f36090af2550d3507877f90e9e4" id="r_a62ea9f36090af2550d3507877f90e9e4"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="../../de/dde/namespaceLMCAS.html#a62ea9f36090af2550d3507877f90e9e4">LMCAS::MAX_TRANSCENDENTAL_DEPTH</a> = 5</td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">类说明</h2>
+<a name="d1/dea/structLMCAS_1_1ExpBasePattern" id="d1/dea/structLMCAS_1_1ExpBasePattern"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d1/dea/structLMCAS_1_1ExpBasePattern">&#9670;&#160;</a></span>LMCAS::ExpBasePattern</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct LMCAS::ExpBasePattern</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../db/df9/solve__transcendental_8cpp_source.html">solve_transcendental.cpp</a> 第 <a class="el" href="../../db/df9/solve__transcendental_8cpp_source.html#l00259">259</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>LMCAS::ExpBasePattern 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../da/de0/structLMCAS_1_1ExpBasePattern__coll__graph.svg" width="246" height="539"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a5865006f2af4aac8f420ac13bc3c5c2d" name="a5865006f2af4aac8f420ac13bc3c5c2d"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+base</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a0d83794b6380cb64f6a570ad92a9b32b" name="a0d83794b6380cb64f6a570ad92a9b32b"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+inner</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="afce4f178e0786d8f513c2aa8be9ca6af" name="afce4f178e0786d8f513c2aa8be9ca6af"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+rhs</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="d7/d68/structLMCAS_1_1InversePattern" id="d7/d68/structLMCAS_1_1InversePattern"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d7/d68/structLMCAS_1_1InversePattern">&#9670;&#160;</a></span>LMCAS::InversePattern</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct LMCAS::InversePattern</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../db/df9/solve__transcendental_8cpp_source.html">solve_transcendental.cpp</a> 第 <a class="el" href="../../db/df9/solve__transcendental_8cpp_source.html#l00047">47</a> 行定义.</p>
+</div><div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>LMCAS::InversePattern 的协作图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d6/d39/structLMCAS_1_1InversePattern__coll__graph.svg" width="344" height="519"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="aa87e713dae32f9f0de2b7e3441080eab" name="aa87e713dae32f9f0de2b7e3441080eab"></a>FuncType</td>
+<td class="fieldname">
+func_type</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a6d79200107c52936151db81fcfc8300f" name="a6d79200107c52936151db81fcfc8300f"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+inner</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a4558399291b4a8407c700aa0823fdc63" name="a4558399291b4a8407c700aa0823fdc63"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+rhs</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="dd/d83/structLMCAS_1_1LambertWPattern" id="dd/d83/structLMCAS_1_1LambertWPattern"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#dd/d83/structLMCAS_1_1LambertWPattern">&#9670;&#160;</a></span>LMCAS::LambertWPattern</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct LMCAS::LambertWPattern</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../db/df9/solve__transcendental_8cpp_source.html">solve_transcendental.cpp</a> 第 <a class="el" href="../../db/df9/solve__transcendental_8cpp_source.html#l00171">171</a> 行定义.</p>
+</div><div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>LMCAS::LambertWPattern 的协作图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d0/d55/structLMCAS_1_1LambertWPattern__coll__graph.svg" width="246" height="519"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">类成员</th></tr>
+<tr><td class="fieldtype">
+<a id="a19db837e57f3d62e64055db456f93a75" name="a19db837e57f3d62e64055db456f93a75"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+inner</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ab2920483d354b9f0865ac718a66c6abb" name="ab2920483d354b9f0865ac718a66c6abb"></a>shared_ptr&lt; SymbolicExpr &gt;</td>
+<td class="fieldname">
+rhs</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../db/df9/solve__transcendental_8cpp.html">solve_transcendental.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

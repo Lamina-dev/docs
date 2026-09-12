@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/internal/ode_polynomial_utils.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d8/df8/ode__polynomial__utils_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ode_polynomial_utils.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d8/df8/ode__polynomial__utils_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html">LMCAS::ode_root_detail</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">   10</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> = std::vector&lt;double&gt;;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html">   12</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#d4/db3/structLMCAS_1_1ode__root__detail_1_1CharRoot">CharRoot</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a561a0a2ab706165ad22893ff937a8687">   13</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a561a0a2ab706165ad22893ff937a8687">real_part</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#adf286ef59c913120a70bf733ecfd956d">   14</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#adf286ef59c913120a70bf733ecfd956d">imag_part</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aeebf3744bc4c0dfda0da1298eb444587">   15</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aeebf3744bc4c0dfda0da1298eb444587">multiplicity</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#af2d11ee2d91d7b42be34fe3cdc34ff58">   16</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#af2d11ee2d91d7b42be34fe3cdc34ff58">is_complex</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>};</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html">   19</a></span><span class="keyword">struct </span><a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">   20</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">   21</a></span>    <span class="keywordtype">double</span> <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">   23</a></span>    <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a>(<span class="keywordtype">double</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a> = 0.0, <span class="keywordtype">double</span> imaginary = 0.0)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        : <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a>(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a>), <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>(imaginary) {}</div>
+</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4e47a336d90a2acbd4251a5212faace7">   25</a></span>    <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4e47a336d90a2acbd4251a5212faace7">operator*</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> {<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> - <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> + <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a>};</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#aecb12ab9299046435cf4a63d45f3d6a2">   29</a></span>    <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#aecb12ab9299046435cf4a63d45f3d6a2">operator+</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> {<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> + other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a>, <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> + other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a16b22ebe78c59c9c5b799e78759b0471">   32</a></span>    <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a16b22ebe78c59c9c5b799e78759b0471">operator-</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">return</span> {<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> - other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a>, <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> - other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a6afaeef7faaa1019ae042a2d022af5a5">   35</a></span>    <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a6afaeef7faaa1019ae042a2d022af5a5">operator/</a>(<span class="keyword">const</span> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">Complex</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ad94a90e17916ea4b54e83bcd20025df9">denominator</a> =</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> + other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ad94a90e17916ea4b54e83bcd20025df9">denominator</a> &lt; 1<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>-300)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">return</span> {INFINITY, INFINITY};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> {(<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> + <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>) / <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ad94a90e17916ea4b54e83bcd20025df9">denominator</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                (<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> - <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> * other.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>) / <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ad94a90e17916ea4b54e83bcd20025df9">denominator</a>};</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4f7f36c5a9a452dab92b4ab4ad64bd1b">   43</a></span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4f7f36c5a9a452dab92b4ab4ad64bd1b">magnitude</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> std::hypot(<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a>, <a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a418a4af4885a670826931649d4b0a409">   48</a></span><span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a418a4af4885a670826931649d4b0a409">polynomial_root_backward_error</a>(</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; coefficients, <span class="keyword">const</span> <a class="code hl_struct" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html">Complex</a>&amp; root) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_struct" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html">Complex</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>{coefficients.front(), 0.0};</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">double</span> scale = std::abs(coefficients.front());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> root_magnitude = root.<a class="code hl_function" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4f7f36c5a9a452dab92b4ab4ad64bd1b">magnitude</a>();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 1; i &lt; coefficients.size(); ++i) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a> = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a> * root + <a class="code hl_struct" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html">Complex</a>{coefficients[i], 0.0};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        scale = scale * root_magnitude + std::abs(coefficients[i]);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span> (!std::isfinite(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>.re) || !std::isfinite(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>.im) ||</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        !std::isfinite(scale))</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> INFINITY;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (scale == 0.0) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="comment">// At an exact zero root with zero constant term, both the residual</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="comment">// and its coefficientwise bound vanish: no perturbation is needed.</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">// A nonzero root can instead underflow the bound, which is not proof.</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> root.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">re</a> == 0.0 &amp;&amp; root.<a class="code hl_variable" href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">im</a> == 0.0 &amp;&amp;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                       coefficients.back() == 0.0</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                   ? 0.0</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                   : INFINITY;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>.magnitude() / scale;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aaef949f972007a536a483bf5223c9339">   72</a></span><span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aaef949f972007a536a483bf5223c9339">polynomial_scale</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; polynomial) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">double</span> scale = 0.0;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">for</span> (<span class="keywordtype">double</span> coefficient : polynomial) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        scale = std::max(scale, std::abs(coefficient));</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">return</span> scale;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a60e505b03f9a1321e74da81ff884f0f2">   80</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a60e505b03f9a1321e74da81ff884f0f2">trim_polynomial</a>(<a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; polynomial) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> scale = <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aaef949f972007a536a483bf5223c9339">polynomial_scale</a>(polynomial);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> tolerance = std::max(1.0, scale) * 1<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>-10;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">auto</span> first = polynomial.begin();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">while</span> (first + 1 != polynomial.end() &amp;&amp; std::abs(*first) &lt;= tolerance) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        ++first;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    polynomial.erase(polynomial.begin(), first);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (polynomial.empty()) polynomial.push_back(0.0);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a0b0d881c11f1eb50564e1ae7e58b9355">   91</a></span><span class="keyword">inline</span> std::pair&lt;RealPolynomial, RealPolynomial&gt; <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a0b0d881c11f1eb50564e1ae7e58b9355">divide_polynomials</a>(</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; dividend, <span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; divisor) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">if</span> (divisor.empty() || divisor.front() == 0.0 ||</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        dividend.size() &lt; divisor.size()) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> {{0.0}, dividend};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> remainder = dividend;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> quotient(</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        dividend.size() - divisor.size() + 1, 0.0);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; quotient.size(); ++i) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> factor = remainder[i] / divisor.front();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        quotient[i] = factor;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; divisor.size(); ++j) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            remainder[i + j] -= factor * divisor[j];</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    remainder.erase(</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        remainder.begin(), remainder.begin() + quotient.size());</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span> (remainder.empty()) remainder.push_back(0.0);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a60e505b03f9a1321e74da81ff884f0f2">trim_polynomial</a>(quotient);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a60e505b03f9a1321e74da81ff884f0f2">trim_polynomial</a>(remainder);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> {std::move(quotient), std::move(remainder)};</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a6148e01f382eb0ef3c4e8c285bc59e03">  116</a></span><span class="keyword">inline</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a6148e01f382eb0ef3c4e8c285bc59e03">monic_polynomial</a>(<a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> polynomial) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a60e505b03f9a1321e74da81ff884f0f2">trim_polynomial</a>(polynomial);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (polynomial.empty() || polynomial.front() == 0.0) <span class="keywordflow">return</span> {0.0};</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> leading = polynomial.front();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">for</span> (<span class="keywordtype">double</span>&amp; coefficient : polynomial) coefficient /= leading;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> polynomial;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a1e94d098134d3536e5aeaf62ffc362c6">  124</a></span><span class="keyword">inline</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a1e94d098134d3536e5aeaf62ffc362c6">polynomial_derivative</a>(</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; polynomial) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">if</span> (polynomial.size() &lt;= 1) <span class="keywordflow">return</span> {0.0};</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> derivative;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    derivative.reserve(polynomial.size() - 1);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> degree = polynomial.size() - 1;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; degree; ++i) {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        derivative.push_back(</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            polynomial[i] * <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(degree - i));</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">return</span> derivative;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aa5f0c4fecdefd572d4c9a0f7b168b1a1">  137</a></span><span class="keyword">inline</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aa5f0c4fecdefd572d4c9a0f7b168b1a1">approximate_polynomial_gcd</a>(</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> lhs, <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    lhs = <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a6148e01f382eb0ef3c4e8c285bc59e03">monic_polynomial</a>(std::move(lhs));</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a> = <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a6148e01f382eb0ef3c4e8c285bc59e03">monic_polynomial</a>(std::move(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>));</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iteration = 0; iteration &lt; 8 &amp;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>.size() &gt; 1; ++iteration) {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keyword">auto</span> division = <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a0b0d881c11f1eb50564e1ae7e58b9355">divide_polynomials</a>(lhs, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a> remainder = std::move(division.second);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">if</span> (remainder.size() == 1 &amp;&amp; remainder.front() == 0.0) {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        lhs = std::move(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a> = <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a6148e01f382eb0ef3c4e8c285bc59e03">monic_polynomial</a>(std::move(remainder));</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">return</span> {1.0};</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ac3829e4f9f4b4c6d78489ee58dd36b68">  153</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ac3829e4f9f4b4c6d78489ee58dd36b68">polynomial_remainder_is_small</a>(</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; remainder, <span class="keyword">const</span> <a class="code hl_typedef" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">RealPolynomial</a>&amp; dividend) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aaef949f972007a536a483bf5223c9339">polynomial_scale</a>(remainder) &lt;=</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>           std::max(1.0, <a class="code hl_function" href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aaef949f972007a536a483bf5223c9339">polynomial_scale</a>(dividend)) * 1<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>-7;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>} <span class="comment">// namespace LMCAS::ode_root_detail</span></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html">LMCAS::ode_root_detail</a></div><div class="ttdef"><b>定义</b> <a href="../../d2/d23/ode__characteristic__roots_8hpp_source.html#l00009">ode_characteristic_roots.hpp:9</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_a0b0d881c11f1eb50564e1ae7e58b9355"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a0b0d881c11f1eb50564e1ae7e58b9355">LMCAS::ode_root_detail::divide_polynomials</a></div><div class="ttdeci">std::pair&lt; RealPolynomial, RealPolynomial &gt; divide_polynomials(const RealPolynomial &amp;dividend, const RealPolynomial &amp;divisor)</div><div class="ttdef"><b>定义</b> <a href="#l00091">ode_polynomial_utils.hpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_a1e94d098134d3536e5aeaf62ffc362c6"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a1e94d098134d3536e5aeaf62ffc362c6">LMCAS::ode_root_detail::polynomial_derivative</a></div><div class="ttdeci">RealPolynomial polynomial_derivative(const RealPolynomial &amp;polynomial)</div><div class="ttdef"><b>定义</b> <a href="#l00124">ode_polynomial_utils.hpp:124</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_a418a4af4885a670826931649d4b0a409"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a418a4af4885a670826931649d4b0a409">LMCAS::ode_root_detail::polynomial_root_backward_error</a></div><div class="ttdeci">double polynomial_root_backward_error(const RealPolynomial &amp;coefficients, const Complex &amp;root)</div><div class="ttdef"><b>定义</b> <a href="#l00048">ode_polynomial_utils.hpp:48</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_a561a0a2ab706165ad22893ff937a8687"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a561a0a2ab706165ad22893ff937a8687">LMCAS::ode_root_detail::CharRoot::real_part</a></div><div class="ttdeci">double real_part</div><div class="ttdef"><b>定义</b> <a href="#l00013">ode_polynomial_utils.hpp:13</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_a60e505b03f9a1321e74da81ff884f0f2"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a60e505b03f9a1321e74da81ff884f0f2">LMCAS::ode_root_detail::trim_polynomial</a></div><div class="ttdeci">void trim_polynomial(RealPolynomial &amp;polynomial)</div><div class="ttdef"><b>定义</b> <a href="#l00080">ode_polynomial_utils.hpp:80</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_a6148e01f382eb0ef3c4e8c285bc59e03"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#a6148e01f382eb0ef3c4e8c285bc59e03">LMCAS::ode_root_detail::monic_polynomial</a></div><div class="ttdeci">RealPolynomial monic_polynomial(RealPolynomial polynomial)</div><div class="ttdef"><b>定义</b> <a href="#l00116">ode_polynomial_utils.hpp:116</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_aa5f0c4fecdefd572d4c9a0f7b168b1a1"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aa5f0c4fecdefd572d4c9a0f7b168b1a1">LMCAS::ode_root_detail::approximate_polynomial_gcd</a></div><div class="ttdeci">RealPolynomial approximate_polynomial_gcd(RealPolynomial lhs, RealPolynomial rhs)</div><div class="ttdef"><b>定义</b> <a href="#l00137">ode_polynomial_utils.hpp:137</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_aaef949f972007a536a483bf5223c9339"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aaef949f972007a536a483bf5223c9339">LMCAS::ode_root_detail::polynomial_scale</a></div><div class="ttdeci">double polynomial_scale(const RealPolynomial &amp;polynomial)</div><div class="ttdef"><b>定义</b> <a href="#l00072">ode_polynomial_utils.hpp:72</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_ab0f1a0630856970cbae6a8b2ba89b5f9"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ab0f1a0630856970cbae6a8b2ba89b5f9">LMCAS::ode_root_detail::RealPolynomial</a></div><div class="ttdeci">std::vector&lt; double &gt; RealPolynomial</div><div class="ttdef"><b>定义</b> <a href="#l00010">ode_polynomial_utils.hpp:10</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_ac3829e4f9f4b4c6d78489ee58dd36b68"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#ac3829e4f9f4b4c6d78489ee58dd36b68">LMCAS::ode_root_detail::polynomial_remainder_is_small</a></div><div class="ttdeci">bool polynomial_remainder_is_small(const RealPolynomial &amp;remainder, const RealPolynomial &amp;dividend)</div><div class="ttdef"><b>定义</b> <a href="#l00153">ode_polynomial_utils.hpp:153</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_adf286ef59c913120a70bf733ecfd956d"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#adf286ef59c913120a70bf733ecfd956d">LMCAS::ode_root_detail::CharRoot::imag_part</a></div><div class="ttdeci">double imag_part</div><div class="ttdef"><b>定义</b> <a href="#l00014">ode_polynomial_utils.hpp:14</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_aeebf3744bc4c0dfda0da1298eb444587"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#aeebf3744bc4c0dfda0da1298eb444587">LMCAS::ode_root_detail::CharRoot::multiplicity</a></div><div class="ttdeci">int multiplicity</div><div class="ttdef"><b>定义</b> <a href="#l00015">ode_polynomial_utils.hpp:15</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_af2d11ee2d91d7b42be34fe3cdc34ff58"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#af2d11ee2d91d7b42be34fe3cdc34ff58">LMCAS::ode_root_detail::CharRoot::is_complex</a></div><div class="ttdeci">bool is_complex</div><div class="ttdef"><b>定义</b> <a href="#l00016">ode_polynomial_utils.hpp:16</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1ode__root__detail_html_d4/db3/structLMCAS_1_1ode__root__detail_1_1CharRoot"><div class="ttname"><a href="../../da/dee/namespaceLMCAS_1_1ode__root__detail.html#d4/db3/structLMCAS_1_1ode__root__detail_1_1CharRoot">LMCAS::ode_root_detail::CharRoot</a></div><div class="ttdef"><b>定义</b> <a href="#l00012">ode_polynomial_utils.hpp:12</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a18bbc705e72f8d73adf9373be956fec1"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">LMCAS::e</a></div><div class="ttdeci">ExprResult e()</div><div class="ttdef"><b>定义</b> <a href="../../da/dd5/expr__values_8cpp_source.html#l00115">expr_values.cpp:115</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a297e412dc54f6fda83ee5bd6d912c868"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">LMCAS::real</a></div><div class="ttdeci">ExprResult real(const ExprPtr &amp;expression, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d02/expr__arithmetic_8cpp_source.html#l00319">expr_arithmetic.cpp:319</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab902e35db3491c1da0ee7ef56474ae2f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">LMCAS::value</a></div><div class="ttdeci">const std::string const ExprPtr &amp; value</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00284">expr.hpp:284</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_abcecb843affb64feddeee1cabcd80e35"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">LMCAS::rhs</a></div><div class="ttdeci">const ExprPtr &amp; rhs</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00141">expr.hpp:141</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ad94a90e17916ea4b54e83bcd20025df9"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ad94a90e17916ea4b54e83bcd20025df9">LMCAS::denominator</a></div><div class="ttdeci">const ExprPtr &amp; denominator</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00191">expr.hpp:191</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html">LMCAS::ode_root_detail::Complex</a></div><div class="ttdef"><b>定义</b> <a href="#l00019">ode_polynomial_utils.hpp:19</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_a16b22ebe78c59c9c5b799e78759b0471"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a16b22ebe78c59c9c5b799e78759b0471">LMCAS::ode_root_detail::Complex::operator-</a></div><div class="ttdeci">Complex operator-(const Complex &amp;other) const</div><div class="ttdef"><b>定义</b> <a href="#l00032">ode_polynomial_utils.hpp:32</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_a4e47a336d90a2acbd4251a5212faace7"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4e47a336d90a2acbd4251a5212faace7">LMCAS::ode_root_detail::Complex::operator*</a></div><div class="ttdeci">Complex operator*(const Complex &amp;other) const</div><div class="ttdef"><b>定义</b> <a href="#l00025">ode_polynomial_utils.hpp:25</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_a4f7f36c5a9a452dab92b4ab4ad64bd1b"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a4f7f36c5a9a452dab92b4ab4ad64bd1b">LMCAS::ode_root_detail::Complex::magnitude</a></div><div class="ttdeci">double magnitude() const</div><div class="ttdef"><b>定义</b> <a href="#l00043">ode_polynomial_utils.hpp:43</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_a6afaeef7faaa1019ae042a2d022af5a5"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a6afaeef7faaa1019ae042a2d022af5a5">LMCAS::ode_root_detail::Complex::operator/</a></div><div class="ttdeci">Complex operator/(const Complex &amp;other) const</div><div class="ttdef"><b>定义</b> <a href="#l00035">ode_polynomial_utils.hpp:35</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_a83410ddc5405d1293f33239fce9f74d4"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a83410ddc5405d1293f33239fce9f74d4">LMCAS::ode_root_detail::Complex::re</a></div><div class="ttdeci">double re</div><div class="ttdef"><b>定义</b> <a href="#l00020">ode_polynomial_utils.hpp:20</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_a98260a451eb281151af29db42776f419"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#a98260a451eb281151af29db42776f419">LMCAS::ode_root_detail::Complex::im</a></div><div class="ttdeci">double im</div><div class="ttdef"><b>定义</b> <a href="#l00021">ode_polynomial_utils.hpp:21</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_adde7d58e0eb9b216de485df368e2fca2"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#adde7d58e0eb9b216de485df368e2fca2">LMCAS::ode_root_detail::Complex::Complex</a></div><div class="ttdeci">Complex(double real=0.0, double imaginary=0.0)</div><div class="ttdef"><b>定义</b> <a href="#l00023">ode_polynomial_utils.hpp:23</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1ode__root__detail_1_1Complex_html_aecb12ab9299046435cf4a63d45f3d6a2"><div class="ttname"><a href="../../da/d27/structLMCAS_1_1ode__root__detail_1_1Complex.html#aecb12ab9299046435cf4a63d45f3d6a2">LMCAS::ode_root_detail::Complex::operator+</a></div><div class="ttdeci">Complex operator+(const Complex &amp;other) const</div><div class="ttdef"><b>定义</b> <a href="#l00029">ode_polynomial_utils.hpp:29</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_3756d50f4003bc63fa3fe49460f9c79d.html">internal</a></li><li class="navelem"><a href="../../d8/df8/ode__polynomial__utils_8hpp.html">ode_polynomial_utils.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

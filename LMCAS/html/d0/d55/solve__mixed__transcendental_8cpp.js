@@ -1,0 +1,25 @@
+var solve__mixed__transcendental_8cpp =
+[
+    [ "LMCAS::PeriodicCollector", "db/d46/structLMCAS_1_1PeriodicCollector.html", "db/d46/structLMCAS_1_1PeriodicCollector" ],
+    [ "LMCAS::assemble_results", "de/dde/namespaceLMCAS.html#a2aba47ebc0c170b663527f99ad27b2df", null ],
+    [ "LMCAS::consume_mixed_step", "de/dde/namespaceLMCAS.html#a0f4e86fa7f38aeeae97e95bee79af27d", null ],
+    [ "LMCAS::contains_transcendental_of_var", "de/dde/namespaceLMCAS.html#af441fdc0fc2f5736d0a9f4338e3d53a0", null ],
+    [ "LMCAS::deduplicate_roots", "de/dde/namespaceLMCAS.html#a3eb3a5159008e5830488a7ad5bf65719", null ],
+    [ "LMCAS::degree_in_var", "de/dde/namespaceLMCAS.html#a9bb09582334d65ee6d399477d65167a9", null ],
+    [ "LMCAS::determine_search_interval", "de/dde/namespaceLMCAS.html#a52e6eb9428ef68878bc774121b051e2a", null ],
+    [ "LMCAS::evaluate_at", "de/dde/namespaceLMCAS.html#a8dc31b6280f242f4bdf438f396d7d838", null ],
+    [ "LMCAS::evaluate_with_retry", "de/dde/namespaceLMCAS.html#a3b136b4466f075d762896744c4179911", null ],
+    [ "LMCAS::extract_linear_coefficient", "de/dde/namespaceLMCAS.html#a50345163b62e1ea3f9ea9634a052cd4b", null ],
+    [ "LMCAS::extract_real_value", "de/dde/namespaceLMCAS.html#a208fab422962835b0e17a7ca727c5d2e", null ],
+    [ "LMCAS::is_periodic_func", "de/dde/namespaceLMCAS.html#a66408f8c0890a61208e2038d6e134b0d", null ],
+    [ "LMCAS::is_polynomial_after_substitution", "de/dde/namespaceLMCAS.html#ad026fdd2c79fde22ba071d49612dfc02", null ],
+    [ "LMCAS::is_transcendental_func", "de/dde/namespaceLMCAS.html#a19df2ede938a779323831ff89d22d24e", null ],
+    [ "LMCAS::isolate_roots", "de/dde/namespaceLMCAS.html#a6d622ea9cdbfe056502393033bc2ef90", null ],
+    [ "LMCAS::isolate_roots_with_context", "de/dde/namespaceLMCAS.html#ab916ea6f0a104127134e61f4f9a70843", null ],
+    [ "LMCAS::numerical_path", "de/dde/namespaceLMCAS.html#aae8fa999681be69c24dea1cea3547af7", null ],
+    [ "LMCAS::recursive_eval", "de/dde/namespaceLMCAS.html#af433c6825e8dfee25194b29ec0f7f236", null ],
+    [ "LMCAS::refine_root", "de/dde/namespaceLMCAS.html#ae5357e4282a378239b7c512d1103490b", null ],
+    [ "LMCAS::refine_root_with_context", "de/dde/namespaceLMCAS.html#a57fe77241c19113e99d997067d7e9e59", null ],
+    [ "LMCAS::solve_mixed_transcendental_checked", "de/dde/namespaceLMCAS.html#a56ef0b16eb42e92d83010e1df2a7bb82", null ],
+    [ "LMCAS::solve_mixed_transcendental_checked", "de/dde/namespaceLMCAS.html#adcdf5668a7b1c6d0bc090e4d93ff3976", null ]
+];

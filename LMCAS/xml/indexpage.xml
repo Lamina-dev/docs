@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="zh">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>LMCAS Lamina 计算机代数系统</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md_README"/></para>
+<sect1 id="index_1autotoc_md1">
+<title>结构</title><para><programlisting filename=".text"><codeline><highlight class="normal">LMCAS/</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>include/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>已安装的<sp/>C++17<sp/>公共<sp/>API</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>src/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>按<sp/>core/assumptions/algebra/calculus/analysis/facade<sp/>分层的实现</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>tests/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>LMCAS<sp/>回归、属性、包消费与头文件隔离测试</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>benchmarks/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>可选基准</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>cmake/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>安装包与结构约束</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>LMMC/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>C11<sp/>数值库；内部携带<sp/>LMMP</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>CMakePresets.json<sp/><sp/><sp/>#<sp/>受支持的开发、消毒器与安装配置</highlight></codeline>
+<codeline><highlight class="normal">└──<sp/>CMakeLists.txt</highlight></codeline>
+</programlisting></para>
+<para><computeroutput>src/</computeroutput> 中每个 <computeroutput>.cpp</computeroutput> 必须且只能属于一个组件目标。组件依赖按 <computeroutput>core → assumptions → algebra → calculus/linear algebra → analysis → facade</computeroutput> 方向声明；最终仅安装共享库 <computeroutput>lmcas</computeroutput>。</para>
+</sect1>
+<sect1 id="index_1autotoc_md2">
+<title>构建</title><sect2 id="index_1autotoc_md3">
+<title>要求</title><para><itemizedlist>
+<listitem><para>CMake 3.26+</para>
+</listitem><listitem><para>Ninja</para>
+</listitem><listitem><para>支持 C++17 和 C11 的 GCC、Clang 或 MinGW 工具链</para>
+</listitem><listitem><para>初始化后的 <computeroutput>LMMC/LMMP</computeroutput> 子模块</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md4">
+<title>开发与测试</title><para><programlisting filename=".bash"><codeline><highlight class="normal">cmake<sp/>--preset<sp/>strict-debug</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>--preset<sp/>strict-debug</highlight></codeline>
+<codeline><highlight class="normal">ctest<sp/>--preset<sp/>strict-debug</highlight></codeline>
+</programlisting></para>
+<para>该配置启用 <ref refid="de/dde/namespaceLMCAS" kindref="compound">LMCAS</ref> 与 LMMC 测试、严格警告和 <computeroutput>-Werror</computeroutput>。Linux 另提供 <computeroutput>linux-asan-ubsan</computeroutput> 与 <computeroutput>linux-tsan</computeroutput> 预设。</para>
+</sect2>
+<sect2 id="index_1autotoc_md5">
+<title>安装包</title><para><programlisting filename=".bash"><codeline><highlight class="normal">cmake<sp/>--preset<sp/>package</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>--preset<sp/>package</highlight></codeline>
+</programlisting></para>
+<para>默认安装到 <computeroutput>build/package-install</computeroutput>。<computeroutput>tests/package_consumer</computeroutput> 验证安装后的 CMake targets、公共头文件隔离以及 C++/LMMC/LMMP 消费路径。</para>
+<para>Windows 运行动态链接的测试或消费程序时，需让 <computeroutput>build/&lt;preset&gt;/bin</computeroutput> （或安装目录的 <computeroutput>bin</computeroutput>）位于 <computeroutput>PATH</computeroutput>。</para>
+</sect2>
+</sect1>
+<sect1 id="index_1autotoc_md6">
+<title>核心功能说明</title><para>所有 C++ 类型与函数均使用 <computeroutput><ref refid="de/dde/namespaceLMCAS" kindref="compound">LMCAS</ref></computeroutput> 命名空间，包括符号表达式、数值类型、 代数模板和 visitor。<computeroutput><ref refid="d8/d01/expr_8hpp" kindref="compound">include/expr.hpp</ref></computeroutput> 提供 <computeroutput><ref refid="de/dde/namespaceLMCAS_1a76f85b076424fef8e33bdf6ce43fdef3" kindref="member">LMCAS::Expr</ref></computeroutput>、<computeroutput><ref refid="de/dde/namespaceLMCAS_1a9acfafdb6587884dcb66128bfba2039a" kindref="member">LMCAS::sym</ref></computeroutput>、 <computeroutput><ref refid="de/dde/namespaceLMCAS_1a937832cfa77137e9e70d49b00b65c90e" kindref="member">LMCAS::parse_expr</ref></computeroutput> 等表达式接口；公共导出宏为 <computeroutput><ref refid="d1/d2f/lmcas__export_8hpp_1afed34265f956e39cc483c640121efc3e" kindref="member">LMCAS_API</ref></computeroutput>， 定义于 <computeroutput><ref refid="d1/d2f/lmcas__export_8hpp" kindref="compound">include/lmcas_export.hpp</ref></computeroutput>。消费方应使用这些库名称，而非规范名称。</para>
+<sect2 id="index_1autotoc_md7">
+<title>符号系统 (include/symbolic.hpp)</title><para>LMCAS::SymbolicExpr 是 <ref refid="de/dde/namespaceLMCAS" kindref="compound">LMCAS</ref> 的核心类，表示一个不可变的符号表达式树。<itemizedlist>
+<listitem><para><bold>创建表达式</bold>: 使用静态工厂方法，如 LMCAS::SymbolicExpr::add, LMCAS::SymbolicExpr::variable, LMCAS::SymbolicExpr::number, LMCAS::SymbolicExpr::sin 等。</para>
+</listitem><listitem><para><bold>内存管理</bold>: 基于 std::shared_ptr 的自动内存管理。</para>
+</listitem><listitem><para><bold>不可变性</bold>: 所有对表达式的操作（如相加、求导）都会返回一个新的 LMCAS::SymbolicExpr 对象，原对象保持不变。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md8">
+<title>计算机代数算法</title><para>核心算法作为 LMCAS::SymbolicExpr 的成员函数或静态方法提供：<itemizedlist>
+<listitem><para><bold>求导</bold>: expr-&gt;differentiate(&quot;x&quot;) - 对变量 x 求导。</para>
+</listitem><listitem><para><bold>积分</bold>: expr-&gt;integrate(&quot;x&quot;) - 对变量 x 进行符号积分。</para>
+</listitem><listitem><para><bold>化简</bold>: expr-&gt;simplify() - 调用化简引擎对表达式进行代数化简。</para>
+</listitem><listitem><para><bold>展开</bold>: expr-&gt;expand() - 展开多项式或乘积。</para>
+</listitem><listitem><para><bold>代入</bold>: expr-&gt;substitute(&quot;y&quot;, val) - 将变量 y 替换为表达式 val。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md9">
+<title>矩阵运算</title><para>符号矩阵操作通过 <computeroutput><ref refid="d4/d7d/symbolic__matrix_8hpp" kindref="compound">include/symbolic_matrix.hpp</ref></computeroutput> 的 checked 自由函数提供：<itemizedlist>
+<listitem><para><computeroutput><ref refid="de/dde/namespaceLMCAS_1a4441ee4faa1419aed7b85e000034013e" kindref="member">LMCAS::matrix_determinant_checked</ref></computeroutput>: 计算行列式。</para>
+</listitem><listitem><para><computeroutput><ref refid="de/dde/namespaceLMCAS_1a52b43d132a2eb00933d456a6f6e37ee6" kindref="member">LMCAS::matrix_inverse_checked</ref></computeroutput>: 计算逆矩阵。</para>
+</listitem><listitem><para><computeroutput><ref refid="de/dde/namespaceLMCAS_1a0124de85f881c8984e8df702a10d2a42" kindref="member">LMCAS::matrix_eigenvalues_checked</ref></computeroutput>: 计算特征值。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="index_1autotoc_md10">
+<title>数值系统</title><para><itemizedlist>
+<listitem><para><bold>LMCAS::BigInt</bold>: 任意精度整数（基于 LMMP）。</para>
+</listitem><listitem><para><bold><ref refid="d5/d94/classLMCAS_1_1Rational" kindref="compound">LMCAS::Rational</ref></bold>: 任意精度有理数。</para>
+</listitem><listitem><para><bold><ref refid="d2/dff/classLMCAS_1_1Irrational" kindref="compound">LMCAS::Irrational</ref></bold>: 简单的无理数包装（如 sqrt(2), pi, e）。</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="index_1autotoc_md11">
+<title>二进制兼容性</title><para>LMMC 提供固定 <computeroutput>double</computeroutput> 实数类型的 C ABI。LMCAS 的 C++ API 暴露 <computeroutput>std::string</computeroutput>、<computeroutput>std::vector</computeroutput> 与智能指针，因此不承诺跨编译器、标准库、 编译选项或补丁版本的二进制兼容性。CMake 包版本匹配采用精确版本； 升级 <ref refid="de/dde/namespaceLMCAS" kindref="compound">LMCAS</ref> 后应重新编译 C++ 消费方。</para>
+</sect1>
+<sect1 id="index_1autotoc_md12">
+<title>文档</title><para><itemizedlist>
+<listitem><para><ulink url="include/symbolic.hpp">符号表达式 API</ulink></para>
+</listitem><listitem><para><ulink url="include/expr.hpp">表达式接口</ulink></para>
+</listitem><listitem><para><ulink url="include/symbolic_matrix.hpp">符号矩阵 API</ulink></para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="index_1autotoc_md13">
+<title>许可证</title><para>GNU Lesser General Public License v3.0 (LGPL-3.0)</para>
+</sect1>
+<sect1 id="index_1autotoc_md14">
+<title>贡献</title><para><itemizedlist>
+<listitem><para>Lamina MP (LMMP) - Jecricho Knox - Lamina-dev</para>
+</listitem><listitem><para>Lamina CAS - Ziyang Bai - Lamina-dev</para>
+</listitem><listitem><para>All contributors are contributed to the Lamina project. </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>
