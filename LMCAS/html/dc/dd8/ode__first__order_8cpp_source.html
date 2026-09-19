@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/ode_first_order.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('dc/dd8/ode__first__order_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ode_first_order.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../dc/dd8/ode__first__order_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file symbolic_ode_engine.cpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @brief 统一 ODE 求解引擎实现:类型检测与分类.</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/df0/symbolic__ode__engine_8hpp.html">../include/symbolic_ode_engine.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/df2/symbolic_8hpp.html">../include/symbolic.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d39/poly__utils_8hpp.html">../include/poly_utils.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/db5/expression__analysis_8hpp.html">internal/expression_analysis.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;lmmc/config.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;lmmc/numeric.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d71/ode__support_8hpp.html">internal/ode_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">static</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aac7f3afdf7613dd392865acb56c76b9e">solve_homogeneous_ode_impl</a>(</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp;,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> std::string&amp;, <span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">static</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a187be728df3a940ea9b702ac75bac0ab">solve_bernoulli_ode_impl</a>(</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp;,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp;,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">int</span>, <span class="keyword">const</span> std::string&amp;, <span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">static</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aa43c570b58a7cb5baf3c32e5af3640b0">solve_exact_ode_impl</a>(</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp;,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp;,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> std::string&amp;, <span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#ab8af337ead097154a702d9871a023b35">   32</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">ODESolutionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ab8af337ead097154a702d9871a023b35">solve_homogeneous_ode_checked</a>(</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> std::string&amp; y,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> std::string operation = <span class="stringliteral">&quot;solve_homogeneous_ode&quot;</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">auto</span> valid = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a036bdb930bc080e3b709d75abd302fcb">validate_ode_expr_var_pair</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>, x, y, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>, operation);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (!valid) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(valid.error());</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">auto</span> step = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>.consume_steps(12, operation);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (!step) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(step.error());</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a1a50a012782eef2d27343c8b56355fbb">wrap_ode_solution</a>(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aac7f3afdf7613dd392865acb56c76b9e">solve_homogeneous_ode_impl</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>, x, y),</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                 <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a548465e8241b26162c8e0a7b0cdfc5e7">ODEType::Homogeneous</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                 operation);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::bad_alloc&amp;) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                          <span class="stringliteral">&quot;homogeneous ODE allocation failed&quot;</span>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                          operation);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                                          <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>.what(),</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                                          operation);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a8514d4255e61018c1216006bdd387de1">   59</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">ODESolutionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ab8af337ead097154a702d9871a023b35">solve_homogeneous_ode_checked</a>(</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">const</span> std::string&amp; y)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ab8af337ead097154a702d9871a023b35">solve_homogeneous_ode_checked</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>, x, y, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#aac7f3afdf7613dd392865acb56c76b9e">   68</a></span><span class="keyword">static</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aac7f3afdf7613dd392865acb56c76b9e">solve_homogeneous_ode_impl</a>(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> std::string&amp; y)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> result;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a1b238da55e0e4799ecfa1ceb3055e657">method_used</a> = <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a548465e8241b26162c8e0a7b0cdfc5e7">ODEType::Homogeneous</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acba8b3f2d50bd81e652be2c0f050806e">constants</a> = {<span class="stringliteral">&quot;C&quot;</span>};</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment"></span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">    /// 齐次方程 y&#39; = f(y/x)</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">    /// 令 v = y/x,则 y = v*x,y&#39; = v + x*v&#39;</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">    /// 代入: v + x*v&#39; = f(v)</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">    /// 即: x*v&#39; = f(v) - v</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">    /// 分离变量: dv/(f(v) - v) = dx/x</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"></span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">    /// 将 rhs 中的 y 替换为 v*x,得到 f 关于 v 和 x 的表达式</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">    /// 由于齐次性,f(x, vx) = f(1, v)(令 t=1/x 缩放)</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">    /// 所以直接用 x=1, y=v 代入得到 f(v)</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    std::string v_name = <span class="stringliteral">&quot;v&quot;</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">auto</span> v_var = SymbolicExpr::variable(v_name);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">auto</span> x_var = SymbolicExpr::variable(x);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">    /// f(v) = rhs(1, v):将 x=1, y=v 代入</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">auto</span> f_v = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>-&gt;substitute(x, SymbolicExpr::number(1));</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    f_v = f_v-&gt;substitute(y, v_var);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    f_v = f_v-&gt;simplify();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"></span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">    /// 分离变量方程: dv/(f(v) - v) = dx/x</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">    /// 积分: integral dv/(f(v) - v) = integral dx/x = ln|x| + C</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">auto</span> f_minus_v = SymbolicExpr::add(f_v,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        SymbolicExpr::multiply(SymbolicExpr::number(-1), v_var));</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    f_minus_v = f_minus_v-&gt;simplify();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"></span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">    /// 计算 integral 1/(f(v) - v) dv</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">auto</span> integrand = SymbolicExpr::divide(SymbolicExpr::number(1), f_minus_v);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">auto</span> lhs_integral = integrand-&gt;integrate(v_name);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"></span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">    /// 右端: ln(x)</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">auto</span> rhs_integral = SymbolicExpr::ln(x_var);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment"></span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">    /// 解为: lhs_integral = ln(x) + C</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">    /// 即: lhs_integral - ln(x) = C</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">    /// 回代 v = y/x</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">auto</span> v_replacement = SymbolicExpr::divide(</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        SymbolicExpr::variable(y), x_var);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">auto</span> solution = lhs_integral-&gt;substitute(v_name, v_replacement);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    solution = SymbolicExpr::add(solution,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        SymbolicExpr::multiply(SymbolicExpr::number(-1), rhs_integral));</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    solution = solution-&gt;simplify();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment"></span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">    /// 返回隐式解形式: F(x,y) = C</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab79297f71a0c54622f8d452534dbd467">general_solution</a> = solution;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a04f8f11740989b643f47effec0460385">  125</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">ODESolutionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a04f8f11740989b643f47effec0460385">solve_bernoulli_ode_checked</a>(</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; P,</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; Q,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordtype">int</span> n,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">const</span> std::string&amp; y,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>)</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>{</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">const</span> std::string operation = <span class="stringliteral">&quot;solve_bernoulli_ode&quot;</span>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">auto</span> valid = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aed4b6c35e08f81f9d10209944f9b1c3d">validate_ode_pair_var_pair</a>(P, Q, x, y, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>, operation);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">if</span> (!valid) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(valid.error());</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">if</span> (n == 0 || n == 1) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                          <span class="stringliteral">&quot;Bernoulli exponent must not be 0 or 1&quot;</span>,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                          operation);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">auto</span> step = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>.consume_steps(14, operation);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">if</span> (!step) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(step.error());</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a1a50a012782eef2d27343c8b56355fbb">wrap_ode_solution</a>(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a187be728df3a940ea9b702ac75bac0ab">solve_bernoulli_ode_impl</a>(P, Q, n, x, y),</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                                 <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a145aff85b8e64514b9125ee45d430e03">ODEType::Bernoulli</a>,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                                 operation);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::bad_alloc&amp;) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                                          <span class="stringliteral">&quot;Bernoulli ODE allocation failed&quot;</span>,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                                          operation);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                                          <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>.what(),</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                                          operation);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#ab63eb9634f501abc1f9f64431322e4bb">  159</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">ODESolutionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a04f8f11740989b643f47effec0460385">solve_bernoulli_ode_checked</a>(</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; P,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; Q,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">int</span> n,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">const</span> std::string&amp; y)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>{</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a04f8f11740989b643f47effec0460385">solve_bernoulli_ode_checked</a>(P, Q, n, x, y, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="foldopen" id="foldopen00170" data-start="{" data-end="}">
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a187be728df3a940ea9b702ac75bac0ab">  170</a></span><span class="keyword">static</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a187be728df3a940ea9b702ac75bac0ab">solve_bernoulli_ode_impl</a>(</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; P,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; Q,</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordtype">int</span> n,</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">const</span> std::string&amp;)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>{</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> result;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a1b238da55e0e4799ecfa1ceb3055e657">method_used</a> = <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a145aff85b8e64514b9125ee45d430e03">ODEType::Bernoulli</a>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acba8b3f2d50bd81e652be2c0f050806e">constants</a> = {<span class="stringliteral">&quot;C&quot;</span>};</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"></span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">    /// Bernoulli 方程: y&#39; + P(x)*y = Q(x)*y^n  (n != 0, 1)</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment">    /// 令 v = y^(1-n),则 v&#39; = (1-n)*y^(-n)*y&#39;</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment">    /// 从原方程: y&#39; = -P(x)*y + Q(x)*y^n</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">    /// 两边乘以 (1-n)*y^(-n):</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">    ///   (1-n)*y^(-n)*y&#39; = (1-n)*(-P(x)*y^(1-n) + Q(x))</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">    ///   v&#39; = (1-n)*(-P(x)*v + Q(x))</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">    ///   v&#39; + (1-n)*P(x)*v = (1-n)*Q(x)</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">    /// 这是关于 v 的一阶线性 ODE</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordtype">int</span> one_minus_n = 1 - n;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keyword">auto</span> coeff = SymbolicExpr::number(one_minus_n);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment"></span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">    /// 线性 ODE 的系数: P_linear = (1-n)*P(x), Q_linear = (1-n)*Q(x)</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">auto</span> P_linear = SymbolicExpr::multiply(coeff, P)-&gt;simplify();</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keyword">auto</span> Q_linear = SymbolicExpr::multiply(coeff, Q)-&gt;simplify();</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment"></span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">    /// 用积分因子法求解线性 ODE: v&#39; + P_linear*v = Q_linear</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">    /// 积分因子 mu = exp(integralP_linear dx)</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">auto</span> intP = P_linear-&gt;integrate(x);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">auto</span> mu = SymbolicExpr::exp(intP);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"></span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment">    /// v = (1/mu) * (integral Q_linear * mu dx + C)</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keyword">auto</span> Q_mu = SymbolicExpr::multiply(Q_linear, mu)-&gt;simplify();</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keyword">auto</span> int_Q_mu = Q_mu-&gt;integrate(x);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keyword">auto</span> C_const = SymbolicExpr::variable(<span class="stringliteral">&quot;C&quot;</span>);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keyword">auto</span> numerator = SymbolicExpr::add(int_Q_mu, C_const);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keyword">auto</span> v_solution = SymbolicExpr::divide(numerator, mu)-&gt;simplify();</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment"></span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment">    /// 回代: v = y^(1-n),所以 y = v^(1/(1-n))</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment">    /// y^(1-n) = v_solution</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">    /// y = v_solution^(1/(1-n))</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keyword">auto</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> = SymbolicExpr::divide(</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        SymbolicExpr::number(1),</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        SymbolicExpr::number(one_minus_n));</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keyword">auto</span> y_solution = SymbolicExpr::power(v_solution, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>)-&gt;simplify();</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab79297f71a0c54622f8d452534dbd467">general_solution</a> = y_solution;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
+</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a5f9adc2907b2f504b921d938f8fc2ded">  223</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a5f9adc2907b2f504b921d938f8fc2ded">find_integrating_factor</a>(</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; M,</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; N,</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keyword">const</span> std::string&amp; y)</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>{</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">if</span> (!M || !N) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment"></span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">    /// 计算 partialM/partialy - partialN/partialx</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keyword">auto</span> dM_dy = M-&gt;differentiate(y);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keyword">auto</span> dN_dx = N-&gt;differentiate(x);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">if</span> (!dM_dy || !dN_dx) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">auto</span> diff = SymbolicExpr::add(dM_dy,</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        SymbolicExpr::multiply(SymbolicExpr::number(-1), dN_dx));</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    diff = diff-&gt;simplify();</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">if</span> (diff-&gt;is_zero()) {<span class="comment"></span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment">        /// 已经恰当,积分因子为 1</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">return</span> SymbolicExpr::number(1);</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment"></span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">    /// 尝试 mu = mu(x): (partialM/partialy - partialN/partialx) / N 仅依赖 x</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">if</span> (N &amp;&amp; !N-&gt;is_zero()) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keyword">auto</span> ratio_x = SymbolicExpr::divide(diff, N)-&gt;simplify();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aca5c386c7843b5e136e8b13229e7f950">expression_depends_on_variable</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(ratio_x), y)) {<span class="comment"></span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">            /// mu(x) = exp(integral ratio_x dx)</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            <span class="keyword">auto</span> int_ratio = ratio_x-&gt;integrate(x);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            <span class="keywordflow">return</span> SymbolicExpr::exp(int_ratio);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment"></span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment">    /// 尝试 mu = mu(y): (partialN/partialx - partialM/partialy) / M 仅依赖 y</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordflow">if</span> (M &amp;&amp; !M-&gt;is_zero()) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        <span class="keyword">auto</span> neg_diff = SymbolicExpr::multiply(SymbolicExpr::number(-1), diff)-&gt;simplify();</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keyword">auto</span> ratio_y = SymbolicExpr::divide(neg_diff, M)-&gt;simplify();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aca5c386c7843b5e136e8b13229e7f950">expression_depends_on_variable</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(ratio_y), x)) {<span class="comment"></span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment">            /// mu(y) = exp(integral ratio_y dy)</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            <span class="keyword">auto</span> int_ratio = ratio_y-&gt;integrate(y);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            <span class="keywordflow">return</span> SymbolicExpr::exp(int_ratio);</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        }</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>}</div>
+</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="foldopen" id="foldopen00270" data-start="{" data-end="}">
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#ad884505380933b2730222123f2edb42e">  270</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">ODESolutionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ad884505380933b2730222123f2edb42e">solve_exact_ode_checked</a>(</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; M,</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; N,</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keyword">const</span> std::string&amp; y,</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>)</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>{</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keyword">const</span> std::string operation = <span class="stringliteral">&quot;solve_exact_ode&quot;</span>;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keyword">auto</span> valid = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aed4b6c35e08f81f9d10209944f9b1c3d">validate_ode_pair_var_pair</a>(M, N, x, y, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>, operation);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keywordflow">if</span> (!valid) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(valid.error());</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keyword">auto</span> step = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>.consume_steps(18, operation);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordflow">if</span> (!step) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(step.error());</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a1a50a012782eef2d27343c8b56355fbb">wrap_ode_solution</a>(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aa43c570b58a7cb5baf3c32e5af3640b0">solve_exact_ode_impl</a>(M, N, x, y),</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                                 <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a1649aed298f99d587e2eb30c1db5946b">ODEType::Exact</a>,</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                                 operation);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::bad_alloc&amp;) {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>,</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                                          <span class="stringliteral">&quot;exact ODE allocation failed&quot;</span>,</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                                          operation);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>) {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">ODESolutionResult::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                                          <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">e</a>.what(),</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>                                          operation);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>}</div>
+</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="foldopen" id="foldopen00298" data-start="{" data-end="}">
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a9e19e1b74c6e5142c5bf5282456af4f1">  298</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">ODESolutionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ad884505380933b2730222123f2edb42e">solve_exact_ode_checked</a>(</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; M,</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; N,</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keyword">const</span> std::string&amp; y)</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>{</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ad884505380933b2730222123f2edb42e">solve_exact_ode_checked</a>(M, N, x, y, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">context</a>);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>}</div>
+</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="foldopen" id="foldopen00308" data-start="{" data-end="}">
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#aa43c570b58a7cb5baf3c32e5af3640b0">  308</a></span><span class="keyword">static</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aa43c570b58a7cb5baf3c32e5af3640b0">solve_exact_ode_impl</a>(</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; M,</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; N,</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keyword">const</span> std::string&amp; x,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keyword">const</span> std::string&amp; y)</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>{</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">ODESolution</a> result;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a1b238da55e0e4799ecfa1ceb3055e657">method_used</a> = <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a1649aed298f99d587e2eb30c1db5946b">ODEType::Exact</a>;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acba8b3f2d50bd81e652be2c0f050806e">constants</a> = {<span class="stringliteral">&quot;C&quot;</span>};</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keyword">auto</span> M_eff = M;</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keyword">auto</span> N_eff = N;</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="comment"></span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="comment">    /// 检查是否恰当,若不恰当则尝试寻找积分因子</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#af37f14976e4649d79fc37f9c21b8ee32">is_exact_ode</a>(M, N, x, y)) {</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keyword">auto</span> mu = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a5f9adc2907b2f504b921d938f8fc2ded">find_integrating_factor</a>(M, N, x, y);</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="keywordflow">if</span> (!mu) {<span class="comment"></span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="comment">            /// 积分因子搜索未决时以空 general_solution 表示.</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab79297f71a0c54622f8d452534dbd467">general_solution</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        }<span class="comment"></span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="comment">        /// 乘以积分因子</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        M_eff = SymbolicExpr::multiply(mu, M)-&gt;simplify();</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        N_eff = SymbolicExpr::multiply(mu, N)-&gt;simplify();</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    }</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="comment"></span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="comment">    /// 恰当方程: partialF/partialx = M, partialF/partialy = N</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="comment">    /// F(x,y) = integral M dx + g(y)</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="comment">    /// 对 F 关于 y 求导: partialF/partialy = partial/partialy(integral M dx) + g&#39;(y) = N</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="comment">    /// 所以 g&#39;(y) = N - partial/partialy(integral M dx)</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="comment"></span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="comment">    /// 步骤 1: 计算 integral M dx(将 y 视为常数)</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keyword">auto</span> F_partial = M_eff-&gt;integrate(x);</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="comment"></span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="comment">    /// 步骤 2: 对 F_partial 关于 y 求导</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keyword">auto</span> dF_dy = F_partial-&gt;differentiate(y);</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    dF_dy = dF_dy ? dF_dy-&gt;simplify() : SymbolicExpr::number(0);</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="comment"></span> </div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="comment">    /// 步骤 3: g&#39;(y) = N - dF_dy</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keyword">auto</span> g_prime = SymbolicExpr::add(N_eff,</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        SymbolicExpr::multiply(SymbolicExpr::number(-1), dF_dy));</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    g_prime = g_prime-&gt;simplify();</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="comment"></span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="comment">    /// 步骤 4: g(y) = integral g&#39;(y) dy</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keyword">auto</span> g_y = g_prime-&gt;integrate(y);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="comment"></span> </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="comment">    /// 步骤 5: F(x,y) = F_partial + g(y)</span></div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keyword">auto</span> F_total = SymbolicExpr::add(F_partial, g_y)-&gt;simplify();</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="comment"></span> </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span><span class="comment">    /// 解为 F(x,y) = C</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab79297f71a0c54622f8d452534dbd467">general_solution</a> = F_total;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>}</div>
+</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>} <span class="comment">// namespace LMCAS</span></div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a77c48ece6590b662504d03418f6418d1"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">LMCAS::Result&lt; ODESolution &gt;::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aexpression__analysis_8hpp_html"><div class="ttname"><a href="../../d8/db5/expression__analysis_8hpp.html">expression_analysis.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1d1d0bdafb53aa76fcf04f5896687c69"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::LMCAS::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00090">base.hpp:90</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a036bdb930bc080e3b709d75abd302fcb"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a036bdb930bc080e3b709d75abd302fcb">LMCAS::validate_ode_expr_var_pair</a></div><div class="ttdeci">Result&lt; void &gt; validate_ode_expr_var_pair(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;x, const std::string &amp;y, ComputationContext &amp;context, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="../../da/d68/ode__classification_8cpp_source.html#l00045">ode_classification.cpp:45</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a04f8f11740989b643f47effec0460385"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a04f8f11740989b643f47effec0460385">LMCAS::solve_bernoulli_ode_checked</a></div><div class="ttdeci">ODESolutionResult solve_bernoulli_ode_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;P, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;Q, int n, const std::string &amp;x, const std::string &amp;y, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00125">ode_first_order.cpp:125</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a187be728df3a940ea9b702ac75bac0ab"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a187be728df3a940ea9b702ac75bac0ab">LMCAS::solve_bernoulli_ode_impl</a></div><div class="ttdeci">static ODESolution solve_bernoulli_ode_impl(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;, int, const std::string &amp;, const std::string &amp;)</div><div class="ttdef"><b>定义</b> <a href="#l00170">ode_first_order.cpp:170</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a18bbc705e72f8d73adf9373be956fec1"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a18bbc705e72f8d73adf9373be956fec1">LMCAS::e</a></div><div class="ttdeci">ExprResult e()</div><div class="ttdef"><b>定义</b> <a href="../../da/dd5/expr__values_8cpp_source.html#l00115">expr_values.cpp:115</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a1a50a012782eef2d27343c8b56355fbb"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a1a50a012782eef2d27343c8b56355fbb">LMCAS::wrap_ode_solution</a></div><div class="ttdeci">ODESolutionResult wrap_ode_solution(ODESolution solution, ODEType expected_method, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="../../da/d68/ode__classification_8cpp_source.html#l00100">ode_classification.cpp:100</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a1b238da55e0e4799ecfa1ceb3055e657"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a1b238da55e0e4799ecfa1ceb3055e657">LMCAS::ODESolution::method_used</a></div><div class="ttdeci">ODEType method_used</div><div class="ttdoc">使用的求解方法</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00074">symbolic_ode_engine.hpp:74</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a20ca58695e193ce346426e01496b6d75a145aff85b8e64514b9125ee45d430e03"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a145aff85b8e64514b9125ee45d430e03">LMCAS::ODEType::Bernoulli</a></div><div class="ttdeci">@ Bernoulli</div><div class="ttdoc">Bernoulli 方程 y&#39; + P(x)y = Q(x)y^n</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00029">symbolic_ode_engine.hpp:29</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a20ca58695e193ce346426e01496b6d75a1649aed298f99d587e2eb30c1db5946b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a1649aed298f99d587e2eb30c1db5946b">LMCAS::ODEType::Exact</a></div><div class="ttdeci">@ Exact</div><div class="ttdoc">恰当方程 M(x,y)dx + N(x,y)dy = 0</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00030">symbolic_ode_engine.hpp:30</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a20ca58695e193ce346426e01496b6d75a548465e8241b26162c8e0a7b0cdfc5e7"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a20ca58695e193ce346426e01496b6d75a548465e8241b26162c8e0a7b0cdfc5e7">LMCAS::ODEType::Homogeneous</a></div><div class="ttdeci">@ Homogeneous</div><div class="ttdoc">齐次方程 y&#39; = f(y/x)</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00028">symbolic_ode_engine.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b">LMCAS::CasErrc::InvalidArgument</a></div><div class="ttdeci">@ InvalidArgument</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00013">result.hpp:13</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">LMCAS::CasErrc::InternalInvariant</a></div><div class="ttdeci">@ InternalInvariant</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00028">result.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">LMCAS::CasErrc::ResourceLimit</a></div><div class="ttdeci">@ ResourceLimit</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00025">result.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5f9adc2907b2f504b921d938f8fc2ded"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5f9adc2907b2f504b921d938f8fc2ded">LMCAS::find_integrating_factor</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; find_integrating_factor(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;M, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;N, const std::string &amp;x, const std::string &amp;y)</div><div class="ttdef"><b>定义</b> <a href="#l00223">ode_first_order.cpp:223</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7d600797df1e25c9ec0b594734d455a0"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">LMCAS::exponent</a></div><div class="ttdeci">const ExprPtr &amp; exponent</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00206">expr.hpp:206</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aa43c570b58a7cb5baf3c32e5af3640b0"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aa43c570b58a7cb5baf3c32e5af3640b0">LMCAS::solve_exact_ode_impl</a></div><div class="ttdeci">static ODESolution solve_exact_ode_impl(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;, const std::string &amp;, const std::string &amp;)</div><div class="ttdef"><b>定义</b> <a href="#l00308">ode_first_order.cpp:308</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aac7f3afdf7613dd392865acb56c76b9e"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aac7f3afdf7613dd392865acb56c76b9e">LMCAS::solve_homogeneous_ode_impl</a></div><div class="ttdeci">static ODESolution solve_homogeneous_ode_impl(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;, const std::string &amp;, const std::string &amp;)</div><div class="ttdef"><b>定义</b> <a href="#l00068">ode_first_order.cpp:68</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab79297f71a0c54622f8d452534dbd467"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab79297f71a0c54622f8d452534dbd467">LMCAS::ODESolution::general_solution</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; general_solution</div><div class="ttdoc">通解表达式</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00072">symbolic_ode_engine.hpp:72</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab8af337ead097154a702d9871a023b35"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab8af337ead097154a702d9871a023b35">LMCAS::solve_homogeneous_ode_checked</a></div><div class="ttdeci">ODESolutionResult solve_homogeneous_ode_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;rhs, const std::string &amp;x, const std::string &amp;y, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00032">ode_first_order.cpp:32</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_abcecb843affb64feddeee1cabcd80e35"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">LMCAS::rhs</a></div><div class="ttdeci">const ExprPtr &amp; rhs</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00141">expr.hpp:141</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aca5c386c7843b5e136e8b13229e7f950"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aca5c386c7843b5e136e8b13229e7f950">LMCAS::expression_depends_on_variable</a></div><div class="ttdeci">bool expression_depends_on_variable(const detail::SymbolicNodePtr &amp;expression, const std::string &amp;variable)</div><div class="ttdef"><b>定义</b> <a href="../../dc/d9c/expression__analysis_8cpp_source.html#l00239">expression_analysis.cpp:239</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_acba8b3f2d50bd81e652be2c0f050806e"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#acba8b3f2d50bd81e652be2c0f050806e">LMCAS::ODESolution::constants</a></div><div class="ttdeci">std::vector&lt; std::string &gt; constants</div><div class="ttdoc">任意常数名称列表 (C1, C2, ...)</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00073">symbolic_ode_engine.hpp:73</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ad884505380933b2730222123f2edb42e"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ad884505380933b2730222123f2edb42e">LMCAS::solve_exact_ode_checked</a></div><div class="ttdeci">ODESolutionResult solve_exact_ode_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;M, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;N, const std::string &amp;x, const std::string &amp;y, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00270">ode_first_order.cpp:270</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ade7689eaec9c2524ba944988280c897b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ade7689eaec9c2524ba944988280c897b">LMCAS::context</a></div><div class="ttdeci">const std::string ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00155">expr.hpp:155</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aed4b6c35e08f81f9d10209944f9b1c3d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aed4b6c35e08f81f9d10209944f9b1c3d">LMCAS::validate_ode_pair_var_pair</a></div><div class="ttdeci">Result&lt; void &gt; validate_ode_pair_var_pair(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;first, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;second, const std::string &amp;x, const std::string &amp;y, ComputationContext &amp;context, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="../../da/d68/ode__classification_8cpp_source.html#l00072">ode_classification.cpp:72</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aeebd6513445e2b080111a91b70cb854a"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aeebd6513445e2b080111a91b70cb854a">LMCAS::ODESolutionResult</a></div><div class="ttdeci">Result&lt; ODESolution &gt; ODESolutionResult</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00079">symbolic_ode_engine.hpp:79</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_af37f14976e4649d79fc37f9c21b8ee32"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#af37f14976e4649d79fc37f9c21b8ee32">LMCAS::is_exact_ode</a></div><div class="ttdeci">bool is_exact_ode(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;M, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;N, const std::string &amp;x, const std::string &amp;y)</div><div class="ttdef"><b>定义</b> <a href="../../da/d68/ode__classification_8cpp_source.html#l00518">ode_classification.cpp:518</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_db/da0/structLMCAS_1_1ODESolution"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#db/da0/structLMCAS_1_1ODESolution">LMCAS::ODESolution</a></div><div class="ttdoc">ODE 求解结果.</div><div class="ttdef"><b>定义</b> <a href="../../d1/df0/symbolic__ode__engine_8hpp_source.html#l00071">symbolic_ode_engine.hpp:71</a></div></div>
+<div class="ttc" id="aode__support_8hpp_html"><div class="ttname"><a href="../../da/d71/ode__support_8hpp.html">ode_support.hpp</a></div></div>
+<div class="ttc" id="apoly__utils_8hpp_html"><div class="ttname"><a href="../../d9/d39/poly__utils_8hpp.html">poly_utils.hpp</a></div><div class="ttdoc">Symbolic expression and univariate polynomial conversion utilities.</div></div>
+<div class="ttc" id="asymbolic_8hpp_html"><div class="ttname"><a href="../../d5/df2/symbolic_8hpp.html">symbolic.hpp</a></div><div class="ttdoc">符号表达式主类 SymbolicExpr 及其工厂方法,运算接口.</div></div>
+<div class="ttc" id="asymbolic__ast_8hpp_html"><div class="ttname"><a href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a></div><div class="ttdoc">Compatibility aggregate for LMCAS internal AST definitions.</div></div>
+<div class="ttc" id="asymbolic__ode__engine_8hpp_html"><div class="ttname"><a href="../../d1/df0/symbolic__ode__engine_8hpp.html">symbolic_ode_engine.hpp</a></div><div class="ttdoc">统一 ODE 求解引擎:分类,分派,多种求解方法.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dc/dd8/ode__first__order_8cpp.html">ode_first_order.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>
