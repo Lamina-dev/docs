@@ -73,6 +73,8 @@ jobs:
             echo "GENERATE_TAGFILE = ../docs/LMCAS/lmcas.tag"
             echo "NUM_PROC_THREADS = 1"
             echo "DOT_NUM_THREADS = 1"
+            echo "CALL_GRAPH = NO"
+            echo "CALLER_GRAPH = NO"
           ) | doxygen -
 
       - name: Build LMMC docs
@@ -83,6 +85,8 @@ jobs:
             echo "OUTPUT_DIRECTORY = ../docs/LMMC"
             echo "NUM_PROC_THREADS = 1"
             echo "DOT_NUM_THREADS = 1"
+            echo "CALL_GRAPH = NO"
+            echo "CALLER_GRAPH = NO"
           ) | doxygen -
 
       - name: Verify generated entry points
@@ -90,6 +94,8 @@ jobs:
           for project in LAMMP LMCAS LMMC; do
             test -s "docs/$project/html/index.html" || { echo "Missing $project documentation" >&2; exit 1; }
           done
+          files=$(find docs -type f | wc -l)
+          test "$files" -le 20000 || { echo "Cloudflare Pages supports at most 20,000 files (generated $files)" >&2; exit 1; }
 
       - name: Deploy to dep branch
         if: github.ref == 'refs/heads/main'
