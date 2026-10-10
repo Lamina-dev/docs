@@ -1,0 +1,20 @@
+var transcendental__patterns_8cpp =
+[
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::ScaledFunction", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#d1/d45/structLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03_1_1ScaledFunction", [
+      [ "coefficient", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#adc253723d95106df5511519fc050189a", null ],
+      [ "function", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#aa0f999caac8969fbd7c0066322d5edfa", null ]
+    ] ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::additive_function_pattern", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a70753b1a027685f18118f3a0d2e084bc", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::additive_lambert_pattern", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a8e048df75f6c74be21b447b239b6f74f", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::additive_power_pattern", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a6409a07916530163c47da5a46538f6ef", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::constant_sum", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a62a236b1b5e9ba7118976670c48a1e3e", null ],
+    [ "LMCAS::detail::transcendental::decompose_exp_base_pattern", "de/d8c/namespaceLMCAS_1_1detail_1_1transcendental.html#a9a62caae90ef0a732993146405c19f42", null ],
+    [ "LMCAS::detail::transcendental::decompose_lambert_w_pattern", "de/d8c/namespaceLMCAS_1_1detail_1_1transcendental.html#a0b0ff9ef116c21cd03ebf930f6fee69e", null ],
+    [ "LMCAS::detail::transcendental::decompose_trig_exp_pattern", "de/d8c/namespaceLMCAS_1_1detail_1_1transcendental.html#a3fafa460d0fa96ac496afe0b51f6e8bc", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::invertible_function", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#abebca5b66368ca17b1f1ae9e011cccd4", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::lambert_inner", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#ac5b937a3205984db358abf7a9ba1fce9", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::opposite_exponential_lambert_pattern", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a1f3111048718d6f15728a81e424234d4", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::power_pattern", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a72a916ecf421081a708fd2f03e010ecb", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::product_without", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#aac07d0aeebeea400e0aecdc88c79d83c", null ],
+    [ "LMCAS::detail::transcendental::anonymous_namespace{transcendental_patterns.cpp}::scaled_function", "d1/d8f/namespaceLMCAS_1_1detail_1_1transcendental_1_1anonymous__namespace_02transcendental__patterns_8cpp_03.html#a61906466adb40a172642192e892afb1b", null ]
+];

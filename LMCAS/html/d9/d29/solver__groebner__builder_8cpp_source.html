@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/solver_groebner_builder.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d9/d29/solver__groebner__builder_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solver_groebner_builder.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d9/d29/solver__groebner__builder_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/df9/solver__groebner__builder_8hpp.html">internal/solver_groebner_builder.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html">LMCAS::groebner_detail</a> {</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html">    8</a></span><span class="keyword">namespace </span>{</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html#a4f3bcfe3a352cca22003a6983bdb3f02">    9</a></span>std::optional&lt;BigInt&gt; <a class="code hl_function" href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html#a4f3bcfe3a352cca22003a6983bdb3f02">integer_exponent</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/df6/classLMCAS_1_1PowerNode.html">PowerNode</a>&amp; node) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">if</span> (!node.exponent()-&gt;is_number()) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    }</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">auto</span> number = std::dynamic_pointer_cast&lt;const NumberNode&gt;(node.exponent());</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">if</span> (!number) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a> = number-&gt;value();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>)) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> std::get&lt;BigInt&gt;(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>)) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aee67c11656e5bdd8e4fe34f87aaeb98e">rational</a> = std::get&lt;Rational&gt;(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aee67c11656e5bdd8e4fe34f87aaeb98e">rational</a>.is_integer()) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aee67c11656e5bdd8e4fe34f87aaeb98e">rational</a>.to_bigint();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>)) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        lmmc_real_t <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a> = std::get&lt;lmmc_real_t&gt;(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">if</span> (std::isfinite(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a>) &amp;&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a> == std::floor(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a>)) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">return</span> Rational::from_double(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">real</a>).to_bigint();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html#abc76cc92b35e118c6c0ef8de27b87cd2">   36</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html#abc76cc92b35e118c6c0ef8de27b87cd2">power_degrees_fit</a>(<span class="keyword">const</span> <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a>&amp; base, <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [monomial, coefficient] : base.<a class="code hl_variable" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a3c5793c295f95baeeb3a88e7cca21411">terms</a>) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        (void)coefficient;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> degree : monomial) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">if</span> (degree &gt; std::numeric_limits&lt;int&gt;::max() / <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac035cb1a57becdf08bea5a7c7cd221a9">   47</a></span>    <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac035cb1a57becdf08bea5a7c7cd221a9">PolyBuilder::PolyBuilder</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a1d90d89535ce09d94d0bf390fedc04f6">v</a>, <a class="code hl_struct" href="../../d0/d4e/structLMCAS_1_1groebner__detail_1_1PolyContext.html">PolyContext</a>&amp; ctx, <span class="keywordtype">bool</span> strict)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        : <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa1b64fd6e8db9fa17c170035fed0dbc0">vars</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a1d90d89535ce09d94d0bf390fedc04f6">v</a>), <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>(ctx.<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>), <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac3c03577ffb2d178d88ce291079fd0ca">transcendental_map</a>(ctx.<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac3c03577ffb2d178d88ce291079fd0ca">transcendental_map</a>),</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>          <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac55d5e093e9a39b5dbd6d72a0d099db9">aux_to_node</a>(&amp;ctx.<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac55d5e093e9a39b5dbd6d72a0d099db9">aux_to_node</a>), <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>(ctx.<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size()), <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">strict_mode</a>(strict) {}</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">   51</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">PolyBuilder::visit</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/d30/classLMCAS_1_1NumberNode.html">NumberNode</a>&amp; node) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = <a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a4aaec7540fe74b6d6a99aebe58ea9dda">Poly</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(node.value())) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(std::vector&lt;int&gt;(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0), std::get&lt;Rational&gt;(node.value()));</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(node.value())) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(std::vector&lt;int&gt;(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0), Rational(std::get&lt;BigInt&gt;(node.value())));</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;lmmc_real_t&gt;(node.value())) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(std::vector&lt;int&gt;(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0),</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    Rational::from_double(std::get&lt;lmmc_real_t&gt;(node.value())));</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#afc1f52f9be0a7e69e757e6a2f1cbb858">   64</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">PolyBuilder::visit</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../db/d67/classLMCAS_1_1VariableNode.html">VariableNode</a>&amp; node) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = <a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a4aaec7540fe74b6d6a99aebe58ea9dda">Poly</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">auto</span> it = node.is_constant() ? <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.end() :</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                std::find(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.begin(), <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.end(), node.name());</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">if</span> (it != <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.end()) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <a class="code hl_typedef" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#afce26035ac76a8ce9121d8149e52d6bb">Monomial</a> m(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                m[std::distance(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.begin(), it)] = 1;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(m, Rational(1));</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">strict_mode</a>) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                    <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">failed</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordtype">size_t</span> idx = <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a6a5d30bf781c1654110d16a863d2b10c">get_or_create_aux_var</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node&lt;VariableNode&gt;</a>(node.name(), node.is_constant()));</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = <a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a4aaec7540fe74b6d6a99aebe58ea9dda">Poly</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                <a class="code hl_typedef" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#afce26035ac76a8ce9121d8149e52d6bb">Monomial</a> m(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                m[idx] = 1;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(m, Rational(1));</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a1a590fc2a9bf4f56dda0d61934466f62">   88</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">PolyBuilder::visit</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../de/dce/classLMCAS_1_1AddNode.html">AddNode</a>&amp; node) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a> sum(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a> : node.operands()) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac035cb1a57becdf08bea5a7c7cd221a9">PolyBuilder</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa1b64fd6e8db9fa17c170035fed0dbc0">vars</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac3c03577ffb2d178d88ce291079fd0ca">transcendental_map</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac55d5e093e9a39b5dbd6d72a0d099db9">aux_to_node</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">strict_mode</a>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a>-&gt;accept(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.failed) { <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">failed</a> = <span class="keyword">true</span>; <span class="keywordflow">return</span>; }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a> b_res = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.get_result();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                <a class="code hl_function" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#aa0a0c3a02767559d0121e648cd26f5ef">align_variables</a>(sum, b_res);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                sum = <a class="code hl_function" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#aef62feb956d992da70d95b7c18e0cbbf">add_poly</a>(sum, b_res);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = sum;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        }</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac9fd3261391b75fb0e89cdf7a9643de6">  102</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">PolyBuilder::visit</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d5/d5a/classLMCAS_1_1MultiplyNode.html">MultiplyNode</a>&amp; node) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a> prod(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            prod.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(std::vector&lt;int&gt;(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0), Rational(1));</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a> : node.operands()) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac035cb1a57becdf08bea5a7c7cd221a9">PolyBuilder</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa1b64fd6e8db9fa17c170035fed0dbc0">vars</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac3c03577ffb2d178d88ce291079fd0ca">transcendental_map</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac55d5e093e9a39b5dbd6d72a0d099db9">aux_to_node</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">strict_mode</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a>-&gt;accept(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.failed) { <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">failed</a> = <span class="keyword">true</span>; <span class="keywordflow">return</span>; }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a> b_res = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.get_result();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <a class="code hl_function" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#aa0a0c3a02767559d0121e648cd26f5ef">align_variables</a>(prod, b_res);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                prod = <a class="code hl_function" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#a12ec362061b659a15e9d7308dfc8bc8a">mul_poly</a>(prod, b_res);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = prod;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
+</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#adbb64d9568fda45dfc6c8a00e90a10ce">  118</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">PolyBuilder::visit</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/df6/classLMCAS_1_1PowerNode.html">PowerNode</a>&amp; node) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac035cb1a57becdf08bea5a7c7cd221a9">PolyBuilder</a> builder(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa1b64fd6e8db9fa17c170035fed0dbc0">vars</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac3c03577ffb2d178d88ce291079fd0ca">transcendental_map</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac55d5e093e9a39b5dbd6d72a0d099db9">aux_to_node</a>, <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">strict_mode</a>);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    node.base()-&gt;accept(builder);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (builder.<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">failed</a>) {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">failed</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a> base = builder.<a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aafebe0e5a2c722876e6127f76fb6f7d1">get_result</a>();</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">auto</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> = integer_exponent(node);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> || *<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> &gt; BigInt(std::numeric_limits&lt;int&gt;::max()) ||</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        *<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> &lt; 0) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">strict_mode</a>) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">failed</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af411478134fcfd2868b56278b96c2be7">represent_as_aux_or_fail</a>(</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node&lt;PowerNode&gt;</a>(node.base(), node.exponent()));</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">if</span> (*<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> == 0) {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = <a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a4aaec7540fe74b6d6a99aebe58ea9dda">Poly</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a>.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(<a class="code hl_typedef" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#afce26035ac76a8ce9121d8149e52d6bb">Monomial</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0), Rational(1));</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> count = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>-&gt;try_to_int64().<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>());</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span> (!power_degrees_fit(base, count)) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_function" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af411478134fcfd2868b56278b96c2be7">represent_as_aux_or_fail</a>(node.clone());</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <a class="code hl_struct" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">Poly</a> product(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size());</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    product.<a class="code hl_function" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">add_term</a>(<a class="code hl_typedef" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#afce26035ac76a8ce9121d8149e52d6bb">Monomial</a>(<a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">ext_vars</a>.size(), 0), Rational(1));</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> index = 0; index &lt; count; ++index) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <a class="code hl_function" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#a6fda3349057bee9063f5ede13b07125d">extend_variables</a>(product, base.<a class="code hl_variable" href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#aba2a34687fe98df483f4a47adb140c35">num_vars</a>);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        product = <a class="code hl_function" href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#a12ec362061b659a15e9d7308dfc8bc8a">mul_poly</a>(product, base);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <a class="code hl_variable" href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">result</a> = product;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1AddNode_html"><div class="ttname"><a href="../../de/dce/classLMCAS_1_1AddNode.html">LMCAS::AddNode</a></div><div class="ttdoc">加法节点，表示多个操作数的求和。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00055">arithmetic.hpp:55</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1MultiplyNode_html"><div class="ttname"><a href="../../d5/d5a/classLMCAS_1_1MultiplyNode.html">LMCAS::MultiplyNode</a></div><div class="ttdoc">乘法节点，表示多个操作数的乘积。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00134">arithmetic.hpp:134</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1NumberNode_html"><div class="ttname"><a href="../../de/d30/classLMCAS_1_1NumberNode.html">LMCAS::NumberNode</a></div><div class="ttdoc">数值节点，存储 BigInt、Rational 或浮点数。</div><div class="ttdef"><b>定义</b> <a href="../../db/d83/numbers_8hpp_source.html#l00012">numbers.hpp:12</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1PowerNode_html"><div class="ttname"><a href="../../dc/df6/classLMCAS_1_1PowerNode.html">LMCAS::PowerNode</a></div><div class="ttdoc">幂运算节点，表示 base^exponent。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00218">arithmetic.hpp:218</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1VariableNode_html"><div class="ttname"><a href="../../db/d67/classLMCAS_1_1VariableNode.html">LMCAS::VariableNode</a></div><div class="ttdoc">变量节点，表示一个符号变量。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00010">arithmetic.hpp:10</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_a4948d5bf597c66f07be066e678edd083"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a4948d5bf597c66f07be066e678edd083">LMCAS::groebner_detail::PolyBuilder::ext_vars</a></div><div class="ttdeci">std::vector&lt; std::string &gt; &amp; ext_vars</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00011">solver_groebner_builder.hpp:11</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_a6a5d30bf781c1654110d16a863d2b10c"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#a6a5d30bf781c1654110d16a863d2b10c">LMCAS::groebner_detail::PolyBuilder::get_or_create_aux_var</a></div><div class="ttdeci">size_t get_or_create_aux_var(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdef"><b>定义</b> <a href="../../d7/ddc/solver__groebner__conversion_8cpp_source.html#l00006">solver_groebner_conversion.cpp:6</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_aa1b64fd6e8db9fa17c170035fed0dbc0"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa1b64fd6e8db9fa17c170035fed0dbc0">LMCAS::groebner_detail::PolyBuilder::vars</a></div><div class="ttdeci">std::vector&lt; std::string &gt; vars</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00009">solver_groebner_builder.hpp:9</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_aa66597fbd36e881e8894e51171de42fb"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aa66597fbd36e881e8894e51171de42fb">LMCAS::groebner_detail::PolyBuilder::failed</a></div><div class="ttdeci">bool failed</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00040">solver_groebner_builder.hpp:40</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_aafebe0e5a2c722876e6127f76fb6f7d1"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#aafebe0e5a2c722876e6127f76fb6f7d1">LMCAS::groebner_detail::PolyBuilder::get_result</a></div><div class="ttdeci">Poly get_result() const</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00039">solver_groebner_builder.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_ac035cb1a57becdf08bea5a7c7cd221a9"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac035cb1a57becdf08bea5a7c7cd221a9">LMCAS::groebner_detail::PolyBuilder::PolyBuilder</a></div><div class="ttdeci">PolyBuilder(const std::vector&lt; std::string &gt; &amp;v, PolyContext &amp;ctx, bool strict=false)</div><div class="ttdef"><b>定义</b> <a href="#l00047">solver_groebner_builder.cpp:47</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_ac3c03577ffb2d178d88ce291079fd0ca"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac3c03577ffb2d178d88ce291079fd0ca">LMCAS::groebner_detail::PolyBuilder::transcendental_map</a></div><div class="ttdeci">std::unordered_map&lt; std::string, size_t &gt; &amp; transcendental_map</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00013">solver_groebner_builder.hpp:13</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_ac55d5e093e9a39b5dbd6d72a0d099db9"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ac55d5e093e9a39b5dbd6d72a0d099db9">LMCAS::groebner_detail::PolyBuilder::aux_to_node</a></div><div class="ttdeci">std::unordered_map&lt; size_t, std::shared_ptr&lt; const SymbolicNode &gt; &gt; * aux_to_node</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00015">solver_groebner_builder.hpp:15</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_ae042327f3d1b027c683285b8b4694451"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae042327f3d1b027c683285b8b4694451">LMCAS::groebner_detail::PolyBuilder::visit</a></div><div class="ttdeci">void visit(const NumberNode &amp;node) override</div><div class="ttdef"><b>定义</b> <a href="#l00051">solver_groebner_builder.cpp:51</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_ae8b9377df7135c711b6a7753d198a134"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#ae8b9377df7135c711b6a7753d198a134">LMCAS::groebner_detail::PolyBuilder::result</a></div><div class="ttdeci">Poly result</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00016">solver_groebner_builder.hpp:16</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_af411478134fcfd2868b56278b96c2be7"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af411478134fcfd2868b56278b96c2be7">LMCAS::groebner_detail::PolyBuilder::represent_as_aux_or_fail</a></div><div class="ttdeci">void represent_as_aux_or_fail(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdef"><b>定义</b> <a href="../../d7/ddc/solver__groebner__conversion_8cpp_source.html#l00027">solver_groebner_conversion.cpp:27</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1groebner__detail_1_1PolyBuilder_html_af9a800b9d04b2ef8caa3053c474f5e41"><div class="ttname"><a href="../../dc/dec/classLMCAS_1_1groebner__detail_1_1PolyBuilder.html#af9a800b9d04b2ef8caa3053c474f5e41">LMCAS::groebner_detail::PolyBuilder::strict_mode</a></div><div class="ttdeci">bool strict_mode</div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00017">solver_groebner_builder.hpp:17</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a98046963816fe46917c33ec9fa7c50d0"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00123">base.hpp:123</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03_html_a4f3bcfe3a352cca22003a6983bdb3f02"><div class="ttname"><a href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html#a4f3bcfe3a352cca22003a6983bdb3f02">LMCAS::groebner_detail::anonymous_namespace{solver_groebner_builder.cpp}::integer_exponent</a></div><div class="ttdeci">std::optional&lt; BigInt &gt; integer_exponent(const PowerNode &amp;node)</div><div class="ttdef"><b>定义</b> <a href="#l00009">solver_groebner_builder.cpp:9</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03_html_abc76cc92b35e118c6c0ef8de27b87cd2"><div class="ttname"><a href="../../dc/d4f/namespaceLMCAS_1_1groebner__detail_1_1anonymous__namespace_02solver__groebner__builder_8cpp_03.html#abc76cc92b35e118c6c0ef8de27b87cd2">LMCAS::groebner_detail::anonymous_namespace{solver_groebner_builder.cpp}::power_degrees_fit</a></div><div class="ttdeci">bool power_degrees_fit(const Poly &amp;base, int exponent)</div><div class="ttdef"><b>定义</b> <a href="#l00036">solver_groebner_builder.cpp:36</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_html"><div class="ttname"><a href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html">LMCAS::groebner_detail</a></div><div class="ttdef"><b>定义</b> <a href="../../d7/df9/solver__groebner__builder_8hpp_source.html#l00006">solver_groebner_builder.hpp:6</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_html_a12ec362061b659a15e9d7308dfc8bc8a"><div class="ttname"><a href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#a12ec362061b659a15e9d7308dfc8bc8a">LMCAS::groebner_detail::mul_poly</a></div><div class="ttdeci">Poly mul_poly(const Poly &amp;a, const Poly &amp;b)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d0a/solver__groebner__poly_8cpp_source.html#l00099">solver_groebner_poly.cpp:99</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_html_a6fda3349057bee9063f5ede13b07125d"><div class="ttname"><a href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#a6fda3349057bee9063f5ede13b07125d">LMCAS::groebner_detail::extend_variables</a></div><div class="ttdeci">void extend_variables(Poly &amp;polynomial, size_t count)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d0a/solver__groebner__poly_8cpp_source.html#l00207">solver_groebner_poly.cpp:207</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_html_aa0a0c3a02767559d0121e648cd26f5ef"><div class="ttname"><a href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#aa0a0c3a02767559d0121e648cd26f5ef">LMCAS::groebner_detail::align_variables</a></div><div class="ttdeci">void align_variables(Poly &amp;a, Poly &amp;b)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d0a/solver__groebner__poly_8cpp_source.html#l00218">solver_groebner_poly.cpp:218</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_html_aef62feb956d992da70d95b7c18e0cbbf"><div class="ttname"><a href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#aef62feb956d992da70d95b7c18e0cbbf">LMCAS::groebner_detail::add_poly</a></div><div class="ttdeci">Poly add_poly(const Poly &amp;a, const Poly &amp;b)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d0a/solver__groebner__poly_8cpp_source.html#l00072">solver_groebner_poly.cpp:72</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1groebner__detail_html_afce26035ac76a8ce9121d8149e52d6bb"><div class="ttname"><a href="../../d4/d6f/namespaceLMCAS_1_1groebner__detail.html#afce26035ac76a8ce9121d8149e52d6bb">LMCAS::groebner_detail::Monomial</a></div><div class="ttdeci">std::vector&lt; int &gt; Monomial</div><div class="ttdef"><b>定义</b> <a href="../../db/d2c/solver__groebner__internal_8hpp_source.html#l00015">solver_groebner_internal.hpp:15</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a1d90d89535ce09d94d0bf390fedc04f6"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a1d90d89535ce09d94d0bf390fedc04f6">LMCAS::v</a></div><div class="ttdeci">__attribute__((visibility(&quot;default&quot;))) VectorCalculusExprResult surface_integral_scalar_checked(const std __attribute__((visibility(&quot;default&quot;))) VectorCalculusExprResult surface_integral_scalar_checked(const std __attribute__((visibility(&quot;default&quot;))) std const VectorField const std::string const std::string &amp; v</div><div class="ttdef"><b>定义</b> <a href="../../d6/d7a/vector__calculus__surfaces_8hpp_source.html#l00059">vector_calculus_surfaces.hpp:59</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a297e412dc54f6fda83ee5bd6d912c868"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a297e412dc54f6fda83ee5bd6d912c868">LMCAS::real</a></div><div class="ttdeci">ExprResult real(const ExprPtr &amp;expression, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d02/expr__arithmetic_8cpp_source.html#l00096">expr_arithmetic.cpp:96</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a59661c3dfa48637904307fa1ab72da90"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">LMCAS::b</a></div><div class="ttdeci">const MultiPoly &amp; b</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00092">multivariate_factor.hpp:92</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a75d9d5959ce09eb7b235d0442d47e0ce"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">LMCAS::op</a></div><div class="ttdeci">const ExprPtr RelationOp op</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00156">expr.hpp:156</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7d600797df1e25c9ec0b594734d455a0"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">LMCAS::exponent</a></div><div class="ttdeci">const ExprPtr &amp; exponent</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00220">expr.hpp:220</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab902e35db3491c1da0ee7ef56474ae2f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">LMCAS::value</a></div><div class="ttdeci">const std::string const ExprPtr &amp; value</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00298">expr.hpp:298</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aee67c11656e5bdd8e4fe34f87aaeb98e"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aee67c11656e5bdd8e4fe34f87aaeb98e">LMCAS::rational</a></div><div class="ttdeci">ExprResult rational(const Rational &amp;value)</div><div class="ttdef"><b>定义</b> <a href="../../da/dd5/expr__values_8cpp_source.html#l00082">expr_values.cpp:82</a></div></div>
+<div class="ttc" id="asolver__groebner__builder_8hpp_html"><div class="ttname"><a href="../../d7/df9/solver__groebner__builder_8hpp.html">solver_groebner_builder.hpp</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1groebner__detail_1_1PolyContext_html"><div class="ttname"><a href="../../d0/d4e/structLMCAS_1_1groebner__detail_1_1PolyContext.html">LMCAS::groebner_detail::PolyContext</a></div><div class="ttdef"><b>定义</b> <a href="../../db/d2c/solver__groebner__internal_8hpp_source.html#l00041">solver_groebner_internal.hpp:41</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1groebner__detail_1_1Poly_html"><div class="ttname"><a href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html">LMCAS::groebner_detail::Poly</a></div><div class="ttdef"><b>定义</b> <a href="../../db/d2c/solver__groebner__internal_8hpp_source.html#l00027">solver_groebner_internal.hpp:27</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1groebner__detail_1_1Poly_html_a3c5793c295f95baeeb3a88e7cca21411"><div class="ttname"><a href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a3c5793c295f95baeeb3a88e7cca21411">LMCAS::groebner_detail::Poly::terms</a></div><div class="ttdeci">PolyTerms terms</div><div class="ttdef"><b>定义</b> <a href="../../db/d2c/solver__groebner__internal_8hpp_source.html#l00028">solver_groebner_internal.hpp:28</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1groebner__detail_1_1Poly_html_a4aaec7540fe74b6d6a99aebe58ea9dda"><div class="ttname"><a href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a4aaec7540fe74b6d6a99aebe58ea9dda">LMCAS::groebner_detail::Poly::Poly</a></div><div class="ttdeci">Poly()</div><div class="ttdef"><b>定义</b> <a href="../../db/d2c/solver__groebner__internal_8hpp_source.html#l00032">solver_groebner_internal.hpp:32</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1groebner__detail_1_1Poly_html_a726c8cf85d1addd931303f4fa6be9431"><div class="ttname"><a href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#a726c8cf85d1addd931303f4fa6be9431">LMCAS::groebner_detail::Poly::add_term</a></div><div class="ttdeci">void add_term(const Monomial &amp;monomial, const Rational &amp;coefficient)</div><div class="ttdef"><b>定义</b> <a href="../../d0/d0a/solver__groebner__poly_8cpp_source.html#l00031">solver_groebner_poly.cpp:31</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1groebner__detail_1_1Poly_html_aba2a34687fe98df483f4a47adb140c35"><div class="ttname"><a href="../../d4/d6e/structLMCAS_1_1groebner__detail_1_1Poly.html#aba2a34687fe98df483f4a47adb140c35">LMCAS::groebner_detail::Poly::num_vars</a></div><div class="ttdeci">size_t num_vars</div><div class="ttdef"><b>定义</b> <a href="../../db/d2c/solver__groebner__internal_8hpp_source.html#l00029">solver_groebner_internal.hpp:29</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d9/d29/solver__groebner__builder_8cpp.html">solver_groebner_builder.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/internal/exact_constant_bounds.hpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d0/d60/exact__constant__bounds_8hpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">exact_constant_bounds.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d0/d60/exact__constant__bounds_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d14/computation__context_8hpp.html">computation_context.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/de8/rational_8hpp.html">rational.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">LMCAS::detail</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a955b0ced81bcfb97cc4a2aedb6bfadb9">   11</a></span><span class="keyword">using </span><a class="code hl_typedef" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a955b0ced81bcfb97cc4a2aedb6bfadb9">ExactConstantInterval</a> = std::pair&lt;Rational, Rational&gt;;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;ExactConstantInterval&gt;</a> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a9b7faa15126a49eb12c3a2e27dea7f82">exact_atan_bounds</a>(</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>, std::size_t precision_bits, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;ExactConstantInterval&gt;</a> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa9bf4deb78830ec210491f734fc51062">exact_pi_bounds</a>(</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::size_t precision_bits, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;ExactConstantInterval&gt;</a> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1a18ef6eba67c4f9c0d92d1bb72b0a03">exact_e_bounds</a>(</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::size_t precision_bits, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"></span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> * @brief 常数及根式包围区间共用的内部算术策略。</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> * 保守界覆盖未约分 Rational 的交叉乘积及结果；受检入口统一捕获 CasError，仅返回完整结果。</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html">   23</a></span><span class="keyword">class </span><a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a42a33925d33f258ffde9a2123d97b97e">ExactBoundArithmetic</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a42a33925d33f258ffde9a2123d97b97e">   25</a></span>    <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a42a33925d33f258ffde9a2123d97b97e">ExactBoundArithmetic</a>(<a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        : <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ab0174bef47253a6ff1905f7dee9329cf">context_</a>(<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>), <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>(<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>) {}</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ae130bbf1e2a0ca5dc248ee0dec570654">   28</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ae130bbf1e2a0ca5dc248ee0dec570654">require</a>(<a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;void&gt;</a> result)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">if</span> (!result) <span class="keywordflow">throw</span> result.<a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a629344d6178408d10e8aa904bef51bd7">error</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a17214a0499f396e9bcb7534a471b2f53">   31</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a17214a0499f396e9bcb7534a471b2f53">step</a>()<span class="keyword"> const </span>{ <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ae130bbf1e2a0ca5dc248ee0dec570654">require</a>(<a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ab0174bef47253a6ff1905f7dee9329cf">context_</a>.<a class="code hl_function" href="../../d1/d55/classLMCAS_1_1ComputationContext.html#a79fd40bab5207f1597474072a478e682">consume_steps</a>(1, <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>)); }</div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#af281fdb352c5884cc6fb2b40b1b7680f">   32</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#af281fdb352c5884cc6fb2b40b1b7680f">bits</a>(std::size_t count)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ae130bbf1e2a0ca5dc248ee0dec570654">require</a>(<a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ab0174bef47253a6ff1905f7dee9329cf">context_</a>.<a class="code hl_function" href="../../d1/d55/classLMCAS_1_1ComputationContext.html#aba98c316abe2e8a71456a05699a61739">require_integer_bits</a>(count, <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a1ce9e73df0626168950f5e5167fc38ad">   35</a></span>    std::size_t <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a1ce9e73df0626168950f5e5167fc38ad">growth</a>(std::size_t <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, std::size_t <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a> &gt; std::numeric_limits&lt;std::size_t&gt;::max() - <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">throw</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#de/d0c/structLMCAS_1_1CasError">CasError</a>{<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>, <span class="stringliteral">&quot;integer size overflow&quot;</span>, <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>};</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a> + <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#af281fdb352c5884cc6fb2b40b1b7680f">bits</a>(size);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> size;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">   42</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">operands</a>(<span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>, <span class="keywordtype">bool</span> addition = <span class="keyword">false</span>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a17214a0499f396e9bcb7534a471b2f53">step</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">const</span> <span class="keyword">auto</span> a_bits = std::max(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>.get_numerator().bit_length(),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                                     <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>.get_denominator().bit_length());</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keyword">const</span> <span class="keyword">auto</span> b_bits = std::max(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.get_numerator().bit_length(),</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                     <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.get_denominator().bit_length());</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size = <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a1ce9e73df0626168950f5e5167fc38ad">growth</a>(a_bits, b_bits);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">if</span> (addition) <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a1ce9e73df0626168950f5e5167fc38ad">growth</a>(size, 1);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a4ea7a22fff9e7f37ab0df9f50bf32da4">   51</a></span>    Rational <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a4ea7a22fff9e7f37ab0df9f50bf32da4">add</a>(<span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">operands</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>, <span class="keyword">true</span>); <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a> + <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#afab8972f11b9fb0b1447683be6ae99c9">   54</a></span>    Rational <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#afab8972f11b9fb0b1447683be6ae99c9">sub</a>(<span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">operands</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>, <span class="keyword">true</span>); <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a> - <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a0f1488afa5ab0ca408143e2e483386c9">   57</a></span>    Rational <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a0f1488afa5ab0ca408143e2e483386c9">mul</a>(<span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">operands</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>); <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a> * <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a5bfdb2c8470357dbe283ac3d0cee638a">   60</a></span>    Rational <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a5bfdb2c8470357dbe283ac3d0cee638a">div</a>(<span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">operands</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>.is_zero())</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">throw</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#de/d0c/structLMCAS_1_1CasError">CasError</a>{<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a975bdf758f1a3bd1b4826bee2f21eb0a">CasErrc::DomainError</a>, <span class="stringliteral">&quot;zero enclosure divisor&quot;</span>, <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a> / <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a5ddd7fea5d817897784741291db978f2">   66</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a5ddd7fea5d817897784741291db978f2">less</a>(<span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> Rational&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">operands</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>); <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a> &lt; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aac30e3c3a7b72649b289c26840a3d644">   69</a></span>    BigInt <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aac30e3c3a7b72649b289c26840a3d644">dyadic_scale</a>(std::size_t precision)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a17214a0499f396e9bcb7534a471b2f53">step</a>();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_function" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a1ce9e73df0626168950f5e5167fc38ad">growth</a>(precision, 1);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">if</span> (precision &gt; std::numeric_limits&lt;mp_size_t&gt;::max())</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">throw</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#de/d0c/structLMCAS_1_1CasError">CasError</a>{<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>, <span class="stringliteral">&quot;shift size overflow&quot;</span>, <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> BigInt(1) &lt;&lt; <span class="keyword">static_cast&lt;</span>mp_size_t<span class="keyword">&gt;</span>(precision);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ab0174bef47253a6ff1905f7dee9329cf">   77</a></span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ab0174bef47253a6ff1905f7dee9329cf">context_</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">   78</a></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">operation_</a>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html_a79fd40bab5207f1597474072a478e682"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html#a79fd40bab5207f1597474072a478e682">LMCAS::ComputationContext::consume_steps</a></div><div class="ttdeci">Result&lt; void &gt; consume_steps(std::size_t amount=1, const std::string &amp;operation={})</div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00112">computation_context.hpp:112</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html_aba98c316abe2e8a71456a05699a61739"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html#aba98c316abe2e8a71456a05699a61739">LMCAS::ComputationContext::require_integer_bits</a></div><div class="ttdeci">Result&lt; void &gt; require_integer_bits(std::size_t amount, const std::string &amp;operation={}) const</div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00153">computation_context.hpp:153</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a629344d6178408d10e8aa904bef51bd7"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a629344d6178408d10e8aa904bef51bd7">LMCAS::Result::error</a></div><div class="ttdeci">CasError &amp; error()</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00077">result.hpp:77</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a0f1488afa5ab0ca408143e2e483386c9"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a0f1488afa5ab0ca408143e2e483386c9">LMCAS::detail::ExactBoundArithmetic::mul</a></div><div class="ttdeci">Rational mul(const Rational &amp;a, const Rational &amp;b) const</div><div class="ttdef"><b>定义</b> <a href="#l00057">exact_constant_bounds.hpp:57</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a17214a0499f396e9bcb7534a471b2f53"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a17214a0499f396e9bcb7534a471b2f53">LMCAS::detail::ExactBoundArithmetic::step</a></div><div class="ttdeci">void step() const</div><div class="ttdef"><b>定义</b> <a href="#l00031">exact_constant_bounds.hpp:31</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a1ce9e73df0626168950f5e5167fc38ad"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a1ce9e73df0626168950f5e5167fc38ad">LMCAS::detail::ExactBoundArithmetic::growth</a></div><div class="ttdeci">std::size_t growth(std::size_t a, std::size_t b) const</div><div class="ttdef"><b>定义</b> <a href="#l00035">exact_constant_bounds.hpp:35</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a42a33925d33f258ffde9a2123d97b97e"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a42a33925d33f258ffde9a2123d97b97e">LMCAS::detail::ExactBoundArithmetic::ExactBoundArithmetic</a></div><div class="ttdeci">ExactBoundArithmetic(ComputationContext &amp;context, const char *operation)</div><div class="ttdef"><b>定义</b> <a href="#l00025">exact_constant_bounds.hpp:25</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a4ea7a22fff9e7f37ab0df9f50bf32da4"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a4ea7a22fff9e7f37ab0df9f50bf32da4">LMCAS::detail::ExactBoundArithmetic::add</a></div><div class="ttdeci">Rational add(const Rational &amp;a, const Rational &amp;b) const</div><div class="ttdef"><b>定义</b> <a href="#l00051">exact_constant_bounds.hpp:51</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a5bfdb2c8470357dbe283ac3d0cee638a"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a5bfdb2c8470357dbe283ac3d0cee638a">LMCAS::detail::ExactBoundArithmetic::div</a></div><div class="ttdeci">Rational div(const Rational &amp;a, const Rational &amp;b) const</div><div class="ttdef"><b>定义</b> <a href="#l00060">exact_constant_bounds.hpp:60</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_a5ddd7fea5d817897784741291db978f2"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#a5ddd7fea5d817897784741291db978f2">LMCAS::detail::ExactBoundArithmetic::less</a></div><div class="ttdeci">bool less(const Rational &amp;a, const Rational &amp;b) const</div><div class="ttdef"><b>定义</b> <a href="#l00066">exact_constant_bounds.hpp:66</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_aac30e3c3a7b72649b289c26840a3d644"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aac30e3c3a7b72649b289c26840a3d644">LMCAS::detail::ExactBoundArithmetic::dyadic_scale</a></div><div class="ttdeci">BigInt dyadic_scale(std::size_t precision) const</div><div class="ttdef"><b>定义</b> <a href="#l00069">exact_constant_bounds.hpp:69</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_ab0174bef47253a6ff1905f7dee9329cf"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ab0174bef47253a6ff1905f7dee9329cf">LMCAS::detail::ExactBoundArithmetic::context_</a></div><div class="ttdeci">ComputationContext &amp; context_</div><div class="ttdef"><b>定义</b> <a href="#l00077">exact_constant_bounds.hpp:77</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_acef1262760399494ebebcfdbac719cda"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#acef1262760399494ebebcfdbac719cda">LMCAS::detail::ExactBoundArithmetic::operands</a></div><div class="ttdeci">void operands(const Rational &amp;a, const Rational &amp;b, bool addition=false) const</div><div class="ttdef"><b>定义</b> <a href="#l00042">exact_constant_bounds.hpp:42</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_ae130bbf1e2a0ca5dc248ee0dec570654"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#ae130bbf1e2a0ca5dc248ee0dec570654">LMCAS::detail::ExactBoundArithmetic::require</a></div><div class="ttdeci">void require(Result&lt; void &gt; result) const</div><div class="ttdef"><b>定义</b> <a href="#l00028">exact_constant_bounds.hpp:28</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_af281fdb352c5884cc6fb2b40b1b7680f"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#af281fdb352c5884cc6fb2b40b1b7680f">LMCAS::detail::ExactBoundArithmetic::bits</a></div><div class="ttdeci">void bits(std::size_t count) const</div><div class="ttdef"><b>定义</b> <a href="#l00032">exact_constant_bounds.hpp:32</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_afab8972f11b9fb0b1447683be6ae99c9"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#afab8972f11b9fb0b1447683be6ae99c9">LMCAS::detail::ExactBoundArithmetic::sub</a></div><div class="ttdeci">Rational sub(const Rational &amp;a, const Rational &amp;b) const</div><div class="ttdef"><b>定义</b> <a href="#l00054">exact_constant_bounds.hpp:54</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1ExactBoundArithmetic_html_aff8c7ec8631289016de8b979a29d2f49"><div class="ttname"><a href="../../d1/d9e/classLMCAS_1_1detail_1_1ExactBoundArithmetic.html#aff8c7ec8631289016de8b979a29d2f49">LMCAS::detail::ExactBoundArithmetic::operation_</a></div><div class="ttdeci">const char * operation_</div><div class="ttdef"><b>定义</b> <a href="#l00078">exact_constant_bounds.hpp:78</a></div></div>
+<div class="ttc" id="acomputation__context_8hpp_html"><div class="ttname"><a href="../../da/d14/computation__context_8hpp.html">computation_context.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html">LMCAS::detail</a></div><div class="ttdoc">多元 Hensel 提升（单变量步）</div><div class="ttdef"><b>定义</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00031">assumption_context.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1a18ef6eba67c4f9c0d92d1bb72b0a03"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1a18ef6eba67c4f9c0d92d1bb72b0a03">LMCAS::detail::exact_e_bounds</a></div><div class="ttdeci">Result&lt; ExactConstantInterval &gt; exact_e_bounds(std::size_t precision_bits, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d2/d91/exact__constant__bounds_8cpp_source.html#l00114">exact_constant_bounds.cpp:114</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a955b0ced81bcfb97cc4a2aedb6bfadb9"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a955b0ced81bcfb97cc4a2aedb6bfadb9">LMCAS::detail::ExactConstantInterval</a></div><div class="ttdeci">std::pair&lt; Rational, Rational &gt; ExactConstantInterval</div><div class="ttdef"><b>定义</b> <a href="#l00011">exact_constant_bounds.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a9b7faa15126a49eb12c3a2e27dea7f82"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a9b7faa15126a49eb12c3a2e27dea7f82">LMCAS::detail::exact_atan_bounds</a></div><div class="ttdeci">Result&lt; ExactConstantInterval &gt; exact_atan_bounds(const Rational &amp;value, std::size_t precision_bits, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d2/d91/exact__constant__bounds_8cpp_source.html#l00100">exact_constant_bounds.cpp:100</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_aa5496ed12db87cc4d3170a998230fb21"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">LMCAS::detail::operation</a></div><div class="ttdeci">ComputationContext const std::string &amp; operation</div><div class="ttdef"><b>定义</b> <a href="../../db/dab/exact__algebraic_8hpp_source.html#l00032">exact_algebraic.hpp:32</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_aa9bf4deb78830ec210491f734fc51062"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa9bf4deb78830ec210491f734fc51062">LMCAS::detail::exact_pi_bounds</a></div><div class="ttdeci">Result&lt; ExactConstantInterval &gt; exact_pi_bounds(std::size_t precision_bits, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d2/d91/exact__constant__bounds_8cpp_source.html#l00107">exact_constant_bounds.cpp:107</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_ac31f70aafceaef5928d54d52b97c7389"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">LMCAS::detail::context</a></div><div class="ttdeci">std::size_t std::size_t ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../db/dab/exact__algebraic_8hpp_source.html#l00027">exact_algebraic.hpp:27</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">LMCAS::CasErrc::ResourceLimit</a></div><div class="ttdeci">@ ResourceLimit</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00025">result.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a975bdf758f1a3bd1b4826bee2f21eb0a"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a975bdf758f1a3bd1b4826bee2f21eb0a">LMCAS::CasErrc::DomainError</a></div><div class="ttdeci">@ DomainError</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00016">result.hpp:16</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a59661c3dfa48637904307fa1ab72da90"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">LMCAS::b</a></div><div class="ttdeci">const MultiPoly &amp; b</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00092">multivariate_factor.hpp:92</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7dccbfd0287cc3683a03a0bbe12c7fb4"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">LMCAS::a</a></div><div class="ttdeci">__attribute__((visibility(&quot;default&quot;))) VectorCalculusExprResult curve_integral_scalar_checked(const std __attribute__((visibility(&quot;default&quot;))) VectorCalculusExprResult curve_integral_scalar_checked(const std __attribute__((visibility(&quot;default&quot;))) std const VectorField const std::string const std::shared_ptr&lt; SymbolicExpr &gt; &amp; a</div><div class="ttdef"><b>定义</b> <a href="../../d9/da7/vector__calculus__curves_8hpp_source.html#l00050">vector_calculus_curves.hpp:50</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab902e35db3491c1da0ee7ef56474ae2f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">LMCAS::value</a></div><div class="ttdeci">const std::string const ExprPtr &amp; value</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00298">expr.hpp:298</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_de/d0c/structLMCAS_1_1CasError"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#de/d0c/structLMCAS_1_1CasError">LMCAS::CasError</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00031">result.hpp:31</a></div></div>
+<div class="ttc" id="arational_8hpp_html"><div class="ttname"><a href="../../d1/de8/rational_8hpp.html">rational.hpp</a></div><div class="ttdoc">精确有理数 Rational，基于 BigInt 分子/分母表示，自动约分。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_3756d50f4003bc63fa3fe49460f9c79d.html">internal</a></li><li class="navelem"><a href="../../d0/d60/exact__constant__bounds_8hpp.html">exact_constant_bounds.hpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/assumption_simplification.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d1/d57/assumption__simplification_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">assumption_simplification.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d1/d57/assumption__simplification_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d10/assumption__context_8hpp.html">assumption_context.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d79/assumption__facts_8hpp.html">internal/assumption_facts.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d9e/assumption__simplification_8hpp.html">internal/assumption_simplification.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d9e/expression__transform_8hpp.html">internal/expression_transform.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/dc8/rewrite__budget_8hpp.html">internal/rewrite_budget.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d89/symbolic__ast_8hpp.html">internal/symbolic_ast.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d5e/normalization__visitor_8hpp.html">internal/visitors/normalization_visitor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">detail</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a4043b1ed580f1f3c5d11da686ffbc013">   13</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a5cf25172e268124e4c0a8d477e0fd86f">ExpressionResult</a> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a4043b1ed580f1f3c5d11da686ffbc013">simplify_expression</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a92d74177301353a4aa81993515d45e73">ExprPtr</a>&amp; expression,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>                                     <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a58461d43e35faca1887ea2cd0012e993">checked_transform_expr</a>(</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        expression, <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>, <span class="stringliteral">&quot;LMCAS.simplify&quot;</span>, <span class="stringliteral">&quot;simplify&quot;</span>,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        [&amp;<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>](<span class="keyword">const</span> SymbolicExpr&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <a class="code hl_class" href="../../d7/dc2/classLMCAS_1_1detail_1_1RewriteBudget.html">RewriteBudget</a> budget(<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>, <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.limits().max_recursion_depth,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                                 <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.limits().max_ast_nodes, <span class="stringliteral">&quot;LMCAS.simplify&quot;</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            budget.<a class="code hl_function" href="../../d7/dc2/classLMCAS_1_1detail_1_1RewriteBudget.html#a166773ed768727db6d41cd777cb6289e">measure</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">detail::node</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            std::optional&lt;AssumptionFacts&gt; facts;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.assumptions()) { facts.emplace(*<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.assumptions()); }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <a class="code hl_class" href="../../d0/d09/classLMCAS_1_1NormalizationVisitor.html">NormalizationVisitor</a> visitor(<a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>, facts ? *facts : <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a711b6dfdf2e440c448ba1c3849679622">no_facts</a>(), <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1">Domain::Real</a>, &amp;budget);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">detail::node</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>)-&gt;accept(visitor);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">auto</span> result = visitor.<a class="code hl_function" href="../../d0/d09/classLMCAS_1_1NormalizationVisitor.html#af6dce901c4cfd0bb7b639c06ba1c273e">get_result</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            budget.<a class="code hl_function" href="../../d7/dc2/classLMCAS_1_1detail_1_1RewriteBudget.html#a166773ed768727db6d41cd777cb6289e">measure</a>(result);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a190af71ee3ebff11e4a935e5d38b643c">detail::make_expression_ptr</a>(std::move(result));</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        });</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a66fba55c54a0ff30a9a516f57d49a9ec">   31</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Tribool&gt;</a> <a class="code hl_function" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a66fba55c54a0ff30a9a516f57d49a9ec">AssumptionFacts::is_positive</a>(</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">auto</span> access = <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.consume_steps(0, <span class="stringliteral">&quot;facts.assumptions&quot;</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (!access) { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Tribool&gt;::failure</a>(access.error()); }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#aa50ad17aee3f81d0f60c095d26168c33">engine_</a>-&gt;query_positive_checked(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a850dbc18385c9ad4a75e4e89fd8dc0fe">   38</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Tribool&gt;</a> <a class="code hl_function" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a850dbc18385c9ad4a75e4e89fd8dc0fe">AssumptionFacts::is_negative</a>(</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">auto</span> access = <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.consume_steps(0, <span class="stringliteral">&quot;facts.assumptions&quot;</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span> (!access) { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Tribool&gt;::failure</a>(access.error()); }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#aa50ad17aee3f81d0f60c095d26168c33">engine_</a>-&gt;query_negative_checked(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a282dd6dde89e96265d7a9eeb503ee0e0">   45</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Tribool&gt;</a> <a class="code hl_function" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a282dd6dde89e96265d7a9eeb503ee0e0">AssumptionFacts::is_nonnegative</a>(</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">auto</span> access = <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.consume_steps(0, <span class="stringliteral">&quot;facts.assumptions&quot;</span>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (!access) { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Tribool&gt;::failure</a>(access.error()); }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#aa50ad17aee3f81d0f60c095d26168c33">engine_</a>-&gt;query_nonnegative_checked(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a4e97cadd404b898977b67a793d570bbb">   52</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Tribool&gt;</a> <a class="code hl_function" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a4e97cadd404b898977b67a793d570bbb">AssumptionFacts::is_nonzero</a>(</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">auto</span> access = <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.consume_steps(0, <span class="stringliteral">&quot;facts.assumptions&quot;</span>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (!access) { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Tribool&gt;::failure</a>(access.error()); }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#aa50ad17aee3f81d0f60c095d26168c33">engine_</a>-&gt;query_nonzero_checked(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a4b1fb2edf509a0829d604928ba168adf">   59</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Tribool&gt;</a> <a class="code hl_function" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a4b1fb2edf509a0829d604928ba168adf">AssumptionFacts::is_real</a>(</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">auto</span> access = <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.consume_steps(0, <span class="stringliteral">&quot;facts.assumptions&quot;</span>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">if</span> (!access) { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Tribool&gt;::failure</a>(access.error()); }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#aa50ad17aee3f81d0f60c095d26168c33">engine_</a>-&gt;query_real_checked(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">node</a>), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>std::shared_ptr&lt;SymbolicExpr&gt; AssumptionContext::simplify(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> SymbolicExpr&amp; expression)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; root = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">detail::node</a>(expression);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (!root) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html">detail::AssumptionFacts</a> facts(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_class" href="../../d0/d09/classLMCAS_1_1NormalizationVisitor.html">NormalizationVisitor</a> visitor(facts);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    root-&gt;accept(visitor);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a190af71ee3ebff11e4a935e5d38b643c">detail::make_expression_ptr</a>(visitor.get_result());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+<div class="ttc" id="aassumption__context_8hpp_html"><div class="ttname"><a href="../../d4/d10/assumption__context_8hpp.html">assumption_context.hpp</a></div><div class="ttdoc">AssumptionContext class with scoped push/pop management.</div></div>
+<div class="ttc" id="aassumption__facts_8hpp_html"><div class="ttname"><a href="../../d4/d79/assumption__facts_8hpp.html">assumption_facts.hpp</a></div></div>
+<div class="ttc" id="aassumption__simplification_8hpp_html"><div class="ttname"><a href="../../df/d9e/assumption__simplification_8hpp.html">assumption_simplification.hpp</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1NormalizationVisitor_html"><div class="ttname"><a href="../../d0/d09/classLMCAS_1_1NormalizationVisitor.html">LMCAS::NormalizationVisitor</a></div><div class="ttdoc">统一规范化数值幂。 精确操作数保留整数和有理数运算；近似求根要求指数精确等于 1/2。 有限浮点幂直接折叠，省去倒数中间值；非有限结果保留幂表达式。</div><div class="ttdef"><b>定义</b> <a href="../../dd/d5e/normalization__visitor_8hpp_source.html#l00020">normalization_visitor.hpp:20</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1NormalizationVisitor_html_af6dce901c4cfd0bb7b639c06ba1c273e"><div class="ttname"><a href="../../d0/d09/classLMCAS_1_1NormalizationVisitor.html#af6dce901c4cfd0bb7b639c06ba1c273e">LMCAS::NormalizationVisitor::get_result</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; get_result() const</div><div class="ttdef"><b>定义</b> <a href="../../d1/d9b/normalization__arithmetic_8cpp_source.html#l00041">normalization_arithmetic.cpp:41</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a77c48ece6590b662504d03418f6418d1"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">LMCAS::Result::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html">LMCAS::detail::AssumptionFacts</a></div><div class="ttdef"><b>定义</b> <a href="../../d4/d79/assumption__facts_8hpp_source.html#l00011">assumption_facts.hpp:11</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html_a282dd6dde89e96265d7a9eeb503ee0e0"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a282dd6dde89e96265d7a9eeb503ee0e0">LMCAS::detail::AssumptionFacts::is_nonnegative</a></div><div class="ttdeci">Result&lt; Tribool &gt; is_nonnegative(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, ComputationContext &amp;context) const override</div><div class="ttdef"><b>定义</b> <a href="#l00045">assumption_simplification.cpp:45</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html_a4b1fb2edf509a0829d604928ba168adf"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a4b1fb2edf509a0829d604928ba168adf">LMCAS::detail::AssumptionFacts::is_real</a></div><div class="ttdeci">Result&lt; Tribool &gt; is_real(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, ComputationContext &amp;context) const override</div><div class="ttdef"><b>定义</b> <a href="#l00059">assumption_simplification.cpp:59</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html_a4e97cadd404b898977b67a793d570bbb"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a4e97cadd404b898977b67a793d570bbb">LMCAS::detail::AssumptionFacts::is_nonzero</a></div><div class="ttdeci">Result&lt; Tribool &gt; is_nonzero(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, ComputationContext &amp;context) const override</div><div class="ttdef"><b>定义</b> <a href="#l00052">assumption_simplification.cpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html_a66fba55c54a0ff30a9a516f57d49a9ec"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a66fba55c54a0ff30a9a516f57d49a9ec">LMCAS::detail::AssumptionFacts::is_positive</a></div><div class="ttdeci">Result&lt; Tribool &gt; is_positive(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, ComputationContext &amp;context) const override</div><div class="ttdef"><b>定义</b> <a href="#l00031">assumption_simplification.cpp:31</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html_a850dbc18385c9ad4a75e4e89fd8dc0fe"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#a850dbc18385c9ad4a75e4e89fd8dc0fe">LMCAS::detail::AssumptionFacts::is_negative</a></div><div class="ttdeci">Result&lt; Tribool &gt; is_negative(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, ComputationContext &amp;context) const override</div><div class="ttdef"><b>定义</b> <a href="#l00038">assumption_simplification.cpp:38</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1AssumptionFacts_html_aa50ad17aee3f81d0f60c095d26168c33"><div class="ttname"><a href="../../de/d23/classLMCAS_1_1detail_1_1AssumptionFacts.html#aa50ad17aee3f81d0f60c095d26168c33">LMCAS::detail::AssumptionFacts::engine_</a></div><div class="ttdeci">const InferenceEngine * engine_</div><div class="ttdef"><b>定义</b> <a href="../../d4/d79/assumption__facts_8hpp_source.html#l00027">assumption_facts.hpp:27</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1RewriteBudget_html"><div class="ttname"><a href="../../d7/dc2/classLMCAS_1_1detail_1_1RewriteBudget.html">LMCAS::detail::RewriteBudget</a></div><div class="ttdef"><b>定义</b> <a href="../../d5/dc8/rewrite__budget_8hpp_source.html#l00014">rewrite_budget.hpp:14</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1detail_1_1RewriteBudget_html_a166773ed768727db6d41cd777cb6289e"><div class="ttname"><a href="../../d7/dc2/classLMCAS_1_1detail_1_1RewriteBudget.html#a166773ed768727db6d41cd777cb6289e">LMCAS::detail::RewriteBudget::measure</a></div><div class="ttdeci">std::size_t measure(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node) const</div><div class="ttdef"><b>定义</b> <a href="../../d8/db9/rewrite__budget_8cpp_source.html#l00116">rewrite_budget.cpp:116</a></div></div>
+<div class="ttc" id="aexpression__transform_8hpp_html"><div class="ttname"><a href="../../d8/d9e/expression__transform_8hpp.html">expression_transform.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html">LMCAS::detail</a></div><div class="ttdoc">多元 Hensel 提升（单变量步）</div><div class="ttdef"><b>定义</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00031">assumption_context.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a190af71ee3ebff11e4a935e5d38b643c"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a190af71ee3ebff11e4a935e5d38b643c">LMCAS::detail::make_expression_ptr</a></div><div class="ttdeci">std::shared_ptr&lt;::LMCAS::SymbolicExpr &gt; make_expression_ptr(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00111">base.hpp:111</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1d1d0bdafb53aa76fcf04f5896687c69"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::LMCAS::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00091">base.hpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a4043b1ed580f1f3c5d11da686ffbc013"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a4043b1ed580f1f3c5d11da686ffbc013">LMCAS::detail::simplify_expression</a></div><div class="ttdeci">ExpressionResult simplify_expression(const ExprPtr &amp;expression, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00013">assumption_simplification.cpp:13</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a58461d43e35faca1887ea2cd0012e993"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a58461d43e35faca1887ea2cd0012e993">LMCAS::detail::checked_transform_expr</a></div><div class="ttdeci">ExpressionResult checked_transform_expr(const ExprPtr &amp;expression, ComputationContext &amp;context, const char *operation, const char *transform_name, Transform &amp;&amp;transform)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d9e/expression__transform_8hpp_source.html#l00015">expression_transform.hpp:15</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a711b6dfdf2e440c448ba1c3849679622"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a711b6dfdf2e440c448ba1c3849679622">LMCAS::detail::no_facts</a></div><div class="ttdeci">const FactsQuery &amp; no_facts() noexcept</div><div class="ttdef"><b>定义</b> <a href="../../d6/d35/facts__query__adapters_8cpp_source.html#l00096">facts_query_adapters.cpp:96</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a796e5d4fc7bad6a7638791370f93cb27"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a></div><div class="ttdeci">inline ::LMCAS::SymbolicExpr expression_from_node(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00107">base.hpp:107</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_ac31f70aafceaef5928d54d52b97c7389"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">LMCAS::detail::context</a></div><div class="ttdeci">std::size_t std::size_t ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../db/dab/exact__algebraic_8hpp_source.html#l00027">exact_algebraic.hpp:27</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1">LMCAS::Domain::Real</a></div><div class="ttdeci">@ Real</div><div class="ttdoc">Real numbers</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00017">assumption.hpp:17</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5cf25172e268124e4c0a8d477e0fd86f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5cf25172e268124e4c0a8d477e0fd86f">LMCAS::ExpressionResult</a></div><div class="ttdeci">Result&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; ExpressionResult</div><div class="ttdoc">Result of an operation that produces a symbolic expression.</div><div class="ttdef"><b>定义</b> <a href="../../d5/df2/symbolic_8hpp_source.html#l00031">symbolic.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a92d74177301353a4aa81993515d45e73"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a92d74177301353a4aa81993515d45e73">LMCAS::ExprPtr</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; ExprPtr</div><div class="ttdef"><b>定义</b> <a href="../../d0/dd5/conditional__result_8hpp_source.html#l00019">conditional_result.hpp:19</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab902e35db3491c1da0ee7ef56474ae2f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">LMCAS::value</a></div><div class="ttdeci">const std::string const ExprPtr &amp; value</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00298">expr.hpp:298</a></div></div>
+<div class="ttc" id="anormalization__visitor_8hpp_html"><div class="ttname"><a href="../../dd/d5e/normalization__visitor_8hpp.html">normalization_visitor.hpp</a></div><div class="ttdoc">符号规范化访问器接口。</div></div>
+<div class="ttc" id="arewrite__budget_8hpp_html"><div class="ttname"><a href="../../d5/dc8/rewrite__budget_8hpp.html">rewrite_budget.hpp</a></div></div>
+<div class="ttc" id="asymbolic__ast_8hpp_html"><div class="ttname"><a href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a></div><div class="ttdoc">内部 AST 定义。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d1/d57/assumption__simplification_8cpp.html">assumption_simplification.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

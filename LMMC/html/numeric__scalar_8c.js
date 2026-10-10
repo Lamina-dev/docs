@@ -1,0 +1,28 @@
+var numeric__scalar_8c =
+[
+    [ "lmmc_atan2", "numeric__scalar_8c.html#a4036cc56a0df5d74d8cf668c41d8a6e2", null ],
+    [ "lmmc_sincos", "numeric__scalar_8c.html#a89584ac1672c0d986535a5089809034e", null ],
+    [ "lmmc_hypot", "numeric__scalar_8c.html#a6c71e14fee0899e218764ea77aeb4a8a", null ],
+    [ "lmmc_exp2", "numeric__scalar_8c.html#aa1417971100d5d7ab9e1ec0e88e3a7d8", null ],
+    [ "lmmc_log2", "numeric__scalar_8c.html#aa40c8bc4ba6f68fb66a70bfb660b016c", null ],
+    [ "lmmc_expm1", "numeric__scalar_8c.html#a2c6b5be33fa3b90260afe6d7710d8a1b", null ],
+    [ "lmmc_log1p", "numeric__scalar_8c.html#a3ba58187571aa823a29d4096e1a41587", null ],
+    [ "lmmc_split_int_frac", "numeric__scalar_8c.html#aa4e8ea70239b91203258f12b52ab152e", null ],
+    [ "lmmc_fmod", "numeric__scalar_8c.html#a4bd350e9148d5704e2b1b2410870fc7d", null ],
+    [ "lmmc_ldexp", "numeric__scalar_8c.html#a99f203e8707a6938cb0397ed9c395ae8", null ],
+    [ "lmmc_nextafter", "numeric__scalar_8c.html#a9280740433967dd741979f367c82eae3", null ],
+    [ "lmmc_asin", "numeric__scalar_8c.html#a2ce1105fa9ee900e1fab372ccef4ec7a", null ],
+    [ "lmmc_acos", "numeric__scalar_8c.html#aa0d1566f6155bd09eb32e1e77a4f5c71", null ],
+    [ "lmmc_atan", "numeric__scalar_8c.html#ad1844c75146109a19327a308bac39bb8", null ],
+    [ "lmmc_sinh", "numeric__scalar_8c.html#a4038948525e0269ed672f191e3e64112", null ],
+    [ "lmmc_cosh", "numeric__scalar_8c.html#a3526e6f1921b6fe47fcb8d1fa5119283", null ],
+    [ "lmmc_tanh", "numeric__scalar_8c.html#a7d8f34c420e1000e9bacf9c91c4f5e6c", null ],
+    [ "lmmc_asinh", "numeric__scalar_8c.html#a7a930d3c9ba106299c1c247f52f41aaf", null ],
+    [ "lmmc_acosh", "numeric__scalar_8c.html#ad3f0c0e9dd55c1eb625b27d68d6f7998", null ],
+    [ "lmmc_atanh", "numeric__scalar_8c.html#ab51752e874fb44f172faac50256039be", null ],
+    [ "lmmc_pow", "numeric__scalar_8c.html#aa476f87428a52242c44d6b88a36c4f3e", null ],
+    [ "lmmc_ceil", "numeric__scalar_8c.html#a5d52aee366b5a6ec4e38d0e671b0623f", null ],
+    [ "lmmc_floor", "numeric__scalar_8c.html#a6d1e04537fac493d528f60e5f52d19de", null ],
+    [ "lmmc_round", "numeric__scalar_8c.html#a9eda94acfef0d0e20e7588d48e11a0b1", null ],
+    [ "lmmc_trunc", "numeric__scalar_8c.html#ae2f9b54ae975779b50068372906887e5", null ]
+];

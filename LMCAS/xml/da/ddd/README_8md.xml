@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="zh">
+  <compounddef id="da/ddd/README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>LMCAS<sp/>Lamina<sp/>计算机代数系统</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>结构</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```text</highlight></codeline>
+<codeline><highlight class="normal">LMCAS/</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>include/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>已安装的<sp/>C++17<sp/>公共<sp/>API</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>src/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>九个显式组件的分层实现</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/>└──<sp/>internal/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>AST、visitor<sp/>与算法私有头；不安装</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>tests/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>LMCAS<sp/>回归、属性、包消费与头文件隔离测试</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>benchmarks/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>可选基准</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>cmake/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>安装包与结构约束</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>LMMC/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>C11<sp/>数值库；内部携带<sp/>LMMP</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>CMakePresets.json<sp/><sp/><sp/>#<sp/>受支持的开发、消毒器与安装配置</highlight></codeline>
+<codeline><highlight class="normal">└──<sp/>CMakeLists.txt</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`src/`<sp/>中每个<sp/>`.cpp`<sp/>必须且只能属于一个组件目标。组件从低层到高层为</highlight></codeline>
+<codeline><highlight class="normal">`exact_numeric<sp/>→<sp/>core<sp/>→<sp/>assumptions<sp/>→<sp/>matrix_kernel<sp/>→<sp/>algebra<sp/>→<sp/>calculus/linear_algebra<sp/>→<sp/>analysis<sp/>→<sp/>facade`；</highlight></codeline>
+<codeline><highlight class="normal">`calculus`<sp/>与<sp/>`linear_algebra`<sp/>同层。跨组件依赖只能指向更低层，</highlight></codeline>
+<codeline><highlight class="normal">由编译后的符号引用和传递<sp/>include<sp/>图检查；最终仅安装共享库<sp/>`lmcas`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>构建</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>要求</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>CMake<sp/>3.26+</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Ninja</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>支持<sp/>C++17<sp/>和<sp/>C11<sp/>的<sp/>GCC、Clang、AppleClang<sp/>或<sp/>MinGW<sp/>工具链；Windows<sp/>使用</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MinGW<sp/>或<sp/>GNU-driver<sp/>Clang，MSVC<sp/>ABI<sp/>前端（包括<sp/>clang-cl）不受支持</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>初始化后的<sp/>`LMMC/LMMP`<sp/>子模块</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>支持的平台：Windows、Linux<sp/>与<sp/>macOS</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>开发与测试</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--preset<sp/>strict-debug</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>--preset<sp/>strict-debug</highlight></codeline>
+<codeline><highlight class="normal">ctest<sp/>--preset<sp/>strict-debug</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">该配置启用<sp/>LMCAS<sp/>与<sp/>LMMC<sp/>测试、严格警告和<sp/>`-Werror`。Linux<sp/>另提供</highlight></codeline>
+<codeline><highlight class="normal">`linux-asan-ubsan`<sp/>与<sp/>`linux-tsan`<sp/>预设。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">macOS<sp/>使用原生<sp/>AppleClang<sp/>+<sp/>Ninja。arm64<sp/>构建使用<sp/>`LMCAS_LMMP_ASM=AUTO`，</highlight></codeline>
+<codeline><highlight class="normal">x86_64<sp/>构建使用<sp/>`LMCAS_LMMP_ASM=GENERIC`。编译级架构证据仅接受单一</highlight></codeline>
+<codeline><highlight class="normal">`CMAKE_OSX_ARCHITECTURES=arm64`<sp/>或<sp/>`x86_64`；启用</highlight></codeline>
+<codeline><highlight class="normal">`LMCAS_ENABLE_QUALITY_GATES`<sp/>时还需<sp/>Homebrew<sp/>LLVM<sp/>的<sp/>`llvm-nm`（也接受</highlight></codeline>
+<codeline><highlight class="normal">`llvm-nm-&lt;版本&gt;`<sp/>名称）：</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>-S<sp/>.<sp/>-B<sp/>build/macos-quality<sp/>-G<sp/>Ninja<sp/>\</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-DCMAKE_OSX_ARCHITECTURES=arm64<sp/>\</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-DCMAKE_NM=&quot;$(brew<sp/>--prefix<sp/>llvm)/bin/llvm-nm&quot;<sp/>\</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-DLMCAS_ENABLE_QUALITY_GATES=ON</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">需要生成<sp/>universal<sp/>binary<sp/>时可使用多架构<sp/>`CMAKE_OSX_ARCHITECTURES`，但须关闭</highlight></codeline>
+<codeline><highlight class="normal">编译级证据门；该门要求每条第一方编译命令只有一个且一致的<sp/>`-arch`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">普通<sp/>CMake<sp/>配置默认关闭开发测试。自定义构建通过<sp/>`LMCAS_BUILD_TESTS=ON`</highlight></codeline>
+<codeline><highlight class="normal">启用<sp/>LMCAS<sp/>测试，通过<sp/>`LMCAS_BUILD_LMMC_TESTS=ON`<sp/>启用内嵌<sp/>LMMC<sp/>测试。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>测试范围<sp/>|<sp/>开发框架<sp/>|<sp/>自动获取版本<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>---<sp/>|<sp/>---<sp/>|<sp/>---<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>LMMC<sp/>C11<sp/>测试<sp/>|<sp/>cmocka<sp/>|<sp/>`cmocka-2.0.2`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>LMCAS<sp/>C++17<sp/>测试<sp/>|<sp/>GoogleTest<sp/>|<sp/>`v1.18.0`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>LMCAS<sp/>性质测试<sp/>|<sp/>官方<sp/>RapidCheck<sp/>|<sp/>`2c3c4365aca21ef4e612768fdc95b1ce8b39a651`<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CMake<sp/>优先查找已安装的框架包，缺失时获取上述固定版本。离线开发可设置</highlight></codeline>
+<codeline><highlight class="normal">`FETCHCONTENT_SOURCE_DIR_CMOCKA`、`FETCHCONTENT_SOURCE_DIR_GOOGLETEST`、</highlight></codeline>
+<codeline><highlight class="normal">`FETCHCONTENT_SOURCE_DIR_RAPIDCHECK`，指向对应的本地框架源码目录。</highlight></codeline>
+<codeline><highlight class="normal">Windows<sp/>测试目标会将共享<sp/>RapidCheck<sp/>的<sp/>DLL<sp/>复制到可执行文件目录。</highlight></codeline>
+<codeline><highlight class="normal">这些框架仅由测试可执行目标私有链接；产品安装、导出及客户消费依赖保持为</highlight></codeline>
+<codeline><highlight class="normal">LMCAS、LMMC、LMMP<sp/>与工具链标准运行库。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CTest<sp/>自动发现<sp/>GoogleTest<sp/>用例，使用<sp/>`-L<sp/>gtest`<sp/>筛选；LMMC<sp/>测试使用</highlight></codeline>
+<codeline><highlight class="normal">`-L<sp/>lmmc`<sp/>筛选，由<sp/>cmocka<sp/>报告组内用例。三个开发测试预设自动生成</highlight></codeline>
+<codeline><highlight class="normal">`build/&lt;preset&gt;/junit.xml`，在报告内保留完整用例名。普通<sp/>CTest<sp/>调用可通过</highlight></codeline>
+<codeline><highlight class="normal">`--output-junit<sp/>&lt;path&gt;`<sp/>指定统一<sp/>JUnit<sp/>报告。编译级架构反例使用标准库<sp/>`unittest`。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">开发测试预设和<sp/>CI<sp/>设置<sp/>`RC_PARAMS=seed=42`，固定性质测试的随机序列。</highlight></codeline>
+<codeline><highlight class="normal">性质失败会输出收缩后的反例及<sp/>`reproduce`<sp/>参数；将输出的</highlight></codeline>
+<codeline><highlight class="normal">`RC_PARAMS=&quot;reproduce=...&quot;`<sp/>传给对应测试可执行文件即可重放。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>安装包</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--preset<sp/>package</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>--preset<sp/>package</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">默认安装到<sp/>`build/package-install`。`tests/package_consumer`<sp/>验证安装后的</highlight></codeline>
+<codeline><highlight class="normal">CMake<sp/>targets、公共头文件隔离以及<sp/>C++/LMMC/LMMP<sp/>消费路径。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">消费方使用<sp/>`find_package(LMCAS<sp/>CONFIG<sp/>REQUIRED)`<sp/>并链接<sp/>`LMCAS::lmcas`；</highlight></codeline>
+<codeline><highlight class="normal">C++17、LMMC<sp/>的<sp/>C11<sp/>要求及<sp/>LMMP<sp/>链接依赖由<sp/>targets<sp/>传递。无需添加源码、</highlight></codeline>
+<codeline><highlight class="normal">私有头或构建目录到<sp/>include<sp/>路径。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Windows<sp/>运行动态链接的测试或消费程序时，需让<sp/>`build/&lt;preset&gt;/bin`</highlight></codeline>
+<codeline><highlight class="normal">（或安装目录的<sp/>`bin`）位于<sp/>`PATH`。</highlight></codeline>
+<codeline><highlight class="normal">macOS<sp/>安装库使用<sp/>`@rpath`<sp/>install<sp/>name。安装消费检查会移动整个安装前缀，</highlight></codeline>
+<codeline><highlight class="normal">并在不注入<sp/>`DYLD_LIBRARY_PATH`<sp/>或<sp/>`DYLD_FALLBACK_LIBRARY_PATH`<sp/>的情况下</highlight></codeline>
+<codeline><highlight class="normal">运行消费程序，以验证包不依赖原构建或安装位置。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>核心功能说明</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">所有<sp/>C++<sp/>类型与函数均使用<sp/>`LMCAS`<sp/>命名空间，包括符号表达式、数值类型、</highlight></codeline>
+<codeline><highlight class="normal">代数模板和内部<sp/>visitor；visitor<sp/>不属于安装<sp/>API。`include/expr.hpp`<sp/>提供<sp/>`LMCAS::Expr`、`LMCAS::sym`、</highlight></codeline>
+<codeline><highlight class="normal">`LMCAS::parse_expr`<sp/>等表达式接口；公共导出宏为<sp/>`LMCAS_API`，</highlight></codeline>
+<codeline><highlight class="normal">定义于<sp/>`include/lmcas_export.hpp`。消费方应使用这些库名称，而非规范名称。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>符号系统<sp/>(include/symbolic.hpp)</highlight></codeline>
+<codeline><highlight class="normal">LMCAS::SymbolicExpr<sp/>是<sp/>LMCAS<sp/>的核心类，表示一个不可变的符号表达式树。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**创建表达式**:<sp/>使用静态工厂方法，如<sp/>LMCAS::SymbolicExpr::add,<sp/>LMCAS::SymbolicExpr::variable,<sp/>LMCAS::SymbolicExpr::number,<sp/>LMCAS::SymbolicExpr::sin<sp/>等。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**内存管理**:<sp/>基于<sp/>std::shared_ptr<sp/>的自动内存管理。</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>**不可变性**:<sp/>所有对表达式的操作（如相加、求导）都会返回一个新的<sp/>LMCAS::SymbolicExpr<sp/>对象，原对象保持不变。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>计算机代数算法</highlight></codeline>
+<codeline><highlight class="normal">核心算法作为<sp/>LMCAS::SymbolicExpr<sp/>的成员函数或静态方法提供：</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**求导**:<sp/>expr-&gt;differentiate(&quot;x&quot;)<sp/>-<sp/>对变量<sp/>x<sp/>求导。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**积分**:<sp/>expr-&gt;integrate(&quot;x&quot;)<sp/>-<sp/>对变量<sp/>x<sp/>进行符号积分。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**化简**:<sp/>expr-&gt;simplify()<sp/>-<sp/>调用化简引擎对表达式进行代数化简。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**展开**:<sp/>expr-&gt;expand()<sp/>-<sp/>展开多项式或乘积。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**代入**:<sp/>expr-&gt;substitute(&quot;y&quot;,<sp/>val)<sp/>-<sp/>将变量<sp/>y<sp/>替换为表达式<sp/>val。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**四次方程**:<sp/>封闭式根的候选式含近似数时，默认的<sp/>`SolveOptions::return_rootof`<sp/>使用精确<sp/>`RootOf`<sp/>表示保留全部根。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>矩阵运算</highlight></codeline>
+<codeline><highlight class="normal">符号矩阵操作通过<sp/>`include/symbolic_matrix.hpp`<sp/>的<sp/>checked<sp/>自由函数提供：</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>`LMCAS::matrix_determinant_checked`:<sp/>计算行列式。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>`LMCAS::matrix_inverse_checked`:<sp/>计算逆矩阵。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>`LMCAS::matrix_eigenvalues_checked`:<sp/>计算特征值。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>数值系统</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**LMCAS::BigInt**:<sp/>任意精度整数（基于<sp/>LMMP）。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**LMCAS::Rational**:<sp/>任意精度有理数。</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/><sp/>**LMCAS::Irrational**:<sp/>简单的无理数包装（如<sp/>sqrt(2),<sp/>pi,<sp/>e）。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>二进制兼容性</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LMMC<sp/>提供固定<sp/>`double`<sp/>实数类型的<sp/>C<sp/>ABI。LMCAS<sp/>的<sp/>C++<sp/>API<sp/>暴露</highlight></codeline>
+<codeline><highlight class="normal">`std::string`、`std::vector`<sp/>与智能指针，因此不承诺跨编译器、标准库、</highlight></codeline>
+<codeline><highlight class="normal">编译选项或库更新之间的二进制兼容性。LMCAS<sp/>与<sp/>LMMC<sp/>当前均不设版本号，</highlight></codeline>
+<codeline><highlight class="normal">不提供<sp/>CMake<sp/>包版本兼容性选择；更新<sp/>LMCAS<sp/>后仍应重新编译<sp/>C++<sp/>消费方。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>LMCAS<sp/>/<sp/>LMMC<sp/>API<sp/>迁移</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">升级后请重新编译调用方，并按下表替换旧接口：</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>旧<sp/>API<sp/>|<sp/>新<sp/>API<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>---<sp/>|<sp/>---<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`BigInt::ToString`<sp/>/<sp/>`Abs`<sp/>/<sp/>`IsNegative`<sp/>|<sp/>`to_string`<sp/>/<sp/>`abs`<sp/>/<sp/>`is_negative`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`BigInt::nPr`<sp/>/<sp/>`nCr`<sp/>|<sp/>`npr`<sp/>/<sp/>`ncr`，以及接受<sp/>`BigInt`<sp/>参数的<sp/>checked<sp/>入口<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`Rational::to_BigInt`<sp/>|<sp/>`to_bigint`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`SymbolicPolyCoeff::ToString`<sp/>|<sp/>`to_string`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`FGLMPoly::LM`<sp/>/<sp/>`LC`<sp/>|<sp/>`lead_monomial`<sp/>/<sp/>`lead_coeff`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`LMCAS::I()`<sp/>|<sp/>`LMCAS::imaginary_unit()`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>宽整数直接传给<sp/>`number`<sp/>/<sp/>`integer`<sp/>|<sp/>显式构造<sp/>`BigInt`<sp/>后传入<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>无理数的旧机器整数平方根入口<sp/>|<sp/>`Irrational::sqrt_checked(const<sp/>BigInt&amp;,<sp/>...,<sp/>ComputationContext&amp;)`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`Value::as_number`<sp/>/<sp/>`as_rational`<sp/>/<sp/>`as_irrational`<sp/>/<sp/>`as_symbolic`<sp/>|<sp/>对应的<sp/>`*_checked`<sp/>方法并传播<sp/>`Result`<sp/>错误<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`Value::vector_add`<sp/>/<sp/>`dot_product`<sp/>/<sp/>`matrix_multiply`<sp/>|<sp/>对应的<sp/>`*_checked`<sp/>方法并传播维度或输入错误<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`SymbolicExpr::get_type`<sp/>与嵌套<sp/>`Type`<sp/>|<sp/>具体<sp/>predicate<sp/>或<sp/>`expr_match`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`SymbolicExpr::get_operands`<sp/>|<sp/>公开变换与<sp/>matching<sp/>API<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`SymbolicExpr::get_number_value`<sp/>|<sp/>`is_number`<sp/>+<sp/>`get_number`，或<sp/>`evaluate_numeric`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`SymbolicExpr::get_identifier`<sp/>|<sp/>`symbol_name(expr)`<sp/>返回的借用<sp/>`optional&lt;string_view&gt;`<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">数学整数与无理根的<sp/>radicand<sp/>使用<sp/>LMMP-backed<sp/>`BigInt`；无理根的系数和</highlight></codeline>
+<codeline><highlight class="normal">常数使用<sp/>`Rational`。窄化使用<sp/>`try_to_int64`<sp/>/<sp/>`try_to_uint64`，失败不饱和。</highlight></codeline>
+<codeline><highlight class="normal">计数、容量、资源预算和随机状态继续使用有界机器类型。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">AST<sp/>与<sp/>visitor<sp/>头统一在<sp/>`src/internal/`，不再提供公共<sp/>AST<sp/>聚合头。</highlight></codeline>
+<codeline><highlight class="normal">LMMC<sp/>的<sp/>scalar/tensor<sp/>改名及窄子头见<sp/>[LMMC<sp/>API<sp/>迁移](LMMC/README.md#lmmc-api-migration)；</highlight></codeline>
+<codeline><highlight class="normal">语言层<sp/>`math.I`<sp/>和<sp/>tensor<sp/>操作名保持不变。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LMCAS<sp/>与<sp/>LMMC<sp/>不安装版本头文件或<sp/>CMake<sp/>包版本元数据。</highlight></codeline>
+<codeline><highlight class="normal">ELF<sp/>SONAME<sp/>分别为<sp/>`liblmcas.so`<sp/>和<sp/>`liblmmc.so`；macOS<sp/>install<sp/>name<sp/>分别为</highlight></codeline>
+<codeline><highlight class="normal">`@rpath/liblmcas.dylib`、`@rpath/liblmmc.dylib`，LMMP<sp/>保留其版本身份</highlight></codeline>
+<codeline><highlight class="normal">`@rpath/liblmmp.1.dylib`。LMMC<sp/>使用匿名导出节点，</highlight></codeline>
+<codeline><highlight class="normal">保留公共符号白名单及其余符号的隐藏规则。LMMP<sp/>保留其独立版本。</highlight></codeline>
+<codeline><highlight class="normal">配置时生成构建目录中的<sp/>`Doxyfile`，不设置项目版本号。</highlight></codeline>
+<codeline><highlight class="normal">配置后可运行<sp/>`doxygen<sp/>build/strict-debug/Doxyfile`<sp/>生成文档。</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>文档</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[符号表达式<sp/>API](include/symbolic.hpp)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[表达式接口](include/expr.hpp)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[符号矩阵<sp/>API](include/symbolic_matrix.hpp)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>许可证</highlight></codeline>
+<codeline><highlight class="normal">GNU<sp/>Lesser<sp/>General<sp/>Public<sp/>License<sp/>v3.0<sp/>(LGPL-3.0)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>贡献</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Lamina<sp/>MP<sp/>(LMMP)<sp/>-<sp/>Jecricho<sp/>Knox<sp/>-<sp/>Lamina-dev</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Lamina<sp/>CAS<sp/>-<sp/>Ziyang<sp/>Bai<sp/>-<sp/>Lamina-dev</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>All<sp/>contributors<sp/>are<sp/>contributed<sp/>to<sp/>the<sp/>Lamina<sp/>project.</highlight></codeline>
+    </programlisting>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

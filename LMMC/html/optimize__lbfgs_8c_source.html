@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/optimize_lbfgs.c 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('optimize__lbfgs_8c_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">optimize_lbfgs.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="optimize__lbfgs_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="optimize__internal_8h.html">optimize_internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="optimize__lbfgs_8c.html">    3</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">    4</a></span>    <a class="code hl_struct" href="optimize__internal_8h.html#structlmmc__opt__workspace__t">lmmc_opt_workspace_t</a> <a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>;</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">    5</a></span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a> <a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">x_new</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#a6f3dfc68bb61e5ee0b63c6cd251a53f7">g_new</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">alpha</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">rho</a>;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">    6</a></span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__mat__t">lmmc_mat_t</a> <a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">    7</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a>, <a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>} <a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>;</div>
+</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lbfgs_workspace_create(</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordtype">size_t</span> n, <span class="keywordtype">size_t</span> m, <a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>* work)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">size_t</span> mn, pairs, scalars, extra;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> status;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">if</span> (!lmmc_safe_mul_size(m, n, &amp;mn) ||</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        !lmmc_safe_mul_size(mn, 2, &amp;pairs) ||</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        !lmmc_safe_mul_size(m, 2, &amp;scalars) ||</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        !lmmc_safe_add_size(pairs, scalars, &amp;extra)) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    status = <a class="code hl_function" href="optimize_8c.html#aaee2e3acf2646c2839ba22da94e86a76">lmmc_opt_workspace_create</a>(n, 4, 0, extra, 0, &amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) { <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a>; }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>, n);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>, n);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">x_new</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>, n);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a6f3dfc68bb61e5ee0b63c6cd251a53f7">g_new</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>, n);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">alpha</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>, m);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">rho</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>, m);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a> = (<a class="code hl_struct" href="dense__types_8h.html#structlmmc__mat__t">lmmc_mat_t</a>){m, n, n, work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#a826f05ac7d49dbc1d00054d032c9dbb9">next</a>, 0};</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#a826f05ac7d49dbc1d00054d032c9dbb9">next</a> += mn;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a> = (<a class="code hl_struct" href="dense__types_8h.html#structlmmc__mat__t">lmmc_mat_t</a>){m, n, n, work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#a826f05ac7d49dbc1d00054d032c9dbb9">next</a>, 0};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a> = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">static</span> <span class="keywordtype">void</span> lbfgs_scale_direction(<a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>* work)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">size_t</span> i, newest;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> sy = 0.0, yy = 0.0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a> == 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    newest = (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> + work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a> - 1) % work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a5c556e40e8364561fbfb4373e17b2874">rows</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        sy += work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[newest * n + i] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[newest * n + i];</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        yy += work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[newest * n + i] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[newest * n + i];</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (yy &gt; 1e-300) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> gamma = sy / yy;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] *= gamma;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">static</span> <span class="keywordtype">void</span> lbfgs_direction(<a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>* work)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> m = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a5c556e40e8364561fbfb4373e17b2874">rows</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> bound = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">size_t</span> k, i;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    memcpy(work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, n * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">for</span> (k = 0; k &lt; bound; ++k) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> idx = (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> + work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a> - 1 - k) % m;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> dot = 0.0;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            dot += work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[idx * n + i] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">alpha</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[k] = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">rho</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[idx] * dot;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] -= work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">alpha</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[k] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[idx * n + i];</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    lbfgs_scale_direction(work);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">for</span> (k = bound; k-- &gt; 0;) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> idx = (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> + work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a> - 1 - k) % m;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> dot = 0.0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> beta;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            dot += work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[idx * n + i] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        beta = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">rho</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[idx] * dot;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] += (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">alpha</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[k] - beta) * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[idx * n + i];</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = -work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">static</span> <span class="keywordtype">void</span> lbfgs_store_history(</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>* work, <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x)</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> m = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a5c556e40e8364561fbfb4373e17b2874">rows</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">size_t</span> store_idx, i;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> sy = 0.0;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">if</span> (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a> &lt; m) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        store_idx = (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> + work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a>) % m;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">history_count</a>++;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        store_idx = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> = (work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">oldest</a> + 1) % m;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[store_idx * n + i] = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">x_new</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] - x-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[store_idx * n + i] = work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a6f3dfc68bb61e5ee0b63c6cd251a53f7">g_new</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] - work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        sy += work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">s</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[store_idx * n + i] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">y</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[store_idx * n + i];</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">if</span> (fabs(sy) &gt; 1e-300) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">rho</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[store_idx] = 1.0 / sy;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">rho</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[store_idx] = 0.0;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">static</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> lbfgs_descent_derivative(</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>* work, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>{</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> dg = 0.0;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">for</span> (i = 0; i &lt; work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>; ++i) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        dg += work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] * work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">if</span> (dg &gt;= 0.0) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">for</span> (i = 0; i &lt; work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>; ++i) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = -work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        dg = -norm * norm;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">return</span> dg;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">static</span> <a class="code hl_enumeration" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107f">lmmc_optimize_failure_t</a> lbfgs_step(</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a>* work, <a class="code hl_typedef" href="optimize_8h.html#ad290d0d259b541e3a550e70ead5a2dd4">lmmc_opt_obj_t</a> obj,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <a class="code hl_typedef" href="optimize_8h.html#abea2ffc9db0e068ce86518f2b6627916">lmmc_opt_grad_t</a> grad, <span class="keywordtype">void</span>* user_data, <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* value, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm)</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> dg;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    lbfgs_direction(work);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    dg = lbfgs_descent_derivative(work, norm);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="optimize_8c.html#a09fdfbdbd910dc62a3fb476572273010">lmmc_optimize_armijo</a>(obj, user_data, x, &amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">q</a>,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            &amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">x_new</a>, value, dg, 40, 0)) {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa7cb4912db8e6ba2d7b0559422ebcb5a7">LMMC_OPT_FAILURE_LINE_SEARCH_FAILED</a>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">if</span> (grad(&amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">x_new</a>, &amp;work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a6f3dfc68bb61e5ee0b63c6cd251a53f7">g_new</a>, user_data) != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    lbfgs_store_history(work, x);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    memcpy(x-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">x_new</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    memcpy(work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, work-&gt;<a class="code hl_variable" href="optimize__lbfgs_8c.html#a6f3dfc68bb61e5ee0b63c6cd251a53f7">g_new</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17">LMMC_OPT_FAILURE_NONE</a>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="optimize_8h.html#a2f89e0c5ec3a0372da840dce39691e0a">  157</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="optimize_8h.html#a2f89e0c5ec3a0372da840dce39691e0a">lmmc_minimize_lbfgs</a>(</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <a class="code hl_typedef" href="optimize_8h.html#ad290d0d259b541e3a550e70ead5a2dd4">lmmc_opt_obj_t</a> obj, <a class="code hl_typedef" href="optimize_8h.html#abea2ffc9db0e068ce86518f2b6627916">lmmc_opt_grad_t</a> grad, <span class="keywordtype">void</span>* user_data,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x, <span class="keyword">const</span> <a class="code hl_struct" href="optimize_8h.html#structlmmc__optimize__config__t">lmmc_optimize_config_t</a>* cfg,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_struct" href="optimize_8h.html#structlmmc__optimize__result__t">lmmc_optimize_result_t</a>* out)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_struct" href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a> work;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> status;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> value, initial_residual = 0.0;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordtype">size_t</span> iter;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">if</span> (obj == NULL || grad == NULL ||</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        !<a class="code hl_function" href="optimize_8c.html#abcaeedb9caf6e921caf6c53d2cedc230">lmmc_optimize_arguments_valid</a>(x, cfg, out)) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <a class="code hl_function" href="optimize_8c.html#ab6645aac7fa7bf0f779fa533bfb65770">lmmc_optimize_result_init</a>(out);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    status = lbfgs_workspace_create(x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>, cfg-&gt;<a class="code hl_variable" href="optimize_8h.html#a44d25c24e24d4fd167a16315b35c1125">lbfgs_memory</a>, &amp;work);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) { <span class="keywordflow">return</span> status; }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">if</span> (grad(x, &amp;work.<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>, user_data) != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    value = obj(x, user_data);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">for</span> (iter = 0; ; ++iter) {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm = <a class="code hl_function" href="optimize_8c.html#a416647a3c2c21d4ac10d06f58c000640">lmmc_optimize_norm</a>(&amp;work.<a class="code hl_variable" href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">g</a>);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#ad5edad7ad91d16c56ae9dbbcefb06810">final_residual</a> = norm;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keywordflow">if</span> (!isfinite(value)) {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="optimize_8c.html#a96ede256cc16d454a37e0a406c4f923a">lmmc_optimize_stop</a>(norm, &amp;initial_residual, iter, cfg, out)) { <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = lbfgs_step(&amp;work, obj, grad, user_data, x, &amp;value, norm);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">if</span> (out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> != <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17">LMMC_OPT_FAILURE_NONE</a>) { <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#a4bb4adc38df30837380f77e139dee5aa">num_iter</a> = iter + 1;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> values[] = {value, norm};</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <a class="code hl_function" href="optimize_8c.html#a8515866a0bd7acbc6e128f726783632b">lmmc_optimize_emit</a>(cfg, <span class="stringliteral">&quot;lbfgs&quot;</span>, iter + 1, values, 2);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>cleanup:</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <a class="code hl_function" href="memory__bridge_8c.html#af4259c4867aa5918a7b1a5197501aeb1">lmmc_memory_free</a>(work.<a class="code hl_variable" href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#af1e6aec7e1799e173447f9b3f93e1497">allocation</a>);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>}</div>
+</div>
+<div class="ttc" id="aconfig_8h_html_aa4548c12a1662c29aa98371cb5885543"><div class="ttname"><a href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></div><div class="ttdeci">double lmmc_real_t</div><div class="ttdoc">Public and internal LMMC real type.</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00028">config.h:28</a></div></div>
+<div class="ttc" id="adense__types_8h_html_a3443e5be2addab17747b6cf187ad0cee"><div class="ttname"><a href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">lmmc_vec_t::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00032">dense_types.h:32</a></div></div>
+<div class="ttc" id="adense__types_8h_html_a5c556e40e8364561fbfb4373e17b2874"><div class="ttname"><a href="dense__types_8h.html#a5c556e40e8364561fbfb4373e17b2874">lmmc_mat_t::rows</a></div><div class="ttdeci">size_t rows</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00019">dense_types.h:19</a></div></div>
+<div class="ttc" id="adense__types_8h_html_a8c72b81b3a507308e133e2da998e1a5d"><div class="ttname"><a href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">lmmc_mat_t::data</a></div><div class="ttdeci">lmmc_real_t * data</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00022">dense_types.h:22</a></div></div>
+<div class="ttc" id="adense__types_8h_html_abb79242c5db253df66bf7a369fbce3d9"><div class="ttname"><a href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">lmmc_vec_t::data</a></div><div class="ttdeci">lmmc_real_t * data</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00033">dense_types.h:33</a></div></div>
+<div class="ttc" id="adense__types_8h_html_structlmmc__mat__t"><div class="ttname"><a href="dense__types_8h.html#structlmmc__mat__t">lmmc_mat_t</a></div><div class="ttdoc">行优先存储的稠密矩阵。</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00018">dense_types.h:18</a></div></div>
+<div class="ttc" id="adense__types_8h_html_structlmmc__vec__t"><div class="ttname"><a href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a></div><div class="ttdoc">一维稠密向量。</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00031">dense_types.h:31</a></div></div>
+<div class="ttc" id="amemory__bridge_8c_html_af4259c4867aa5918a7b1a5197501aeb1"><div class="ttname"><a href="memory__bridge_8c.html#af4259c4867aa5918a7b1a5197501aeb1">lmmc_memory_free</a></div><div class="ttdeci">void lmmc_memory_free(void *pointer)</div><div class="ttdef"><b>定义</b> <a href="memory__bridge_8c_source.html#l00075">memory_bridge.c:75</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a09fdfbdbd910dc62a3fb476572273010"><div class="ttname"><a href="optimize_8c.html#a09fdfbdbd910dc62a3fb476572273010">lmmc_optimize_armijo</a></div><div class="ttdeci">int lmmc_optimize_armijo(lmmc_opt_obj_t obj, void *user_data, const lmmc_vec_t *x, const lmmc_vec_t *direction, lmmc_vec_t *trial, lmmc_real_t *value, lmmc_real_t derivative, int attempts, int subtract)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00241">optimize.c:241</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a416647a3c2c21d4ac10d06f58c000640"><div class="ttname"><a href="optimize_8c.html#a416647a3c2c21d4ac10d06f58c000640">lmmc_optimize_norm</a></div><div class="ttdeci">lmmc_real_t lmmc_optimize_norm(const lmmc_vec_t *v)</div><div class="ttdoc">计算向量的 L2 范数。</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00048">optimize.c:48</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a8515866a0bd7acbc6e128f726783632b"><div class="ttname"><a href="optimize_8c.html#a8515866a0bd7acbc6e128f726783632b">lmmc_optimize_emit</a></div><div class="ttdeci">void lmmc_optimize_emit(const lmmc_optimize_config_t *cfg, const char *operation, size_t iteration, const lmmc_real_t *values, size_t value_count)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00003">optimize.c:3</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a8a00acdc1d9ed299024ddbf32d06194e"><div class="ttname"><a href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a></div><div class="ttdeci">lmmc_vec_t lmmc_opt_workspace_vector(lmmc_opt_workspace_t *work, size_t n)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00160">optimize.c:160</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a96ede256cc16d454a37e0a406c4f923a"><div class="ttname"><a href="optimize_8c.html#a96ede256cc16d454a37e0a406c4f923a">lmmc_optimize_stop</a></div><div class="ttdeci">int lmmc_optimize_stop(lmmc_real_t norm, lmmc_real_t *initial, size_t iteration, const lmmc_optimize_config_t *cfg, lmmc_optimize_result_t *out)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00090">optimize.c:90</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_aaee2e3acf2646c2839ba22da94e86a76"><div class="ttname"><a href="optimize_8c.html#aaee2e3acf2646c2839ba22da94e86a76">lmmc_opt_workspace_create</a></div><div class="ttdeci">lmmc_status_t lmmc_opt_workspace_create(size_t n, size_t vectors, size_t matrices, size_t extra, int need_pivots, lmmc_opt_workspace_t *work)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00130">optimize.c:130</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_ab6645aac7fa7bf0f779fa533bfb65770"><div class="ttname"><a href="optimize_8c.html#ab6645aac7fa7bf0f779fa533bfb65770">lmmc_optimize_result_init</a></div><div class="ttdeci">void lmmc_optimize_result_init(lmmc_optimize_result_t *out)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00082">optimize.c:82</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_abcaeedb9caf6e921caf6c53d2cedc230"><div class="ttname"><a href="optimize_8c.html#abcaeedb9caf6e921caf6c53d2cedc230">lmmc_optimize_arguments_valid</a></div><div class="ttdeci">int lmmc_optimize_arguments_valid(const lmmc_vec_t *x, const lmmc_optimize_config_t *cfg, const lmmc_optimize_result_t *out)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00075">optimize.c:75</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107f"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107f">lmmc_optimize_failure_t</a></div><div class="ttdeci">lmmc_optimize_failure_t</div><div class="ttdoc">优化失败原因枚举。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00075">optimize.h:75</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17">LMMC_OPT_FAILURE_NONE</a></div><div class="ttdeci">@ LMMC_OPT_FAILURE_NONE</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00076">optimize.h:76</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107fa7cb4912db8e6ba2d7b0559422ebcb5a7"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa7cb4912db8e6ba2d7b0559422ebcb5a7">LMMC_OPT_FAILURE_LINE_SEARCH_FAILED</a></div><div class="ttdeci">@ LMMC_OPT_FAILURE_LINE_SEARCH_FAILED</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00079">optimize.h:79</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a></div><div class="ttdeci">@ LMMC_OPT_FAILURE_NUMERICAL_ISSUE</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00078">optimize.h:78</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a2f89e0c5ec3a0372da840dce39691e0a"><div class="ttname"><a href="optimize_8h.html#a2f89e0c5ec3a0372da840dce39691e0a">lmmc_minimize_lbfgs</a></div><div class="ttdeci">lmmc_status_t lmmc_minimize_lbfgs(lmmc_opt_obj_t obj, lmmc_opt_grad_t grad, void *user_data, lmmc_vec_t *x, const lmmc_optimize_config_t *cfg, lmmc_optimize_result_t *out)</div><div class="ttdoc">L-BFGS 无约束最小化。</div><div class="ttdef"><b>定义</b> <a href="#l00157">optimize_lbfgs.c:157</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a44d25c24e24d4fd167a16315b35c1125"><div class="ttname"><a href="optimize_8h.html#a44d25c24e24d4fd167a16315b35c1125">lmmc_optimize_config_t::lbfgs_memory</a></div><div class="ttdeci">size_t lbfgs_memory</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00067">optimize.h:67</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a47ec2e47bbef4b280720770f64824f96"><div class="ttname"><a href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">lmmc_optimize_result_t::failure_reason</a></div><div class="ttdeci">lmmc_optimize_failure_t failure_reason</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00090">optimize.h:90</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a4bb4adc38df30837380f77e139dee5aa"><div class="ttname"><a href="optimize_8h.html#a4bb4adc38df30837380f77e139dee5aa">lmmc_optimize_result_t::num_iter</a></div><div class="ttdeci">size_t num_iter</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00088">optimize.h:88</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_abea2ffc9db0e068ce86518f2b6627916"><div class="ttname"><a href="optimize_8h.html#abea2ffc9db0e068ce86518f2b6627916">lmmc_opt_grad_t</a></div><div class="ttdeci">lmmc_status_t(*) lmmc_opt_grad_t(const lmmc_vec_t *x, lmmc_vec_t *grad, void *user_data)</div><div class="ttdoc">梯度回调：计算 ∇f(x)。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00049">optimize.h:49</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_ad290d0d259b541e3a550e70ead5a2dd4"><div class="ttname"><a href="optimize_8h.html#ad290d0d259b541e3a550e70ead5a2dd4">lmmc_opt_obj_t</a></div><div class="ttdeci">lmmc_real_t(*) lmmc_opt_obj_t(const lmmc_vec_t *x, void *user_data)</div><div class="ttdoc">目标函数回调：计算标量 f(x)。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00058">optimize.h:58</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_ad5edad7ad91d16c56ae9dbbcefb06810"><div class="ttname"><a href="optimize_8h.html#ad5edad7ad91d16c56ae9dbbcefb06810">lmmc_optimize_result_t::final_residual</a></div><div class="ttdeci">lmmc_real_t final_residual</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00089">optimize.h:89</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_structlmmc__optimize__config__t"><div class="ttname"><a href="optimize_8h.html#structlmmc__optimize__config__t">lmmc_optimize_config_t</a></div><div class="ttdoc">优化算法配置参数。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00063">optimize.h:63</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_structlmmc__optimize__result__t"><div class="ttname"><a href="optimize_8h.html#structlmmc__optimize__result__t">lmmc_optimize_result_t</a></div><div class="ttdoc">优化结果。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00086">optimize.h:86</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html"><div class="ttname"><a href="optimize__internal_8h.html">optimize_internal.h</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html_a826f05ac7d49dbc1d00054d032c9dbb9"><div class="ttname"><a href="optimize__internal_8h.html#a826f05ac7d49dbc1d00054d032c9dbb9">lmmc_opt_workspace_t::next</a></div><div class="ttdeci">lmmc_real_t * next</div><div class="ttdef"><b>定义</b> <a href="optimize__internal_8h_source.html#l00014">optimize_internal.h:14</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html_af1e6aec7e1799e173447f9b3f93e1497"><div class="ttname"><a href="optimize__internal_8h.html#af1e6aec7e1799e173447f9b3f93e1497">lmmc_opt_workspace_t::allocation</a></div><div class="ttdeci">void * allocation</div><div class="ttdef"><b>定义</b> <a href="optimize__internal_8h_source.html#l00013">optimize_internal.h:13</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html_structlmmc__opt__workspace__t"><div class="ttname"><a href="optimize__internal_8h.html#structlmmc__opt__workspace__t">lmmc_opt_workspace_t</a></div><div class="ttdoc">工作区由本次调用拥有，视图仅借用存储，释放由调用方负责。</div><div class="ttdef"><b>定义</b> <a href="optimize__internal_8h_source.html#l00012">optimize_internal.h:12</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_a4318b1fca1f8cf28376f7fe89c5299ea"><div class="ttname"><a href="optimize__lbfgs_8c.html#a4318b1fca1f8cf28376f7fe89c5299ea">lmmc_lbfgs_workspace_t::alpha</a></div><div class="ttdeci">lmmc_vec_t alpha</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_lbfgs.c:5</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_a553712d9a8b385d6bc0c81cb95f1f5d4"><div class="ttname"><a href="optimize__lbfgs_8c.html#a553712d9a8b385d6bc0c81cb95f1f5d4">lmmc_lbfgs_workspace_t::s</a></div><div class="ttdeci">lmmc_mat_t s</div><div class="ttdef"><b>定义</b> <a href="#l00006">optimize_lbfgs.c:6</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_a6f3dfc68bb61e5ee0b63c6cd251a53f7"><div class="ttname"><a href="optimize__lbfgs_8c.html#a6f3dfc68bb61e5ee0b63c6cd251a53f7">lmmc_lbfgs_workspace_t::g_new</a></div><div class="ttdeci">lmmc_vec_t g_new</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_lbfgs.c:5</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_a823d3a25028d2a87368dd62a66a9c50a"><div class="ttname"><a href="optimize__lbfgs_8c.html#a823d3a25028d2a87368dd62a66a9c50a">lmmc_lbfgs_workspace_t::arena</a></div><div class="ttdeci">lmmc_opt_workspace_t arena</div><div class="ttdef"><b>定义</b> <a href="#l00004">optimize_lbfgs.c:4</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_aa44e7e92ab8e25b3eb307b2e450b7a94"><div class="ttname"><a href="optimize__lbfgs_8c.html#aa44e7e92ab8e25b3eb307b2e450b7a94">lmmc_lbfgs_workspace_t::x_new</a></div><div class="ttdeci">lmmc_vec_t x_new</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_lbfgs.c:5</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_abf2b4d8c259374d69254e3450d225485"><div class="ttname"><a href="optimize__lbfgs_8c.html#abf2b4d8c259374d69254e3450d225485">lmmc_lbfgs_workspace_t::oldest</a></div><div class="ttdeci">size_t oldest</div><div class="ttdef"><b>定义</b> <a href="#l00007">optimize_lbfgs.c:7</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_ac39340c17f9e0408397c51ff84b55df2"><div class="ttname"><a href="optimize__lbfgs_8c.html#ac39340c17f9e0408397c51ff84b55df2">lmmc_lbfgs_workspace_t::g</a></div><div class="ttdeci">lmmc_vec_t g</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_lbfgs.c:5</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_ad002ec42d172a6e393ce214999e67938"><div class="ttname"><a href="optimize__lbfgs_8c.html#ad002ec42d172a6e393ce214999e67938">lmmc_lbfgs_workspace_t::rho</a></div><div class="ttdeci">lmmc_vec_t rho</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_lbfgs.c:5</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_aee21e41b9bcac3b2bbce87452448e825"><div class="ttname"><a href="optimize__lbfgs_8c.html#aee21e41b9bcac3b2bbce87452448e825">lmmc_lbfgs_workspace_t::history_count</a></div><div class="ttdeci">size_t history_count</div><div class="ttdef"><b>定义</b> <a href="#l00007">optimize_lbfgs.c:7</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_af09f779f9c054b5b1f8635455e7b2711"><div class="ttname"><a href="optimize__lbfgs_8c.html#af09f779f9c054b5b1f8635455e7b2711">lmmc_lbfgs_workspace_t::y</a></div><div class="ttdeci">lmmc_mat_t y</div><div class="ttdef"><b>定义</b> <a href="#l00006">optimize_lbfgs.c:6</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_af3a6dadc1a48955e7f8c68e95a26349e"><div class="ttname"><a href="optimize__lbfgs_8c.html#af3a6dadc1a48955e7f8c68e95a26349e">lmmc_lbfgs_workspace_t::q</a></div><div class="ttdeci">lmmc_vec_t q</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_lbfgs.c:5</a></div></div>
+<div class="ttc" id="aoptimize__lbfgs_8c_html_structlmmc__lbfgs__workspace__t"><div class="ttname"><a href="optimize__lbfgs_8c.html#structlmmc__lbfgs__workspace__t">lmmc_lbfgs_workspace_t</a></div><div class="ttdef"><b>定义</b> <a href="#l00003">optimize_lbfgs.c:3</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a></div><div class="ttdeci">lmmc_status_t</div><div class="ttdoc">LMMC 库统一返回的状态码.</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00022">status.h:22</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a></div><div class="ttdeci">@ LMMC_STATUS_OK</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00023">status.h:23</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a></div><div class="ttdeci">@ LMMC_STATUS_ALLOCATION_FAILED</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00026">status.h:26</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">@ LMMC_STATUS_INVALID_ARGUMENT</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00024">status.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="optimize__lbfgs_8c.html">optimize_lbfgs.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>
