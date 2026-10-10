@@ -1,0 +1,3 @@
+set(CMAKE_CURRENT_SOURCE_DIR "${SOURCE_DIR}")
+set(CMAKE_CURRENT_BINARY_DIR "${BINARY_DIR}")
+configure_file("${SOURCE_DIR}/Doxyfile.in" "${BINARY_DIR}/Doxyfile" @ONLY)
