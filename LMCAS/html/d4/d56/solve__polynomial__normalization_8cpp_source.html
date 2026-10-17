@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/solve_polynomial_normalization.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d4/d56/solve__polynomial__normalization_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">solve_polynomial_normalization.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d4/d56/solve__polynomial__normalization_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d89/symbolic__ast_8hpp.html">internal/symbolic_ast.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dfd/numeric__probe_8hpp.html">internal/numeric_probe.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/db5/expression__analysis_8hpp.html">internal/expression_analysis.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d8e/polynomial__solver__support_8hpp.html">internal/polynomial_solver_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html">LMCAS::polynomial_solver_detail</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ae5a9019d042ebe986d5d34e43de36901">   12</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ae5a9019d042ebe986d5d34e43de36901">is_purely_numeric</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> !expr || <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a8a1f4ade4da2b829aea2acbb1dd9ce88">free_variables</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr)).empty();</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab61775ff9cda17e454b17890ddd5667f">   16</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab61775ff9cda17e454b17890ddd5667f">negate</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; x) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">return</span> SymbolicExpr::multiply(SymbolicExpr::number(-1), x);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#aa7b01e735c3d88fea6702770a298cf7c">   20</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#aa7b01e735c3d88fea6702770a298cf7c">sub</a>(<span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> SymbolicExpr::add(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">a</a>, <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab61775ff9cda17e454b17890ddd5667f">negate</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">b</a>));</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">   24</a></span>std::shared_ptr&lt;SymbolicExpr&gt; <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">num</a>(<span class="keywordtype">int</span> n) { <span class="keywordflow">return</span> SymbolicExpr::number(n); }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a61ea43ff79462db63394ba5e58e6c3b7">   26</a></span>std::optional&lt;double&gt; <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a61ea43ff79462db63394ba5e58e6c3b7">finite_numeric_value</a>(</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">auto</span> evaluated = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a148c1398cc89bef5bffda40fb50cfa73">detail::try_finite_numeric</a>(expr);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (!evaluated) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">auto</span> simplified = expr-&gt;simplify();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (simplified &amp;&amp; <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(simplified)) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">num</a> = std::dynamic_pointer_cast&lt;const NumberNode&gt;(</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(simplified))) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(<a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">num</a>-&gt;value())) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a> = std::get&lt;Rational&gt;(<a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">num</a>-&gt;value());</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>.get_numerator().is_zero() &amp;&amp; *evaluated == 0.0) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                    <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(<a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">num</a>-&gt;value())) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a> = std::get&lt;BigInt&gt;(<a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">num</a>-&gt;value());</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">value</a>.is_zero() &amp;&amp; *evaluated == 0.0) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                    <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> evaluated;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab01d1c15c36d34d70a8e3f1fe594f7fb">   52</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab01d1c15c36d34d70a8e3f1fe594f7fb">convert_to_rational_poly</a>(</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial&lt;SymbolicPolyCoeff&gt;</a>&amp; sym_poly,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; out_poly)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    out_poly = <a class="code hl_class" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>(sym_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a3aa85a69b6a2d40f3eb6a4707cfbbc04">variable_name</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    out_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>.resize(sym_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>.size(), Rational(0));</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; sym_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>.size(); ++i) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keyword">auto</span> coeff_expr = sym_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>[i].val;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">if</span> (!coeff_expr) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            out_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>[i] = Rational(0);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">auto</span> simplified = coeff_expr-&gt;simplify();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">auto</span> num_node = std::dynamic_pointer_cast&lt;const NumberNode&gt;(</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(simplified));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (!num_node) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">if</span> (std::holds_alternative&lt;Rational&gt;(num_node-&gt;value())) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            out_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>[i] = std::get&lt;Rational&gt;(num_node-&gt;value());</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (std::holds_alternative&lt;BigInt&gt;(num_node-&gt;value())) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            out_poly.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>[i] =</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                Rational(std::get&lt;BigInt&gt;(num_node-&gt;value()));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    out_poly.<a class="code hl_function" href="../../d6/da1/classLMCAS_1_1Polynomial.html#ad28a0229fb8250dec4cb76de87202ca5">trim</a>();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html">LMCAS::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00052">polynomial.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html_a3aa85a69b6a2d40f3eb6a4707cfbbc04"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html#a3aa85a69b6a2d40f3eb6a4707cfbbc04">LMCAS::Polynomial::variable_name</a></div><div class="ttdeci">std::string variable_name</div><div class="ttdoc">变量名</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00056">polynomial.hpp:56</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html_a60e9be25be1238851163302d0ef91c18"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">LMCAS::Polynomial::coeffs</a></div><div class="ttdeci">std::vector&lt; CoeffType &gt; coeffs</div><div class="ttdoc">系数数组,coeffs[i] 为 x^i 的系数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00055">polynomial.hpp:55</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html_ad28a0229fb8250dec4cb76de87202ca5"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html#ad28a0229fb8250dec4cb76de87202ca5">LMCAS::Polynomial::trim</a></div><div class="ttdeci">void trim()</div><div class="ttdoc">去除高次零系数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00085">polynomial.hpp:85</a></div></div>
+<div class="ttc" id="aexpression__analysis_8hpp_html"><div class="ttname"><a href="../../d8/db5/expression__analysis_8hpp.html">expression_analysis.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a148c1398cc89bef5bffda40fb50cfa73"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a148c1398cc89bef5bffda40fb50cfa73">LMCAS::detail::try_finite_numeric</a></div><div class="ttdeci">std::optional&lt; double &gt; try_finite_numeric(const SymbolicExpr &amp;expression, ComputationContext *context=nullptr)</div><div class="ttdef"><b>定义</b> <a href="../../d9/dfd/numeric__probe_8hpp_source.html#l00011">numeric_probe.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1d1d0bdafb53aa76fcf04f5896687c69"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::LMCAS::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00091">base.hpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html">LMCAS::polynomial_solver_detail</a></div><div class="ttdef"><b>定义</b> <a href="../../d8/d8e/polynomial__solver__support_8hpp_source.html#l00005">polynomial_solver_support.hpp:5</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html_a174dd01cc4ebee44ff38a5a80bd92bc4"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a174dd01cc4ebee44ff38a5a80bd92bc4">LMCAS::polynomial_solver_detail::num</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; num(int value)</div><div class="ttdef"><b>定义</b> <a href="#l00024">solve_polynomial_normalization.cpp:24</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html_a61ea43ff79462db63394ba5e58e6c3b7"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#a61ea43ff79462db63394ba5e58e6c3b7">LMCAS::polynomial_solver_detail::finite_numeric_value</a></div><div class="ttdeci">std::optional&lt; double &gt; finite_numeric_value(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</div><div class="ttdef"><b>定义</b> <a href="#l00026">solve_polynomial_normalization.cpp:26</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html_aa7b01e735c3d88fea6702770a298cf7c"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#aa7b01e735c3d88fea6702770a298cf7c">LMCAS::polynomial_solver_detail::sub</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; sub(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;a, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;b)</div><div class="ttdef"><b>定义</b> <a href="#l00020">solve_polynomial_normalization.cpp:20</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html_ab01d1c15c36d34d70a8e3f1fe594f7fb"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab01d1c15c36d34d70a8e3f1fe594f7fb">LMCAS::polynomial_solver_detail::convert_to_rational_poly</a></div><div class="ttdeci">bool convert_to_rational_poly(const Polynomial&lt; SymbolicPolyCoeff &gt; &amp;poly, Polynomial&lt; Rational &gt; &amp;output)</div><div class="ttdef"><b>定义</b> <a href="#l00052">solve_polynomial_normalization.cpp:52</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html_ab61775ff9cda17e454b17890ddd5667f"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ab61775ff9cda17e454b17890ddd5667f">LMCAS::polynomial_solver_detail::negate</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; negate(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</div><div class="ttdef"><b>定义</b> <a href="#l00016">solve_polynomial_normalization.cpp:16</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1polynomial__solver__detail_html_ae5a9019d042ebe986d5d34e43de36901"><div class="ttname"><a href="../../db/d96/namespaceLMCAS_1_1polynomial__solver__detail.html#ae5a9019d042ebe986d5d34e43de36901">LMCAS::polynomial_solver_detail::is_purely_numeric</a></div><div class="ttdeci">bool is_purely_numeric(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr)</div><div class="ttdef"><b>定义</b> <a href="#l00012">solve_polynomial_normalization.cpp:12</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a59661c3dfa48637904307fa1ab72da90"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a59661c3dfa48637904307fa1ab72da90">LMCAS::b</a></div><div class="ttdeci">const MultiPoly &amp; b</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00092">multivariate_factor.hpp:92</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7dccbfd0287cc3683a03a0bbe12c7fb4"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7dccbfd0287cc3683a03a0bbe12c7fb4">LMCAS::a</a></div><div class="ttdeci">__attribute__((visibility(&quot;default&quot;))) VectorCalculusExprResult curve_integral_scalar_checked(const std __attribute__((visibility(&quot;default&quot;))) VectorCalculusExprResult curve_integral_scalar_checked(const std __attribute__((visibility(&quot;default&quot;))) std const VectorField const std::string const std::shared_ptr&lt; SymbolicExpr &gt; &amp; a</div><div class="ttdef"><b>定义</b> <a href="../../d9/da7/vector__calculus__curves_8hpp_source.html#l00050">vector_calculus_curves.hpp:50</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a8a1f4ade4da2b829aea2acbb1dd9ce88"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a8a1f4ade4da2b829aea2acbb1dd9ce88">LMCAS::free_variables</a></div><div class="ttdeci">std::set&lt; std::string &gt; free_variables(const detail::SymbolicNodePtr &amp;expression, detail::RewriteBudget *budget)</div><div class="ttdef"><b>定义</b> <a href="../../dc/d9c/expression__analysis_8cpp_source.html#l00304">expression_analysis.cpp:304</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ab902e35db3491c1da0ee7ef56474ae2f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ab902e35db3491c1da0ee7ef56474ae2f">LMCAS::value</a></div><div class="ttdeci">const std::string const ExprPtr &amp; value</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00298">expr.hpp:298</a></div></div>
+<div class="ttc" id="anumeric__probe_8hpp_html"><div class="ttname"><a href="../../d9/dfd/numeric__probe_8hpp.html">numeric_probe.hpp</a></div></div>
+<div class="ttc" id="apolynomial__solver__support_8hpp_html"><div class="ttname"><a href="../../d8/d8e/polynomial__solver__support_8hpp.html">polynomial_solver_support.hpp</a></div></div>
+<div class="ttc" id="asymbolic__ast_8hpp_html"><div class="ttname"><a href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a></div><div class="ttdoc">内部 AST 定义。</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d4/d56/solve__polynomial__normalization_8cpp.html">solve_polynomial_normalization.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

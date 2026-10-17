@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/itersolve.c 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('itersolve_8c_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">itersolve.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="itersolve_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="itersolve__internal_8h.html">itersolve_internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="sparse__internal_8h.html">sparse_internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a251231210c85747c67395b63d16de1b4">    4</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a251231210c85747c67395b63d16de1b4">lmmc_vec_norm2_checked</a>(<span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* v, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* out_norm) {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keywordflow">if</span> (v == NULL || out_norm == NULL || v-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a> == NULL || v-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> == 0) {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    }</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; v-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>; ++i) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">if</span> (!lmmc_is_finite(&amp;v-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i])) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        }</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_function" href="dense__arithmetic_8h.html#abc1a6e60d9f32c75b57487b4b5c1eda2">lmmc_vec_norm2</a>(v, out_norm);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (!lmmc_is_finite(&amp;*out_norm)) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a0da9c01a6bd5ecfbc81ce710027d1c76">   27</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a0da9c01a6bd5ecfbc81ce710027d1c76">lmmc_vec_dot_checked</a>(<span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* a, <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* b, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* out_dot) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_function" href="dense__arithmetic_8h.html#a21704ddfbc6675769e372ddf62cf1a82">lmmc_vec_dot</a>(a, b, out_dot);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (!lmmc_is_finite(&amp;*out_dot)) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a5287b5eef0f75a35f05bb6594f531107">   38</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a5287b5eef0f75a35f05bb6594f531107">lmmc_apply_precond_or_identity</a>(</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> <a class="code hl_struct" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a>* precond,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* rhs,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* out</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (precond == NULL) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="dense__storage_8h.html#ab3b3522edc7a0e0d928ebf48e9044f12">lmmc_vec_copy</a>(rhs, out);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="precond_8h.html#a42c62b223470063af0eefd03d04a9e5c">lmmc_precond_apply</a>(precond, rhs, out);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="itersolve_8c.html#afe215d63f228a144fc5b7360cda1cac3">   49</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="itersolve_8c.html#afe215d63f228a144fc5b7360cda1cac3">lmmc_itersolve_do_log</a>(<span class="keyword">const</span> <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* cfg, <span class="keywordtype">size_t</span> iter, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> residual_norm) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <a class="code hl_struct" href="diagnostic_8h.html#structlmmc__diagnostic__t">lmmc_diagnostic_t</a> diagnostic = {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_enumvalue" href="diagnostic_8h.html#ad0b86659e60333600c85ee7235eee31dab33183e6bfd8ec183949e1138ec0d1fb">LMMC_DIAGNOSTIC_TRACE</a>, <span class="stringliteral">&quot;itersolve&quot;</span>, <span class="stringliteral">&quot;iteration&quot;</span>, iter,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        &amp;residual_norm, 1</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    };</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_function" href="diagnostic_8h.html#a29da33c04b0f0de4e4160763fe978391">lmmc_diagnostic_emit</a>(&amp;cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a0730747828964460677a1a1fd0461099">diagnostics</a>, &amp;diagnostic);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="itersolve_8h.html#a9fe70199f2d9d86530059692ec9c4323">   57</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8h.html#a9fe70199f2d9d86530059692ec9c4323">lmmc_itersolve_default_config</a>(<span class="keywordtype">size_t</span> problem_size, <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* out_cfg) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">size_t</span> max_iter = 0;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (out_cfg == NULL || problem_size == 0) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (problem_size &gt; ((<span class="keywordtype">size_t</span>)-1) / 20) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        max_iter = 1000;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        max_iter = problem_size * 20;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span> (max_iter &lt; 100) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            max_iter = 100;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_define" href="config_8h.html#a70a9735596f356b92a875be65ed108d4">LMMC_REAL_INIT</a>(&amp;out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a01afc9cf0ce7f78a5670e2361b50ce01">abs_tol</a>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_define" href="config_8h.html#a70a9735596f356b92a875be65ed108d4">LMMC_REAL_INIT</a>(&amp;out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ae3ec9165e5d3576219189e9c46d7ef0a">rel_tol</a>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_define" href="config_8h.html#ae7a2900293659251b90bb16d01e1cbdd">LMMC_REAL_SET_D</a>(&amp;out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a01afc9cf0ce7f78a5670e2361b50ce01">abs_tol</a>, <a class="code hl_define" href="numeric__scalar_8h.html#ad9b8cc269ad9c5fffe70487448318866">LMMC_DEFAULT_ABS_TOL</a>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_define" href="config_8h.html#ae7a2900293659251b90bb16d01e1cbdd">LMMC_REAL_SET_D</a>(&amp;out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ae3ec9165e5d3576219189e9c46d7ef0a">rel_tol</a>, 1e-8);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a16f4fdfaf16420d7fbc32192ec0991e5">max_iter</a> = max_iter;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a71daa27addd8ed7d445fdc0efb403772">restart</a> = (problem_size &lt; 30) ? problem_size : 30;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a0730747828964460677a1a1fd0461099">diagnostics</a> = (<a class="code hl_struct" href="diagnostic_8h.html#structlmmc__diagnostic__sink__t">lmmc_diagnostic_sink_t</a>){0};</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ad0b34974468fbce397c7ff73b5442fba">apply_op</a> = NULL;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a7d39e12ec4a1e34ccaecdda34d33e7c2">op_user_data</a> = NULL;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a1eb418a786075ef840d7d727783ad5c3">apply_transpose_op</a> = NULL;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_itersolve_square_dimensions(<span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* b, <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">if</span> (lmmc_sparse_validate(a) != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> || b == NULL || x == NULL ||</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        b-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a> == NULL || x-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a> == NULL) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a1db1ece08827099b8490695c1c0a7df1">rows</a> == 0 || a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#ac73e2007f0228e73f258e9317b8ad2a7">cols</a> == 0 || b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> == 0 || x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> == 0) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a1db1ece08827099b8490695c1c0a7df1">rows</a> != a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#ac73e2007f0228e73f258e9317b8ad2a7">cols</a> || b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> != a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a1db1ece08827099b8490695c1c0a7df1">rows</a> || x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> != a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#ac73e2007f0228e73f258e9317b8ad2a7">cols</a>) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a61ae4bf6bde08acfe150cd95daf45483">  103</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a61ae4bf6bde08acfe150cd95daf45483">lmmc_itersolve_validate</a>(</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* b,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">const</span> <a class="code hl_struct" href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a>* precond,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* cfg,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* out_cfg,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a>* out_result</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = lmmc_itersolve_square_dimensions(a, b, x);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (cfg != NULL) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        *out_cfg = *cfg;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        st = <a class="code hl_function" href="itersolve_8h.html#a9fe70199f2d9d86530059692ec9c4323">lmmc_itersolve_default_config</a>(b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>, out_cfg);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">if</span> (!isfinite(out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a01afc9cf0ce7f78a5670e2361b50ce01">abs_tol</a>) || !isfinite(out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ae3ec9165e5d3576219189e9c46d7ef0a">rel_tol</a>) ||</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a01afc9cf0ce7f78a5670e2361b50ce01">abs_tol</a> &lt; 0.0 || out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ae3ec9165e5d3576219189e9c46d7ef0a">rel_tol</a> &lt; 0.0 || out_cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a16f4fdfaf16420d7fbc32192ec0991e5">max_iter</a> == 0) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">if</span> (precond != NULL &amp;&amp; precond-&gt;<a class="code hl_variable" href="precond_8h.html#ae8042d9c8ecb3e0baa5e8adb33d4c806">size</a> != b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        st = <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">if</span> (out_result != NULL) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        out_result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a888d76edc55a4e7c10d9236bc97495dd">converged</a> = 0;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        out_result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a9708f1912ea10dfd04e7277711241a19">num_iter</a> = 0;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <a class="code hl_define" href="config_8h.html#a70a9735596f356b92a875be65ed108d4">LMMC_REAL_INIT</a>(&amp;out_result-&gt;<a class="code hl_variable" href="itersolve_8h.html#ab2cd996c42e75547eba53d71d66f4cbd">initial_residual_norm</a>);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <a class="code hl_define" href="config_8h.html#a70a9735596f356b92a875be65ed108d4">LMMC_REAL_INIT</a>(&amp;out_result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a837a71ce8f81d0099ee4245f9b0805b4">final_residual_norm</a>);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <a class="code hl_define" href="config_8h.html#ae7a2900293659251b90bb16d01e1cbdd">LMMC_REAL_SET_D</a>(&amp;out_result-&gt;<a class="code hl_variable" href="itersolve_8h.html#ab2cd996c42e75547eba53d71d66f4cbd">initial_residual_norm</a>, 0.0);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <a class="code hl_define" href="config_8h.html#ae7a2900293659251b90bb16d01e1cbdd">LMMC_REAL_SET_D</a>(&amp;out_result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a837a71ce8f81d0099ee4245f9b0805b4">final_residual_norm</a>, 0.0);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>cleanup:</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
+</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a771575d1436f66a9ba80369030a40f58">  149</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a771575d1436f66a9ba80369030a40f58">lmmc_itersolve_workspace</a>(<a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* <span class="keyword">const</span>* vectors,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span>* sizes, <span class="keywordtype">size_t</span> count, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>** storage) {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordtype">size_t</span> total = 0;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; count; ++i) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">if</span> (!lmmc_safe_add_size(total, sizes[i], &amp;total)) {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordtype">size_t</span> bytes;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">if</span> (!lmmc_safe_mul_size(total, <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>), &amp;bytes)) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    *storage = <a class="code hl_function" href="memory__bridge_8c.html#a511c365b18226d680140fdb623dc03de">lmmc_memory_alloc</a>(bytes);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">if</span> (*storage == NULL) {</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    memset(*storage, 0, bytes);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* next = *storage;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; count; ++i) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        *vectors[i] = (<a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>){sizes[i], next, 0};</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        next += sizes[i];</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="itersolve_8c.html#aa97b55b9cbfd4994ab4a888ec3ec17d3">  174</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="itersolve_8c.html#aa97b55b9cbfd4994ab4a888ec3ec17d3">lmmc_itersolve_result_init</a>(<a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a>* result) {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">if</span> (result != NULL) {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a888d76edc55a4e7c10d9236bc97495dd">converged</a> = 0;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a9708f1912ea10dfd04e7277711241a19">num_iter</a> = 0;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#ab2cd996c42e75547eba53d71d66f4cbd">initial_residual_norm</a> = 0.0;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a837a71ce8f81d0099ee4245f9b0805b4">final_residual_norm</a> = 0.0;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>}</div>
+</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="itersolve_8c.html#ad139072c394a2af274c76f0ed43486bb">  183</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="itersolve_8c.html#ad139072c394a2af274c76f0ed43486bb">lmmc_itersolve_initial</a>(<a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a>* result, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm) {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">if</span> (result != NULL) {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#ab2cd996c42e75547eba53d71d66f4cbd">initial_residual_norm</a> = norm;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a837a71ce8f81d0099ee4245f9b0805b4">final_residual_norm</a> = norm;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
+</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a7d886a961700a4e52d1f35ebb7287531">  190</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="itersolve_8c.html#a7d886a961700a4e52d1f35ebb7287531">lmmc_itersolve_finish</a>(<a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a>* result,</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">int</span> converged, <span class="keywordtype">size_t</span> iterations, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">if</span> (result != NULL) {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a888d76edc55a4e7c10d9236bc97495dd">converged</a> = converged;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a9708f1912ea10dfd04e7277711241a19">num_iter</a> = iterations;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">if</span> (isfinite(norm)) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            result-&gt;<a class="code hl_variable" href="itersolve_8h.html#a837a71ce8f81d0099ee4245f9b0805b4">final_residual_norm</a> = norm;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        }</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>}</div>
+</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a92c94e8535adb21aecada4ddf0e68ff3">  201</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a92c94e8535adb21aecada4ddf0e68ff3">lmmc_itersolve_residual</a>(<span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* b, <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x, <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* ax, <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* r) {</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_function" href="sparse__arithmetic_8h.html#aa713e5ac22639c42d574987d15e1d02d">lmmc_sparse_mat_vec_mul</a>(a, x, ax);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    }</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>; ++i) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        r-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = b-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] - ax-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>}</div>
+</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a42b3ac7e6d43d49bf708005b595f833c">  213</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a42b3ac7e6d43d49bf708005b595f833c">lmmc_itersolve_threshold</a>(<span class="keyword">const</span> <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* cfg,</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* b, <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* r, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* norm,</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* threshold) {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm_b;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_function" href="itersolve_8c.html#a251231210c85747c67395b63d16de1b4">lmmc_vec_norm2_checked</a>(b, &amp;norm_b);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    st = <a class="code hl_function" href="itersolve_8c.html#a251231210c85747c67395b63d16de1b4">lmmc_vec_norm2_checked</a>(r, norm);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    }</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    *threshold = cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a01afc9cf0ce7f78a5670e2361b50ce01">abs_tol</a> + cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ae3ec9165e5d3576219189e9c46d7ef0a">rel_tol</a> * norm_b;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">return</span> isfinite(*threshold) ? <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a> : <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a>;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>}</div>
+</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="foldopen" id="foldopen00229" data-start="{" data-end="}">
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="itersolve_8c.html#adca2a62402ac1d411ac56d78b282ef60">  229</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#adca2a62402ac1d411ac56d78b282ef60">lmmc_itersolve_dispatch_config</a>(<span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* b, <span class="keyword">const</span> <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* cfg,</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x, <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* local) {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">if</span> (b == NULL || x == NULL || b-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a> == NULL || x-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a> == NULL ||</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> == 0 || x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a> == 0) {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordflow">if</span> (a != NULL &amp;&amp; lmmc_sparse_validate(a) != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">if</span> (cfg != NULL) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        *local = *cfg;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> st = <a class="code hl_function" href="itersolve_8h.html#a9fe70199f2d9d86530059692ec9c4323">lmmc_itersolve_default_config</a>(b-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>, local);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keywordflow">if</span> (st != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            <span class="keywordflow">return</span> st;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">if</span> ((local-&gt;<a class="code hl_variable" href="itersolve_8h.html#ad0b34974468fbce397c7ff73b5442fba">apply_op</a> != NULL) == (a != NULL)) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span></div>
+<div class="foldopen" id="foldopen00254" data-start="{" data-end="}">
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="itersolve_8c.html#ac0e94aa3800eb07c37d035a3b8e77ecd">  254</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#ac0e94aa3800eb07c37d035a3b8e77ecd">lmmc_itersolve_matvec</a>(</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keyword">const</span> <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* cfg,</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x_in,</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* y_out</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>) {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">if</span> (cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ad0b34974468fbce397c7ff73b5442fba">apply_op</a> != NULL) {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <span class="keywordflow">return</span> cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#ad0b34974468fbce397c7ff73b5442fba">apply_op</a>(x_in, y_out, cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a7d39e12ec4a1e34ccaecdda34d33e7c2">op_user_data</a>);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="sparse__arithmetic_8h.html#aa713e5ac22639c42d574987d15e1d02d">lmmc_sparse_mat_vec_mul</a>(a, x_in, y_out);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>}</div>
+</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_matvec_transpose_csr(</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x_in,</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* y_out</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>) {</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">size_t</span> i, j;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">for</span> (i = 0; i &lt; y_out-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>; ++i) {</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        y_out-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = 0.0;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    }</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">for</span> (i = 0; i &lt; a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a1db1ece08827099b8490695c1c0a7df1">rows</a>; ++i) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordtype">size_t</span> start = a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a24c802f2dedb87e76e178b7cb8916684">row_ptr</a>[i];</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordtype">size_t</span> end = a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a24c802f2dedb87e76e178b7cb8916684">row_ptr</a>[i + 1];</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordflow">for</span> (j = start; j &lt; end; ++j) {</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            <span class="keywordtype">size_t</span> col = a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a46df316aebd8eca55fff871ef120ec7b">col_idx</a>[j];</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            y_out-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[col] += a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a52fe18cc54204b3d838057d786c30f1b">values</a>[j] * x_in-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        }</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>}</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> lmmc_matvec_transpose_csc(</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x_in,</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* y_out</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>) {</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordtype">size_t</span> i, j;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">for</span> (j = 0; j &lt; y_out-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>; ++j) {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        y_out-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[j] = 0.0;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    }</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordflow">for</span> (j = 0; j &lt; a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#ac73e2007f0228e73f258e9317b8ad2a7">cols</a>; ++j) {</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="keywordtype">size_t</span> start = a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a24c802f2dedb87e76e178b7cb8916684">row_ptr</a>[j];</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <span class="keywordtype">size_t</span> end = a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a24c802f2dedb87e76e178b7cb8916684">row_ptr</a>[j + 1];</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <span class="keywordtype">double</span> acc = 0.0;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <span class="keywordflow">for</span> (i = start; i &lt; end; ++i) {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            <span class="keywordtype">size_t</span> row = a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a46df316aebd8eca55fff871ef120ec7b">col_idx</a>[i];</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            acc += a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#a52fe18cc54204b3d838057d786c30f1b">values</a>[i] * x_in-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[row];</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        }</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        y_out-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[j] = acc;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    }</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>}</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="itersolve_8c.html#a5a03bb2261c6d3b95232eef5216b5112">  311</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="itersolve_8c.html#a5a03bb2261c6d3b95232eef5216b5112">lmmc_itersolve_transpose</a>(</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keyword">const</span> <a class="code hl_struct" href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a>* a,</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keyword">const</span> <a class="code hl_struct" href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a>* cfg,</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <span class="keyword">const</span> <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x_in,</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* y_out</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>) {</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordflow">if</span> (cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a1eb418a786075ef840d7d727783ad5c3">apply_transpose_op</a> != NULL) {</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        <span class="keywordflow">return</span> cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a1eb418a786075ef840d7d727783ad5c3">apply_transpose_op</a>(x_in, y_out, cfg-&gt;<a class="code hl_variable" href="itersolve_8h.html#a7d39e12ec4a1e34ccaecdda34d33e7c2">op_user_data</a>);</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    }</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordflow">if</span> (lmmc_sparse_validate(a) != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    }</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span> (a-&gt;<a class="code hl_variable" href="sparse__types_8h.html#ab66659780b16df92715b6eaac2e6a00b">format</a> == <a class="code hl_enumvalue" href="sparse__types_8h.html#a1b8d475d87bbb90b3af4f49f96eadfc4a4ffec353b024d88b639df00fdfbe0575">LMMC_SPARSE_CSR</a>) {</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="keywordflow">return</span> lmmc_matvec_transpose_csr(a, x_in, y_out);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    }</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="keywordflow">return</span> lmmc_matvec_transpose_csc(a, x_in, y_out);</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>}</div>
+</div>
+<div class="ttc" id="aconfig_8h_html_a70a9735596f356b92a875be65ed108d4"><div class="ttname"><a href="config_8h.html#a70a9735596f356b92a875be65ed108d4">LMMC_REAL_INIT</a></div><div class="ttdeci">#define LMMC_REAL_INIT(x)</div><div class="ttdoc">初始化一个 lmmc_real_t 变量（POD 类型为空操作）。</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00036">config.h:36</a></div></div>
+<div class="ttc" id="aconfig_8h_html_aa4548c12a1662c29aa98371cb5885543"><div class="ttname"><a href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></div><div class="ttdeci">double lmmc_real_t</div><div class="ttdoc">Public and internal LMMC real type.</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00028">config.h:28</a></div></div>
+<div class="ttc" id="aconfig_8h_html_ae7a2900293659251b90bb16d01e1cbdd"><div class="ttname"><a href="config_8h.html#ae7a2900293659251b90bb16d01e1cbdd">LMMC_REAL_SET_D</a></div><div class="ttdeci">#define LMMC_REAL_SET_D(dst, dbl)</div><div class="ttdoc">将一个 double 字面量赋值到 lmmc_real_t 。</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00043">config.h:43</a></div></div>
+<div class="ttc" id="adense__arithmetic_8h_html_a21704ddfbc6675769e372ddf62cf1a82"><div class="ttname"><a href="dense__arithmetic_8h.html#a21704ddfbc6675769e372ddf62cf1a82">lmmc_vec_dot</a></div><div class="ttdeci">lmmc_status_t lmmc_vec_dot(const lmmc_vec_t *a, const lmmc_vec_t *b, lmmc_real_t *out_dot)</div><div class="ttdoc">计算两个等长向量的内积: 。</div><div class="ttdef"><b>定义</b> <a href="dense__products_8c_source.html#l00228">dense_products.c:228</a></div></div>
+<div class="ttc" id="adense__arithmetic_8h_html_abc1a6e60d9f32c75b57487b4b5c1eda2"><div class="ttname"><a href="dense__arithmetic_8h.html#abc1a6e60d9f32c75b57487b4b5c1eda2">lmmc_vec_norm2</a></div><div class="ttdeci">lmmc_status_t lmmc_vec_norm2(const lmmc_vec_t *x, lmmc_real_t *out_norm)</div><div class="ttdoc">计算向量的欧几里得(L2)范数: 。 采用缩放平方和累加；最终结果超出 binary64 范围时可为无穷。</div><div class="ttdef"><b>定义</b> <a href="dense__arithmetic_8c_source.html#l00032">dense_arithmetic.c:32</a></div></div>
+<div class="ttc" id="adense__storage_8h_html_ab3b3522edc7a0e0d928ebf48e9044f12"><div class="ttname"><a href="dense__storage_8h.html#ab3b3522edc7a0e0d928ebf48e9044f12">lmmc_vec_copy</a></div><div class="ttdeci">lmmc_status_t lmmc_vec_copy(const lmmc_vec_t *src, lmmc_vec_t *dst)</div><div class="ttdoc">逐元素复制向量内容：dst = src。</div><div class="ttdef"><b>定义</b> <a href="dense__storage_8c_source.html#l00210">dense_storage.c:210</a></div></div>
+<div class="ttc" id="adense__types_8h_html_a3443e5be2addab17747b6cf187ad0cee"><div class="ttname"><a href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">lmmc_vec_t::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00032">dense_types.h:32</a></div></div>
+<div class="ttc" id="adense__types_8h_html_abb79242c5db253df66bf7a369fbce3d9"><div class="ttname"><a href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">lmmc_vec_t::data</a></div><div class="ttdeci">lmmc_real_t * data</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00033">dense_types.h:33</a></div></div>
+<div class="ttc" id="adense__types_8h_html_structlmmc__vec__t"><div class="ttname"><a href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a></div><div class="ttdoc">一维稠密向量。</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00031">dense_types.h:31</a></div></div>
+<div class="ttc" id="adiagnostic_8h_html_a29da33c04b0f0de4e4160763fe978391"><div class="ttname"><a href="diagnostic_8h.html#a29da33c04b0f0de4e4160763fe978391">lmmc_diagnostic_emit</a></div><div class="ttdeci">void lmmc_diagnostic_emit(const lmmc_diagnostic_sink_t *sink, const lmmc_diagnostic_t *diagnostic)</div><div class="ttdoc">通过调用方持有的接收器发送一个诊断事件;空接收器直接完成.</div><div class="ttdef"><b>定义</b> <a href="diagnostic_8c_source.html#l00003">diagnostic.c:3</a></div></div>
+<div class="ttc" id="adiagnostic_8h_html_ad0b86659e60333600c85ee7235eee31dab33183e6bfd8ec183949e1138ec0d1fb"><div class="ttname"><a href="diagnostic_8h.html#ad0b86659e60333600c85ee7235eee31dab33183e6bfd8ec183949e1138ec0d1fb">LMMC_DIAGNOSTIC_TRACE</a></div><div class="ttdeci">@ LMMC_DIAGNOSTIC_TRACE</div><div class="ttdef"><b>定义</b> <a href="diagnostic_8h_source.html#l00017">diagnostic.h:17</a></div></div>
+<div class="ttc" id="adiagnostic_8h_html_structlmmc__diagnostic__sink__t"><div class="ttname"><a href="diagnostic_8h.html#structlmmc__diagnostic__sink__t">lmmc_diagnostic_sink_t</a></div><div class="ttdef"><b>定义</b> <a href="diagnostic_8h_source.html#l00037">diagnostic.h:37</a></div></div>
+<div class="ttc" id="adiagnostic_8h_html_structlmmc__diagnostic__t"><div class="ttname"><a href="diagnostic_8h.html#structlmmc__diagnostic__t">lmmc_diagnostic_t</a></div><div class="ttdef"><b>定义</b> <a href="diagnostic_8h_source.html#l00023">diagnostic.h:23</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a0da9c01a6bd5ecfbc81ce710027d1c76"><div class="ttname"><a href="itersolve_8c.html#a0da9c01a6bd5ecfbc81ce710027d1c76">lmmc_vec_dot_checked</a></div><div class="ttdeci">lmmc_status_t lmmc_vec_dot_checked(const lmmc_vec_t *a, const lmmc_vec_t *b, lmmc_real_t *out_dot)</div><div class="ttdef"><b>定义</b> <a href="#l00027">itersolve.c:27</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a251231210c85747c67395b63d16de1b4"><div class="ttname"><a href="itersolve_8c.html#a251231210c85747c67395b63d16de1b4">lmmc_vec_norm2_checked</a></div><div class="ttdeci">lmmc_status_t lmmc_vec_norm2_checked(const lmmc_vec_t *v, lmmc_real_t *out_norm)</div><div class="ttdef"><b>定义</b> <a href="#l00004">itersolve.c:4</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a42b3ac7e6d43d49bf708005b595f833c"><div class="ttname"><a href="itersolve_8c.html#a42b3ac7e6d43d49bf708005b595f833c">lmmc_itersolve_threshold</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_threshold(const lmmc_itersolve_config_t *cfg, const lmmc_vec_t *b, const lmmc_vec_t *r, lmmc_real_t *norm, lmmc_real_t *threshold)</div><div class="ttdef"><b>定义</b> <a href="#l00213">itersolve.c:213</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a5287b5eef0f75a35f05bb6594f531107"><div class="ttname"><a href="itersolve_8c.html#a5287b5eef0f75a35f05bb6594f531107">lmmc_apply_precond_or_identity</a></div><div class="ttdeci">lmmc_status_t lmmc_apply_precond_or_identity(const lmmc_precond_t *precond, const lmmc_vec_t *rhs, lmmc_vec_t *out)</div><div class="ttdef"><b>定义</b> <a href="#l00038">itersolve.c:38</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a5a03bb2261c6d3b95232eef5216b5112"><div class="ttname"><a href="itersolve_8c.html#a5a03bb2261c6d3b95232eef5216b5112">lmmc_itersolve_transpose</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_transpose(const lmmc_sparse_mat_t *a, const lmmc_itersolve_config_t *cfg, const lmmc_vec_t *x_in, lmmc_vec_t *y_out)</div><div class="ttdef"><b>定义</b> <a href="#l00311">itersolve.c:311</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a61ae4bf6bde08acfe150cd95daf45483"><div class="ttname"><a href="itersolve_8c.html#a61ae4bf6bde08acfe150cd95daf45483">lmmc_itersolve_validate</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_validate(const lmmc_sparse_mat_t *a, const lmmc_vec_t *b, const lmmc_precond_t *precond, const lmmc_itersolve_config_t *cfg, lmmc_vec_t *x, lmmc_itersolve_config_t *out_cfg, lmmc_itersolve_result_t *out_result)</div><div class="ttdef"><b>定义</b> <a href="#l00103">itersolve.c:103</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a771575d1436f66a9ba80369030a40f58"><div class="ttname"><a href="itersolve_8c.html#a771575d1436f66a9ba80369030a40f58">lmmc_itersolve_workspace</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_workspace(lmmc_vec_t *const *vectors, const size_t *sizes, size_t count, lmmc_real_t **storage)</div><div class="ttdoc">所有视图借用求解过程统一分配的存储区，最后一次日志回调后释放。</div><div class="ttdef"><b>定义</b> <a href="#l00149">itersolve.c:149</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a7d886a961700a4e52d1f35ebb7287531"><div class="ttname"><a href="itersolve_8c.html#a7d886a961700a4e52d1f35ebb7287531">lmmc_itersolve_finish</a></div><div class="ttdeci">void lmmc_itersolve_finish(lmmc_itersolve_result_t *result, int converged, size_t iterations, lmmc_real_t norm)</div><div class="ttdef"><b>定义</b> <a href="#l00190">itersolve.c:190</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_a92c94e8535adb21aecada4ddf0e68ff3"><div class="ttname"><a href="itersolve_8c.html#a92c94e8535adb21aecada4ddf0e68ff3">lmmc_itersolve_residual</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_residual(const lmmc_sparse_mat_t *a, const lmmc_vec_t *b, const lmmc_vec_t *x, lmmc_vec_t *ax, lmmc_vec_t *r)</div><div class="ttdef"><b>定义</b> <a href="#l00201">itersolve.c:201</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_aa97b55b9cbfd4994ab4a888ec3ec17d3"><div class="ttname"><a href="itersolve_8c.html#aa97b55b9cbfd4994ab4a888ec3ec17d3">lmmc_itersolve_result_init</a></div><div class="ttdeci">void lmmc_itersolve_result_init(lmmc_itersolve_result_t *result)</div><div class="ttdef"><b>定义</b> <a href="#l00174">itersolve.c:174</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_ac0e94aa3800eb07c37d035a3b8e77ecd"><div class="ttname"><a href="itersolve_8c.html#ac0e94aa3800eb07c37d035a3b8e77ecd">lmmc_itersolve_matvec</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_matvec(const lmmc_sparse_mat_t *a, const lmmc_itersolve_config_t *cfg, const lmmc_vec_t *x_in, lmmc_vec_t *y_out)</div><div class="ttdoc">通过无矩阵算子或稀疏矩阵计算 y = A*x。</div><div class="ttdef"><b>定义</b> <a href="#l00254">itersolve.c:254</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_ad139072c394a2af274c76f0ed43486bb"><div class="ttname"><a href="itersolve_8c.html#ad139072c394a2af274c76f0ed43486bb">lmmc_itersolve_initial</a></div><div class="ttdeci">void lmmc_itersolve_initial(lmmc_itersolve_result_t *result, lmmc_real_t norm)</div><div class="ttdef"><b>定义</b> <a href="#l00183">itersolve.c:183</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_adca2a62402ac1d411ac56d78b282ef60"><div class="ttname"><a href="itersolve_8c.html#adca2a62402ac1d411ac56d78b282ef60">lmmc_itersolve_dispatch_config</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_dispatch_config(const lmmc_sparse_mat_t *a, const lmmc_vec_t *b, const lmmc_itersolve_config_t *cfg, const lmmc_vec_t *x, lmmc_itersolve_config_t *local)</div><div class="ttdef"><b>定义</b> <a href="#l00229">itersolve.c:229</a></div></div>
+<div class="ttc" id="aitersolve_8c_html_afe215d63f228a144fc5b7360cda1cac3"><div class="ttname"><a href="itersolve_8c.html#afe215d63f228a144fc5b7360cda1cac3">lmmc_itersolve_do_log</a></div><div class="ttdeci">void lmmc_itersolve_do_log(const lmmc_itersolve_config_t *cfg, size_t iter, lmmc_real_t residual_norm)</div><div class="ttdef"><b>定义</b> <a href="#l00049">itersolve.c:49</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a01afc9cf0ce7f78a5670e2361b50ce01"><div class="ttname"><a href="itersolve_8h.html#a01afc9cf0ce7f78a5670e2361b50ce01">lmmc_itersolve_config_t::abs_tol</a></div><div class="ttdeci">lmmc_real_t abs_tol</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00050">itersolve.h:50</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a0730747828964460677a1a1fd0461099"><div class="ttname"><a href="itersolve_8h.html#a0730747828964460677a1a1fd0461099">lmmc_itersolve_config_t::diagnostics</a></div><div class="ttdeci">lmmc_diagnostic_sink_t diagnostics</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00054">itersolve.h:54</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a16f4fdfaf16420d7fbc32192ec0991e5"><div class="ttname"><a href="itersolve_8h.html#a16f4fdfaf16420d7fbc32192ec0991e5">lmmc_itersolve_config_t::max_iter</a></div><div class="ttdeci">size_t max_iter</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00052">itersolve.h:52</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a1eb418a786075ef840d7d727783ad5c3"><div class="ttname"><a href="itersolve_8h.html#a1eb418a786075ef840d7d727783ad5c3">lmmc_itersolve_config_t::apply_transpose_op</a></div><div class="ttdeci">lmmc_matvec_op_t apply_transpose_op</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00057">itersolve.h:57</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a71daa27addd8ed7d445fdc0efb403772"><div class="ttname"><a href="itersolve_8h.html#a71daa27addd8ed7d445fdc0efb403772">lmmc_itersolve_config_t::restart</a></div><div class="ttdeci">size_t restart</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00053">itersolve.h:53</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a7d39e12ec4a1e34ccaecdda34d33e7c2"><div class="ttname"><a href="itersolve_8h.html#a7d39e12ec4a1e34ccaecdda34d33e7c2">lmmc_itersolve_config_t::op_user_data</a></div><div class="ttdeci">void * op_user_data</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00056">itersolve.h:56</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a837a71ce8f81d0099ee4245f9b0805b4"><div class="ttname"><a href="itersolve_8h.html#a837a71ce8f81d0099ee4245f9b0805b4">lmmc_itersolve_result_t::final_residual_norm</a></div><div class="ttdeci">lmmc_real_t final_residual_norm</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00030">itersolve.h:30</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a888d76edc55a4e7c10d9236bc97495dd"><div class="ttname"><a href="itersolve_8h.html#a888d76edc55a4e7c10d9236bc97495dd">lmmc_itersolve_result_t::converged</a></div><div class="ttdeci">int converged</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00027">itersolve.h:27</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a9708f1912ea10dfd04e7277711241a19"><div class="ttname"><a href="itersolve_8h.html#a9708f1912ea10dfd04e7277711241a19">lmmc_itersolve_result_t::num_iter</a></div><div class="ttdeci">size_t num_iter</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00028">itersolve.h:28</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_a9fe70199f2d9d86530059692ec9c4323"><div class="ttname"><a href="itersolve_8h.html#a9fe70199f2d9d86530059692ec9c4323">lmmc_itersolve_default_config</a></div><div class="ttdeci">lmmc_status_t lmmc_itersolve_default_config(size_t problem_size, lmmc_itersolve_config_t *out_cfg)</div><div class="ttdoc">根据问题规模生成迭代求解器默认配置。</div><div class="ttdef"><b>定义</b> <a href="#l00057">itersolve.c:57</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_ab2cd996c42e75547eba53d71d66f4cbd"><div class="ttname"><a href="itersolve_8h.html#ab2cd996c42e75547eba53d71d66f4cbd">lmmc_itersolve_result_t::initial_residual_norm</a></div><div class="ttdeci">lmmc_real_t initial_residual_norm</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00029">itersolve.h:29</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_ad0b34974468fbce397c7ff73b5442fba"><div class="ttname"><a href="itersolve_8h.html#ad0b34974468fbce397c7ff73b5442fba">lmmc_itersolve_config_t::apply_op</a></div><div class="ttdeci">lmmc_matvec_op_t apply_op</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00055">itersolve.h:55</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_ae3ec9165e5d3576219189e9c46d7ef0a"><div class="ttname"><a href="itersolve_8h.html#ae3ec9165e5d3576219189e9c46d7ef0a">lmmc_itersolve_config_t::rel_tol</a></div><div class="ttdeci">lmmc_real_t rel_tol</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00051">itersolve.h:51</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_structlmmc__itersolve__config__t"><div class="ttname"><a href="itersolve_8h.html#structlmmc__itersolve__config__t">lmmc_itersolve_config_t</a></div><div class="ttdoc">迭代求解器配置。</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00049">itersolve.h:49</a></div></div>
+<div class="ttc" id="aitersolve_8h_html_structlmmc__itersolve__result__t"><div class="ttname"><a href="itersolve_8h.html#structlmmc__itersolve__result__t">lmmc_itersolve_result_t</a></div><div class="ttdoc">迭代求解的结果统计。</div><div class="ttdef"><b>定义</b> <a href="itersolve_8h_source.html#l00026">itersolve.h:26</a></div></div>
+<div class="ttc" id="aitersolve__internal_8h_html"><div class="ttname"><a href="itersolve__internal_8h.html">itersolve_internal.h</a></div></div>
+<div class="ttc" id="amemory__bridge_8c_html_a511c365b18226d680140fdb623dc03de"><div class="ttname"><a href="memory__bridge_8c.html#a511c365b18226d680140fdb623dc03de">lmmc_memory_alloc</a></div><div class="ttdeci">void * lmmc_memory_alloc(size_t size)</div><div class="ttdef"><b>定义</b> <a href="memory__bridge_8c_source.html#l00046">memory_bridge.c:46</a></div></div>
+<div class="ttc" id="anumeric__scalar_8h_html_ad9b8cc269ad9c5fffe70487448318866"><div class="ttname"><a href="numeric__scalar_8h.html#ad9b8cc269ad9c5fffe70487448318866">LMMC_DEFAULT_ABS_TOL</a></div><div class="ttdeci">#define LMMC_DEFAULT_ABS_TOL</div><div class="ttdoc">库默认的绝对容差.</div><div class="ttdef"><b>定义</b> <a href="numeric__scalar_8h_source.html#l00031">numeric_scalar.h:31</a></div></div>
+<div class="ttc" id="aprecond_8h_html_a42c62b223470063af0eefd03d04a9e5c"><div class="ttname"><a href="precond_8h.html#a42c62b223470063af0eefd03d04a9e5c">lmmc_precond_apply</a></div><div class="ttdeci">lmmc_status_t lmmc_precond_apply(const lmmc_precond_t *precond, const lmmc_vec_t *rhs, lmmc_vec_t *out)</div><div class="ttdoc">应用预处理子：求解 M*out = rhs。</div><div class="ttdef"><b>定义</b> <a href="precond_8c_source.html#l00095">precond.c:95</a></div></div>
+<div class="ttc" id="aprecond_8h_html_ae8042d9c8ecb3e0baa5e8adb33d4c806"><div class="ttname"><a href="precond_8h.html#ae8042d9c8ecb3e0baa5e8adb33d4c806">lmmc_precond_t::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>定义</b> <a href="precond_8h_source.html#l00035">precond.h:35</a></div></div>
+<div class="ttc" id="aprecond_8h_html_structlmmc__precond__t"><div class="ttname"><a href="precond_8h.html#structlmmc__precond__t">lmmc_precond_t</a></div><div class="ttdoc">通用预处理子句柄。</div><div class="ttdef"><b>定义</b> <a href="precond_8h_source.html#l00033">precond.h:33</a></div></div>
+<div class="ttc" id="asparse__arithmetic_8h_html_aa713e5ac22639c42d574987d15e1d02d"><div class="ttname"><a href="sparse__arithmetic_8h.html#aa713e5ac22639c42d574987d15e1d02d">lmmc_sparse_mat_vec_mul</a></div><div class="ttdeci">lmmc_status_t lmmc_sparse_mat_vec_mul(const lmmc_sparse_mat_t *sparse, const lmmc_vec_t *x, lmmc_vec_t *y)</div><div class="ttdoc">稀疏矩阵-稠密向量乘法:y = A * x。</div><div class="ttdef"><b>定义</b> <a href="sparse__products_8c_source.html#l00013">sparse_products.c:13</a></div></div>
+<div class="ttc" id="asparse__internal_8h_html"><div class="ttname"><a href="sparse__internal_8h.html">sparse_internal.h</a></div><div class="ttdoc">稀疏矩阵模块内部共享辅助函数（仅源文件可见）。</div></div>
+<div class="ttc" id="asparse__types_8h_html_a1b8d475d87bbb90b3af4f49f96eadfc4a4ffec353b024d88b639df00fdfbe0575"><div class="ttname"><a href="sparse__types_8h.html#a1b8d475d87bbb90b3af4f49f96eadfc4a4ffec353b024d88b639df00fdfbe0575">LMMC_SPARSE_CSR</a></div><div class="ttdeci">@ LMMC_SPARSE_CSR</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00014">sparse_types.h:14</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_a1db1ece08827099b8490695c1c0a7df1"><div class="ttname"><a href="sparse__types_8h.html#a1db1ece08827099b8490695c1c0a7df1">lmmc_sparse_mat_t::rows</a></div><div class="ttdeci">size_t rows</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00035">sparse_types.h:35</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_a24c802f2dedb87e76e178b7cb8916684"><div class="ttname"><a href="sparse__types_8h.html#a24c802f2dedb87e76e178b7cb8916684">lmmc_sparse_mat_t::row_ptr</a></div><div class="ttdeci">size_t * row_ptr</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00038">sparse_types.h:38</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_a46df316aebd8eca55fff871ef120ec7b"><div class="ttname"><a href="sparse__types_8h.html#a46df316aebd8eca55fff871ef120ec7b">lmmc_sparse_mat_t::col_idx</a></div><div class="ttdeci">size_t * col_idx</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00039">sparse_types.h:39</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_a52fe18cc54204b3d838057d786c30f1b"><div class="ttname"><a href="sparse__types_8h.html#a52fe18cc54204b3d838057d786c30f1b">lmmc_sparse_mat_t::values</a></div><div class="ttdeci">lmmc_real_t * values</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00040">sparse_types.h:40</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_ab66659780b16df92715b6eaac2e6a00b"><div class="ttname"><a href="sparse__types_8h.html#ab66659780b16df92715b6eaac2e6a00b">lmmc_sparse_mat_t::format</a></div><div class="ttdeci">lmmc_sparse_format_t format</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00041">sparse_types.h:41</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_ac73e2007f0228e73f258e9317b8ad2a7"><div class="ttname"><a href="sparse__types_8h.html#ac73e2007f0228e73f258e9317b8ad2a7">lmmc_sparse_mat_t::cols</a></div><div class="ttdeci">size_t cols</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00036">sparse_types.h:36</a></div></div>
+<div class="ttc" id="asparse__types_8h_html_structlmmc__sparse__mat__t"><div class="ttname"><a href="sparse__types_8h.html#structlmmc__sparse__mat__t">lmmc_sparse_mat_t</a></div><div class="ttdoc">通用稀疏矩阵(CSR / CSC 共用同一结构)。</div><div class="ttdef"><b>定义</b> <a href="sparse__types_8h_source.html#l00034">sparse_types.h:34</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a></div><div class="ttdeci">lmmc_status_t</div><div class="ttdoc">LMMC 库统一返回的状态码.</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00022">status.h:22</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a></div><div class="ttdeci">@ LMMC_STATUS_OK</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00023">status.h:23</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba1cf3da2013544c8065ccd8a18a4d18ac">LMMC_STATUS_NUMERICAL_FAILURE</a></div><div class="ttdeci">@ LMMC_STATUS_NUMERICAL_FAILURE</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00029">status.h:29</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba6fa59c0896c4c9f4ad2e577b8fdf70eb">LMMC_STATUS_DIMENSION_MISMATCH</a></div><div class="ttdeci">@ LMMC_STATUS_DIMENSION_MISMATCH</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00025">status.h:25</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba87599301365e67b5e8871cadae3d7005">LMMC_STATUS_ALLOCATION_FAILED</a></div><div class="ttdeci">@ LMMC_STATUS_ALLOCATION_FAILED</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00026">status.h:26</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">@ LMMC_STATUS_INVALID_ARGUMENT</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00024">status.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="itersolve_8c.html">itersolve.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

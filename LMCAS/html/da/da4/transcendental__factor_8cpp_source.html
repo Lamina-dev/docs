@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/transcendental_factor.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('da/da4/transcendental__factor_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">transcendental_factor.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../da/da4/transcendental__factor_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d89/symbolic__ast_8hpp.html">internal/symbolic_ast.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d39/poly__utils_8hpp.html">poly_utils.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/da2/transcendental__support_8hpp.html">internal/transcendental_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d05/multivariate__factor__support_8hpp.html">internal/multivariate_factor_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;new&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a266ad9761b9b9895cb34235de4dff62b">   14</a></span><span class="keyword">static</span> std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a266ad9761b9b9895cb34235de4dff62b">tf_restore_factors</a>(</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">const</span> std::vector&lt;<a class="code hl_class" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&gt;&amp; true_factors,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d7/de1/structLMCAS_1_1TransSubstitutionResult">TransSubstitutionResult</a>&amp; sub_result,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; pyth_simplified) {<span class="comment"></span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">    /// --- Phase 6: 逆换元 ---</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; symbolic_factors;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    symbolic_factors.reserve(true_factors.size());</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; poly_factor : true_factors) {<span class="comment"></span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">        /// 将多项式因子转回符号表达式</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">auto</span> sym_factor = poly_to_symbolic(poly_factor);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">if</span> (!sym_factor) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"></span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">        /// 逆换元:将不定元替换回原始超越表达式</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">auto</span> back_sub = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a7336fc7d2565e67e321111179169a884">tf_back_substitute</a>(sym_factor, sub_result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acc9295178bc4db23c84a0daea6b994e2">mappings</a>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">if</span> (back_sub) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            symbolic_factors.push_back(back_sub);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"></span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">    /// 若逆换元后因子数 &lt;= 1,分解无效</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (symbolic_factors.size() &lt;= 1) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> {pyth_simplified};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"></span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">    /// --- Phase 6.2: 化简与常数提取 ---</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">auto</span> final_factors = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a706cb3087d10b6a8bac6620208774d47">tf_simplify_factors</a>(symbolic_factors);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">    /// 若化简后仅剩一个非常数因子,分解无效</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">size_t</span> non_const_count = 0;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; f : final_factors) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">if</span> (f &amp;&amp; !f-&gt;is_number()) non_const_count++;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (non_const_count &lt;= 1 &amp;&amp; final_factors.size() &lt;= 1) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> {pyth_simplified};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> final_factors;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#ae6b50a38a09a170a91f79803a1e02d64">   54</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;&gt; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ae6b50a38a09a170a91f79803a1e02d64">tf_factor_substitution</a>(</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d7/de1/structLMCAS_1_1TransSubstitutionResult">TransSubstitutionResult</a>&amp; sub_result, <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; pyth_simplified,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">using </span>FactorsResult = <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;&gt;;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::vector&lt;std::string&gt; indeterminates;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    indeterminates.reserve(sub_result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acc9295178bc4db23c84a0daea6b994e2">mappings</a>.size());</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; m : sub_result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acc9295178bc4db23c84a0daea6b994e2">mappings</a>) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        indeterminates.push_back(m.indeterminate);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">auto</span> built = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aed9149a6768df0d2dddf0faf15c84a66">tf_build_polynomial</a>(</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        sub_result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a5897fc923783890cc0aaad9c344e4d48">poly_expr</a>, indeterminates, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> (!built) { <span class="keywordflow">return</span> FactorsResult::failure(built.error()); }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; poly_result = built.value();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">if</span> (!poly_result.success) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> FactorsResult::success({pyth_simplified});</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (poly_result.poly.degree() &lt;= 1) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span> FactorsResult::success({pyth_simplified});</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">auto</span> factored =</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a5d26a316126291922ae1c4199dfbb2dc">factor_univariate_bridge_checked</a>(poly_result.poly, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (!factored) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> FactorsResult::failure(factored.error());</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; factorization = factored.value();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">if</span> (factorization.completeness != <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">Completeness::Complete</a> ||</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        factorization.value.size() &lt;= 1) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> FactorsResult::success({pyth_simplified});</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a266ad9761b9b9895cb34235de4dff62b">tf_restore_factors</a>(</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        factorization.value, sub_result, pyth_simplified);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a83ec865bf30a2955992544f8441a836f">   88</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;&gt; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a83ec865bf30a2955992544f8441a836f">factor_transcendental</a>(</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>) <span class="keyword">try</span> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">using </span>FactorsResult = <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;&gt;;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (!expr || !<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr) || <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>.empty()) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> FactorsResult::failure(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="stringliteral">&quot;expression and variable must be nonempty&quot;</span>, <span class="stringliteral">&quot;factor_transcendental&quot;</span>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">auto</span> step = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>.consume_steps(1, <span class="stringliteral">&quot;factor_transcendental&quot;</span>);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (!step) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">return</span> FactorsResult::failure(step.error());</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">auto</span> pyth_simplified = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a1466fbd789c1bb39a307c8ac5d96adce">tf_simplify_pythagorean</a>(expr, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">auto</span> mult_factors = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a458a8ec6605a303815fe920867f453f4">tf_detect_multiplicative_structure</a>(pyth_simplified);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">if</span> (!mult_factors.empty()) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> mult_factors;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">auto</span> exp_factors = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#abebc181a8bc1a01c2fe232dce843734b">tf_detect_exponential_separation</a>(pyth_simplified, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">if</span> (!exp_factors.empty()) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> exp_factors;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a4d1cbdb8c7e94d752079baaa18b7b3c1">tf_contains_transcendental</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(pyth_simplified), <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>)) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> FactorsResult::success({pyth_simplified});</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d7/de1/structLMCAS_1_1TransSubstitutionResult">TransSubstitutionResult</a> sub_result = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#aa7b7bd886261b28991182af163e71ad2">detect_trans_substitutions</a>(pyth_simplified, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (sub_result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#acc9295178bc4db23c84a0daea6b994e2">mappings</a>.empty()) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">return</span> FactorsResult::success({pyth_simplified});</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a253cd67be78088834096cff2ca603f76">tf_is_linear_irreducible</a>(sub_result, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>)) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> FactorsResult::success({pyth_simplified});</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#ae6b50a38a09a170a91f79803a1e02d64">tf_factor_substitution</a>(</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        sub_result, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, pyth_simplified, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keywordflow">catch</span> (<span class="keyword">const</span> std::bad_alloc&amp;) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">return</span> Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;&gt;::failure(</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>, <span class="stringliteral">&quot;allocation failed while factoring expression&quot;</span>,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="stringliteral">&quot;factor_transcendental&quot;</span>);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; ex) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;&gt;::failure(</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>, ex.what(), <span class="stringliteral">&quot;factor_transcendental&quot;</span>);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
+</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a4ea03f174a57924df84ec4ca150b8e59">  136</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;&gt; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a83ec865bf30a2955992544f8441a836f">factor_transcendental</a>(</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; expr,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a83ec865bf30a2955992544f8441a836f">factor_transcendental</a>(expr, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
+</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html">LMCAS::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00052">polynomial.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="amultivariate__factor__support_8hpp_html"><div class="ttname"><a href="../../da/d05/multivariate__factor__support_8hpp.html">multivariate_factor_support.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1d1d0bdafb53aa76fcf04f5896687c69"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::LMCAS::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00091">base.hpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a1466fbd789c1bb39a307c8ac5d96adce"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a1466fbd789c1bb39a307c8ac5d96adce">LMCAS::tf_simplify_pythagorean</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; tf_simplify_pythagorean(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expression, const std::string &amp;variable)</div><div class="ttdoc">在因式分解前用 sin^2(f) + cos^2(f) = 1 化简表达式。</div><div class="ttdef"><b>定义</b> <a href="../../db/da9/transcendental__pythagorean_8cpp_source.html#l00247">transcendental_pythagorean.cpp:247</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">LMCAS::Completeness::Complete</a></div><div class="ttdeci">@ Complete</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00122">result.hpp:122</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a253cd67be78088834096cff2ca603f76"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a253cd67be78088834096cff2ca603f76">LMCAS::tf_is_linear_irreducible</a></div><div class="ttdeci">bool tf_is_linear_irreducible(const TransSubstitutionResult &amp;substitution, const std::string &amp;variable)</div><div class="ttdoc">判断换元后的表达式是否对所有不定元和原始变量均为线性.</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00230">transcendental_rewrite.cpp:230</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a266ad9761b9b9895cb34235de4dff62b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a266ad9761b9b9895cb34235de4dff62b">LMCAS::tf_restore_factors</a></div><div class="ttdeci">static std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; tf_restore_factors(const std::vector&lt; Polynomial&lt; Rational &gt; &gt; &amp;true_factors, const TransSubstitutionResult &amp;sub_result, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;pyth_simplified)</div><div class="ttdef"><b>定义</b> <a href="#l00014">transcendental_factor.cpp:14</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b">LMCAS::CasErrc::InvalidArgument</a></div><div class="ttdeci">@ InvalidArgument</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00013">result.hpp:13</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">LMCAS::CasErrc::InternalInvariant</a></div><div class="ttdeci">@ InternalInvariant</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00028">result.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">LMCAS::CasErrc::ResourceLimit</a></div><div class="ttdeci">@ ResourceLimit</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00025">result.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a458a8ec6605a303815fe920867f453f4"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a458a8ec6605a303815fe920867f453f4">LMCAS::tf_detect_multiplicative_structure</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; tf_detect_multiplicative_structure(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expression)</div><div class="ttdoc">检测表达式是否已为独立子表达式的乘积形式.</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00272">transcendental_rewrite.cpp:272</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4b661a8e8dbe13caf58f567f5260fdc5"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">LMCAS::context</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; const BigInt ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../d0/dbe/exact__factorization_8hpp_source.html#l00065">exact_factorization.hpp:65</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4d1cbdb8c7e94d752079baaa18b7b3c1"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4d1cbdb8c7e94d752079baaa18b7b3c1">LMCAS::tf_contains_transcendental</a></div><div class="ttdeci">bool tf_contains_transcendental(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, const std::string &amp;variable)</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00525">transcendental_rewrite.cpp:525</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5897fc923783890cc0aaad9c344e4d48"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5897fc923783890cc0aaad9c344e4d48">LMCAS::TransSubstitutionResult::poly_expr</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; poly_expr</div><div class="ttdoc">换元后的多项式表达式</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00031">transcendental_factor.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5d26a316126291922ae1c4199dfbb2dc"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5d26a316126291922ae1c4199dfbb2dc">LMCAS::factor_univariate_bridge_checked</a></div><div class="ttdeci">UnivariateFactorResult factor_univariate_bridge_checked(const Polynomial&lt; Rational &gt; &amp;polynomial, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../de/dbe/univariate__factor__bridge_8cpp_source.html#l00166">univariate_factor_bridge.cpp:166</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a706cb3087d10b6a8bac6620208774d47"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a706cb3087d10b6a8bac6620208774d47">LMCAS::tf_simplify_factors</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; tf_simplify_factors(std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &amp;factors)</div><div class="ttdoc">化简逆换元后的因子，合并数值因子及乘积的数值前导系数。 保留非常数部分，将非 1 的常数积置于结果首位。</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00211">transcendental_rewrite.cpp:211</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7336fc7d2565e67e321111179169a884"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7336fc7d2565e67e321111179169a884">LMCAS::tf_back_substitute</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; tf_back_substitute(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expression, const std::vector&lt; TransSubstitution &gt; &amp;mappings)</div><div class="ttdoc">将因子表达式中的不定元变量替换回原始超越子表达式.</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00028">transcendental_rewrite.cpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a83ec865bf30a2955992544f8441a836f"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a83ec865bf30a2955992544f8441a836f">LMCAS::factor_transcendental</a></div><div class="ttdeci">Result&lt; std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &gt; factor_transcendental(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00088">transcendental_factor.cpp:88</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aa7b7bd886261b28991182af163e71ad2"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aa7b7bd886261b28991182af163e71ad2">LMCAS::detect_trans_substitutions</a></div><div class="ttdeci">TransSubstitutionResult detect_trans_substitutions(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expr, const std::string &amp;var)</div><div class="ttdoc">为依赖 var 的 Sin、Cos、Exp、Ln、Tan 子表达式构造换元结果。</div><div class="ttdef"><b>定义</b> <a href="../../d4/d08/transcendental__substitution_8cpp_source.html#l00277">transcendental_substitution.cpp:277</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_abebc181a8bc1a01c2fe232dce843734b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#abebc181a8bc1a01c2fe232dce843734b">LMCAS::tf_detect_exponential_separation</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; tf_detect_exponential_separation(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;expression, const std::string &amp;variable)</div><div class="ttdoc">检测加法表达式中的公共指数因子并执行分离.</div><div class="ttdef"><b>定义</b> <a href="../../de/da5/transcendental__rewrite_8cpp_source.html#l00445">transcendental_rewrite.cpp:445</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_acc9295178bc4db23c84a0daea6b994e2"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#acc9295178bc4db23c84a0daea6b994e2">LMCAS::TransSubstitutionResult::mappings</a></div><div class="ttdeci">std::vector&lt; TransSubstitution &gt; mappings</div><div class="ttdoc">所有换元映射</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00030">transcendental_factor.hpp:30</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ae6b50a38a09a170a91f79803a1e02d64"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ae6b50a38a09a170a91f79803a1e02d64">LMCAS::tf_factor_substitution</a></div><div class="ttdeci">static Result&lt; std::vector&lt; std::shared_ptr&lt; SymbolicExpr &gt; &gt; &gt; tf_factor_substitution(const TransSubstitutionResult &amp;sub_result, const std::string &amp;var, const std::shared_ptr&lt; SymbolicExpr &gt; &amp;pyth_simplified, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00054">transcendental_factor.cpp:54</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aed9149a6768df0d2dddf0faf15c84a66"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aed9149a6768df0d2dddf0faf15c84a66">LMCAS::tf_build_polynomial</a></div><div class="ttdeci">Result&lt; TfPolyBuildResult &gt; tf_build_polynomial(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;poly_expr, const std::vector&lt; std::string &gt; &amp;indeterminates, const std::string &amp;original_var)</div><div class="ttdef"><b>定义</b> <a href="../../d9/d07/transcendental__polynomial_8cpp_source.html#l00170">transcendental_polynomial.cpp:170</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_af75ce9eb9ed6354d4c3e7dbd762c0d19"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">LMCAS::var</a></div><div class="ttdeci">const std::string &amp; var</div><div class="ttdef"><b>定义</b> <a href="../../d5/d8c/integration__support_8hpp_source.html#l00025">integration_support.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_d7/de1/structLMCAS_1_1TransSubstitutionResult"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#d7/de1/structLMCAS_1_1TransSubstitutionResult">LMCAS::TransSubstitutionResult</a></div><div class="ttdoc">换元结果</div><div class="ttdef"><b>定义</b> <a href="../../d7/dcf/transcendental__factor_8hpp_source.html#l00029">transcendental_factor.hpp:29</a></div></div>
+<div class="ttc" id="apoly__utils_8hpp_html"><div class="ttname"><a href="../../d9/d39/poly__utils_8hpp.html">poly_utils.hpp</a></div><div class="ttdoc">多项式转换与精确符号多项式代数。</div></div>
+<div class="ttc" id="asymbolic__ast_8hpp_html"><div class="ttname"><a href="../../d9/d89/symbolic__ast_8hpp.html">symbolic_ast.hpp</a></div><div class="ttdoc">内部 AST 定义。</div></div>
+<div class="ttc" id="atranscendental__factor_8hpp_html"><div class="ttname"><a href="../../d7/dcf/transcendental__factor_8hpp.html">transcendental_factor.hpp</a></div><div class="ttdoc">混合超越方程不可约因式分解器公共 API.</div></div>
+<div class="ttc" id="atranscendental__support_8hpp_html"><div class="ttname"><a href="../../d6/da2/transcendental__support_8hpp.html">transcendental_support.hpp</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../da/da4/transcendental__factor_8cpp.html">transcendental_factor.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/optimize_broyden.c 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('optimize__broyden_8c_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">optimize_broyden.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="optimize__broyden_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="optimize__internal_8h.html">optimize_internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="foldopen" id="foldopen00003" data-start="{" data-end="};">
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="optimize__broyden_8c.html">    3</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">    4</a></span>    <a class="code hl_struct" href="optimize__internal_8h.html#structlmmc__opt__workspace__t">lmmc_opt_workspace_t</a> <a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>;</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">    5</a></span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a> <a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>, <a class="code hl_variable" href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">next_value</a>, <a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>, <a class="code hl_variable" href="optimize__broyden_8c.html#a992a8efc6a3b125c705aa9fe725b737d">delta_F</a>, <a class="code hl_variable" href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">Bdx</a>, <a class="code hl_variable" href="optimize__broyden_8c.html#a6ca744c8302fa06476520661dba38b75">rhs</a>;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">    6</a></span>    <a class="code hl_struct" href="dense__types_8h.html#structlmmc__mat__t">lmmc_mat_t</a> <a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>, <a class="code hl_variable" href="optimize__broyden_8c.html#aa8037ed0be6cfbdfbedf3708f4d03d9c">lu</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>} <a class="code hl_struct" href="optimize__broyden_8c.html#structlmmc__broyden__workspace__t">lmmc_broyden_workspace_t</a>;</div>
+</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">static</span> <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> broyden_workspace_create(</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordtype">size_t</span> n, <a class="code hl_struct" href="optimize__broyden_8c.html#structlmmc__broyden__workspace__t">lmmc_broyden_workspace_t</a>* work)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> status = <a class="code hl_function" href="optimize_8c.html#aaee2e3acf2646c2839ba22da94e86a76">lmmc_opt_workspace_create</a>(n, 6, 2, 0, 1, &amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) { <span class="keywordflow">return</span> status; }</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">next_value</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a992a8efc6a3b125c705aa9fe725b737d">delta_F</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">Bdx</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a6ca744c8302fa06476520661dba38b75">rhs</a> = <a class="code hl_function" href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a> = <a class="code hl_function" href="optimize_8c.html#a5d7c3ff15f729ce7491ca552158c83cc">lmmc_opt_workspace_matrix</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa8037ed0be6cfbdfbedf3708f4d03d9c">lu</a> = <a class="code hl_function" href="optimize_8c.html#a5d7c3ff15f729ce7491ca552158c83cc">lmmc_opt_workspace_matrix</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>, n);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">static</span> <a class="code hl_enumeration" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107f">lmmc_optimize_failure_t</a> broyden_step(</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_struct" href="optimize__broyden_8c.html#structlmmc__broyden__workspace__t">lmmc_broyden_workspace_t</a>* work, <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> status;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    memcpy(work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa8037ed0be6cfbdfbedf3708f4d03d9c">lu</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>, work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>, n * n * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    status = <a class="code hl_function" href="linear__algebra_8h.html#af355bd29273cd0258ec0175661ed7c66">lmmc_lu_decompose_inplace</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa8037ed0be6cfbdfbedf3708f4d03d9c">lu</a>, work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#aee9199a37e7e4d8f4b978cab04244440">pivots</a>, NULL);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (status == <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba951e81a95af1f2e802ccaa750f79734b">LMMC_STATUS_SINGULAR_MATRIX</a>) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa697d0354b4806495906eb59811f5bd43">LMMC_OPT_FAILURE_SINGULAR_JACOBIAN</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) { <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>; }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a6ca744c8302fa06476520661dba38b75">rhs</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = -work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    status = <a class="code hl_function" href="linear__algebra_8h.html#a69dfc49d5bb5d426b37d220d8b93208e">lmmc_lu_solve</a>(&amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa8037ed0be6cfbdfbedf3708f4d03d9c">lu</a>, work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#aee9199a37e7e4d8f4b978cab04244440">pivots</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                          &amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a6ca744c8302fa06476520661dba38b75">rhs</a>, &amp;work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) { <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa697d0354b4806495906eb59811f5bd43">LMMC_OPT_FAILURE_SINGULAR_JACOBIAN</a>; }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        x-&gt;<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] += work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17">LMMC_OPT_FAILURE_NONE</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">static</span> <span class="keywordtype">void</span> broyden_rank_one_update(<a class="code hl_struct" href="optimize__broyden_8c.html#structlmmc__broyden__workspace__t">lmmc_broyden_workspace_t</a>* work)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> n = work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>.<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> dxTdx = 0.0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">size_t</span> i, j;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a992a8efc6a3b125c705aa9fe725b737d">delta_F</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">next_value</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] - work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">Bdx</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] = 0.0;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">for</span> (j = 0; j &lt; n; ++j) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">Bdx</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] += work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[i * work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>.<a class="code hl_variable" href="dense__types_8h.html#af1ff23885bfc2ca02b83ad9c26fc0024">stride</a> + j] *</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                                 work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[j];</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        dxTdx += work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] * work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span> (dxTdx &gt; 1e-300) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">for</span> (i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> num_i = work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a992a8efc6a3b125c705aa9fe725b737d">delta_F</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i] - work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">Bdx</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[i];</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">for</span> (j = 0; j &lt; n; ++j) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>.<a class="code hl_variable" href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">data</a>[i * work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>.<a class="code hl_variable" href="dense__types_8h.html#af1ff23885bfc2ca02b83ad9c26fc0024">stride</a> + j] +=</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                    num_i * work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>[j] / dxTdx;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    memcpy(work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, work-&gt;<a class="code hl_variable" href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">next_value</a>.<a class="code hl_variable" href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">data</a>, n * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="optimize_8h.html#a3c6ac4b02bb9b610d5c0ce5ee5f53e2a">   79</a></span><a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> <a class="code hl_function" href="optimize_8h.html#a3c6ac4b02bb9b610d5c0ce5ee5f53e2a">lmmc_nleq_broyden</a>(</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_typedef" href="optimize_8h.html#a1f66b9d45a210879bd5f876e33a6c74f">lmmc_opt_func_t</a> F, <span class="keywordtype">void</span>* user_data, <a class="code hl_struct" href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a>* x,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <a class="code hl_struct" href="optimize_8h.html#structlmmc__optimize__config__t">lmmc_optimize_config_t</a>* cfg, <a class="code hl_struct" href="optimize_8h.html#structlmmc__optimize__result__t">lmmc_optimize_result_t</a>* out)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_struct" href="optimize__broyden_8c.html#structlmmc__broyden__workspace__t">lmmc_broyden_workspace_t</a> work;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_enumeration" href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a> status;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> initial_residual = 0.0;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">size_t</span> iter;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (F == NULL || !<a class="code hl_function" href="optimize_8c.html#abcaeedb9caf6e921caf6c53d2cedc230">lmmc_optimize_arguments_valid</a>(x, cfg, out)) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_function" href="optimize_8c.html#ab6645aac7fa7bf0f779fa533bfb65770">lmmc_optimize_result_init</a>(out);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    status = broyden_workspace_create(x-&gt;<a class="code hl_variable" href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">size</a>, &amp;work);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) { <span class="keywordflow">return</span> status; }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    status = F(x, &amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>, user_data);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span> (iter = 0; ; ++iter) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> norm = <a class="code hl_function" href="optimize_8c.html#a416647a3c2c21d4ac10d06f58c000640">lmmc_optimize_norm</a>(&amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="optimize_8c.html#a96ede256cc16d454a37e0a406c4f923a">lmmc_optimize_stop</a>(norm, &amp;initial_residual, iter, cfg, out)) { <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">if</span> (iter == 0) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            status = <a class="code hl_function" href="optimize_8c.html#a7a468249393e066400f3c3957188d452">lmmc_optimize_jacobian</a>(F, NULL, user_data, x, &amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">value</a>,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                &amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">B</a>, &amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">delta_x</a>, &amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">next_value</a>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = broyden_step(&amp;work, x);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">if</span> (out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> != <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17">LMMC_OPT_FAILURE_NONE</a>) { <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        out-&gt;<a class="code hl_variable" href="optimize_8h.html#a4bb4adc38df30837380f77e139dee5aa">num_iter</a> = iter + 1;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        status = F(x, &amp;work.<a class="code hl_variable" href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">next_value</a>, user_data);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            out-&gt;<a class="code hl_variable" href="optimize_8h.html#ad5edad7ad91d16c56ae9dbbcefb06810">final_residual</a> = NAN;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            out-&gt;<a class="code hl_variable" href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">failure_reason</a> = <a class="code hl_enumvalue" href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        broyden_rank_one_update(&amp;work);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <a class="code hl_function" href="optimize_8c.html#a8515866a0bd7acbc6e128f726783632b">lmmc_optimize_emit</a>(cfg, <span class="stringliteral">&quot;broyden&quot;</span>, iter + 1, &amp;norm, 1);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>cleanup:</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_function" href="memory__bridge_8c.html#af4259c4867aa5918a7b1a5197501aeb1">lmmc_memory_free</a>(work.<a class="code hl_variable" href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">arena</a>.<a class="code hl_variable" href="optimize__internal_8h.html#af1e6aec7e1799e173447f9b3f93e1497">allocation</a>);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
+</div>
+<div class="ttc" id="aconfig_8h_html_aa4548c12a1662c29aa98371cb5885543"><div class="ttname"><a href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></div><div class="ttdeci">double lmmc_real_t</div><div class="ttdoc">Public and internal LMMC real type.</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00028">config.h:28</a></div></div>
+<div class="ttc" id="adense__types_8h_html_a3443e5be2addab17747b6cf187ad0cee"><div class="ttname"><a href="dense__types_8h.html#a3443e5be2addab17747b6cf187ad0cee">lmmc_vec_t::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00032">dense_types.h:32</a></div></div>
+<div class="ttc" id="adense__types_8h_html_a8c72b81b3a507308e133e2da998e1a5d"><div class="ttname"><a href="dense__types_8h.html#a8c72b81b3a507308e133e2da998e1a5d">lmmc_mat_t::data</a></div><div class="ttdeci">lmmc_real_t * data</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00022">dense_types.h:22</a></div></div>
+<div class="ttc" id="adense__types_8h_html_abb79242c5db253df66bf7a369fbce3d9"><div class="ttname"><a href="dense__types_8h.html#abb79242c5db253df66bf7a369fbce3d9">lmmc_vec_t::data</a></div><div class="ttdeci">lmmc_real_t * data</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00033">dense_types.h:33</a></div></div>
+<div class="ttc" id="adense__types_8h_html_af1ff23885bfc2ca02b83ad9c26fc0024"><div class="ttname"><a href="dense__types_8h.html#af1ff23885bfc2ca02b83ad9c26fc0024">lmmc_mat_t::stride</a></div><div class="ttdeci">size_t stride</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00021">dense_types.h:21</a></div></div>
+<div class="ttc" id="adense__types_8h_html_structlmmc__mat__t"><div class="ttname"><a href="dense__types_8h.html#structlmmc__mat__t">lmmc_mat_t</a></div><div class="ttdoc">行优先存储的稠密矩阵。</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00018">dense_types.h:18</a></div></div>
+<div class="ttc" id="adense__types_8h_html_structlmmc__vec__t"><div class="ttname"><a href="dense__types_8h.html#structlmmc__vec__t">lmmc_vec_t</a></div><div class="ttdoc">一维稠密向量。</div><div class="ttdef"><b>定义</b> <a href="dense__types_8h_source.html#l00031">dense_types.h:31</a></div></div>
+<div class="ttc" id="alinear__algebra_8h_html_a69dfc49d5bb5d426b37d220d8b93208e"><div class="ttname"><a href="linear__algebra_8h.html#a69dfc49d5bb5d426b37d220d8b93208e">lmmc_lu_solve</a></div><div class="ttdeci">lmmc_status_t lmmc_lu_solve(const lmmc_mat_t *lu, const size_t *pivots, const lmmc_vec_t *b, lmmc_vec_t *x)</div><div class="ttdoc">利用 LU 分解结果求解线性系统 A*x = b。</div><div class="ttdef"><b>定义</b> <a href="linear__algebra_8c_source.html#l00145">linear_algebra.c:145</a></div></div>
+<div class="ttc" id="alinear__algebra_8h_html_af355bd29273cd0258ec0175661ed7c66"><div class="ttname"><a href="linear__algebra_8h.html#af355bd29273cd0258ec0175661ed7c66">lmmc_lu_decompose_inplace</a></div><div class="ttdeci">lmmc_status_t lmmc_lu_decompose_inplace(lmmc_mat_t *a, size_t *pivots, size_t *out_swap_count)</div><div class="ttdoc">就地 LU 分解（带部分主元选取）：P*A = L*U。</div><div class="ttdef"><b>定义</b> <a href="linear__algebra_8c_source.html#l00039">linear_algebra.c:39</a></div></div>
+<div class="ttc" id="amemory__bridge_8c_html_af4259c4867aa5918a7b1a5197501aeb1"><div class="ttname"><a href="memory__bridge_8c.html#af4259c4867aa5918a7b1a5197501aeb1">lmmc_memory_free</a></div><div class="ttdeci">void lmmc_memory_free(void *pointer)</div><div class="ttdef"><b>定义</b> <a href="memory__bridge_8c_source.html#l00075">memory_bridge.c:75</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a416647a3c2c21d4ac10d06f58c000640"><div class="ttname"><a href="optimize_8c.html#a416647a3c2c21d4ac10d06f58c000640">lmmc_optimize_norm</a></div><div class="ttdeci">lmmc_real_t lmmc_optimize_norm(const lmmc_vec_t *v)</div><div class="ttdoc">计算向量的 L2 范数。</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00048">optimize.c:48</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a5d7c3ff15f729ce7491ca552158c83cc"><div class="ttname"><a href="optimize_8c.html#a5d7c3ff15f729ce7491ca552158c83cc">lmmc_opt_workspace_matrix</a></div><div class="ttdeci">lmmc_mat_t lmmc_opt_workspace_matrix(lmmc_opt_workspace_t *work, size_t n)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00167">optimize.c:167</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a7a468249393e066400f3c3957188d452"><div class="ttname"><a href="optimize_8c.html#a7a468249393e066400f3c3957188d452">lmmc_optimize_jacobian</a></div><div class="ttdeci">lmmc_status_t lmmc_optimize_jacobian(lmmc_opt_func_t F, lmmc_opt_jac_t J, void *user_data, const lmmc_vec_t *x, const lmmc_vec_t *Fx, lmmc_mat_t *matrix, lmmc_vec_t *x_pert, lmmc_vec_t *F_pert)</div><div class="ttdoc">临时向量由外层求解器一次性分配。</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00214">optimize.c:214</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a8515866a0bd7acbc6e128f726783632b"><div class="ttname"><a href="optimize_8c.html#a8515866a0bd7acbc6e128f726783632b">lmmc_optimize_emit</a></div><div class="ttdeci">void lmmc_optimize_emit(const lmmc_optimize_config_t *cfg, const char *operation, size_t iteration, const lmmc_real_t *values, size_t value_count)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00003">optimize.c:3</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a8a00acdc1d9ed299024ddbf32d06194e"><div class="ttname"><a href="optimize_8c.html#a8a00acdc1d9ed299024ddbf32d06194e">lmmc_opt_workspace_vector</a></div><div class="ttdeci">lmmc_vec_t lmmc_opt_workspace_vector(lmmc_opt_workspace_t *work, size_t n)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00160">optimize.c:160</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_a96ede256cc16d454a37e0a406c4f923a"><div class="ttname"><a href="optimize_8c.html#a96ede256cc16d454a37e0a406c4f923a">lmmc_optimize_stop</a></div><div class="ttdeci">int lmmc_optimize_stop(lmmc_real_t norm, lmmc_real_t *initial, size_t iteration, const lmmc_optimize_config_t *cfg, lmmc_optimize_result_t *out)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00090">optimize.c:90</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_aaee2e3acf2646c2839ba22da94e86a76"><div class="ttname"><a href="optimize_8c.html#aaee2e3acf2646c2839ba22da94e86a76">lmmc_opt_workspace_create</a></div><div class="ttdeci">lmmc_status_t lmmc_opt_workspace_create(size_t n, size_t vectors, size_t matrices, size_t extra, int need_pivots, lmmc_opt_workspace_t *work)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00130">optimize.c:130</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_ab6645aac7fa7bf0f779fa533bfb65770"><div class="ttname"><a href="optimize_8c.html#ab6645aac7fa7bf0f779fa533bfb65770">lmmc_optimize_result_init</a></div><div class="ttdeci">void lmmc_optimize_result_init(lmmc_optimize_result_t *out)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00082">optimize.c:82</a></div></div>
+<div class="ttc" id="aoptimize_8c_html_abcaeedb9caf6e921caf6c53d2cedc230"><div class="ttname"><a href="optimize_8c.html#abcaeedb9caf6e921caf6c53d2cedc230">lmmc_optimize_arguments_valid</a></div><div class="ttdeci">int lmmc_optimize_arguments_valid(const lmmc_vec_t *x, const lmmc_optimize_config_t *cfg, const lmmc_optimize_result_t *out)</div><div class="ttdef"><b>定义</b> <a href="optimize_8c_source.html#l00075">optimize.c:75</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107f"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107f">lmmc_optimize_failure_t</a></div><div class="ttdeci">lmmc_optimize_failure_t</div><div class="ttdoc">优化失败原因枚举。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00075">optimize.h:75</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa64060915804bf14b4b542ed1276d9b17">LMMC_OPT_FAILURE_NONE</a></div><div class="ttdeci">@ LMMC_OPT_FAILURE_NONE</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00076">optimize.h:76</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107fa697d0354b4806495906eb59811f5bd43"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa697d0354b4806495906eb59811f5bd43">LMMC_OPT_FAILURE_SINGULAR_JACOBIAN</a></div><div class="ttdeci">@ LMMC_OPT_FAILURE_SINGULAR_JACOBIAN</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00080">optimize.h:80</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d"><div class="ttname"><a href="optimize_8h.html#a002e571eaea6faa643a2c238dd79107fa8c5cdce73e6179e4ce7e66bb89717f2d">LMMC_OPT_FAILURE_NUMERICAL_ISSUE</a></div><div class="ttdeci">@ LMMC_OPT_FAILURE_NUMERICAL_ISSUE</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00078">optimize.h:78</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a1f66b9d45a210879bd5f876e33a6c74f"><div class="ttname"><a href="optimize_8h.html#a1f66b9d45a210879bd5f876e33a6c74f">lmmc_opt_func_t</a></div><div class="ttdeci">lmmc_status_t(*) lmmc_opt_func_t(const lmmc_vec_t *x, lmmc_vec_t *F, void *user_data)</div><div class="ttdoc">非线性函数回调：计算 F(x)。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00029">optimize.h:29</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a3c6ac4b02bb9b610d5c0ce5ee5f53e2a"><div class="ttname"><a href="optimize_8h.html#a3c6ac4b02bb9b610d5c0ce5ee5f53e2a">lmmc_nleq_broyden</a></div><div class="ttdeci">lmmc_status_t lmmc_nleq_broyden(lmmc_opt_func_t F, void *user_data, lmmc_vec_t *x, const lmmc_optimize_config_t *cfg, lmmc_optimize_result_t *out)</div><div class="ttdoc">Broyden 法求解非线性方程组 F(x) = 0。</div><div class="ttdef"><b>定义</b> <a href="#l00079">optimize_broyden.c:79</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a47ec2e47bbef4b280720770f64824f96"><div class="ttname"><a href="optimize_8h.html#a47ec2e47bbef4b280720770f64824f96">lmmc_optimize_result_t::failure_reason</a></div><div class="ttdeci">lmmc_optimize_failure_t failure_reason</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00090">optimize.h:90</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_a4bb4adc38df30837380f77e139dee5aa"><div class="ttname"><a href="optimize_8h.html#a4bb4adc38df30837380f77e139dee5aa">lmmc_optimize_result_t::num_iter</a></div><div class="ttdeci">size_t num_iter</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00088">optimize.h:88</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_ad5edad7ad91d16c56ae9dbbcefb06810"><div class="ttname"><a href="optimize_8h.html#ad5edad7ad91d16c56ae9dbbcefb06810">lmmc_optimize_result_t::final_residual</a></div><div class="ttdeci">lmmc_real_t final_residual</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00089">optimize.h:89</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_structlmmc__optimize__config__t"><div class="ttname"><a href="optimize_8h.html#structlmmc__optimize__config__t">lmmc_optimize_config_t</a></div><div class="ttdoc">优化算法配置参数。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00063">optimize.h:63</a></div></div>
+<div class="ttc" id="aoptimize_8h_html_structlmmc__optimize__result__t"><div class="ttname"><a href="optimize_8h.html#structlmmc__optimize__result__t">lmmc_optimize_result_t</a></div><div class="ttdoc">优化结果。</div><div class="ttdef"><b>定义</b> <a href="optimize_8h_source.html#l00086">optimize.h:86</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_a154dea572d0807e9e2626fff1ce92e5f"><div class="ttname"><a href="optimize__broyden_8c.html#a154dea572d0807e9e2626fff1ce92e5f">lmmc_broyden_workspace_t::Bdx</a></div><div class="ttdeci">lmmc_vec_t Bdx</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_broyden.c:5</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_a3f718135b2320b8b305ce6f581970803"><div class="ttname"><a href="optimize__broyden_8c.html#a3f718135b2320b8b305ce6f581970803">lmmc_broyden_workspace_t::next_value</a></div><div class="ttdeci">lmmc_vec_t next_value</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_broyden.c:5</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_a6ca744c8302fa06476520661dba38b75"><div class="ttname"><a href="optimize__broyden_8c.html#a6ca744c8302fa06476520661dba38b75">lmmc_broyden_workspace_t::rhs</a></div><div class="ttdeci">lmmc_vec_t rhs</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_broyden.c:5</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_a992a8efc6a3b125c705aa9fe725b737d"><div class="ttname"><a href="optimize__broyden_8c.html#a992a8efc6a3b125c705aa9fe725b737d">lmmc_broyden_workspace_t::delta_F</a></div><div class="ttdeci">lmmc_vec_t delta_F</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_broyden.c:5</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_aa529631aabdded2a05e7f5bc53c5c54f"><div class="ttname"><a href="optimize__broyden_8c.html#aa529631aabdded2a05e7f5bc53c5c54f">lmmc_broyden_workspace_t::value</a></div><div class="ttdeci">lmmc_vec_t value</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_broyden.c:5</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_aa8037ed0be6cfbdfbedf3708f4d03d9c"><div class="ttname"><a href="optimize__broyden_8c.html#aa8037ed0be6cfbdfbedf3708f4d03d9c">lmmc_broyden_workspace_t::lu</a></div><div class="ttdeci">lmmc_mat_t lu</div><div class="ttdef"><b>定义</b> <a href="#l00006">optimize_broyden.c:6</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_aad889de10d5b1772768ed20f5f6b59cf"><div class="ttname"><a href="optimize__broyden_8c.html#aad889de10d5b1772768ed20f5f6b59cf">lmmc_broyden_workspace_t::delta_x</a></div><div class="ttdeci">lmmc_vec_t delta_x</div><div class="ttdef"><b>定义</b> <a href="#l00005">optimize_broyden.c:5</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_ab5662931ae5030f4c7ddba8cf5dd14dc"><div class="ttname"><a href="optimize__broyden_8c.html#ab5662931ae5030f4c7ddba8cf5dd14dc">lmmc_broyden_workspace_t::B</a></div><div class="ttdeci">lmmc_mat_t B</div><div class="ttdef"><b>定义</b> <a href="#l00006">optimize_broyden.c:6</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_af86f51e30ab918894c5d20e629def115"><div class="ttname"><a href="optimize__broyden_8c.html#af86f51e30ab918894c5d20e629def115">lmmc_broyden_workspace_t::arena</a></div><div class="ttdeci">lmmc_opt_workspace_t arena</div><div class="ttdef"><b>定义</b> <a href="#l00004">optimize_broyden.c:4</a></div></div>
+<div class="ttc" id="aoptimize__broyden_8c_html_structlmmc__broyden__workspace__t"><div class="ttname"><a href="optimize__broyden_8c.html#structlmmc__broyden__workspace__t">lmmc_broyden_workspace_t</a></div><div class="ttdef"><b>定义</b> <a href="#l00003">optimize_broyden.c:3</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html"><div class="ttname"><a href="optimize__internal_8h.html">optimize_internal.h</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html_aee9199a37e7e4d8f4b978cab04244440"><div class="ttname"><a href="optimize__internal_8h.html#aee9199a37e7e4d8f4b978cab04244440">lmmc_opt_workspace_t::pivots</a></div><div class="ttdeci">size_t * pivots</div><div class="ttdef"><b>定义</b> <a href="optimize__internal_8h_source.html#l00015">optimize_internal.h:15</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html_af1e6aec7e1799e173447f9b3f93e1497"><div class="ttname"><a href="optimize__internal_8h.html#af1e6aec7e1799e173447f9b3f93e1497">lmmc_opt_workspace_t::allocation</a></div><div class="ttdeci">void * allocation</div><div class="ttdef"><b>定义</b> <a href="optimize__internal_8h_source.html#l00013">optimize_internal.h:13</a></div></div>
+<div class="ttc" id="aoptimize__internal_8h_html_structlmmc__opt__workspace__t"><div class="ttname"><a href="optimize__internal_8h.html#structlmmc__opt__workspace__t">lmmc_opt_workspace_t</a></div><div class="ttdoc">工作区由本次调用拥有，视图仅借用存储，释放由调用方负责。</div><div class="ttdef"><b>定义</b> <a href="optimize__internal_8h_source.html#l00012">optimize_internal.h:12</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83b">lmmc_status_t</a></div><div class="ttdeci">lmmc_status_t</div><div class="ttdoc">LMMC 库统一返回的状态码.</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00022">status.h:22</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba1bb651ffb30ebce0a55034d96569872b">LMMC_STATUS_OK</a></div><div class="ttdeci">@ LMMC_STATUS_OK</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00023">status.h:23</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83ba951e81a95af1f2e802ccaa750f79734b"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83ba951e81a95af1f2e802ccaa750f79734b">LMMC_STATUS_SINGULAR_MATRIX</a></div><div class="ttdeci">@ LMMC_STATUS_SINGULAR_MATRIX</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00027">status.h:27</a></div></div>
+<div class="ttc" id="astatus_8h_html_a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4"><div class="ttname"><a href="status_8h.html#a669872a520bdda6b58415652acccc83bab1c3e544cdf1c0a9b2cf8e23124ca6b4">LMMC_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">@ LMMC_STATUS_INVALID_ARGUMENT</div><div class="ttdef"><b>定义</b> <a href="status_8h_source.html#l00024">status.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="optimize__broyden_8c.html">optimize_broyden.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

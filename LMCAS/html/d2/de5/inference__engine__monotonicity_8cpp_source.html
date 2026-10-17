@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/inference_engine_monotonicity.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d2/de5/inference__engine__monotonicity_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">inference_engine_monotonicity.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d2/de5/inference__engine__monotonicity_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../d2/de5/inference__engine__monotonicity_8cpp.html#a525335710b53cb064ca56b936120431e">    1</a></span><span class="preprocessor">#define _USE_MATH_DEFINES</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d62/inference__engine__impl_8hpp.html">internal/inference_engine_impl.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/dc9/interval__endpoint_8hpp.html">internal/interval_endpoint.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/dbf/normalization__utils_8hpp.html">internal/normalization_utils.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a43c25d75c25dbcc2015cbea360037d6d">    8</a></span><a class="code hl_enumeration" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4">Monotonicity</a> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a43c25d75c25dbcc2015cbea360037d6d">InferenceEngine::Impl::logarithm_monotonicity</a>(<span class="keyword">const</span> Interval&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">auto</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a2e2d72644287494d0ce60e3175246a6e">lower</a> = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a0a7c099fd855d1b29b0d27099091db8e">detail::comparable_endpoint</a>(</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>.lower, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>, <span class="stringliteral">&quot;inference.logarithm_monotonicity&quot;</span>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a2e2d72644287494d0ce60e3175246a6e">lower</a>) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">auto</span> comparison = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aeb4e54b36a6bb592202b7bcb533c34e2">detail::compare_comparable</a>(</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a2e2d72644287494d0ce60e3175246a6e">lower</a>.value(), <a class="code hl_struct" href="../../d3/df3/structLMCAS_1_1detail_1_1ComparableEndpoint.html">detail::ComparableEndpoint</a>{}, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">if</span> (!comparison) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> (comparison.value() &gt; 0 ||</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        (comparison.value() == 0 &amp;&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>.lower.is_open)) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#adeaf7448633f131cb1bf3f33f04acfa9">   23</a></span><a class="code hl_enumeration" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4">Monotonicity</a> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#adeaf7448633f131cb1bf3f33f04acfa9">InferenceEngine::Impl::function_monotonicity</a>(</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html">FunctionNode</a>&amp; func,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">const</span> Interval&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> (func.<a class="code hl_function" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#af5dc7af62952c063d2c4f29b732f2d9d">arguments</a>().empty()) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">auto</span> arg_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(func.<a class="code hl_function" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#af5dc7af62952c063d2c4f29b732f2d9d">arguments</a>()[0]);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (!arg_var || arg_var-&gt;is_constant() || arg_var-&gt;name() != <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">switch</span> (func.<a class="code hl_function" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a4c52248d052f61ca73ba48d2c9192b0a">type</a>()) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0aceffe7f812563934924b8dd08a319fc7">FunctionNode::FuncType::ArcTan</a>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0a9acdbc05ab7c5f2b2576422f0400963a">FunctionNode::FuncType::Ln</a>: {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a43c25d75c25dbcc2015cbea360037d6d">logarithm_monotonicity</a>(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#aed713f9beecd846d5d0ed62f5eb010e2">   52</a></span>std::optional&lt;int&gt; <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#aed713f9beecd846d5d0ed62f5eb010e2">InferenceEngine::Impl::small_positive_exponent</a>(</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> std::shared_ptr&lt;const NumberNode&gt;&amp; number) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    BigInt <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2925a16586abe0629d09f2b735154a3a">try_get_integer_value</a>(number, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>) ||</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> &lt;= BigInt(0) || <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> &gt; BigInt(100)) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(*<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>.try_to_int64());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a0e60cec13268a8aaada03df321041fd4">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a0e60cec13268a8aaada03df321041fd4">InferenceEngine::Impl::collect_node_exponent</a>(</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; node,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">const</span> std::string&amp; lhs_name,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> std::string&amp; rhs_name,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    std::unordered_set&lt;int&gt;&amp; exponents) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span> (!node) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">auto</span> pow_node = std::dynamic_pointer_cast&lt;const PowerNode&gt;(node);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (!pow_node) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">auto</span> base_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(pow_node-&gt;base());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (!base_var || base_var-&gt;is_constant()) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (base_var-&gt;name() != lhs_name &amp;&amp; base_var-&gt;name() != rhs_name) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">auto</span> exp_num = std::dynamic_pointer_cast&lt;const NumberNode&gt;(pow_node-&gt;exponent());</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">if</span> (!exp_num) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a> = <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#aed713f9beecd846d5d0ed62f5eb010e2">small_positive_exponent</a>(exp_num);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        exponents.insert(*<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a502d3fde6c7c58b15cd48840d449e455">   93</a></span>std::vector&lt;int&gt; <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a502d3fde6c7c58b15cd48840d449e455">InferenceEngine::Impl::collect_power_exponents</a>(</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">const</span> RelationStore&amp; store,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> std::string&amp; lhs_name,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> std::string&amp; rhs_name) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    std::unordered_set&lt;int&gt; exponents;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; rel : store.get_relations()) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a0e60cec13268a8aaada03df321041fd4">collect_node_exponent</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">detail::node</a>(rel.lhs), lhs_name, rhs_name, exponents);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a0e60cec13268a8aaada03df321041fd4">collect_node_exponent</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">detail::node</a>(rel.rhs), lhs_name, rhs_name, exponents);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> std::vector&lt;int&gt;(exponents.begin(), exponents.end());</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a7dc7ad6d0cc9d343da87f08f90578232">  105</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;void&gt;</a> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a7dc7ad6d0cc9d343da87f08f90578232">InferenceEngine::Impl::add_deduced</a>(</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    InferenceEngine&amp; engine,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> SymbolicExpr&amp; new_lhs,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">const</span> SymbolicExpr&amp; new_rhs,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    RelationStore&amp; store,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    PropertyStore&amp; prop_store,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">if</span> (store.has_relation(new_lhs, new_rhs, RelationalNode::Op::GT)) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">auto</span> inserted = store.add_relation_checked(</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        new_lhs, new_rhs, RelationalNode::Op::GT, prop_store);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (!inserted.has_value()) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;void&gt;::failure</a>(inserted.error());</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#df/d22/structLMCAS_1_1Relation">Relation</a> new_rel{new_lhs, new_rhs, RelationalNode::Op::GT};</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">return</span> engine.apply_monotonicity_rules_checked(new_rel, store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a> + 1);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a45be024b9fcc14239b878c870f3f8852">  126</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;void&gt;</a> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a45be024b9fcc14239b878c870f3f8852">InferenceEngine::Impl::deduce_function_relation</a>(</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    InferenceEngine&amp; engine,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../db/d67/classLMCAS_1_1VariableNode.html">VariableNode</a>&amp; lhs,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../db/d67/classLMCAS_1_1VariableNode.html">VariableNode</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <a class="code hl_enumeration" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0">FunctionNode::FuncType</a> type,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    RelationStore&amp; store,</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    PropertyStore&amp; prop_store,</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">auto</span> lhs_node = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        type, std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{lhs.<a class="code hl_function" href="../../db/d67/classLMCAS_1_1VariableNode.html#a79cb840a73c6b29efc4ffedaaf0eba4f">clone</a>()});</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">auto</span> rhs_node = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        type, std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>.clone()});</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">auto</span> lhs_expr = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">detail::expression_from_node</a>(lhs_node);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keyword">auto</span> rhs_expr = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">detail::expression_from_node</a>(rhs_node);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a7dc7ad6d0cc9d343da87f08f90578232">add_deduced</a>(engine, lhs_expr, rhs_expr, store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
+</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a1990b836e9d64a895be1e35784bc216f">  143</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;void&gt;</a> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a1990b836e9d64a895be1e35784bc216f">InferenceEngine::Impl::deduce_power_relations</a>(</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    InferenceEngine&amp; engine,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../db/d67/classLMCAS_1_1VariableNode.html">VariableNode</a>&amp; lhs,</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../db/d67/classLMCAS_1_1VariableNode.html">VariableNode</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    RelationStore&amp; store,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    PropertyStore&amp; prop_store,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    std::vector&lt;int&gt; exponents = <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a502d3fde6c7c58b15cd48840d449e455">collect_power_exponents</a>(store, lhs.<a class="code hl_function" href="../../db/d67/classLMCAS_1_1VariableNode.html#aba18fe15c39415147912983d91e5df05">name</a>(), <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>.name());</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n : exponents) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">auto</span> exp_node = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node&lt;NumberNode&gt;</a>(BigInt(n));</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keyword">auto</span> pow_x_node = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node&lt;PowerNode&gt;</a>(lhs.<a class="code hl_function" href="../../db/d67/classLMCAS_1_1VariableNode.html#a79cb840a73c6b29efc4ffedaaf0eba4f">clone</a>(), exp_node-&gt;clone());</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keyword">auto</span> pow_y_node = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node&lt;PowerNode&gt;</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">rhs</a>.clone(), exp_node-&gt;clone());</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keyword">auto</span> pow_x = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a>(pow_x_node);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keyword">auto</span> pow_y = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a>(pow_y_node);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keyword">auto</span> deduced = <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a7dc7ad6d0cc9d343da87f08f90578232">add_deduced</a>(engine, pow_x, pow_y, store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">if</span> (!deduced.has_value()) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
+</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">// Monotonicity inference</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment"></span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment"> * @brief If the node is multiplication by exactly -1, returns the other</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment"> * operand.</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00173" data-start="{" data-end="}">
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a5abb867d7400b5eb44a47b46b3487f2c">  173</a></span><span class="keyword">static</span> std::shared_ptr&lt;const SymbolicNode&gt; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a5abb867d7400b5eb44a47b46b3487f2c">detect_negation</a>(</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; node) {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">const</span> <span class="keyword">auto</span> multiply = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(node);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordflow">if</span> (!multiply || multiply-&gt;operands().size() != 2) {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">for</span> (std::size_t index = 0; index &lt; 2; ++index) {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keyword">const</span> <span class="keyword">auto</span> number = std::dynamic_pointer_cast&lt;const NumberNode&gt;(</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            multiply-&gt;operands()[index]);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">if</span> (number &amp;&amp; number-&gt;is_negative_one()) {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">return</span> multiply-&gt;operands()[1 - index];</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>}</div>
+</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a352e75edb535d95a7a00212674ef57c8">  189</a></span><span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a352e75edb535d95a7a00212674ef57c8">is_variable_operand</a>(<span class="keyword">const</span> std::shared_ptr&lt;const VariableNode&gt;&amp; node) {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">return</span> node &amp;&amp; !node-&gt;is_constant();</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
+</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><a class="code hl_enumeration" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4">Monotonicity</a> InferenceEngine::infer_monotonicity(<span class="keyword">const</span> SymbolicExpr&amp; expr,</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                                                  <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>,</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                                                  <span class="keyword">const</span> Interval&amp; <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr)) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="comment">// FunctionNode: auto-infer for known functions</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> func = std::dynamic_pointer_cast&lt;const FunctionNode&gt;(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#adeaf7448633f131cb1bf3f33f04acfa9">Impl::function_monotonicity</a>(*func, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">// Negation: multiply by -1 reverses monotonicity</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> inner = <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a5abb867d7400b5eb44a47b46b3487f2c">detect_negation</a>(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keyword">auto</span> inner_expr = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a>(inner);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <a class="code hl_enumeration" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4">Monotonicity</a> inner_mono = infer_monotonicity(inner_expr, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="keywordflow">switch</span> (inner_mono) {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>:    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a2e6a9b0375c021e8f650a5eb22012b5b">Monotonicity::Decreasing</a>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a2e6a9b0375c021e8f650a5eb22012b5b">Monotonicity::Decreasing</a>:    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd">Monotonicity::Increasing</a>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a06250c55ebb50b217110abfbdda2eb5d">Monotonicity::NonDecreasing</a>:  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4aca5830363e097ce9cfe81212fa9625a3">Monotonicity::NonIncreasing</a>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4aca5830363e097ce9cfe81212fa9625a3">Monotonicity::NonIncreasing</a>:  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a06250c55ebb50b217110abfbdda2eb5d">Monotonicity::NonDecreasing</a>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            <span class="keywordflow">default</span>:                           <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        }</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    }</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="comment">// VariableNode: check PropertyStore for declared monotonicity</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> var_node = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">if</span> (var_node-&gt;is_constant()) <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; props = impl_-&gt;ctx;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keyword">auto</span> monotonicity =</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            props.get_monotonicity_checked(var_node-&gt;name(), <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">interval</a>);</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="keywordflow">return</span> monotonicity ? monotonicity.value() : <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">Monotonicity::Unknown</a>;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>}</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keywordtype">void</span> InferenceEngine::apply_monotonicity_rules(<span class="keyword">const</span> Relation&amp; rel, RelationStore&amp; store,</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                                               PropertyStore&amp; prop_store, <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>) {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    (void)apply_monotonicity_rules_checked(rel, store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>}</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>Result&lt;void&gt; InferenceEngine::apply_monotonicity_rules_checked(</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">const</span> Relation&amp; rel,</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    RelationStore&amp; store,</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    PropertyStore&amp; prop_store,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// Stop recursion at maximum depth</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a> &gt;= MAX_MONOTONICITY_DEPTH) {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="comment">// Only apply to GT (greater-than) relations</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">if</span> (rel.op != RelationalNode::Op::GT) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="comment">// Extract LHS and RHS — both must be single VariableNodes</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keyword">auto</span> lhs_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(rel.lhs));</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keyword">auto</span> rhs_var = std::dynamic_pointer_cast&lt;const VariableNode&gt;(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(rel.rhs));</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a352e75edb535d95a7a00212674ef57c8">is_variable_operand</a>(lhs_var) || !<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a352e75edb535d95a7a00212674ef57c8">is_variable_operand</a>(rhs_var)) {</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    }</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keyword">const</span> std::string&amp; x_name = lhs_var-&gt;name();</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keyword">const</span> std::string&amp; y_name = rhs_var-&gt;name();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment">// Check domain assumptions using the AssumptionContext (read-through all scopes)</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordtype">bool</span> both_positive = impl_-&gt;ctx.has_sign(x_name, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#af435ba9100d7c3fa384be4feb586c012a3289297424e01eda5b788c083bbf3147">Sign::Positive</a>) &amp;&amp;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                         impl_-&gt;ctx.has_sign(y_name, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#af435ba9100d7c3fa384be4feb586c012a3289297424e01eda5b788c083bbf3147">Sign::Positive</a>);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordtype">bool</span> both_real = impl_-&gt;ctx.has_domain(x_name, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1">Domain::Real</a>) &amp;&amp;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                     impl_-&gt;ctx.has_domain(y_name, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1">Domain::Real</a>);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordtype">bool</span> both_nonnegative = impl_-&gt;ctx.has_sign(x_name, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#af435ba9100d7c3fa384be4feb586c012a16cb7fb563099bff249482f3a050bad8">Sign::NonNegative</a>) &amp;&amp;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                            impl_-&gt;ctx.has_sign(y_name, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#af435ba9100d7c3fa384be4feb586c012a16cb7fb563099bff249482f3a050bad8">Sign::NonNegative</a>);</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keywordflow">if</span> (both_positive) {</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> type : {<a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0a9acdbc05ab7c5f2b2576422f0400963a">FunctionNode::FuncType::Ln</a>, <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0aae77f3ad25595e35b327334d89410054">FunctionNode::FuncType::Sqrt</a>}) {</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <span class="keyword">auto</span> deduced = impl_-&gt;deduce_function_relation(</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>                *<span class="keyword">this</span>, *lhs_var, *rhs_var, type, store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            <span class="keywordflow">if</span> (!deduced.has_value()) {</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            }</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    }</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keywordflow">if</span> (both_real) {</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keyword">auto</span> deduced = impl_-&gt;deduce_function_relation(</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            *<span class="keyword">this</span>, *lhs_var, *rhs_var, <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a>,</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>);</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordflow">if</span> (!deduced.has_value()) {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            <span class="keywordflow">return</span> deduced;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        }</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    }</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordflow">if</span> (both_nonnegative) {</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordflow">return</span> impl_-&gt;deduce_power_relations(</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            *<span class="keyword">this</span>, *lhs_var, *rhs_var, store, prop_store, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>}</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>} <span class="comment">// namespace LMCAS</span></div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html">LMCAS::FunctionNode</a></div><div class="ttdoc">函数节点，表示数学函数调用（三角函数、对数、特殊函数等）。</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00010">functions.hpp:10</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a4c52248d052f61ca73ba48d2c9192b0a"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a4c52248d052f61ca73ba48d2c9192b0a">LMCAS::FunctionNode::type</a></div><div class="ttdeci">FuncType type() const noexcept</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00055">functions.hpp:55</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a65cbe73cd2dcb6dfaf7033582271b3a0"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0">LMCAS::FunctionNode::FuncType</a></div><div class="ttdeci">FuncType</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00012">functions.hpp:12</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a65cbe73cd2dcb6dfaf7033582271b3a0a9acdbc05ab7c5f2b2576422f0400963a"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0a9acdbc05ab7c5f2b2576422f0400963a">LMCAS::FunctionNode::FuncType::Ln</a></div><div class="ttdeci">@ Ln</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00016">functions.hpp:16</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a65cbe73cd2dcb6dfaf7033582271b3a0aae77f3ad25595e35b327334d89410054"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0aae77f3ad25595e35b327334d89410054">LMCAS::FunctionNode::FuncType::Sqrt</a></div><div class="ttdeci">@ Sqrt</div><div class="ttdoc">对数、绝对值、平方根。</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00016">functions.hpp:16</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0">LMCAS::FunctionNode::FuncType::Exp</a></div><div class="ttdeci">@ Exp</div><div class="ttdoc">指数函数。</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00017">functions.hpp:17</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a65cbe73cd2dcb6dfaf7033582271b3a0aceffe7f812563934924b8dd08a319fc7"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0aceffe7f812563934924b8dd08a319fc7">LMCAS::FunctionNode::FuncType::ArcTan</a></div><div class="ttdeci">@ ArcTan</div><div class="ttdoc">反三角函数。</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00014">functions.hpp:14</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_af5dc7af62952c063d2c4f29b732f2d9d"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#af5dc7af62952c063d2c4f29b732f2d9d">LMCAS::FunctionNode::arguments</a></div><div class="ttdeci">const std::vector&lt; std::shared_ptr&lt; const SymbolicNode &gt; &gt; &amp; arguments() const noexcept</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00056">functions.hpp:56</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a77c48ece6590b662504d03418f6418d1"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">LMCAS::Result::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_aed8c44db6ca780c206439cb8c46226dc"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">LMCAS::Result::success</a></div><div class="ttdeci">static Result success(T value)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00048">result.hpp:48</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1VariableNode_html"><div class="ttname"><a href="../../db/d67/classLMCAS_1_1VariableNode.html">LMCAS::VariableNode</a></div><div class="ttdoc">变量节点，表示一个符号变量。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00010">arithmetic.hpp:10</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1VariableNode_html_a79cb840a73c6b29efc4ffedaaf0eba4f"><div class="ttname"><a href="../../db/d67/classLMCAS_1_1VariableNode.html#a79cb840a73c6b29efc4ffedaaf0eba4f">LMCAS::VariableNode::clone</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; clone() const override</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00047">arithmetic.hpp:47</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1VariableNode_html_aba18fe15c39415147912983d91e5df05"><div class="ttname"><a href="../../db/d67/classLMCAS_1_1VariableNode.html#aba18fe15c39415147912983d91e5df05">LMCAS::VariableNode::name</a></div><div class="ttdeci">const std::string &amp; name() const noexcept</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00026">arithmetic.hpp:26</a></div></div>
+<div class="ttc" id="ainference__engine__impl_8hpp_html"><div class="ttname"><a href="../../d1/d62/inference__engine__impl_8hpp.html">inference_engine_impl.hpp</a></div></div>
+<div class="ttc" id="ainterval__endpoint_8hpp_html"><div class="ttname"><a href="../../d2/dc9/interval__endpoint_8hpp.html">interval_endpoint.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a0a7c099fd855d1b29b0d27099091db8e"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a0a7c099fd855d1b29b0d27099091db8e">LMCAS::detail::comparable_endpoint</a></div><div class="ttdeci">Result&lt; ComparableEndpoint &gt; comparable_endpoint(const Endpoint &amp;endpoint, ComputationContext &amp;context, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="../../da/d57/interval__endpoint_8cpp_source.html#l00308">interval_endpoint.cpp:308</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1d1d0bdafb53aa76fcf04f5896687c69"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::LMCAS::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00091">base.hpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a796e5d4fc7bad6a7638791370f93cb27"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a></div><div class="ttdeci">inline ::LMCAS::SymbolicExpr expression_from_node(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00107">base.hpp:107</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a98046963816fe46917c33ec9fa7c50d0"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00123">base.hpp:123</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_aeb4e54b36a6bb592202b7bcb533c34e2"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#aeb4e54b36a6bb592202b7bcb533c34e2">LMCAS::detail::compare_comparable</a></div><div class="ttdeci">Result&lt; int &gt; compare_comparable(const ComparableEndpoint &amp;left, const ComparableEndpoint &amp;right, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d5/de8/interval__endpoint__order_8cpp_source.html#l00071">interval_endpoint_order.cpp:71</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a24f32bbd63b680d10d8f38d50b986ba1"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a24f32bbd63b680d10d8f38d50b986ba1">LMCAS::interval</a></div><div class="ttdeci">ExprResult interval(ExprPtr lower, ExprPtr upper, bool lower_closed, bool upper_closed)</div><div class="ttdef"><b>定义</b> <a href="../../db/d9f/expr__facade_8cpp_source.html#l00168">expr_facade.cpp:168</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a2925a16586abe0629d09f2b735154a3a"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a2925a16586abe0629d09f2b735154a3a">LMCAS::try_get_integer_value</a></div><div class="ttdeci">bool try_get_integer_value(const std::shared_ptr&lt; const NumberNode &gt; &amp;node, BigInt &amp;value)</div><div class="ttdef"><b>定义</b> <a href="../../d4/d0c/normalization__utils_8cpp_source.html#l00048">normalization_utils.cpp:48</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a2e2d72644287494d0ce60e3175246a6e"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a2e2d72644287494d0ce60e3175246a6e">LMCAS::lower</a></div><div class="ttdeci">const ExprPtr &amp; lower</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00260">expr.hpp:260</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3258f9ef3479cc0b4b5e2fb14297411ba7f80fcc452c2f1ed2bb51b39d0864df1">LMCAS::Domain::Real</a></div><div class="ttdeci">@ Real</div><div class="ttdoc">Real numbers</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00017">assumption.hpp:17</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a352e75edb535d95a7a00212674ef57c8"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a352e75edb535d95a7a00212674ef57c8">LMCAS::is_variable_operand</a></div><div class="ttdeci">static bool is_variable_operand(const std::shared_ptr&lt; const VariableNode &gt; &amp;node)</div><div class="ttdef"><b>定义</b> <a href="#l00189">inference_engine_monotonicity.cpp:189</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4b661a8e8dbe13caf58f567f5260fdc5"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">LMCAS::context</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; const BigInt ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../d0/dbe/exact__factorization_8hpp_source.html#l00065">exact_factorization.hpp:65</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5abb867d7400b5eb44a47b46b3487f2c"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5abb867d7400b5eb44a47b46b3487f2c">LMCAS::detect_negation</a></div><div class="ttdeci">static std::shared_ptr&lt; const SymbolicNode &gt; detect_negation(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node)</div><div class="ttdoc">If the node is multiplication by exactly -1, returns the other operand.</div><div class="ttdef"><b>定义</b> <a href="#l00173">inference_engine_monotonicity.cpp:173</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5ba8ead399331ed9fe9bc2b19dc871a4"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4">LMCAS::Monotonicity</a></div><div class="ttdeci">Monotonicity</div><div class="ttdoc">Monotonicity classification for functions over intervals.</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00057">assumption.hpp:57</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5ba8ead399331ed9fe9bc2b19dc871a4a06250c55ebb50b217110abfbdda2eb5d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a06250c55ebb50b217110abfbdda2eb5d">LMCAS::Monotonicity::NonDecreasing</a></div><div class="ttdeci">@ NonDecreasing</div><div class="ttdoc">Non-decreasing (weakly increasing)</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00060">assumption.hpp:60</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5ba8ead399331ed9fe9bc2b19dc871a4a2e6a9b0375c021e8f650a5eb22012b5b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a2e6a9b0375c021e8f650a5eb22012b5b">LMCAS::Monotonicity::Decreasing</a></div><div class="ttdeci">@ Decreasing</div><div class="ttdoc">Strictly decreasing</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00059">assumption.hpp:59</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4a88183b946cc5f0e8c96b2e66e1c74a7e">LMCAS::Monotonicity::Unknown</a></div><div class="ttdeci">@ Unknown</div><div class="ttdoc">Monotonicity not determined</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00062">assumption.hpp:62</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5ba8ead399331ed9fe9bc2b19dc871a4aca5830363e097ce9cfe81212fa9625a3"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4aca5830363e097ce9cfe81212fa9625a3">LMCAS::Monotonicity::NonIncreasing</a></div><div class="ttdeci">@ NonIncreasing</div><div class="ttdoc">Non-increasing (weakly decreasing)</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00061">assumption.hpp:61</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5ba8ead399331ed9fe9bc2b19dc871a4af3ff61f20d0c8eedfa348b0298df5edd">LMCAS::Monotonicity::Increasing</a></div><div class="ttdeci">@ Increasing</div><div class="ttdoc">Strictly increasing</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00058">assumption.hpp:58</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7d600797df1e25c9ec0b594734d455a0"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">LMCAS::exponent</a></div><div class="ttdeci">const ExprPtr &amp; exponent</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00220">expr.hpp:220</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7dd7c401f75cf920e5d7d8be5e0a7814"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">LMCAS::depth</a></div><div class="ttdeci">std::size_t std::size_t depth</div><div class="ttdef"><b>定义</b> <a href="../../de/d16/equivalence__options_8hpp_source.html#l00041">equivalence_options.hpp:41</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_abcecb843affb64feddeee1cabcd80e35"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#abcecb843affb64feddeee1cabcd80e35">LMCAS::rhs</a></div><div class="ttdeci">const ExprPtr &amp; rhs</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00155">expr.hpp:155</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_af435ba9100d7c3fa384be4feb586c012a16cb7fb563099bff249482f3a050bad8"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#af435ba9100d7c3fa384be4feb586c012a16cb7fb563099bff249482f3a050bad8">LMCAS::Sign::NonNegative</a></div><div class="ttdeci">@ NonNegative</div><div class="ttdoc">&gt;= 0</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00029">assumption.hpp:29</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_af435ba9100d7c3fa384be4feb586c012a3289297424e01eda5b788c083bbf3147"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#af435ba9100d7c3fa384be4feb586c012a3289297424e01eda5b788c083bbf3147">LMCAS::Sign::Positive</a></div><div class="ttdeci">@ Positive</div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00027">assumption.hpp:27</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_af75ce9eb9ed6354d4c3e7dbd762c0d19"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">LMCAS::var</a></div><div class="ttdeci">const std::string &amp; var</div><div class="ttdef"><b>定义</b> <a href="../../d5/d8c/integration__support_8hpp_source.html#l00025">integration_support.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_df/d22/structLMCAS_1_1Relation"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#df/d22/structLMCAS_1_1Relation">LMCAS::Relation</a></div><div class="ttdoc">A stored relational constraint between two symbolic expressions.</div><div class="ttdef"><b>定义</b> <a href="../../d1/ddb/relation__store_8hpp_source.html#l00032">relation_store.hpp:32</a></div></div>
+<div class="ttc" id="anormalization__utils_8hpp_html"><div class="ttname"><a href="../../df/dbf/normalization__utils_8hpp.html">normalization_utils.hpp</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_a0e60cec13268a8aaada03df321041fd4"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a0e60cec13268a8aaada03df321041fd4">LMCAS::InferenceEngine::Impl::collect_node_exponent</a></div><div class="ttdeci">static void collect_node_exponent(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;node, const std::string &amp;lhs_name, const std::string &amp;rhs_name, std::unordered_set&lt; int &gt; &amp;exponents)</div><div class="ttdef"><b>定义</b> <a href="#l00062">inference_engine_monotonicity.cpp:62</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_a1990b836e9d64a895be1e35784bc216f"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a1990b836e9d64a895be1e35784bc216f">LMCAS::InferenceEngine::Impl::deduce_power_relations</a></div><div class="ttdeci">Result&lt; void &gt; deduce_power_relations(InferenceEngine &amp;engine, const VariableNode &amp;lhs, const VariableNode &amp;rhs, RelationStore &amp;store, PropertyStore &amp;prop_store, int depth) const</div><div class="ttdef"><b>定义</b> <a href="#l00143">inference_engine_monotonicity.cpp:143</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_a43c25d75c25dbcc2015cbea360037d6d"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a43c25d75c25dbcc2015cbea360037d6d">LMCAS::InferenceEngine::Impl::logarithm_monotonicity</a></div><div class="ttdeci">static Monotonicity logarithm_monotonicity(const Interval &amp;interval)</div><div class="ttdef"><b>定义</b> <a href="#l00008">inference_engine_monotonicity.cpp:8</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_a45be024b9fcc14239b878c870f3f8852"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a45be024b9fcc14239b878c870f3f8852">LMCAS::InferenceEngine::Impl::deduce_function_relation</a></div><div class="ttdeci">Result&lt; void &gt; deduce_function_relation(InferenceEngine &amp;engine, const VariableNode &amp;lhs, const VariableNode &amp;rhs, FunctionNode::FuncType type, RelationStore &amp;store, PropertyStore &amp;prop_store, int depth) const</div><div class="ttdef"><b>定义</b> <a href="#l00126">inference_engine_monotonicity.cpp:126</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_a502d3fde6c7c58b15cd48840d449e455"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a502d3fde6c7c58b15cd48840d449e455">LMCAS::InferenceEngine::Impl::collect_power_exponents</a></div><div class="ttdeci">static std::vector&lt; int &gt; collect_power_exponents(const RelationStore &amp;store, const std::string &amp;lhs_name, const std::string &amp;rhs_name)</div><div class="ttdef"><b>定义</b> <a href="#l00093">inference_engine_monotonicity.cpp:93</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_a7dc7ad6d0cc9d343da87f08f90578232"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#a7dc7ad6d0cc9d343da87f08f90578232">LMCAS::InferenceEngine::Impl::add_deduced</a></div><div class="ttdeci">Result&lt; void &gt; add_deduced(InferenceEngine &amp;engine, const SymbolicExpr &amp;new_lhs, const SymbolicExpr &amp;new_rhs, RelationStore &amp;store, PropertyStore &amp;prop_store, int depth) const</div><div class="ttdef"><b>定义</b> <a href="#l00105">inference_engine_monotonicity.cpp:105</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_adeaf7448633f131cb1bf3f33f04acfa9"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#adeaf7448633f131cb1bf3f33f04acfa9">LMCAS::InferenceEngine::Impl::function_monotonicity</a></div><div class="ttdeci">static Monotonicity function_monotonicity(const FunctionNode &amp;func, const std::string &amp;var, const Interval &amp;interval)</div><div class="ttdef"><b>定义</b> <a href="#l00023">inference_engine_monotonicity.cpp:23</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1InferenceEngine_1_1Impl_html_aed713f9beecd846d5d0ed62f5eb010e2"><div class="ttname"><a href="../../d1/d61/structLMCAS_1_1InferenceEngine_1_1Impl.html#aed713f9beecd846d5d0ed62f5eb010e2">LMCAS::InferenceEngine::Impl::small_positive_exponent</a></div><div class="ttdeci">static std::optional&lt; int &gt; small_positive_exponent(const std::shared_ptr&lt; const NumberNode &gt; &amp;number)</div><div class="ttdef"><b>定义</b> <a href="#l00052">inference_engine_monotonicity.cpp:52</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1detail_1_1ComparableEndpoint_html"><div class="ttname"><a href="../../d3/df3/structLMCAS_1_1detail_1_1ComparableEndpoint.html">LMCAS::detail::ComparableEndpoint</a></div><div class="ttdef"><b>定义</b> <a href="../../d2/dc9/interval__endpoint_8hpp_source.html#l00010">interval_endpoint.hpp:10</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d2/de5/inference__engine__monotonicity_8cpp.html">inference_engine_monotonicity.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

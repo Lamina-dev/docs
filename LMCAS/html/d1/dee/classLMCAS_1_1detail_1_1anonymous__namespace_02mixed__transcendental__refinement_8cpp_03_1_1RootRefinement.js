@@ -1,0 +1,25 @@
+var classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement =
+[
+    [ "RootRefinement", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a7c1643b97c7d38dda8288afbab8e3cde", null ],
+    [ "accept_newton_step", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#abb5758fecdb21d77f3d12f39704ec9ff", null ],
+    [ "best_root", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a39ac7624e9efed1f793009dd3b52e281", null ],
+    [ "bisect", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#ae1b3990068b0e769b98f2d35da1f10c3", null ],
+    [ "bisection_step", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a110d438c6fd73a1890692b4757d5f5c1", null ],
+    [ "endpoint_root", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a00bdae18badabceff2fa1da924d5b556", null ],
+    [ "evaluate", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a4d94c84d710575ee9b69e3ab32427412", null ],
+    [ "midpoint", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a2f99afd9b0c535a44e0dc3c2a258a7d8", null ],
+    [ "newton", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#ad308e8c06bbbef0101c0ddb355e072df", null ],
+    [ "remember", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#ac18f380c76eae217b5dff05ac7eba7dd", null ],
+    [ "resample_endpoints", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a809a4a930e419999b219a8301c7d16ed", null ],
+    [ "root_at", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a949b0ddc7a4b30f1df1ec1c9ae5401fe", null ],
+    [ "best_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#aaad892c21a87f612823a71ceef0be865", null ],
+    [ "derivative_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a50cdde4766319283304a1d2c35d7b14a", null ],
+    [ "expr_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#affcdb34068241cdd0615a7b5d068ec7e", null ],
+    [ "f_hi_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a689a32de642cd178608dbbdb89ee5749", null ],
+    [ "f_lo_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a7e0d1bc68911c345b54fedc8d1abab9d", null ],
+    [ "hi_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a6e29de7b883267d776232077835336c7", null ],
+    [ "lo_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a31269ccd618918b202a7077ab18cd99d", null ],
+    [ "opts_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a79ee7ee838013a53699afe3897b91e60", null ],
+    [ "var_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#ae0c8b0252a736d1bdc634010036c32c7", null ],
+    [ "x_", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html#a5e925ca1976299b45a8bd269c82bdf70", null ]
+];

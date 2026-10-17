@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/integration_linearity.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('db/db8/integration__linearity_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">integration_linearity.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../db/db8/integration__linearity_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d8c/integration__support_8hpp.html">internal/integration_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/dbf/normalization__utils_8hpp.html">internal/normalization_utils.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html">    6</a></span><span class="keyword">namespace </span>{</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a838f42fa1518f529fdd90b68207d419b">    7</a></span>std::shared_ptr&lt;const SymbolicNode&gt; <a class="code hl_function" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a838f42fa1518f529fdd90b68207d419b">integration_exponential_argument</a>(</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">const</span> std::shared_ptr&lt;const SymbolicNode&gt;&amp; factor) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">const</span> <span class="keyword">auto</span>* power = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../dc/df6/classLMCAS_1_1PowerNode.html">PowerNode</a>*<span class="keyword">&gt;</span>(factor.get());</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; base = power ? power-&gt;<a class="code hl_function" href="../../dc/df6/classLMCAS_1_1PowerNode.html#af4ab5a90acaabf944577a22a97a287c4">base</a>() : factor;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">const</span> <span class="keyword">auto</span>* <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">function</a> = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html">FunctionNode</a>*<span class="keyword">&gt;</span>(base.get());</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">function</a> || <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">function</a>-&gt;type() != <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a> ||</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">function</a>-&gt;arguments().size() != 1) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    }</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> (!power) { <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">function</a>-&gt;arguments()[0]; }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    BigInt <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a2623df451a92ceb24239380b7b3fcaa0">integer</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2925a16586abe0629d09f2b735154a3a">try_get_integer_value</a>(</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            std::dynamic_pointer_cast&lt;const NumberNode&gt;(power-&gt;exponent()), <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a2623df451a92ceb24239380b7b3fcaa0">integer</a>) ||</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a2623df451a92ceb24239380b7b3fcaa0">integer</a>.is_zero()) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#accab5595b323305a61601c19f113feda">make_normalized_multiply_node</a>(</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        {power-&gt;exponent(), <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">function</a>-&gt;arguments()[0]});</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a96303e0cd85c54a06ce4d015c5b4d981">   27</a></span>std::shared_ptr&lt;const SymbolicNode&gt; <a class="code hl_function" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a96303e0cd85c54a06ce4d015c5b4d981">combine_integration_exponentials</a>(</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">const</span> std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;&amp; dependents) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (dependents.empty() || (dependents.size() == 1 &amp;&amp;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        !<span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../dc/df6/classLMCAS_1_1PowerNode.html">PowerNode</a>*<span class="keyword">&gt;</span>(dependents[0].get()))) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; exponents;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    exponents.reserve(dependents.size());</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; dependent : dependents) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keyword">auto</span> argument = <a class="code hl_function" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a838f42fa1518f529fdd90b68207d419b">integration_exponential_argument</a>(dependent);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> (!argument) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        exponents.push_back(std::move(argument));</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">detail::make_node&lt;FunctionNode&gt;</a>(</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_enumvalue" href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0">FunctionNode::FuncType::Exp</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt;{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <a class="code hl_function" href="../../da/dd4/classLMCAS_1_1SymbolicFactory.html#a011d7d9ae3121ac8b202880413324694">SymbolicFactory::create_add</a>(std::move(exponents))});</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>Result&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt; Integrator::apply_linearity(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> SymbolicExpr&amp; expr, <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    ComputationContext&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>, <span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a>) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a368b8f645326c8852a79b670703f8cec">mul</a> = std::dynamic_pointer_cast&lt;const MultiplyNode&gt;(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; constants;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; dependents;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a> : <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a368b8f645326c8852a79b670703f8cec">mul</a>-&gt;operands()) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keyword">auto</span> term = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a638653867282650d7c9f81eb553b500a">depends_on_integration_variable</a>(term, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>)) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                constants.push_back(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                dependents.push_back(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">auto</span> exponential = <a class="code hl_function" href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a96303e0cd85c54a06ce4d015c5b4d981">combine_integration_exponentials</a>(dependents);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">if</span> (!constants.empty() || exponential) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            SymbolicExpr dep_part = exponential</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                ? <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">detail::expression_from_node</a>(exponential)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                : dependents.empty() ? *SymbolicExpr::number(1)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                : dependents.size() == 1 ? <a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">detail</a>::<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(dependents[0])</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                : <a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">detail</a>::<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">detail</a>::<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">make_node</a>&lt;<a class="code hl_class" href="../../d5/d5a/classLMCAS_1_1MultiplyNode.html">MultiplyNode</a>&gt;(dependents));</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keyword">auto</span> int_part = integrate_recursive(dep_part, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a> + 1);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">if</span> (!int_part) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keywordflow">return</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;::failure(</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    int_part.error());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">if</span> (constants.empty()) { <span class="keywordflow">return</span> int_part; }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keyword">auto</span> const_part = constants.size() == 1</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                ? <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">detail::expression_from_node</a>(constants[0])</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                : <a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">detail</a>::<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">expression_from_node</a>(<a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">detail</a>::<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">make_node</a>&lt;<a class="code hl_class" href="../../d5/d5a/classLMCAS_1_1MultiplyNode.html">MultiplyNode</a>&gt;(constants));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;::success(</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                SymbolicExpr::multiply(</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                    <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a190af71ee3ebff11e4a935e5d38b643c">LMCAS::detail::make_expression_ptr</a>(const_part),</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                    int_part.value()));</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a4f17b1f1d11a8b2b03a3a8a4848d4a94">add</a> = std::dynamic_pointer_cast&lt;const AddNode&gt;(</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(expr))) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        std::vector&lt;std::shared_ptr&lt;const SymbolicNode&gt;&gt; results;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a> : <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a4f17b1f1d11a8b2b03a3a8a4848d4a94">add</a>-&gt;operands()) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keyword">auto</span> term = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a>(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">op</a>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">auto</span> int_term = integrate_recursive(</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                term, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">var</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">depth</a> + 1);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">if</span> (!int_term) {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                <span class="keywordflow">return</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;::failure(</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                    int_term.error());</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            results.push_back(<a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a>(int_term.value()));</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;::success(</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a190af71ee3ebff11e4a935e5d38b643c">LMCAS::detail::make_expression_ptr</a>(</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node&lt;AddNode&gt;</a>(results)));</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;std::shared_ptr&lt;SymbolicExpr&gt;</a>&gt;::success(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html">LMCAS::FunctionNode</a></div><div class="ttdoc">函数节点，表示数学函数调用（三角函数、对数、特殊函数等）。</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00010">functions.hpp:10</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1FunctionNode_html_a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0"><div class="ttname"><a href="../../d5/d1a/classLMCAS_1_1FunctionNode.html#a65cbe73cd2dcb6dfaf7033582271b3a0acad39a154bffb61175f674d6eefaf6d0">LMCAS::FunctionNode::FuncType::Exp</a></div><div class="ttdeci">@ Exp</div><div class="ttdoc">指数函数。</div><div class="ttdef"><b>定义</b> <a href="../../db/d1a/functions_8hpp_source.html#l00017">functions.hpp:17</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1MultiplyNode_html"><div class="ttname"><a href="../../d5/d5a/classLMCAS_1_1MultiplyNode.html">LMCAS::MultiplyNode</a></div><div class="ttdoc">乘法节点，表示多个操作数的乘积。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00134">arithmetic.hpp:134</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1PowerNode_html"><div class="ttname"><a href="../../dc/df6/classLMCAS_1_1PowerNode.html">LMCAS::PowerNode</a></div><div class="ttdoc">幂运算节点，表示 base^exponent。</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00218">arithmetic.hpp:218</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1PowerNode_html_af4ab5a90acaabf944577a22a97a287c4"><div class="ttname"><a href="../../dc/df6/classLMCAS_1_1PowerNode.html#af4ab5a90acaabf944577a22a97a287c4">LMCAS::PowerNode::base</a></div><div class="ttdeci">const std::shared_ptr&lt; const SymbolicNode &gt; &amp; base() const noexcept</div><div class="ttdef"><b>定义</b> <a href="../../d3/d23/arithmetic_8hpp_source.html#l00233">arithmetic.hpp:233</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1SymbolicFactory_html_a011d7d9ae3121ac8b202880413324694"><div class="ttname"><a href="../../da/dd4/classLMCAS_1_1SymbolicFactory.html#a011d7d9ae3121ac8b202880413324694">LMCAS::SymbolicFactory::create_add</a></div><div class="ttdeci">static std::shared_ptr&lt; const SymbolicNode &gt; create_add(std::vector&lt; std::shared_ptr&lt; const SymbolicNode &gt; &gt; ops, detail::RewriteBudget *budget=nullptr)</div><div class="ttdoc">创建加法节点,自动扁平化嵌套加法并消除零项.</div><div class="ttdef"><b>定义</b> <a href="../../d4/d41/symbolic__factory_8cpp_source.html#l00012">symbolic_factory.cpp:12</a></div></div>
+<div class="ttc" id="aintegration__support_8hpp_html"><div class="ttname"><a href="../../d5/d8c/integration__support_8hpp.html">integration_support.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03_html_a838f42fa1518f529fdd90b68207d419b"><div class="ttname"><a href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a838f42fa1518f529fdd90b68207d419b">LMCAS::anonymous_namespace{integration_linearity.cpp}::integration_exponential_argument</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; integration_exponential_argument(const std::shared_ptr&lt; const SymbolicNode &gt; &amp;factor)</div><div class="ttdef"><b>定义</b> <a href="#l00007">integration_linearity.cpp:7</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03_html_a96303e0cd85c54a06ce4d015c5b4d981"><div class="ttname"><a href="../../de/d59/namespaceLMCAS_1_1anonymous__namespace_02integration__linearity_8cpp_03.html#a96303e0cd85c54a06ce4d015c5b4d981">LMCAS::anonymous_namespace{integration_linearity.cpp}::combine_integration_exponentials</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; combine_integration_exponentials(const std::vector&lt; std::shared_ptr&lt; const SymbolicNode &gt; &gt; &amp;dependents)</div><div class="ttdef"><b>定义</b> <a href="#l00027">integration_linearity.cpp:27</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html">LMCAS::detail</a></div><div class="ttdoc">多元 Hensel 提升（单变量步）</div><div class="ttdef"><b>定义</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00031">assumption_context.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a190af71ee3ebff11e4a935e5d38b643c"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a190af71ee3ebff11e4a935e5d38b643c">LMCAS::detail::make_expression_ptr</a></div><div class="ttdeci">std::shared_ptr&lt;::LMCAS::SymbolicExpr &gt; make_expression_ptr(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00111">base.hpp:111</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1d1d0bdafb53aa76fcf04f5896687c69"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1d1d0bdafb53aa76fcf04f5896687c69">LMCAS::detail::node</a></div><div class="ttdeci">const SymbolicNodePtr &amp; node(const ::LMCAS::SymbolicExpr &amp;expression) noexcept</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00091">base.hpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a796e5d4fc7bad6a7638791370f93cb27"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a796e5d4fc7bad6a7638791370f93cb27">LMCAS::detail::expression_from_node</a></div><div class="ttdeci">inline ::LMCAS::SymbolicExpr expression_from_node(SymbolicNodePtr root)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00107">base.hpp:107</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a98046963816fe46917c33ec9fa7c50d0"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a98046963816fe46917c33ec9fa7c50d0">LMCAS::detail::make_node</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; make_node(Args &amp;&amp;... args)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d3c/base_8hpp_source.html#l00123">base.hpp:123</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a2623df451a92ceb24239380b7b3fcaa0"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a2623df451a92ceb24239380b7b3fcaa0">LMCAS::integer</a></div><div class="ttdeci">ExprResult integer(Integer)=delete</div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a2925a16586abe0629d09f2b735154a3a"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a2925a16586abe0629d09f2b735154a3a">LMCAS::try_get_integer_value</a></div><div class="ttdeci">bool try_get_integer_value(const std::shared_ptr&lt; const NumberNode &gt; &amp;node, BigInt &amp;value)</div><div class="ttdef"><b>定义</b> <a href="../../d4/d0c/normalization__utils_8cpp_source.html#l00048">normalization_utils.cpp:48</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a368b8f645326c8852a79b670703f8cec"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a368b8f645326c8852a79b670703f8cec">LMCAS::mul</a></div><div class="ttdeci">ExprResult mul(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d02/expr__arithmetic_8cpp_source.html#l00027">expr_arithmetic.cpp:27</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4b661a8e8dbe13caf58f567f5260fdc5"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">LMCAS::context</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; const BigInt ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../d0/dbe/exact__factorization_8hpp_source.html#l00065">exact_factorization.hpp:65</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4f17b1f1d11a8b2b03a3a8a4848d4a94"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4f17b1f1d11a8b2b03a3a8a4848d4a94">LMCAS::add</a></div><div class="ttdeci">ExprResult add(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d02/expr__arithmetic_8cpp_source.html#l00016">expr_arithmetic.cpp:16</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a638653867282650d7c9f81eb553b500a"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a638653867282650d7c9f81eb553b500a">LMCAS::depends_on_integration_variable</a></div><div class="ttdeci">bool depends_on_integration_variable(const SymbolicExpr &amp;expression, const std::string &amp;variable)</div><div class="ttdef"><b>定义</b> <a href="../../d5/d8c/integration__support_8hpp_source.html#l00028">integration_support.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a75d9d5959ce09eb7b235d0442d47e0ce"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a75d9d5959ce09eb7b235d0442d47e0ce">LMCAS::op</a></div><div class="ttdeci">const ExprPtr RelationOp op</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00156">expr.hpp:156</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7dd7c401f75cf920e5d7d8be5e0a7814"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7dd7c401f75cf920e5d7d8be5e0a7814">LMCAS::depth</a></div><div class="ttdeci">std::size_t std::size_t depth</div><div class="ttdef"><b>定义</b> <a href="../../de/d16/equivalence__options_8hpp_source.html#l00041">equivalence_options.hpp:41</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_accab5595b323305a61601c19f113feda"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#accab5595b323305a61601c19f113feda">LMCAS::make_normalized_multiply_node</a></div><div class="ttdeci">std::shared_ptr&lt; const SymbolicNode &gt; make_normalized_multiply_node(const std::vector&lt; std::shared_ptr&lt; const SymbolicNode &gt; &gt; &amp;operands, detail::RewriteBudget *budget=nullptr)</div><div class="ttdef"><b>定义</b> <a href="../../d4/d0c/normalization__utils_8cpp_source.html#l00099">normalization_utils.cpp:99</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_adb027eabd899894bd4f7baa3aa8063ba"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#adb027eabd899894bd4f7baa3aa8063ba">LMCAS::function</a></div><div class="ttdeci">ExprResult function(const std::string &amp;name, std::vector&lt; ExprPtr &gt; arguments)</div><div class="ttdef"><b>定义</b> <a href="../../db/d9f/expr__facade_8cpp_source.html#l00135">expr_facade.cpp:135</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_af75ce9eb9ed6354d4c3e7dbd762c0d19"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#af75ce9eb9ed6354d4c3e7dbd762c0d19">LMCAS::var</a></div><div class="ttdeci">const std::string &amp; var</div><div class="ttdef"><b>定义</b> <a href="../../d5/d8c/integration__support_8hpp_source.html#l00025">integration_support.hpp:25</a></div></div>
+<div class="ttc" id="anormalization__utils_8hpp_html"><div class="ttname"><a href="../../df/dbf/normalization__utils_8hpp.html">normalization_utils.hpp</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../db/db8/integration__linearity_8cpp.html">integration_linearity.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/matrix_decomposition_svd.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d0/d40/matrix__decomposition__svd_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">matrix_decomposition_svd.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d0/d40/matrix__decomposition__svd_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/d26/matrix__decomposition__support_8hpp.html">internal/matrix_decomposition_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;new&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html">detail::matrix_decomposition</a>;</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a4fcf1b2bde21ea9a3bf985ae98ae7c54">    8</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#afa60585c48d21a0ce4a16b733fb9bee2">SVDDecompositionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a4fcf1b2bde21ea9a3bf985ae98ae7c54">svd_decomposition_checked</a>(</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> std::string operation = <span class="stringliteral">&quot;svd_decomposition&quot;</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">auto</span> matrix = <a class="code hl_function" href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a69d03a8129eccd201de6605aec5b19fd">validate_decomposition_matrix</a>(A, <span class="keyword">false</span>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>, operation);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">if</span> (!matrix) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">SVDDecompositionResult::failure</a>(matrix.error());</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">auto</span> budget = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>.consume_steps(matrix.value()-&gt;rows() * matrix.value()-&gt;cols() * 32 + 32,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                        operation);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (!budget) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">SVDDecompositionResult::failure</a>(budget.error());</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">auto</span> diagonal = <a class="code hl_function" href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a7c653d5a5da1438bfea0171a254175bb">exact_rectangular_diagonal_entries</a>(matrix.value());</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span> (diagonal) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        std::vector&lt;std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;&gt; signs(</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            matrix.value()-&gt;rows(),</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            std::vector&lt;std::shared_ptr&lt;SymbolicExpr&gt;&gt;(</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                matrix.value()-&gt;rows(), SymbolicExpr::number(0)));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        std::vector&lt;Rational&gt; magnitudes = *diagonal;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">for</span> (std::size_t row = 0; row &lt; matrix.value()-&gt;rows(); ++row) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            signs[row][row] = SymbolicExpr::number(1);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">for</span> (std::size_t index = 0; index &lt; magnitudes.size(); ++index) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">if</span> (magnitudes[index] &lt; Rational(0)) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                signs[index][index] = SymbolicExpr::number(-1);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                magnitudes[index] = Rational(0) - magnitudes[index];</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">auto</span> U = SymbolicExpr::matrix(signs);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">auto</span> S = <a class="code hl_function" href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a697c66c83a6379fae986fdfcffae8178">rectangular_diagonal_expr</a>(</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            matrix.value()-&gt;rows(), matrix.value()-&gt;cols(), magnitudes);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">auto</span> V = <a class="code hl_function" href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a073cc8f4abf6ff77b2874c19f1a51533">identity_matrix_expr</a>(matrix.value()-&gt;cols());</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">SVDDecompositionResult::success</a>(<a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d6/d37/structLMCAS_1_1SVDDecomposition">SVDDecomposition</a>{U, S, V});</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">SVDDecompositionResult::failure</a>(</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a00dcaeb4105c94c3b00bc8fe21c7ba21">CasErrc::Inconclusive</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="stringliteral">&quot;exact non-diagonal SVD requires a complete proved singular basis&quot;</span>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        operation);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#aeb49731eb8440ae577c0f934f1627ce3">   46</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#afa60585c48d21a0ce4a16b733fb9bee2">SVDDecompositionResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a4fcf1b2bde21ea9a3bf985ae98ae7c54">svd_decomposition_checked</a>(</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> std::shared_ptr&lt;SymbolicExpr&gt;&amp; A)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a4fcf1b2bde21ea9a3bf985ae98ae7c54">svd_decomposition_checked</a>(A, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a77c48ece6590b662504d03418f6418d1"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">LMCAS::Result&lt; SVDDecomposition &gt;::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_aed8c44db6ca780c206439cb8c46226dc"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">LMCAS::Result&lt; SVDDecomposition &gt;::success</a></div><div class="ttdeci">static Result success(SVDDecomposition value)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00048">result.hpp:48</a></div></div>
+<div class="ttc" id="amatrix__decomposition__support_8hpp_html"><div class="ttname"><a href="../../d7/d26/matrix__decomposition__support_8hpp.html">matrix_decomposition_support.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_1_1matrix__decomposition_html"><div class="ttname"><a href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html">LMCAS::detail::matrix_decomposition</a></div><div class="ttdef"><b>定义</b> <a href="../../d7/d26/matrix__decomposition__support_8hpp_source.html#l00008">matrix_decomposition_support.hpp:8</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_1_1matrix__decomposition_html_a073cc8f4abf6ff77b2874c19f1a51533"><div class="ttname"><a href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a073cc8f4abf6ff77b2874c19f1a51533">LMCAS::detail::matrix_decomposition::identity_matrix_expr</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; identity_matrix_expr(std::size_t n)</div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_1_1matrix__decomposition_html_a697c66c83a6379fae986fdfcffae8178"><div class="ttname"><a href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a697c66c83a6379fae986fdfcffae8178">LMCAS::detail::matrix_decomposition::rectangular_diagonal_expr</a></div><div class="ttdeci">std::shared_ptr&lt; SymbolicExpr &gt; rectangular_diagonal_expr(std::size_t rows, std::size_t cols, const std::vector&lt; Rational &gt; &amp;diagonal)</div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_1_1matrix__decomposition_html_a69d03a8129eccd201de6605aec5b19fd"><div class="ttname"><a href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a69d03a8129eccd201de6605aec5b19fd">LMCAS::detail::matrix_decomposition::validate_decomposition_matrix</a></div><div class="ttdeci">Result&lt; std::shared_ptr&lt; const MatrixNode &gt; &gt; validate_decomposition_matrix(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, bool require_square, ComputationContext &amp;context, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d55/matrix__decomposition__support_8cpp_source.html#l00005">matrix_decomposition_support.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_1_1matrix__decomposition_html_a7c653d5a5da1438bfea0171a254175bb"><div class="ttname"><a href="../../dd/d4b/namespaceLMCAS_1_1detail_1_1matrix__decomposition.html#a7c653d5a5da1438bfea0171a254175bb">LMCAS::detail::matrix_decomposition::exact_rectangular_diagonal_entries</a></div><div class="ttdeci">std::optional&lt; std::vector&lt; Rational &gt; &gt; exact_rectangular_diagonal_entries(const std::shared_ptr&lt; const MatrixNode &gt; &amp;matrix)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d55/matrix__decomposition__support_8cpp_source.html#l00150">matrix_decomposition_support.cpp:150</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a00dcaeb4105c94c3b00bc8fe21c7ba21"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a00dcaeb4105c94c3b00bc8fe21c7ba21">LMCAS::CasErrc::Inconclusive</a></div><div class="ttdeci">@ Inconclusive</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00024">result.hpp:24</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4b661a8e8dbe13caf58f567f5260fdc5"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">LMCAS::context</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; const BigInt ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../d0/dbe/exact__factorization_8hpp_source.html#l00065">exact_factorization.hpp:65</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4fcf1b2bde21ea9a3bf985ae98ae7c54"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4fcf1b2bde21ea9a3bf985ae98ae7c54">LMCAS::svd_decomposition_checked</a></div><div class="ttdeci">SVDDecompositionResult svd_decomposition_checked(const std::shared_ptr&lt; SymbolicExpr &gt; &amp;A, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00008">matrix_decomposition_svd.cpp:8</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_afa60585c48d21a0ce4a16b733fb9bee2"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#afa60585c48d21a0ce4a16b733fb9bee2">LMCAS::SVDDecompositionResult</a></div><div class="ttdeci">Result&lt; SVDDecomposition &gt; SVDDecompositionResult</div><div class="ttdef"><b>定义</b> <a href="../../d2/dc0/matrix__decomposition_8hpp_source.html#l00044">matrix_decomposition.hpp:44</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_d6/d37/structLMCAS_1_1SVDDecomposition"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#d6/d37/structLMCAS_1_1SVDDecomposition">LMCAS::SVDDecomposition</a></div><div class="ttdef"><b>定义</b> <a href="../../d2/dc0/matrix__decomposition_8hpp_source.html#l00030">matrix_decomposition.hpp:30</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../d0/d40/matrix__decomposition__svd_8cpp.html">matrix_decomposition_svd.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,887 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.18.0" xml:lang="zh">
+  <compounddef id="d3/d24/namespaceLMCAS_1_1berlekamp__detail" kind="namespace" language="C++">
+    <compoundname>LMCAS::berlekamp_detail</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23108953f575a7e7547599a7bb8b8a63" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>size_t</type>
+        <definition>size_t LMCAS::berlekamp_detail::BK_NUM_SMALL_PRIMES</definition>
+        <argsstring></argsstring>
+        <name>BK_NUM_SMALL_PRIMES</name>
+        <qualifiedname>LMCAS::berlekamp_detail::BK_NUM_SMALL_PRIMES</qualifiedname>
+        <initializer>                                        =
+sizeof(<ref refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a17599dec003a4ce3e18fc22dcf36c437" kindref="member">BK_SMALL_PRIMES</ref>) / sizeof(<ref refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a17599dec003a4ce3e18fc22dcf36c437" kindref="member">BK_SMALL_PRIMES</ref>[0])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="19" column="25" bodyfile="src/berlekamp_modular.cpp" bodystart="19" bodyend="-1"/>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1af7fa41b26b5ae709bdf53b639b7d0efa" compoundref="df/dfd/berlekamp__modular_8cpp" startline="258" endline="268">bk_select_prime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a17599dec003a4ce3e18fc22dcf36c437" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t LMCAS::berlekamp_detail::BK_SMALL_PRIMES[]</definition>
+        <argsstring>[]</argsstring>
+        <name>BK_SMALL_PRIMES</name>
+        <qualifiedname>LMCAS::berlekamp_detail::BK_SMALL_PRIMES</qualifiedname>
+        <initializer>                                         = {
+    2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+    31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+    73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
+    127, 131, 137, 139, 149, 151, 157, 163, 167, 173,
+    179, 181, 191, 193, 197, 199, 211, 223, 227, 229
+}</initializer>
+        <briefdescription>
+<para>Berlekamp 模分解的小素数候选表。 按升序选取首个不整除首项系数且使模约化结果无平方因子的素数。 </para>
+        </briefdescription>
+        <detaileddescription>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="12" column="26" bodyfile="src/berlekamp_modular.cpp" bodystart="12" bodyend="18"/>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1af7fa41b26b5ae709bdf53b639b7d0efa" compoundref="df/dfd/berlekamp__modular_8cpp" startline="258" endline="268">bk_select_prime</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23f76d1acfc56e16045cd3f6fc964878" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int64_t &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int64_t &gt; &gt; LMCAS::berlekamp_detail::bk_build_q_matrix</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;f, int64_t p)</argsstring>
+        <name>bk_build_q_matrix</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_build_q_matrix</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>构造 F_p 上的 Berlekamp 矩阵 Q。 </para>
+        </briefdescription>
+        <detaileddescription>
+<para>对次数为 n 的首一多项式 f，Q 的第 i 行为 x^(i*p) mod f(x) 的系数向量。 先用平方乘法求 h = x^p mod f，再由第 0 行 [1, 0, ..., 0] 逐行乘 h 并取余。</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>首一多项式系数向量(升幂排列,deg(f) = n) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>nxn Berlekamp 矩阵(行优先存储)</para>
+</simplesect>
+<simplesect kind="see"><para>Berlekamp, E.R. &quot;Factoring polynomials over finite fields.&quot; Bell System Technical Journal, 46(8), 1967. </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; f 的次数。</para>
+        </inbodydescription>
+        <location file="src/berlekamp_basis.cpp" line="106" column="13" bodyfile="src/berlekamp_basis.cpp" bodystart="106" bodyend="136" declfile="src/internal/berlekamp_support.hpp" declline="12" declcolumn="13"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23f76d1acfc56e16045cd3f6fc964878" compoundref="d1/d29/berlekamp__basis_8cpp" startline="106" endline="136">bk_build_q_matrix</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a5972deac2e54c84863ecff3c1385384f" compoundref="d1/d29/berlekamp__basis_8cpp" startline="17" endline="41">bk_poly_mul_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1aa8b341c13c951f5fc9c9eb0e8130dfdd" compoundref="d1/d29/berlekamp__basis_8cpp" startline="55" endline="90">bk_poly_pow_mod</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23f76d1acfc56e16045cd3f6fc964878" compoundref="d1/d29/berlekamp__basis_8cpp" startline="106" endline="136">bk_build_q_matrix</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ac59d9d8093acec19228ca0415ac1bdd7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int64_t &gt;</type>
+        <definition>static std::vector&lt; int64_t &gt; LMCAS::berlekamp_detail::bk_derivative_mod</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;f, int64_t p)</argsstring>
+        <name>bk_derivative_mod</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_derivative_mod</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>计算模 p 多项式的形式导数. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>模 p 系数向量 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>f&apos; 的系数向量 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="76" column="20" bodyfile="src/berlekamp_modular.cpp" bodystart="76" bodyend="99"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ac59d9d8093acec19228ca0415ac1bdd7" compoundref="df/dfd/berlekamp__modular_8cpp" startline="76" endline="99">bk_derivative_mod</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ac59d9d8093acec19228ca0415ac1bdd7" compoundref="df/dfd/berlekamp__modular_8cpp" startline="76" endline="99">bk_derivative_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a1633bd70886262240ba740b1a6b1023d" compoundref="df/dfd/berlekamp__modular_8cpp" startline="211" endline="222">bk_is_square_free_mod</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LMCAS::berlekamp_detail::bk_div_mod</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;a, const std::vector&lt; int64_t &gt; &amp;b, int64_t p, std::vector&lt; int64_t &gt; &amp;q, std::vector&lt; int64_t &gt; &amp;r)</argsstring>
+        <name>bk_div_mod</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_div_mod</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+<para>模 p 多项式带余除法. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>计算 a / b 的商和余数,使得 a = q * b + r,deg(r) &lt; deg(b).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>被除数系数向量 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>除数系数向量(非空) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>商系数向量 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>余数系数向量 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="129" column="6" bodyfile="src/berlekamp_modular.cpp" bodystart="129" bodyend="166" declfile="src/internal/berlekamp_support.hpp" declline="7" declcolumn="6"/>
+        <references refid="de/dde/namespaceLMCAS_1a7dccbfd0287cc3683a03a0bbe12c7fb4" compoundref="d9/da7/vector__calculus__curves_8hpp" startline="50">LMCAS::a</references>
+        <references refid="de/dde/namespaceLMCAS_1a59661c3dfa48637904307fa1ab72da90" compoundref="db/d8c/multivariate__factor_8hpp" startline="92">LMCAS::b</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a14b59ff5d8768d22e068f51bc653c68e" compoundref="df/dfd/berlekamp__modular_8cpp" startline="111" endline="115">bk_mod_inverse</references>
+        <references refid="de/dde/namespaceLMCAS_1a1c317675aa8095f5311d2cf0aa8fe907" compoundref="d7/ddb/symbolic__complex_8hpp" startline="209">LMCAS::r</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" compoundref="df/dfd/berlekamp__modular_8cpp" startline="179" endline="199">bk_gcd_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a5972deac2e54c84863ecff3c1385384f" compoundref="d1/d29/berlekamp__basis_8cpp" startline="17" endline="41">bk_poly_mul_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1aa8b341c13c951f5fc9c9eb0e8130dfdd" compoundref="d1/d29/berlekamp__basis_8cpp" startline="55" endline="90">bk_poly_pow_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a0284daf2973f92998fdb65ed6a5d4fa4" compoundref="d2/def/berlekamp__split_8cpp" startline="7" endline="38">bk_split_one_factor</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a300599cb55e984b7e7377be5ffe156d6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void LMCAS::berlekamp_detail::bk_eliminate_column</definition>
+        <argsstring>(std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;matrix, int current_row, int col, int64_t p)</argsstring>
+        <name>bk_eliminate_column</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_eliminate_column</qualifiedname>
+        <param>
+          <type>std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;</type>
+          <declname>matrix</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>current_row</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>col</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_basis.cpp" line="138" column="13" bodyfile="src/berlekamp_basis.cpp" bodystart="138" bodyend="154"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a300599cb55e984b7e7377be5ffe156d6" compoundref="d1/d29/berlekamp__basis_8cpp" startline="138" endline="154">bk_eliminate_column</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a14b59ff5d8768d22e068f51bc653c68e" compoundref="df/dfd/berlekamp__modular_8cpp" startline="111" endline="115">bk_mod_inverse</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a300599cb55e984b7e7377be5ffe156d6" compoundref="d1/d29/berlekamp__basis_8cpp" startline="138" endline="154">bk_eliminate_column</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a99da80f9ed6edd9d9525f5b43485b3c8" compoundref="d1/d29/berlekamp__basis_8cpp" startline="156" endline="182">bk_reduce_matrix</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int64_t &gt;</type>
+        <definition>std::vector&lt; int64_t &gt; LMCAS::berlekamp_detail::bk_gcd_mod</definition>
+        <argsstring>(std::vector&lt; int64_t &gt; a, std::vector&lt; int64_t &gt; b, int64_t p)</argsstring>
+        <name>bk_gcd_mod</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_gcd_mod</qualifiedname>
+        <param>
+          <type>std::vector&lt; int64_t &gt;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int64_t &gt;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>计算两个模 p 多项式的最大公因式. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>使用欧几里得算法.结果为首一多项式.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>第一个多项式系数向量 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>第二个多项式系数向量 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>gcd(a, b) 的首一化系数向量 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="179" column="13" bodyfile="src/berlekamp_modular.cpp" bodystart="179" bodyend="199" declfile="src/internal/berlekamp_support.hpp" declline="9" declcolumn="13"/>
+        <references refid="de/dde/namespaceLMCAS_1a7dccbfd0287cc3683a03a0bbe12c7fb4" compoundref="d9/da7/vector__calculus__curves_8hpp" startline="50">LMCAS::a</references>
+        <references refid="de/dde/namespaceLMCAS_1a59661c3dfa48637904307fa1ab72da90" compoundref="db/d8c/multivariate__factor_8hpp" startline="92">LMCAS::b</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" compoundref="df/dfd/berlekamp__modular_8cpp" startline="179" endline="199">bk_gcd_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a14b59ff5d8768d22e068f51bc653c68e" compoundref="df/dfd/berlekamp__modular_8cpp" startline="111" endline="115">bk_mod_inverse</references>
+        <references refid="de/dde/namespaceLMCAS_1a38d748e2d755ff24e53bfa095543bb59" compoundref="d6/d83/vector__calculus__vectors_8hpp" startline="60">LMCAS::c</references>
+        <references refid="de/dde/namespaceLMCAS_1a1c317675aa8095f5311d2cf0aa8fe907" compoundref="d7/ddb/symbolic__complex_8hpp" startline="209">LMCAS::r</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" compoundref="df/dfd/berlekamp__modular_8cpp" startline="179" endline="199">bk_gcd_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a1633bd70886262240ba740b1a6b1023d" compoundref="df/dfd/berlekamp__modular_8cpp" startline="211" endline="222">bk_is_square_free_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a0284daf2973f92998fdb65ed6a5d4fa4" compoundref="d2/def/berlekamp__split_8cpp" startline="7" endline="38">bk_split_one_factor</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a1633bd70886262240ba740b1a6b1023d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool LMCAS::berlekamp_detail::bk_is_square_free_mod</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;f, int64_t p)</argsstring>
+        <name>bk_is_square_free_mod</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_is_square_free_mod</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>检查模 p 多项式是否为 无平方因子. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>多项式 f 在 F_p 上 无平方因子 当且仅当 gcd(f, f&apos;) 的次数为 0.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>模 p 系数向量 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>f 为 无平方因子 返回 true </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="211" column="13" bodyfile="src/berlekamp_modular.cpp" bodystart="211" bodyend="222"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ac59d9d8093acec19228ca0415ac1bdd7" compoundref="df/dfd/berlekamp__modular_8cpp" startline="76" endline="99">bk_derivative_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" compoundref="df/dfd/berlekamp__modular_8cpp" startline="179" endline="199">bk_gcd_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a1633bd70886262240ba740b1a6b1023d" compoundref="df/dfd/berlekamp__modular_8cpp" startline="211" endline="222">bk_is_square_free_mod</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a1633bd70886262240ba740b1a6b1023d" compoundref="df/dfd/berlekamp__modular_8cpp" startline="211" endline="222">bk_is_square_free_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a47986bd1e919ba805147bbf8b8c2ae3f" compoundref="df/dfd/berlekamp__modular_8cpp" startline="235" endline="250">bk_is_suitable_prime</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a47986bd1e919ba805147bbf8b8c2ae3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool LMCAS::berlekamp_detail::bk_is_suitable_prime</definition>
+        <argsstring>(const Polynomial&lt; Rational &gt; &amp;poly, int64_t prime)</argsstring>
+        <name>bk_is_suitable_prime</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_is_suitable_prime</qualifiedname>
+        <param>
+          <type>const <ref refid="d6/da1/classLMCAS_1_1Polynomial" kindref="compound">Polynomial</ref>&lt; Rational &gt; &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>prime</declname>
+        </param>
+        <briefdescription>
+<para>判断素数是否保持多项式次数和无平方性质。 </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Berlekamp 分解要求模约化仍位于同一次数的多项式环中，并且 gcd(f mod p, f&apos; mod p) 为常数。显式和自动素数选择共用此检查。</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">poly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>非零有理系数多项式，次数 &gt;= 1。 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">prime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>候选模数。 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>候选为内核支持的素数且满足分解前置条件时返回 true。 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="235" column="6" bodyfile="src/berlekamp_modular.cpp" bodystart="235" bodyend="250" declfile="src/internal/berlekamp_support.hpp" declline="10" declcolumn="6"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a1633bd70886262240ba740b1a6b1023d" compoundref="df/dfd/berlekamp__modular_8cpp" startline="211" endline="222">bk_is_square_free_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a47986bd1e919ba805147bbf8b8c2ae3f" compoundref="df/dfd/berlekamp__modular_8cpp" startline="235" endline="250">bk_is_suitable_prime</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1abcf746780dac5a37ac4e044a49c05ecc" compoundref="df/dfd/berlekamp__modular_8cpp" startline="29" endline="66">bk_reduce_to_mod_coeffs</references>
+        <references refid="d6/da1/classLMCAS_1_1Polynomial_1ab3d519d12f4401c407dbc634be9234b0" compoundref="d0/d3e/polynomial_8hpp" startline="100" endline="103">LMCAS::Polynomial&lt; CoeffType &gt;::degree</references>
+        <references refid="d6/da1/classLMCAS_1_1Polynomial_1a4dbc3a645bd5a00b4bb3d4ca5b833c4b" compoundref="d0/d3e/polynomial_8hpp" startline="92" endline="94">LMCAS::Polynomial&lt; CoeffType &gt;::is_zero</references>
+        <references refid="de/dde/namespaceLMCAS_1ab9fe1e3443d0f83d0d616477828453e5" compoundref="d0/dbe/exact__factorization_8hpp" startline="38">LMCAS::prime</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a47986bd1e919ba805147bbf8b8c2ae3f" compoundref="df/dfd/berlekamp__modular_8cpp" startline="235" endline="250">bk_is_suitable_prime</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1af7fa41b26b5ae709bdf53b639b7d0efa" compoundref="df/dfd/berlekamp__modular_8cpp" startline="258" endline="268">bk_select_prime</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a14b59ff5d8768d22e068f51bc653c68e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t LMCAS::berlekamp_detail::bk_mod_inverse</definition>
+        <argsstring>(int64_t a, int64_t p)</argsstring>
+        <name>bk_mod_inverse</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_mod_inverse</qualifiedname>
+        <param>
+          <type>int64_t</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>模 p 下求乘法逆元. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>使用扩展欧几里得算法计算 a^(-1) mod p.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>待求逆的值(非零) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a 在模 p 下的逆元 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="111" column="9" bodyfile="src/berlekamp_modular.cpp" bodystart="111" bodyend="115" declfile="src/internal/berlekamp_support.hpp" declline="6" declcolumn="9"/>
+        <references refid="de/dde/namespaceLMCAS_1a7dccbfd0287cc3683a03a0bbe12c7fb4" compoundref="d9/da7/vector__calculus__curves_8hpp" startline="50">LMCAS::a</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a14b59ff5d8768d22e068f51bc653c68e" compoundref="df/dfd/berlekamp__modular_8cpp" startline="111" endline="115">bk_mod_inverse</references>
+        <references refid="de/dde/namespaceLMCAS_1af9b9e47e5e880f1e9510030f12292489" compoundref="d6/d47/modular__arithmetic_8hpp" startline="55" endline="93">LMCAS::extended_gcd</references>
+        <references refid="de/dde/namespaceLMCAS_1add496c36e523f713181287a661c39bb6" compoundref="d9/da7/vector__calculus__curves_8hpp" startline="50">LMCAS::t</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a300599cb55e984b7e7377be5ffe156d6" compoundref="d1/d29/berlekamp__basis_8cpp" startline="138" endline="154">bk_eliminate_column</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" compoundref="df/dfd/berlekamp__modular_8cpp" startline="179" endline="199">bk_gcd_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a14b59ff5d8768d22e068f51bc653c68e" compoundref="df/dfd/berlekamp__modular_8cpp" startline="111" endline="115">bk_mod_inverse</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a713247620895da03c4081886fcb184fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int64_t &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int64_t &gt; &gt; LMCAS::berlekamp_detail::bk_null_space</definition>
+        <argsstring>(const std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;Q, int64_t p)</argsstring>
+        <name>bk_null_space</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_null_space</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; 当前自由变量取 1，其余自由变量取 0。</para>
+<para>由行简化阶梯形回代约束分量。 M[row][pc] = 1，故 x[pc] + sum_{自由列 j} M[row][j] * x[j] = 0， 当前基向量满足 x[pc] = -M[row][col] mod p。</para>
+        </inbodydescription>
+        <location file="src/berlekamp_basis.cpp" line="184" column="13" bodyfile="src/berlekamp_basis.cpp" bodystart="184" bodyend="231" declfile="src/internal/berlekamp_support.hpp" declline="13" declcolumn="13"/>
+        <references refid="de/dde/namespaceLMCAS_1aaca47cafbef90d44e0a55bdcefdde2a5" compoundref="df/d77/fglm_8hpp" startline="102">LMCAS::basis</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a713247620895da03c4081886fcb184fe" compoundref="d1/d29/berlekamp__basis_8cpp" startline="184" endline="231">bk_null_space</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a99da80f9ed6edd9d9525f5b43485b3c8" compoundref="d1/d29/berlekamp__basis_8cpp" startline="156" endline="182">bk_reduce_matrix</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a713247620895da03c4081886fcb184fe" compoundref="d1/d29/berlekamp__basis_8cpp" startline="184" endline="231">bk_null_space</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a5972deac2e54c84863ecff3c1385384f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int64_t &gt;</type>
+        <definition>static std::vector&lt; int64_t &gt; LMCAS::berlekamp_detail::bk_poly_mul_mod</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;a, const std::vector&lt; int64_t &gt; &amp;b, const std::vector&lt; int64_t &gt; &amp;f, int64_t p)</argsstring>
+        <name>bk_poly_mul_mod</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_poly_mul_mod</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>在 F_p 上计算 <ref refid="de/dde/namespaceLMCAS_1a7dccbfd0287cc3683a03a0bbe12c7fb4" kindref="member">a(x)</ref> * <ref refid="de/dde/namespaceLMCAS_1a59661c3dfa48637904307fa1ab72da90" kindref="member">b(x)</ref> mod f(x)。 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>第一个多项式系数向量(升幂排列) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>第二个多项式系数向量(升幂排列) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>模多项式系数向量(首一,升幂排列) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a * b mod f 的系数向量 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_basis.cpp" line="17" column="20" bodyfile="src/berlekamp_basis.cpp" bodystart="17" bodyend="41"/>
+        <references refid="de/dde/namespaceLMCAS_1a7dccbfd0287cc3683a03a0bbe12c7fb4" compoundref="d9/da7/vector__calculus__curves_8hpp" startline="50">LMCAS::a</references>
+        <references refid="de/dde/namespaceLMCAS_1a59661c3dfa48637904307fa1ab72da90" compoundref="db/d8c/multivariate__factor_8hpp" startline="92">LMCAS::b</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a5972deac2e54c84863ecff3c1385384f" compoundref="d1/d29/berlekamp__basis_8cpp" startline="17" endline="41">bk_poly_mul_mod</references>
+        <references refid="de/dde/namespaceLMCAS_1a1c317675aa8095f5311d2cf0aa8fe907" compoundref="d7/ddb/symbolic__complex_8hpp" startline="209">LMCAS::r</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23f76d1acfc56e16045cd3f6fc964878" compoundref="d1/d29/berlekamp__basis_8cpp" startline="106" endline="136">bk_build_q_matrix</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a5972deac2e54c84863ecff3c1385384f" compoundref="d1/d29/berlekamp__basis_8cpp" startline="17" endline="41">bk_poly_mul_mod</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1aa8b341c13c951f5fc9c9eb0e8130dfdd" compoundref="d1/d29/berlekamp__basis_8cpp" startline="55" endline="90">bk_poly_pow_mod</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1aa8b341c13c951f5fc9c9eb0e8130dfdd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int64_t &gt;</type>
+        <definition>static std::vector&lt; int64_t &gt; LMCAS::berlekamp_detail::bk_poly_pow_mod</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;base, int64_t exp, const std::vector&lt; int64_t &gt; &amp;f, int64_t p)</argsstring>
+        <name>bk_poly_pow_mod</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_poly_pow_mod</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>exp</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>在 F_p 上用平方乘法计算 base^exp mod f(x)。 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>底多项式系数向量(升幂排列) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>指数(非负整数) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>模多项式系数向量(首一,升幂排列) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>base^exp mod f 的系数向量</para>
+</simplesect>
+<simplesect kind="see"><para>Berlekamp, E.R. &quot;Factoring polynomials over finite fields.&quot; </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_basis.cpp" line="55" column="20" bodyfile="src/berlekamp_basis.cpp" bodystart="55" bodyend="90"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a5972deac2e54c84863ecff3c1385384f" compoundref="d1/d29/berlekamp__basis_8cpp" startline="17" endline="41">bk_poly_mul_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1aa8b341c13c951f5fc9c9eb0e8130dfdd" compoundref="d1/d29/berlekamp__basis_8cpp" startline="55" endline="90">bk_poly_pow_mod</references>
+        <references refid="de/dde/namespaceLMCAS_1a18bbc705e72f8d73adf9373be956fec1" compoundref="da/dd5/expr__values_8cpp" startline="112" endline="114">LMCAS::e</references>
+        <references refid="de/dde/namespaceLMCAS_1a10c4ab5ffde0413da8575c5bcb552d82" compoundref="dc/d8c/expr__elementary_8cpp" startline="110" endline="115">LMCAS::exp</references>
+        <references refid="de/dde/namespaceLMCAS_1a1c317675aa8095f5311d2cf0aa8fe907" compoundref="d7/ddb/symbolic__complex_8hpp" startline="209">LMCAS::r</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23f76d1acfc56e16045cd3f6fc964878" compoundref="d1/d29/berlekamp__basis_8cpp" startline="106" endline="136">bk_build_q_matrix</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1aa8b341c13c951f5fc9c9eb0e8130dfdd" compoundref="d1/d29/berlekamp__basis_8cpp" startline="55" endline="90">bk_poly_pow_mod</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a99da80f9ed6edd9d9525f5b43485b3c8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void LMCAS::berlekamp_detail::bk_reduce_matrix</definition>
+        <argsstring>(std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;M, int64_t p, std::vector&lt; int &gt; &amp;pivot_col, std::vector&lt; int &gt; &amp;pivot_row)</argsstring>
+        <name>bk_reduce_matrix</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_reduce_matrix</qualifiedname>
+        <param>
+          <type>std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt; &amp;</type>
+          <declname>pivot_col</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt; &amp;</type>
+          <declname>pivot_row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_basis.cpp" line="156" column="13" bodyfile="src/berlekamp_basis.cpp" bodystart="156" bodyend="182"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a300599cb55e984b7e7377be5ffe156d6" compoundref="d1/d29/berlekamp__basis_8cpp" startline="138" endline="154">bk_eliminate_column</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a99da80f9ed6edd9d9525f5b43485b3c8" compoundref="d1/d29/berlekamp__basis_8cpp" startline="156" endline="182">bk_reduce_matrix</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a713247620895da03c4081886fcb184fe" compoundref="d1/d29/berlekamp__basis_8cpp" startline="184" endline="231">bk_null_space</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a99da80f9ed6edd9d9525f5b43485b3c8" compoundref="d1/d29/berlekamp__basis_8cpp" startline="156" endline="182">bk_reduce_matrix</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1abcf746780dac5a37ac4e044a49c05ecc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int64_t &gt;</type>
+        <definition>std::vector&lt; int64_t &gt; LMCAS::berlekamp_detail::bk_reduce_to_mod_coeffs</definition>
+        <argsstring>(const Polynomial&lt; Rational &gt; &amp;poly, int64_t p)</argsstring>
+        <name>bk_reduce_to_mod_coeffs</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_reduce_to_mod_coeffs</qualifiedname>
+        <param>
+          <type>const <ref refid="d6/da1/classLMCAS_1_1Polynomial" kindref="compound">Polynomial</ref>&lt; Rational &gt; &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>以系数分母的 LCM 清除分母，再逐项取模 p。 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">poly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>有理系数多项式 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>素数模数 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>升幂排列的模 p 系数向量，去除高次零系数。 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="29" column="13" bodyfile="src/berlekamp_modular.cpp" bodystart="29" bodyend="66" declfile="src/internal/berlekamp_support.hpp" declline="5" declcolumn="13"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1abcf746780dac5a37ac4e044a49c05ecc" compoundref="df/dfd/berlekamp__modular_8cpp" startline="29" endline="66">bk_reduce_to_mod_coeffs</references>
+        <references refid="de/dde/namespaceLMCAS_1a38d748e2d755ff24e53bfa095543bb59" compoundref="d6/d83/vector__calculus__vectors_8hpp" startline="60">LMCAS::c</references>
+        <references refid="d6/da1/classLMCAS_1_1Polynomial_1a60e9be25be1238851163302d0ef91c18" compoundref="d0/d3e/polynomial_8hpp" startline="55">LMCAS::Polynomial&lt; CoeffType &gt;::coeffs</references>
+        <references refid="d6/da1/classLMCAS_1_1Polynomial_1a4dbc3a645bd5a00b4bb3d4ca5b833c4b" compoundref="d0/d3e/polynomial_8hpp" startline="92" endline="94">LMCAS::Polynomial&lt; CoeffType &gt;::is_zero</references>
+        <references refid="db/d96/namespaceLMCAS_1_1polynomial__solver__detail_1a174dd01cc4ebee44ff38a5a80bd92bc4" compoundref="d4/d56/solve__polynomial__normalization_8cpp" startline="24" endline="24">LMCAS::polynomial_solver_detail::num</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a47986bd1e919ba805147bbf8b8c2ae3f" compoundref="df/dfd/berlekamp__modular_8cpp" startline="235" endline="250">bk_is_suitable_prime</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1abcf746780dac5a37ac4e044a49c05ecc" compoundref="df/dfd/berlekamp__modular_8cpp" startline="29" endline="66">bk_reduce_to_mod_coeffs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1af7fa41b26b5ae709bdf53b639b7d0efa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t LMCAS::berlekamp_detail::bk_select_prime</definition>
+        <argsstring>(const Polynomial&lt; Rational &gt; &amp;poly)</argsstring>
+        <name>bk_select_prime</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_select_prime</qualifiedname>
+        <param>
+          <type>const <ref refid="d6/da1/classLMCAS_1_1Polynomial" kindref="compound">Polynomial</ref>&lt; Rational &gt; &amp;</type>
+          <declname>poly</declname>
+        </param>
+        <briefdescription>
+<para>从小素数表中选取适合 Berlekamp 分解的素数。 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">poly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>非零有理系数多项式，次数 &gt;= 1。 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>首个合适的素数 p；候选均不满足时返回 -1。 </para>
+</simplesect>
+</para>
+<internal></internal>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_modular.cpp" line="258" column="9" bodyfile="src/berlekamp_modular.cpp" bodystart="258" bodyend="268" declfile="src/internal/berlekamp_support.hpp" declline="11" declcolumn="9"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a47986bd1e919ba805147bbf8b8c2ae3f" compoundref="df/dfd/berlekamp__modular_8cpp" startline="235" endline="250">bk_is_suitable_prime</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a23108953f575a7e7547599a7bb8b8a63" compoundref="df/dfd/berlekamp__modular_8cpp" startline="19">BK_NUM_SMALL_PRIMES</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1af7fa41b26b5ae709bdf53b639b7d0efa" compoundref="df/dfd/berlekamp__modular_8cpp" startline="258" endline="268">bk_select_prime</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a17599dec003a4ce3e18fc22dcf36c437" compoundref="df/dfd/berlekamp__modular_8cpp" startline="12" endline="18">BK_SMALL_PRIMES</references>
+        <references refid="d6/da1/classLMCAS_1_1Polynomial_1ab3d519d12f4401c407dbc634be9234b0" compoundref="d0/d3e/polynomial_8hpp" startline="100" endline="103">LMCAS::Polynomial&lt; CoeffType &gt;::degree</references>
+        <references refid="d6/da1/classLMCAS_1_1Polynomial_1a4dbc3a645bd5a00b4bb3d4ca5b833c4b" compoundref="d0/d3e/polynomial_8hpp" startline="92" endline="94">LMCAS::Polynomial&lt; CoeffType &gt;::is_zero</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1af7fa41b26b5ae709bdf53b639b7d0efa" compoundref="df/dfd/berlekamp__modular_8cpp" startline="258" endline="268">bk_select_prime</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ab15a7e94ea88073dc9f05654173278ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int64_t &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int64_t &gt; &gt; LMCAS::berlekamp_detail::bk_split_factors</definition>
+        <argsstring>(const std::vector&lt; int64_t &gt; &amp;f_coeffs, const std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;null_basis, int null_dim, int64_t p)</argsstring>
+        <name>bk_split_factors</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_split_factors</qualifiedname>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>f_coeffs</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;</type>
+          <declname>null_basis</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>null_dim</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_split.cpp" line="40" column="13" bodyfile="src/berlekamp_split.cpp" bodystart="40" bodyend="75" declfile="src/internal/berlekamp_support.hpp" declline="15" declcolumn="13"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ab15a7e94ea88073dc9f05654173278ba" compoundref="d2/def/berlekamp__split_8cpp" startline="40" endline="75">bk_split_factors</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a0284daf2973f92998fdb65ed6a5d4fa4" compoundref="d2/def/berlekamp__split_8cpp" startline="7" endline="38">bk_split_one_factor</references>
+        <referencedby refid="de/dde/namespaceLMCAS_1a4ba124e907d185c441d7061d6cd17632" compoundref="dc/df2/berlekamp_8cpp" startline="31" endline="100">LMCAS::berlekamp_factor</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ab15a7e94ea88073dc9f05654173278ba" compoundref="d2/def/berlekamp__split_8cpp" startline="40" endline="75">bk_split_factors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a0284daf2973f92998fdb65ed6a5d4fa4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool LMCAS::berlekamp_detail::bk_split_one_factor</definition>
+        <argsstring>(std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;factor_list, size_t fi, const std::vector&lt; int64_t &gt; &amp;v_poly, int null_dim, int64_t p)</argsstring>
+        <name>bk_split_one_factor</name>
+        <qualifiedname>LMCAS::berlekamp_detail::bk_split_one_factor</qualifiedname>
+        <param>
+          <type>std::vector&lt; std::vector&lt; int64_t &gt; &gt; &amp;</type>
+          <declname>factor_list</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>fi</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int64_t &gt; &amp;</type>
+          <declname>v_poly</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>null_dim</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/berlekamp_split.cpp" line="7" column="13" bodyfile="src/berlekamp_split.cpp" bodystart="7" bodyend="38"/>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a4294e7d6c0e3050a7693691dd17b077a" compoundref="df/dfd/berlekamp__modular_8cpp" startline="129" endline="166">bk_div_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a367c5a8c0e418d717a1785802668ad04" compoundref="df/dfd/berlekamp__modular_8cpp" startline="179" endline="199">bk_gcd_mod</references>
+        <references refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a0284daf2973f92998fdb65ed6a5d4fa4" compoundref="d2/def/berlekamp__split_8cpp" startline="7" endline="38">bk_split_one_factor</references>
+        <references refid="de/dde/namespaceLMCAS_1a38d748e2d755ff24e53bfa095543bb59" compoundref="d6/d83/vector__calculus__vectors_8hpp" startline="60">LMCAS::c</references>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1ab15a7e94ea88073dc9f05654173278ba" compoundref="d2/def/berlekamp__split_8cpp" startline="40" endline="75">bk_split_factors</referencedby>
+        <referencedby refid="d3/d24/namespaceLMCAS_1_1berlekamp__detail_1a0284daf2973f92998fdb65ed6a5d4fa4" compoundref="d2/def/berlekamp__split_8cpp" startline="7" endline="38">bk_split_one_factor</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/berlekamp_basis.cpp" line="5" column="1"/>
+  </compounddef>
+</doxygen>

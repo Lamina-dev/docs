@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/exact_rational_determinant.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('dd/df0/exact__rational__determinant_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">exact_rational_determinant.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../dd/df0/exact__rational__determinant_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/d98/exact__rational__matrix_8hpp.html">internal/exact_rational_matrix.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;new&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d98/namespaceLMCAS_1_1detail.html">LMCAS::detail</a> {</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a90a8e44a9b80e5c159de2889929dd0c1">    8</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Rational&gt;</a> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a90a8e44a9b80e5c159de2889929dd0c1">rational_determinant_value_impl</a>(</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    std::size_t dimension,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    std::vector&lt;Rational&gt; values,</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">if</span> (dimension == 0 ||</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        dimension &gt; std::numeric_limits&lt;std::size_t&gt;::max() / dimension ||</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        values.size() != dimension * dimension) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Rational&gt;::failure</a>(</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b">CasErrc::InvalidArgument</a>,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="stringliteral">&quot;rational determinant storage does not match its dimension&quot;</span>,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    Rational sign(1);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    Rational previous(1);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">if</span> (dimension == 1) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;Rational&gt;::success</a>(values[0]);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (std::size_t pivot_column = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>         pivot_column + 1 &lt; dimension; ++pivot_column) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">auto</span> budget = <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>.consume_steps(1, <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">if</span> (!budget) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Rational&gt;::failure</a>(budget.error());</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::size_t pivot_row = pivot_column;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">while</span> (pivot_row &lt; dimension &amp;&amp;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>               values[pivot_row * dimension + pivot_column] == Rational(0)) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            ++pivot_row;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">if</span> (pivot_row == dimension) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;Rational&gt;::success</a>(Rational(0));</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (pivot_row != pivot_column) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">for</span> (std::size_t column = 0; column &lt; dimension; ++column) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                std::swap(values[pivot_row * dimension + column],</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                          values[pivot_column * dimension + column]);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            sign = -sign;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keyword">const</span> Rational pivot =</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            values[pivot_column * dimension + pivot_column];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">for</span> (std::size_t row = pivot_column + 1; row &lt; dimension; ++row) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">for</span> (std::size_t column = pivot_column + 1;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                 column &lt; dimension; ++column) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                values[row * dimension + column] =</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    (values[row * dimension + column] * pivot -</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                     values[row * dimension + pivot_column] *</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                         values[pivot_column * dimension + column]) /</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                    previous;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            values[row * dimension + pivot_column] = Rational(0);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        previous = pivot;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;Rational&gt;::success</a>(</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        sign * values[(dimension - 1) * dimension + (dimension - 1)]);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a992e94bc22f617ee2c34ea7f91b740fc">   62</a></span><a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;Rational&gt;</a> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a992e94bc22f617ee2c34ea7f91b740fc">rational_determinant_exact</a>(</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::size_t dimension,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::vector&lt;Rational&gt; values,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a90a8e44a9b80e5c159de2889929dd0c1">rational_determinant_value_impl</a>(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            dimension, std::move(values), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">context</a>, <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::bad_alloc&amp;) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Rational&gt;::failure</a>(</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="stringliteral">&quot;rational determinant allocation failed&quot;</span>,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; error) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;Rational&gt;::failure</a>(</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>, error.what(), <a class="code hl_variable" href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">operation</a>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a77c48ece6590b662504d03418f6418d1"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">LMCAS::Result::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_aed8c44db6ca780c206439cb8c46226dc"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">LMCAS::Result::success</a></div><div class="ttdeci">static Result success(T value)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00048">result.hpp:48</a></div></div>
+<div class="ttc" id="aexact__rational__matrix_8hpp_html"><div class="ttname"><a href="../../dc/d98/exact__rational__matrix_8hpp.html">exact_rational_matrix.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html">LMCAS::detail</a></div><div class="ttdoc">多元 Hensel 提升（单变量步）</div><div class="ttdef"><b>定义</b> <a href="../../d4/d10/assumption__context_8hpp_source.html#l00031">assumption_context.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a90a8e44a9b80e5c159de2889929dd0c1"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a90a8e44a9b80e5c159de2889929dd0c1">LMCAS::detail::rational_determinant_value_impl</a></div><div class="ttdeci">Result&lt; Rational &gt; rational_determinant_value_impl(std::size_t dimension, std::vector&lt; Rational &gt; values, ComputationContext &amp;context, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="#l00008">exact_rational_determinant.cpp:8</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a992e94bc22f617ee2c34ea7f91b740fc"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a992e94bc22f617ee2c34ea7f91b740fc">LMCAS::detail::rational_determinant_exact</a></div><div class="ttdeci">Result&lt; Rational &gt; rational_determinant_exact(std::size_t dimension, std::vector&lt; Rational &gt; values, ComputationContext &amp;context, const std::string &amp;operation)</div><div class="ttdef"><b>定义</b> <a href="#l00062">exact_rational_determinant.cpp:62</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_aa5496ed12db87cc4d3170a998230fb21"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#aa5496ed12db87cc4d3170a998230fb21">LMCAS::detail::operation</a></div><div class="ttdeci">ComputationContext const std::string &amp; operation</div><div class="ttdef"><b>定义</b> <a href="../../db/dab/exact__algebraic_8hpp_source.html#l00032">exact_algebraic.hpp:32</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_ac31f70aafceaef5928d54d52b97c7389"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#ac31f70aafceaef5928d54d52b97c7389">LMCAS::detail::context</a></div><div class="ttdeci">std::size_t std::size_t ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../db/dab/exact__algebraic_8hpp_source.html#l00027">exact_algebraic.hpp:27</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a253ca7dd096ee0956cccee4d376cab8b">LMCAS::CasErrc::InvalidArgument</a></div><div class="ttdeci">@ InvalidArgument</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00013">result.hpp:13</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">LMCAS::CasErrc::InternalInvariant</a></div><div class="ttdeci">@ InternalInvariant</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00028">result.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">LMCAS::CasErrc::ResourceLimit</a></div><div class="ttdeci">@ ResourceLimit</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00025">result.hpp:25</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dd/df0/exact__rational__determinant_8cpp.html">exact_rational_determinant.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

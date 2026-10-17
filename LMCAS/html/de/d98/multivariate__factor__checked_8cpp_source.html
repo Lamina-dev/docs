@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMCAS: src/multivariate_factor_checked.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMCAS
+   </div>
+   <div id="projectbrief">Lamina Computer Algebra System</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('de/d98/multivariate__factor__checked_8cpp_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">multivariate_factor_checked.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../de/d98/multivariate__factor__checked_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/da2/multivariate__factor__checked__support_8hpp.html">internal/multivariate_factor_checked_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d05/multivariate__factor__support_8hpp.html">internal/multivariate_factor_support.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;new&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/dde/namespaceLMCAS.html">LMCAS</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html">multivariate_checked_detail</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#abb9d83cca87a16f46a64abf4ce25f230">   12</a></span><span class="keyword">static</span> <a class="code hl_class" href="../../dc/df3/classLMCAS_1_1Result.html">Result&lt;void&gt;</a> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#abb9d83cca87a16f46a64abf4ce25f230">append_primitive_factor</a>(<a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d4/da7/structLMCAS_1_1MultiFactorResult">MultiFactorResult</a>&amp; result,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                                           <span class="keyword">const</span> MultiPoly&amp; raw, <span class="keywordtype">int</span> multiplicity) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">if</span> (multiplicity &lt;= 0) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">Result&lt;void&gt;::failure</a>(<a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="stringliteral">&quot;因子重数必须为正&quot;</span>, <span class="stringliteral">&quot;factor_multivariate&quot;</span>);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    }</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (raw.is_zero() || raw.is_constant()) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    MultiPoly factor = raw.make_primitive();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (!factor.terms().empty() &amp;&amp; factor.terms()[0].second &lt; Rational(0)) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        factor = factor * Rational(-1);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">auto</span> existing = std::find(result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>.begin(), result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>.end(), factor);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (existing == result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>.end()) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>.push_back(std::move(factor));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#afde10b34d860115fd68567f62e7e172a">multiplicities</a>.push_back(multiplicity);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">const</span> <span class="keyword">auto</span> index = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(existing - result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>.begin());</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#afde10b34d860115fd68567f62e7e172a">multiplicities</a>[index] += multiplicity;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">Result&lt;void&gt;::success</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">   34</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> MultiPoly&amp; original,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> std::vector&lt;MultiPoly&gt;&amp; raw_factors,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> std::vector&lt;int&gt;&amp; raw_multiplicities,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_enumeration" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055df">Completeness</a> completeness,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    std::string reason)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* operation = <span class="stringliteral">&quot;factor_multivariate&quot;</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (original.is_zero()) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">if</span> (!raw_factors.empty()) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>, <span class="stringliteral">&quot;零多项式收到非空因子列表&quot;</span>, operation);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">MultiFactorCheckedResult::success</a>(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d4/d37/structLMCAS_1_1MathResult">MathResult&lt;MultiFactorResult&gt;</a>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d4/da7/structLMCAS_1_1MultiFactorResult">MultiFactorResult</a>{Rational(0), {}, {}},</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                completeness, std::move(reason)});</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d4/da7/structLMCAS_1_1MultiFactorResult">MultiFactorResult</a> result;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; raw_factors.size(); ++i) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> multiplicity = i &lt; raw_multiplicities.size() ? raw_multiplicities[i] : 1;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">auto</span> appended = <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#abb9d83cca87a16f46a64abf4ce25f230">append_primitive_factor</a>(result, raw_factors[i], multiplicity);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (!appended) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(appended.error());</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    MultiPoly product(Rational(1), original.variables());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>.size(); ++i) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> power = 0; power &lt; result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#afde10b34d860115fd68567f62e7e172a">multiplicities</a>[i]; ++power) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            product = product * result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">factors</a>[i];</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    MultiPoly quotient = original.exact_div(product);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> (!quotient.is_constant() || quotient.terms().empty()) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="stringliteral">&quot;因子乘积与输入只差常数的不变量失效&quot;</span>, operation);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ae329ccb980304b055f201c4a67eceb6b">constant</a> = quotient.terms()[0].second;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">if</span> (product * result.<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#ae329ccb980304b055f201c4a67eceb6b">constant</a> != original) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>, <span class="stringliteral">&quot;最终因子未精确重构输入&quot;</span>, operation);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">MultiFactorCheckedResult::success</a>(</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_struct" href="../../de/dde/namespaceLMCAS.html#d4/d37/structLMCAS_1_1MathResult">MathResult&lt;MultiFactorResult&gt;</a>{</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            std::move(result), completeness, std::move(reason)});</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html">   83</a></span><span class="keyword">namespace </span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html">multivariate_checked_detail</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="};">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html">   86</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html">FactorRecursionGuard</a> {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#ab4c0f914786b92ccfeb0a44b513c3e13">   87</a></span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#ab4c0f914786b92ccfeb0a44b513c3e13">context</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#a7965ce1c89902ef108089eeeb12578da">   88</a></span>    <a class="code hl_function" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#a7965ce1c89902ef108089eeeb12578da">~FactorRecursionGuard</a>() { <a class="code hl_variable" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#ab4c0f914786b92ccfeb0a44b513c3e13">context</a>.leave_recursion(); }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>};</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a15ceb8e1f044b01acb3f8a636482eb62">   91</a></span><span class="keyword">static</span> MultiPoly <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a15ceb8e1f044b01acb3f8a636482eb62">embed_univariate_factor</a>(</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a>&amp; factor,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; variables,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">const</span> std::string&amp; main_variable)</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">size_t</span> main_index = variables.size();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; variables.size(); ++i) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">if</span> (variables[i] == main_variable) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            main_index = i;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    std::vector&lt;MultiPoly::Term&gt; terms;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> degree = 0; degree &lt; factor.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>.size(); ++degree) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span> (factor.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>[degree].is_zero()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a110fd94238f7100a8e454fd26c1d5636">Monomial</a> monomial(variables.size(), 0);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        monomial[main_index] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(degree);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        terms.emplace_back(std::move(monomial), factor.<a class="code hl_variable" href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">coeffs</a>[degree]);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> MultiPoly(std::move(terms), variables);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">static</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> factor_multivariate_impl(</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">const</span> MultiPoly&amp; poly, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a269913db1ef20a31f1c4520f07bdf5a9">  116</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a269913db1ef20a31f1c4520f07bdf5a9">factor_common_monomial</a>(</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">const</span> MultiPoly&amp; poly, <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a110fd94238f7100a8e454fd26c1d5636">Monomial</a>&amp; common_monomial,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keyword">const</span> MultiPoly&amp; quotient, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; variables = poly.variables();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">auto</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a> = <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a6ab47d1b81242caacf221b6dfd0f30de">factor_multivariate_impl</a>(quotient, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>) <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    std::vector&lt;MultiPoly&gt; factors;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    std::vector&lt;int&gt; multiplicities;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; common_monomial.size(); ++i) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">if</span> (common_monomial[i] &lt;= 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a110fd94238f7100a8e454fd26c1d5636">Monomial</a> monomial(variables.size(), 0);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        monomial[i] = 1;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        factors.emplace_back(</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            std::vector&lt;MultiPoly::Term&gt;{{monomial, Rational(1)}},</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            variables);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        multiplicities.push_back(common_monomial[i]);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">auto</span> sub_value = std::move(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>.<a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a361901f0a373e7df6cffec04fbf66b49">value</a>());</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    factors.insert(factors.end(),</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                   sub_value.value.factors.begin(),</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                   sub_value.value.factors.end());</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    multiplicities.insert(multiplicities.end(),</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                          sub_value.value.multiplicities.begin(),</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                          sub_value.value.multiplicities.end());</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        poly, factors, multiplicities, sub_value.completeness,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        std::move(sub_value.reason));</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
+</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="foldopen" id="foldopen00145" data-start="{" data-end="}">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aade4d750e62f342e6d73b7eda878a8a5">  145</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aade4d750e62f342e6d73b7eda878a8a5">factor_difference_of_squares</a>(</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">const</span> MultiPoly&amp; poly, <span class="keyword">const</span> std::pair&lt;MultiPoly, MultiPoly&gt;&amp; difference,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>) {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    std::vector&lt;MultiPoly&gt; factors;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    std::vector&lt;int&gt; multiplicities;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <a class="code hl_enumeration" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055df">Completeness</a> completeness = <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">Completeness::Complete</a>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    std::string reason;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">for</span> (MultiPoly candidate :</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>         {difference.first + difference.second,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>          difference.first - difference.second}) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keyword">auto</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a> = <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a6ab47d1b81242caacf221b6dfd0f30de">factor_multivariate_impl</a>(candidate, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>) <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keyword">auto</span> sub_value = std::move(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>.<a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a361901f0a373e7df6cffec04fbf66b49">value</a>());</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> (sub_value.completeness == <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21">Completeness::Inconclusive</a>) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            completeness = <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21">Completeness::Inconclusive</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">if</span> (reason.empty()) reason = sub_value.reason;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        factors.insert(factors.end(),</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                       sub_value.value.factors.begin(),</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                       sub_value.value.factors.end());</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        multiplicities.insert(</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            multiplicities.end(),</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            sub_value.value.multiplicities.begin(),</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            sub_value.value.multiplicities.end());</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        poly, factors, multiplicities, completeness, std::move(reason));</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aba68d03867efd54aac955e3a7dfc2bb9">  174</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aba68d03867efd54aac955e3a7dfc2bb9">factor_binomial_power</a>(</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">const</span> MultiPoly&amp; poly, <span class="keyword">const</span> MultiPoly&amp; primitive,</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keyword">const</span> std::string&amp; left_variable, <span class="keyword">const</span> std::string&amp; right_variable,</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>) {</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; variables = poly.variables();</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordtype">size_t</span> left_index = 0;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordtype">size_t</span> right_index = 0;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; variables.size(); ++i) {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">if</span> (variables[i] == left_variable) left_index = i;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keywordflow">if</span> (variables[i] == right_variable) right_index = i;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a110fd94238f7100a8e454fd26c1d5636">Monomial</a> left_monomial(variables.size(), 0);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a110fd94238f7100a8e454fd26c1d5636">Monomial</a> right_monomial(variables.size(), 0);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    left_monomial[left_index] = 1;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    right_monomial[right_index] = 1;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    MultiPoly linear(</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        std::vector&lt;MultiPoly::Term&gt;{</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            {left_monomial, Rational(1)},</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            {right_monomial, Rational(-1)}},</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        variables);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    MultiPoly remaining = primitive.exact_div(linear);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keyword">auto</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a> = <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a6ab47d1b81242caacf221b6dfd0f30de">factor_multivariate_impl</a>(remaining, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>) <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keyword">auto</span> sub_value = std::move(<a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">sub</a>.<a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a361901f0a373e7df6cffec04fbf66b49">value</a>());</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    std::vector&lt;MultiPoly&gt; factors = {linear};</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    std::vector&lt;int&gt; multiplicities = {1};</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    factors.insert(factors.end(),</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                   sub_value.value.factors.begin(),</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                   sub_value.value.factors.end());</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    multiplicities.insert(multiplicities.end(),</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                          sub_value.value.multiplicities.begin(),</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                          sub_value.value.multiplicities.end());</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        poly, factors, multiplicities, sub_value.completeness,</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        std::move(sub_value.reason));</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
+</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="foldopen" id="foldopen00211" data-start="{" data-end="}">
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#add732605ad3e96322e3f8dc4ca5efe07">  211</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#add732605ad3e96322e3f8dc4ca5efe07">factor_embedded_univariate</a>(</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keyword">const</span> MultiPoly&amp; poly, <span class="keyword">const</span> MultiPoly&amp; primitive,</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keyword">const</span> std::string&amp; main_variable, <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>) {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; variables = poly.variables();</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <a class="code hl_class" href="../../d6/da1/classLMCAS_1_1Polynomial.html">Polynomial&lt;Rational&gt;</a> univariate = primitive.to_univariate();</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keyword">auto</span> factored =</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a5d26a316126291922ae1c4199dfbb2dc">factor_univariate_bridge_checked</a>(univariate, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span> (!factored) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(factored.error());</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">auto</span> factor_value = std::move(factored.value());</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    std::vector&lt;MultiPoly&gt; factors;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    factors.reserve(factor_value.value.size());</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; factor : factor_value.value) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        factors.push_back(<a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a15ceb8e1f044b01acb3f8a636482eb62">embed_univariate_factor</a>(</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            factor, variables, main_variable));</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        poly, factors, std::vector&lt;int&gt;(factors.size(), 1),</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        factor_value.completeness, std::move(factor_value.reason));</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>}</div>
+</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="foldopen" id="foldopen00233" data-start="{" data-end="}">
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno"><a class="line" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a6ab47d1b81242caacf221b6dfd0f30de">  233</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a6ab47d1b81242caacf221b6dfd0f30de">factor_multivariate_impl</a>(</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keyword">const</span> MultiPoly&amp; poly,</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>)</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>{</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* operation = <span class="stringliteral">&quot;factor_multivariate&quot;</span>;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">auto</span> recursion = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>.enter_recursion(operation);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">if</span> (!recursion) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(recursion.error());</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <a class="code hl_struct" href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html">FactorRecursionGuard</a> recursion_guard{<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>};</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">if</span> (poly.is_zero()) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            poly, {}, {}, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">Completeness::Complete</a>, {});</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    }</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">if</span> (poly.is_constant()) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            poly, {}, {}, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">Completeness::Complete</a>, {});</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; variables = poly.variables();</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">if</span> (variables.empty()) {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>,</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            <span class="stringliteral">&quot;非常数多项式缺少变量表&quot;</span>, operation);</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    }</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    std::string main_variable = variables.front();</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a09baa59c0e381dde313fdf3755f87ceb">variable</a> : variables) {</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">if</span> (poly.degree(<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a09baa59c0e381dde313fdf3755f87ceb">variable</a>) &gt; poly.degree(main_variable)) {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            main_variable = <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a09baa59c0e381dde313fdf3755f87ceb">variable</a>;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">if</span> (poly.total_degree() &lt;= 1) {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            poly, {poly}, {1}, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">Completeness::Complete</a>, {});</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    }</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keyword">auto</span> [common_monomial, quotient] =</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1027022cdb9ebf6bc8d04c26410678a1">detail::extract_common_monomial</a>(poly);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> has_common_monomial = std::any_of(</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        common_monomial.begin(), common_monomial.end(),</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        [](<span class="keywordtype">int</span> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>) { return exponent &gt; 0; });</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">if</span> (has_common_monomial) {</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a269913db1ef20a31f1c4520f07bdf5a9">factor_common_monomial</a>(poly, common_monomial, quotient, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    }</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    MultiPoly primitive = poly.make_primitive();</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> difference = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ae910f532d0e130b3a51366277c001287">detail::detect_difference_of_squares</a>(primitive)) {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aade4d750e62f342e6d73b7eda878a8a5">factor_difference_of_squares</a>(poly, *difference, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> binomial = <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#ab5b2666731db6f16d696f5bdda763a01">detail::detect_binomial_power</a>(primitive)) {</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [left, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#aa81b2a90087d89fb94344b7946c2db15">right</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>] = *binomial;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        (void)<a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">exponent</a>;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aba68d03867efd54aac955e3a7dfc2bb9">factor_binomial_power</a>(poly, primitive, left, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#aa81b2a90087d89fb94344b7946c2db15">right</a>, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    }</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keywordflow">if</span> (primitive.is_univariate()) {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#add732605ad3e96322e3f8dc4ca5efe07">factor_embedded_univariate</a>(poly, primitive, main_variable, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    }</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keyword">auto</span> evaluated = <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#aa1f3d0545d0ef9be183eb4d931fa6df1">factor_evaluated_linear</a>(poly, primitive, main_variable, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keywordflow">if</span> (evaluated) <span class="keywordflow">return</span> std::move(*evaluated);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keyword">auto</span> homogeneous =</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <a class="code hl_function" href="../../dd/d98/namespaceLMCAS_1_1detail.html#a361d2922af812effb6bf59bcb35c9a05">detail::factor_homogeneous_bivariate</a>(primitive, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="keywordflow">if</span> (!homogeneous) {</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(homogeneous.error());</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    }</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordflow">if</span> (homogeneous.value()) {</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="keyword">auto</span>&amp; result = *homogeneous.value();</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            poly, result.factors, result.multiplicities,</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">Completeness::Complete</a>, {});</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    }</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        poly, {poly}, {1}, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21">Completeness::Inconclusive</a>,</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="stringliteral">&quot;当前受检算法无法证明该多项式不可约&quot;</span>);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>}</div>
+</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>}</div>
+</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="foldopen" id="foldopen00309" data-start="{" data-end="}">
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a55b159eb316dfe4acfdab7509565db39">  309</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a55b159eb316dfe4acfdab7509565db39">factor_multivariate_checked</a>(</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keyword">const</span> MultiPoly&amp; poly,</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a>&amp; <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>)</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>{</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <span class="keyword">auto</span> factored = factor_multivariate_impl(poly, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        <span class="keywordflow">if</span> (factored &amp;&amp; factored.value().completeness == <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21">Completeness::Inconclusive</a>) {</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">multivariate_checked_detail::assemble_checked_factorization</a>(</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                poly, {poly}, {1}, <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21">Completeness::Inconclusive</a>,</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                std::move(factored.value().reason));</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        }</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <span class="keywordflow">return</span> factored;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::bad_alloc&amp;) {</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">CasErrc::ResourceLimit</a>, <span class="stringliteral">&quot;多元分解分配失败&quot;</span>,</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            <span class="stringliteral">&quot;factor_multivariate&quot;</span>);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; error) {</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">MultiFactorCheckedResult::failure</a>(</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            <a class="code hl_enumvalue" href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">CasErrc::InternalInvariant</a>, error.what(),</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>            <span class="stringliteral">&quot;factor_multivariate&quot;</span>);</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    }</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>}</div>
+</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="foldopen" id="foldopen00332" data-start="{" data-end="}">
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="../../de/dde/namespaceLMCAS.html#a9a5766f1f882c7be588e474f36f9778f">  332</a></span><a class="code hl_typedef" href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">MultiFactorCheckedResult</a> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a55b159eb316dfe4acfdab7509565db39">factor_multivariate_checked</a>(<span class="keyword">const</span> MultiPoly&amp; poly)</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>{</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <a class="code hl_class" href="../../d1/d55/classLMCAS_1_1ComputationContext.html">ComputationContext</a> <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../de/dde/namespaceLMCAS.html#a55b159eb316dfe4acfdab7509565db39">factor_multivariate_checked</a>(poly, <a class="code hl_variable" href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">context</a>);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>}</div>
+</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>}</div>
+<div class="ttc" id="aclassLMCAS_1_1ComputationContext_html"><div class="ttname"><a href="../../d1/d55/classLMCAS_1_1ComputationContext.html">LMCAS::ComputationContext</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d14/computation__context_8hpp_source.html#l00099">computation_context.hpp:99</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html">LMCAS::Polynomial</a></div><div class="ttdoc">一元多项式模板类</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00052">polynomial.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Polynomial_html_a60e9be25be1238851163302d0ef91c18"><div class="ttname"><a href="../../d6/da1/classLMCAS_1_1Polynomial.html#a60e9be25be1238851163302d0ef91c18">LMCAS::Polynomial::coeffs</a></div><div class="ttdeci">std::vector&lt; CoeffType &gt; coeffs</div><div class="ttdoc">系数数组,coeffs[i] 为 x^i 的系数</div><div class="ttdef"><b>定义</b> <a href="../../d0/d3e/polynomial_8hpp_source.html#l00055">polynomial.hpp:55</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html">LMCAS::Result</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00039">result.hpp:39</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a361901f0a373e7df6cffec04fbf66b49"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a361901f0a373e7df6cffec04fbf66b49">LMCAS::Result::value</a></div><div class="ttdeci">T &amp; value()</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00067">result.hpp:67</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_a77c48ece6590b662504d03418f6418d1"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#a77c48ece6590b662504d03418f6418d1">LMCAS::Result::failure</a></div><div class="ttdeci">static Result failure(CasErrc code, std::string message, std::string operation={})</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00052">result.hpp:52</a></div></div>
+<div class="ttc" id="aclassLMCAS_1_1Result_html_aed8c44db6ca780c206439cb8c46226dc"><div class="ttname"><a href="../../dc/df3/classLMCAS_1_1Result.html#aed8c44db6ca780c206439cb8c46226dc">LMCAS::Result::success</a></div><div class="ttdeci">static Result success(T value)</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00048">result.hpp:48</a></div></div>
+<div class="ttc" id="amultivariate__factor__checked__support_8hpp_html"><div class="ttname"><a href="../../db/da2/multivariate__factor__checked__support_8hpp.html">multivariate_factor_checked_support.hpp</a></div></div>
+<div class="ttc" id="amultivariate__factor__support_8hpp_html"><div class="ttname"><a href="../../da/d05/multivariate__factor__support_8hpp.html">multivariate_factor_support.hpp</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_html_a15ceb8e1f044b01acb3f8a636482eb62"><div class="ttname"><a href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a15ceb8e1f044b01acb3f8a636482eb62">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::embed_univariate_factor</a></div><div class="ttdeci">static MultiPoly embed_univariate_factor(const Polynomial&lt; Rational &gt; &amp;factor, const std::vector&lt; std::string &gt; &amp;variables, const std::string &amp;main_variable)</div><div class="ttdef"><b>定义</b> <a href="#l00091">multivariate_factor_checked.cpp:91</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_html_a269913db1ef20a31f1c4520f07bdf5a9"><div class="ttname"><a href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a269913db1ef20a31f1c4520f07bdf5a9">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::factor_common_monomial</a></div><div class="ttdeci">static MultiFactorCheckedResult factor_common_monomial(const MultiPoly &amp;poly, const Monomial &amp;common_monomial, const MultiPoly &amp;quotient, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00116">multivariate_factor_checked.cpp:116</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_html_a6ab47d1b81242caacf221b6dfd0f30de"><div class="ttname"><a href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#a6ab47d1b81242caacf221b6dfd0f30de">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::factor_multivariate_impl</a></div><div class="ttdeci">static MultiFactorCheckedResult factor_multivariate_impl(const MultiPoly &amp;poly, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00233">multivariate_factor_checked.cpp:233</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_html_aade4d750e62f342e6d73b7eda878a8a5"><div class="ttname"><a href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aade4d750e62f342e6d73b7eda878a8a5">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::factor_difference_of_squares</a></div><div class="ttdeci">static MultiFactorCheckedResult factor_difference_of_squares(const MultiPoly &amp;poly, const std::pair&lt; MultiPoly, MultiPoly &gt; &amp;difference, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00145">multivariate_factor_checked.cpp:145</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_html_aba68d03867efd54aac955e3a7dfc2bb9"><div class="ttname"><a href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#aba68d03867efd54aac955e3a7dfc2bb9">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::factor_binomial_power</a></div><div class="ttdeci">static MultiFactorCheckedResult factor_binomial_power(const MultiPoly &amp;poly, const MultiPoly &amp;primitive, const std::string &amp;left_variable, const std::string &amp;right_variable, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00174">multivariate_factor_checked.cpp:174</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_html_add732605ad3e96322e3f8dc4ca5efe07"><div class="ttname"><a href="../../d9/dba/namespaceLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03.html#add732605ad3e96322e3f8dc4ca5efe07">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::factor_embedded_univariate</a></div><div class="ttdeci">static MultiFactorCheckedResult factor_embedded_univariate(const MultiPoly &amp;poly, const MultiPoly &amp;primitive, const std::string &amp;main_variable, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00211">multivariate_factor_checked.cpp:211</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a1027022cdb9ebf6bc8d04c26410678a1"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a1027022cdb9ebf6bc8d04c26410678a1">LMCAS::detail::extract_common_monomial</a></div><div class="ttdeci">std::pair&lt; Monomial, MultiPoly &gt; extract_common_monomial(const MultiPoly &amp;poly)</div><div class="ttdoc">提取公因子单项式</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00217">multivariate_factor_patterns.cpp:217</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_a361d2922af812effb6bf59bcb35c9a05"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#a361d2922af812effb6bf59bcb35c9a05">LMCAS::detail::factor_homogeneous_bivariate</a></div><div class="ttdeci">Result&lt; std::optional&lt; MultiFactorResult &gt; &gt; factor_homogeneous_bivariate(const MultiPoly &amp;poly, ComputationContext &amp;context)</div><div class="ttdoc">齐次二元多项式分解</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00272">multivariate_factor_patterns.cpp:272</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_ab5b2666731db6f16d696f5bdda763a01"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#ab5b2666731db6f16d696f5bdda763a01">LMCAS::detail::detect_binomial_power</a></div><div class="ttdeci">std::optional&lt; std::tuple&lt; std::string, std::string, int &gt; &gt; detect_binomial_power(const MultiPoly &amp;poly)</div><div class="ttdoc">检测二项式幂模式 xⁿ - yⁿ</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00159">multivariate_factor_patterns.cpp:159</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1detail_html_ae910f532d0e130b3a51366277c001287"><div class="ttname"><a href="../../dd/d98/namespaceLMCAS_1_1detail.html#ae910f532d0e130b3a51366277c001287">LMCAS::detail::detect_difference_of_squares</a></div><div class="ttdeci">std::optional&lt; std::pair&lt; MultiPoly, MultiPoly &gt; &gt; detect_difference_of_squares(const MultiPoly &amp;poly)</div><div class="ttdoc">检测差平方模式 a^2 - b^2</div><div class="ttdef"><b>定义</b> <a href="../../d8/d6f/multivariate__factor__patterns_8cpp_source.html#l00087">multivariate_factor_patterns.cpp:87</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1multivariate__checked__detail_html"><div class="ttname"><a href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html">LMCAS::multivariate_checked_detail</a></div><div class="ttdef"><b>定义</b> <a href="../../db/da2/multivariate__factor__checked__support_8hpp_source.html#l00005">multivariate_factor_checked_support.hpp:5</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1multivariate__checked__detail_html_a802d8d2dbf781cfaee759099853040e1"><div class="ttname"><a href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#a802d8d2dbf781cfaee759099853040e1">LMCAS::multivariate_checked_detail::assemble_checked_factorization</a></div><div class="ttdeci">MultiFactorCheckedResult assemble_checked_factorization(const MultiPoly &amp;original, const std::vector&lt; MultiPoly &gt; &amp;factors, const std::vector&lt; int &gt; &amp;multiplicities, Completeness completeness, std::string reason)</div><div class="ttdef"><b>定义</b> <a href="#l00034">multivariate_factor_checked.cpp:34</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1multivariate__checked__detail_html_aa1f3d0545d0ef9be183eb4d931fa6df1"><div class="ttname"><a href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#aa1f3d0545d0ef9be183eb4d931fa6df1">LMCAS::multivariate_checked_detail::factor_evaluated_linear</a></div><div class="ttdeci">std::optional&lt; MultiFactorCheckedResult &gt; factor_evaluated_linear(const MultiPoly &amp;original, const MultiPoly &amp;primitive, const std::string &amp;main_variable, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d54/multivariate__factor__evaluation_8cpp_source.html#l00182">multivariate_factor_evaluation.cpp:182</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_1_1multivariate__checked__detail_html_abb9d83cca87a16f46a64abf4ce25f230"><div class="ttname"><a href="../../d1/d18/namespaceLMCAS_1_1multivariate__checked__detail.html#abb9d83cca87a16f46a64abf4ce25f230">LMCAS::multivariate_checked_detail::append_primitive_factor</a></div><div class="ttdeci">static Result&lt; void &gt; append_primitive_factor(MultiFactorResult &amp;result, const MultiPoly &amp;raw, int multiplicity)</div><div class="ttdef"><b>定义</b> <a href="#l00012">multivariate_factor_checked.cpp:12</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html">LMCAS</a></div><div class="ttdef"><b>定义</b> <a href="../../de/db0/assumption_8hpp_source.html#l00011">assumption.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a0234a357f3dda0a6de458fc66c9af85c"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a0234a357f3dda0a6de458fc66c9af85c">LMCAS::MultiFactorCheckedResult</a></div><div class="ttdeci">Result&lt; MathResult&lt; MultiFactorResult &gt; &gt; MultiFactorCheckedResult</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00039">multivariate_factor.hpp:39</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a09baa59c0e381dde313fdf3755f87ceb"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a09baa59c0e381dde313fdf3755f87ceb">LMCAS::variable</a></div><div class="ttdeci">const std::string &amp; variable</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00291">expr.hpp:291</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a110fd94238f7100a8e454fd26c1d5636"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a110fd94238f7100a8e454fd26c1d5636">LMCAS::Monomial</a></div><div class="ttdeci">std::vector&lt; int &gt; Monomial</div><div class="ttdoc">单项式类型，以整数向量表示各变量的指数</div><div class="ttdef"><b>定义</b> <a href="../../db/d4d/monomial__order_8hpp_source.html#l00015">monomial_order.hpp:15</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a196089c6d2a04ab1b6e6ad526b9055df"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055df">LMCAS::Completeness</a></div><div class="ttdeci">Completeness</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00122">result.hpp:122</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfa00dcaeb4105c94c3b00bc8fe21c7ba21">LMCAS::Completeness::Inconclusive</a></div><div class="ttdeci">@ Inconclusive</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00122">result.hpp:122</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a196089c6d2a04ab1b6e6ad526b9055dfaae94f80b3ce82062a5dd7815daa04f9d">LMCAS::Completeness::Complete</a></div><div class="ttdeci">@ Complete</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00122">result.hpp:122</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a2b045a22a950a050eb0e53b35088e8c6"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a2b045a22a950a050eb0e53b35088e8c6">LMCAS::sub</a></div><div class="ttdeci">ExprResult sub(const ExprPtr &amp;lhs, const ExprPtr &amp;rhs, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../d8/d02/expr__arithmetic_8cpp_source.html#l00060">expr_arithmetic.cpp:60</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a39d25cb9217bd8f16a8f55c866a30045"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a39d25cb9217bd8f16a8f55c866a30045">LMCAS::MultiFactorResult::factors</a></div><div class="ttdeci">std::vector&lt; MultiPoly &gt; factors</div><div class="ttdoc">精确因子列表（各因子本原）</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00035">multivariate_factor.hpp:35</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b2c6ff58370ee6e4fdc7308e09cd698">LMCAS::CasErrc::InternalInvariant</a></div><div class="ttdeci">@ InternalInvariant</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00028">result.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a3fba8fa6e7d4c31e63a3c173713f8891a5b9e324ce43a64f4976de212c9d3b75d">LMCAS::CasErrc::ResourceLimit</a></div><div class="ttdeci">@ ResourceLimit</div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00025">result.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a4b661a8e8dbe13caf58f567f5260fdc5"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a4b661a8e8dbe13caf58f567f5260fdc5">LMCAS::context</a></div><div class="ttdeci">const std::vector&lt; Polynomial&lt; BigInt &gt; &gt; const BigInt ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="../../d0/dbe/exact__factorization_8hpp_source.html#l00065">exact_factorization.hpp:65</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a55b159eb316dfe4acfdab7509565db39"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a55b159eb316dfe4acfdab7509565db39">LMCAS::factor_multivariate_checked</a></div><div class="ttdeci">MultiFactorCheckedResult factor_multivariate_checked(const MultiPoly &amp;poly, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="#l00309">multivariate_factor_checked.cpp:309</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a5d26a316126291922ae1c4199dfbb2dc"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a5d26a316126291922ae1c4199dfbb2dc">LMCAS::factor_univariate_bridge_checked</a></div><div class="ttdeci">UnivariateFactorResult factor_univariate_bridge_checked(const Polynomial&lt; Rational &gt; &amp;polynomial, ComputationContext &amp;context)</div><div class="ttdef"><b>定义</b> <a href="../../de/dbe/univariate__factor__bridge_8cpp_source.html#l00166">univariate_factor_bridge.cpp:166</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_a7d600797df1e25c9ec0b594734d455a0"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#a7d600797df1e25c9ec0b594734d455a0">LMCAS::exponent</a></div><div class="ttdeci">const ExprPtr &amp; exponent</div><div class="ttdef"><b>定义</b> <a href="../../d8/d01/expr_8hpp_source.html#l00220">expr.hpp:220</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_aa81b2a90087d89fb94344b7946c2db15"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#aa81b2a90087d89fb94344b7946c2db15">LMCAS::right</a></div><div class="ttdeci">const ExprPtr &amp; right</div><div class="ttdef"><b>定义</b> <a href="../../dc/df4/residual__verification_8hpp_source.html#l00050">residual_verification.hpp:50</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_ae329ccb980304b055f201c4a67eceb6b"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#ae329ccb980304b055f201c4a67eceb6b">LMCAS::MultiFactorResult::constant</a></div><div class="ttdeci">Rational constant</div><div class="ttdoc">数值常数因子</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00034">multivariate_factor.hpp:34</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_afde10b34d860115fd68567f62e7e172a"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#afde10b34d860115fd68567f62e7e172a">LMCAS::MultiFactorResult::multiplicities</a></div><div class="ttdeci">std::vector&lt; int &gt; multiplicities</div><div class="ttdoc">各因子的重数</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00036">multivariate_factor.hpp:36</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_d4/d37/structLMCAS_1_1MathResult"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#d4/d37/structLMCAS_1_1MathResult">LMCAS::MathResult</a></div><div class="ttdef"><b>定义</b> <a href="../../de/d80/result_8hpp_source.html#l00125">result.hpp:125</a></div></div>
+<div class="ttc" id="anamespaceLMCAS_html_d4/da7/structLMCAS_1_1MultiFactorResult"><div class="ttname"><a href="../../de/dde/namespaceLMCAS.html#d4/da7/structLMCAS_1_1MultiFactorResult">LMCAS::MultiFactorResult</a></div><div class="ttdoc">多元因式分解结果</div><div class="ttdef"><b>定义</b> <a href="../../db/d8c/multivariate__factor_8hpp_source.html#l00033">multivariate_factor.hpp:33</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard_html"><div class="ttname"><a href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::FactorRecursionGuard</a></div><div class="ttdef"><b>定义</b> <a href="#l00086">multivariate_factor_checked.cpp:86</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard_html_a7965ce1c89902ef108089eeeb12578da"><div class="ttname"><a href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#a7965ce1c89902ef108089eeeb12578da">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::FactorRecursionGuard::~FactorRecursionGuard</a></div><div class="ttdeci">~FactorRecursionGuard()</div><div class="ttdef"><b>定义</b> <a href="#l00088">multivariate_factor_checked.cpp:88</a></div></div>
+<div class="ttc" id="astructLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard_html_ab4c0f914786b92ccfeb0a44b513c3e13"><div class="ttname"><a href="../../db/dcb/structLMCAS_1_1anonymous__namespace_02multivariate__factor__checked_8cpp_03_1_1FactorRecursionGuard.html#ab4c0f914786b92ccfeb0a44b513c3e13">LMCAS::anonymous_namespace{multivariate_factor_checked.cpp}::FactorRecursionGuard::context</a></div><div class="ttdeci">ComputationContext &amp; context</div><div class="ttdef"><b>定义</b> <a href="#l00087">multivariate_factor_checked.cpp:87</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../de/d98/multivariate__factor__checked_8cpp.html">multivariate_factor_checked.cpp</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMCAS使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>
