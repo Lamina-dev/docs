@@ -1,0 +1,4 @@
+var namespaceLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03 =
+[
+    [ "RootRefinement", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement.html", "d1/dee/classLMCAS_1_1detail_1_1anonymous__namespace_02mixed__transcendental__refinement_8cpp_03_1_1RootRefinement" ]
+];
