@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['calculus_5fasymptotes_2ecpp_0',['calculus_asymptotes.cpp',['../d0/df6/calculus__asymptotes_8cpp.html',1,'']]],
+  ['calculus_5fcontinuity_2ecpp_1',['calculus_continuity.cpp',['../d0/db9/calculus__continuity_8cpp.html',1,'']]],
+  ['calculus_5fcurvature_2ecpp_2',['calculus_curvature.cpp',['../d3/d45/calculus__curvature_8cpp.html',1,'']]],
+  ['calculus_5finverse_2ecpp_3',['calculus_inverse.cpp',['../db/db1/calculus__inverse_8cpp.html',1,'']]],
+  ['calculus_5frevolution_2ecpp_4',['calculus_revolution.cpp',['../dd/dcf/calculus__revolution_8cpp.html',1,'']]],
+  ['calculus_5futils_2ecpp_5',['calculus_utils.cpp',['../dc/d7f/calculus__utils_8cpp.html',1,'']]],
+  ['calculus_5futils_2ehpp_6',['calculus_utils.hpp',['../d5/dcf/calculus__utils_8hpp.html',1,'']]],
+  ['calculus_5futils_5fsupport_2ehpp_7',['calculus_utils_support.hpp',['../d8/dea/calculus__utils__support_8hpp.html',1,'']]],
+  ['complex_5fanalysis_2ecpp_8',['complex_analysis.cpp',['../d8/db6/complex__analysis_8cpp.html',1,'']]],
+  ['complex_5fanalysis_2ehpp_9',['complex_analysis.hpp',['../d5/d1a/complex__analysis_8hpp.html',1,'']]],
+  ['complex_5fquadratic_2ecpp_10',['complex_quadratic.cpp',['../d9/d73/complex__quadratic_8cpp.html',1,'']]],
+  ['complex_5fquadratic_2ehpp_11',['complex_quadratic.hpp',['../d9/d45/complex__quadratic_8hpp.html',1,'']]],
+  ['complex_5froot_5fisolation_2ecpp_12',['complex_root_isolation.cpp',['../d9/ddb/complex__root__isolation_8cpp.html',1,'']]],
+  ['complex_5froot_5fisolation_2ehpp_13',['complex_root_isolation.hpp',['../da/d7c/complex__root__isolation_8hpp.html',1,'']]],
+  ['complex_5froot_5fprojection_2ecpp_14',['complex_root_projection.cpp',['../db/da5/complex__root__projection_8cpp.html',1,'']]],
+  ['complex_5froot_5frectangles_2ecpp_15',['complex_root_rectangles.cpp',['../de/d9b/complex__root__rectangles_8cpp.html',1,'']]],
+  ['complex_5froot_5fwinding_2ecpp_16',['complex_root_winding.cpp',['../dc/d56/complex__root__winding_8cpp.html',1,'']]],
+  ['computation_5fcontext_2ehpp_17',['computation_context.hpp',['../da/d14/computation__context_8hpp.html',1,'']]],
+  ['conditional_5fresult_2ehpp_18',['conditional_result.hpp',['../d0/dd5/conditional__result_8hpp.html',1,'']]],
+  ['constructs_2ehpp_19',['constructs.hpp',['../d8/dba/constructs_8hpp.html',1,'']]]
+];
