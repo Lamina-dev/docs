@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['rational_2ecpp_0',['rational.cpp',['../d8/db6/rational_8cpp.html',1,'']]],
+  ['rational_2ehpp_1',['rational.hpp',['../d1/de8/rational_8hpp.html',1,'']]],
+  ['rational_5fparsing_2ecpp_2',['rational_parsing.cpp',['../d5/db4/rational__parsing_8cpp.html',1,'']]],
+  ['rational_5fpolynomial_2ecpp_3',['rational_polynomial.cpp',['../db/da6/rational__polynomial_8cpp.html',1,'']]],
+  ['rational_5fpolynomial_2ehpp_4',['rational_polynomial.hpp',['../d4/d54/rational__polynomial_8hpp.html',1,'']]],
+  ['rational_5fpolynomial_5frecognition_2ecpp_5',['rational_polynomial_recognition.cpp',['../d2/d6d/rational__polynomial__recognition_8cpp.html',1,'']]],
+  ['rational_5frepresentation_2ecpp_6',['rational_representation.cpp',['../d1/d0e/rational__representation_8cpp.html',1,'']]],
+  ['rational_5froots_2ecpp_7',['rational_roots.cpp',['../d5/de6/rational__roots_8cpp.html',1,'']]],
+  ['rational_5fsquare_5ffree_2ecpp_8',['rational_square_free.cpp',['../d1/d37/rational__square__free_8cpp.html',1,'']]],
+  ['readme_2emd_9',['README.md',['../da/ddd/README_8md.html',1,'']]],
+  ['relation_5fstore_2ecpp_10',['relation_store.cpp',['../d6/d25/relation__store_8cpp.html',1,'']]],
+  ['relation_5fstore_2ehpp_11',['relation_store.hpp',['../d1/ddb/relation__store_8hpp.html',1,'']]],
+  ['relations_2ehpp_12',['relations.hpp',['../d7/d94/relations_8hpp.html',1,'']]],
+  ['residual_5fcomparison_2ecpp_13',['residual_comparison.cpp',['../d7/dd9/residual__comparison_8cpp.html',1,'']]],
+  ['residual_5fverification_2ecpp_14',['residual_verification.cpp',['../db/d77/residual__verification_8cpp.html',1,'']]],
+  ['residual_5fverification_2ehpp_15',['residual_verification.hpp',['../dc/df4/residual__verification_8hpp.html',1,'']]],
+  ['result_2ehpp_16',['result.hpp',['../de/d80/result_8hpp.html',1,'']]],
+  ['rewrite_5fbudget_2ecpp_17',['rewrite_budget.cpp',['../d8/db9/rewrite__budget_8cpp.html',1,'']]],
+  ['rewrite_5fbudget_2ehpp_18',['rewrite_budget.hpp',['../d5/dc8/rewrite__budget_8hpp.html',1,'']]],
+  ['rewrite_5fengine_2ecpp_19',['rewrite_engine.cpp',['../d0/de7/rewrite__engine_8cpp.html',1,'']]],
+  ['root_5fof_5fidentity_2ecpp_20',['root_of_identity.cpp',['../d3/d88/root__of__identity_8cpp.html',1,'']]],
+  ['root_5fof_5fidentity_2ehpp_21',['root_of_identity.hpp',['../d3/d05/root__of__identity_8hpp.html',1,'']]],
+  ['root_5fof_5futils_2ecpp_22',['root_of_utils.cpp',['../d9/d5a/root__of__utils_8cpp.html',1,'']]],
+  ['root_5fof_5futils_2ehpp_23',['root_of_utils.hpp',['../d4/d0a/root__of__utils_8hpp.html',1,'']]]
+];
