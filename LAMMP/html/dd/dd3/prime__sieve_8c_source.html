@@ -1,0 +1,617 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMP: src/lmmp/numth/prime_sieve.c 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMP<span id="projectnumber">&#160;4.3.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('dd/dd3/prime__sieve_8c_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">prime_sieve.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../dd/dd3/prime__sieve_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *  Copyright (C) 2026 HJimmyK (Jericho Knox)</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  This file is part of LMMP.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *  LMMP is free software: you can redistribute it and/or modify it</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *  under the terms of the GNU Lesser General Public License as</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *  published by the Free Software Foundation; either version 3 of</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *  the License, or (at your option) any later version.</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *  This library is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *  You should have received a copy of the GNU Lesser General Public</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *  License along with this library.  If not, see</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> *  &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *  SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d98/prime__table_8h.html">impl/prime_table.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;mparam.h&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/de6/inlines_8h.html">impl/inlines.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/daa/tmp__alloc_8h.html">impl/tmp_alloc.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html">   29</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="../../dd/dd3/prime__sieve_8c.html#d1/d3b/structprime__int">prime_int</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#af66b809810fb11519865b3f0e175a740">   30</a></span>    <a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a77e8d1a0a9c20f7b518af89071283ab3">lmmp_bitset_p</a> <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#af66b809810fb11519865b3f0e175a740">map</a>;  <span class="comment">// mod-30 位图（1 为素数，字节 b 位 s 代表数 30b+res8[s]）</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a5b4e0a8faf3835636dd0368845b49003">   31</a></span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a5b4e0a8faf3835636dd0368845b49003">map_size</a>;               <span class="comment">// 位图字容量</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#abd60ba74e9b36ca6a950be22a7926f4d">   32</a></span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#abd60ba74e9b36ca6a950be22a7926f4d">max</a>;                    <span class="comment">// 位图记录的最大值</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a3c1891edbc24b3e4849a36114c09cbd0">   33</a></span>} <a class="code hl_struct" href="../../dd/dd3/prime__sieve_8c.html#d1/d3b/structprime__int">prime_int</a>;</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a1b7ac0dbd7d9c45480c10a90e7a0d710">   35</a></span><span class="keyword">static</span> <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#ac552dfb1d6733a6e156b7e046dfee360">LMMP_THREAD_LOCAL</a> <a class="code hl_struct" href="../../dd/dd3/prime__sieve_8c.html#d1/d3b/structprime__int">prime_int</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a1b7ac0dbd7d9c45480c10a90e7a0d710">global_prime_int_table</a> = {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    .map      = NULL,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    .map_size = 0,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    .max      = 0</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>};</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">   41</a></span><span class="preprocessor">#define G global_prime_int_table</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * mod-30 轮存储：与 30 互素的余数共 8 个（slot 0..7 升序），位图每字节存 30 个</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> * 数中的 8 个候选，密度 4/15 bit/数，为奇数编码（1/2 bit/数）的 8/15，同上限内存</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * ÷1.875。数与位下标互转（x 为 wheel 数，i 为其位下标）：</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> *   I(x) = 8*(x/30) + slot30[x%30]</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> *   N(i) = 30*(i/8) + res8[i%8]</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * 3、5 的倍数被结构性排除，不入位图（3、5 本身由遍历端补入）。</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a3f76734c946a4bdc3fef3a582a149c86">   51</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a3f76734c946a4bdc3fef3a582a149c86">res8</a>[8] = {1, 7, 11, 13, 17, 19, 23, 29};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// 余数 -&gt; slot（与 30 非互素为 0xFF）</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">   54</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[30] = {0xFF, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 1, 0xFF, 0xFF, 0xFF, 2,    0xFF, 3, 0xFF, 0xFF,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                                 0xFF, 4, 0xFF, 5,    0xFF, 0xFF, 0xFF, 6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 7};</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// 与 30 非互素的余数 -&gt; 到下一个 wheel 数的增量（互素余数为 0）</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a9e3930c5aa69cfaf2edbd63fc686a200">   58</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a9e3930c5aa69cfaf2edbd63fc686a200">bump30</a>[30] = {1, 0, 5, 4, 3, 2, 1, 0, 3, 2, 1, 0, 1, 0, 3,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                                 2, 1, 0, 1, 0, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0};</div>
+</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// 互素余数 -&gt; 到下一个 wheel 数的差（wheel 数序列的循环间隙 6,4,2,4,2,4,6,2）</span></div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#aec77f9eaac73ba2c1ae3918b693912ef">   62</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#aec77f9eaac73ba2c1ae3918b693912ef">gap30</a>[30] = {0, 6, 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 4, 0,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                                0, 0, 2, 0, 4, 0, 0, 0, 6, 0, 0, 0, 0, 0, 2};</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// slot -&gt; res8[slot] 的 mod 30 逆元（{7,13}、{17,23} 互换，1/11/19/29 自逆）</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a05a8c6a80f3d68c713092574d8f52fb2">   66</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a05a8c6a80f3d68c713092574d8f52fb2">inv30_by_slot</a>[8] = {1, 13, 11, 7, 23, 19, 17, 29};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a6e60de16bc9a4e3d156465433d7a3406">   68</a></span><span class="preprocessor">#define WHEEL_IDX(x) (8 * ((x) / 30) + slot30[(x) % 30])</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a13e5e2c95c26c6ff48ecf1535343d3d3">   69</a></span><span class="preprocessor">#define WHEEL_NUM(i) (30 * ((i) &gt;&gt; 3) + res8[(i) &amp; 7])</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a90e955748eba6924e059dcd59fe5d10f">   70</a></span><span class="preprocessor">#define set_not_prime(p, i) ((p)[(i) &gt;&gt; 3] &amp;= (uchar)~(1u &lt;&lt; ((i) &amp; 7)))</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// 最大 wheel 数 &lt;= n 的位下标（要求 n &gt;= 3，保证 r==0 时 b &gt;= 1）</span></div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a5cd962ba46015ec991e0016e64b14323">   73</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_function" href="../../dd/dd3/prime__sieve_8c.html#a5cd962ba46015ec991e0016e64b14323">wheel_leq_idx</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> r = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> % 30;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> b = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 30;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (r == 0)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> 8 * b - 1; <span class="comment">// 29 属于前一字节</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">while</span> (<a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[r] == 0xFF)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        --r;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">return</span> 8 * b + <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[r];</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">// 位图字容量：字节数 n/30+1 上取整到字再加一字松弛（容纳尾段整字模式填充）</span></div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#ac6b75d42e0aede5ba1096aaff962cbc1">   84</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_function" href="../../dd/dd3/prime__sieve_8c.html#ac6b75d42e0aede5ba1096aaff962cbc1">prime_table_words</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> / 30 + 1) / 8 + 1;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">// 分段大小（字）。512KB 恰为目标 L2 容量级，且段容量 2^22 位 &gt;&gt; 最大标记增量</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">// （8*(65535*6/30)+8），保证段内每个已启动的质数至少标记数十次，无近空转循环</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a076aa7c9af8df0f266ee935852295166">   90</a></span><span class="preprocessor">#define PRIME_SEG_WORDS (1u &lt;&lt; 16)</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"> * 7*11 预筛基表：presieve77_table[j] 为绝对字节 j（mod 77）的字节值，清除位恰对应</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * 7 或 11 的 wheel 倍数（含 7、11 自身，由首次初始化的修正恢复）。7 与 11 在位图</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * 空间的标记周期为 7/11 字节，故基表为绝对相位周期 77 = 7*11 字节。</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> * 推导规则（可再生成）：全 0xFF 起始，对 j in [0,77)、s in [0,8)、x = 30j+res8[s]，</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> * x%7==0 或 x%11==0 则清位 s；无任何豁免（b &gt;= 1 的 wheel 倍数全为 &gt;= 49 的真合数，</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment"> * x=7/11 仅出现在字节 0）。pat[0] = 0xF9：slot1(7)、slot2(11) 清除。</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="};">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#a7825daa879b7edc26caa28c14242cce4">  100</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a> <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a7825daa879b7edc26caa28c14242cce4">presieve77_table</a>[77] = {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    249, 223, 239, 126, 182, 251, 61,  253, 215, 239, 94,  243, 251, 175,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    253, 158, 239, 124, 247, 243, 191, 221, 219, 239, 110, 247, 186, 191,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    125, 223, 231, 126, 215, 251, 191, 237, 223, 174, 126, 117, 251, 183,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    253, 223, 235, 126, 231, 251, 190, 253, 93,  239, 118, 247, 219, 187,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    253, 207, 239, 62,  247, 121, 191, 245, 223, 207, 122, 247, 235, 191,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    188, 223, 109, 126, 247, 251, 159};</div>
+</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">// 以 pat 周期填充字节 [b0, bend)：先铺至多 77 字节种子对齐绝对相位，再倍增 memcpy</span></div>
+<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#ad9f7e2c8b1b1eb8f8d1f408ea41b2dc7">  109</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d29/test__mul__toom68_8c.html#a89873ec87b12891e601a35561a19bbe8">fill_pattern</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> dst, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> bend, <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> pat) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> = bend - <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> seed = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt; 77 ? <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> : 77;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a> &lt; seed; ++<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>)</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        dst[<a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>] = pat[(<a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a> + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a>) % 77];</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> i = <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a> + seed; i &lt; bend;) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> chunk = i - <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span> (chunk &gt; bend - i)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            chunk = bend - i;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        memcpy(dst + i, dst + <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a>, chunk);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        i += chunk;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#ae15572db81682838454d6fdf65ad64b6">  123</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#ae15572db81682838454d6fdf65ad64b6">lmmp_prime_int_table_init_</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n &lt; PRIME_SHORT_TABLE_N || G.max &gt;</a>= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> old_size = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map_size; <span class="comment">// 旧表字数（0 表示首次初始化）</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> old_max = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.max;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> new_size = <a class="code hl_function" href="../../dd/dd3/prime__sieve_8c.html#ac6b75d42e0aede5ba1096aaff962cbc1">prime_table_words</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map == NULL) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a432c4988bf11b9d06f14f16a48e7deac">ALLOC_TYPE</a>(new_size, <a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a>);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a106577f032b0f8fb94dbeebe88aa39e2">REALLOC_TYPE</a>(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map, new_size, <a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a>);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map_size = new_size;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.max = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> p = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>*)<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> limit_idx = <a class="code hl_function" href="../../dd/dd3/prime__sieve_8c.html#a5cd962ba46015ec991e0016e64b14323">wheel_leq_idx</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>); <span class="comment">// 有效位上界（含），对应 &lt;= n 的最大 wheel 数</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> skip_num = 0, skip_to = 0;    <span class="comment">// 扩容时旧区域之后的第一个 wheel 数及其位下标</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">if</span> (old_max != 0) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="comment">// 宽类型算后继 wheel 数：old_max 贴近 2^32 时 uint 中间量回绕，得到</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="comment">// 失配的 (skip_num,skip_to) 会使重定位标到素数自身（13..29 被清位）</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> sk = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)old_max + 1 + <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a9e3930c5aa69cfaf2edbd63fc686a200">bump30</a>[((<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)old_max + 1) % 30];</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">if</span> (sk &lt;= <a class="code hl_define" href="../../d9/dbb/lmmp_2arch_2arm64_2mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a>) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            skip_num = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>)sk;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            skip_to = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#a6e60de16bc9a4e3d156465433d7a3406">WHEEL_IDX</a>(skip_num);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="comment">// uint 域内已无后继 wheel 数，新区域无数可标：MP_UINT_MAX 作域外</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="comment">// 哨兵，重定位 m = p*ceil(UINT_MAX/p) &gt;= UINT_MAX &gt; p^2 恒超 end，</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="comment">// 各素数经既有 idx&gt;=end 路径直接跳过标记（每素数一条除法链）</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            skip_num = <a class="code hl_define" href="../../d9/dbb/lmmp_2arch_2arm64_2mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            skip_to = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>)-1;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> sqrt_n = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 4294836225 ? 0xffff : (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a>)sqrt(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> max_idx = <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">lmmp_prime_cnt16_</a>(sqrt_n); <span class="comment">// 筛质数个数上界（不含），质数从下标 5（=13）起</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment">/*</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">     * 筛质数状态同块分配（生命周期接力）：</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">     *   next[i]：第 i 个筛质数下一个待清除的全局位下标。保持单调的 p*p 起始</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">     *            （而非预先跳过旧区域），保证&quot;已启动&quot;质数构成前缀，act 前缀扫描</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">     *            才成立；旧区域的跳过在首个段内 O(1) 完成</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">     *   dslot[s]：标记位落在 slot s 时到下一标记位的位下标增量。标记为</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">     *            m = p*k（k 跑遍 &gt;= p 的 wheel 数），k 到下一 wheel 数差</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">     *            g = gap30[k%30]，而 k ≡ m*inv(p) (mod 30) 只依赖 m%30 = res8[s]</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">     *            与 p，故增量可写成 s 的函数：</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">     *              dslot[s] = 8*((res8[s]+p*g)/30) + slot30[(res8[s]+p*g)%30] - s</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">     *            （slot 差为负时由字节进位吸收；含完整 p*g 而非 p%30，故每质数</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">     *             现算 8 项而非静态表）。转移 sigma(s) = (s + dslot[s]) &amp; 7 必为</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">     *             单一 8 环（k 的余数历经全部 8 个，m = p*k 的余数亦然）。</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">     *   ds[8i+k]：第 i 个质数的增量按 slot 访问环次序存放；</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">     *   dpos[8i+s]：slot s 在环中的位置。按环序存放后标记循环展开 8 步取增量</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">     *            为常量索引，加载地址可提前计算，打破 idx→load→idx 依赖链</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">     *            （否则每次标记吃满 load 延迟；旧奇数编码常量步长无此税）。</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">     *            跨段/跳过旧区域后由 idx&amp;7 经 dpos 重建环内相位</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> blk = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a432c4988bf11b9d06f14f16a48e7deac">ALLOC_TYPE</a>((<span class="keywordtype">size_t</span>)max_idx * 44, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> next = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>*)blk;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> ds = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>*)(blk + 4 * (<span class="keywordtype">size_t</span>)max_idx);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> dpos = blk + 36 * (size_t)max_idx;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> i = 5; i &lt; max_idx; ++i) {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> prime = <a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[i];</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        next[i] = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#a6e60de16bc9a4e3d156465433d7a3406">WHEEL_IDX</a>(prime * prime);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> inv = <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a05a8c6a80f3d68c713092574d8f52fb2">inv30_by_slot</a>[<a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[prime % 30]];</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> dslot[8];</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> = 0; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &lt; 8; ++<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>) {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> d = prime * <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#aec77f9eaac73ba2c1ae3918b693912ef">gap30</a>[(<a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a3f76734c946a4bdc3fef3a582a149c86">res8</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>] * inv) % 30];</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            dslot[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>] = 8 * ((<a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a3f76734c946a4bdc3fef3a582a149c86">res8</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>] + d) / 30) + <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[(<a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a3f76734c946a4bdc3fef3a582a149c86">res8</a>[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>] + d) % 30] - <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="comment">// 自 slot 0 走 sigma 环：ds 按访问次序存放，dpos 记各 slot 的环内位置</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> = 0;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> = 0; <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> &lt; 8; ++<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            ds[8 * i + <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>] = dslot[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>];</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            dpos[8 * i + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>] = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>)<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> = (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> + dslot[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>]) &amp; 7;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        }</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    }</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> act = 5; <span class="comment">// [5, act) 为已启动的筛质数前缀</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> w = old_size;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">for</span> (;;) {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> wend = w + <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#a076aa7c9af8df0f266ee935852295166">PRIME_SEG_WORDS</a>;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> last = 0;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordflow">if</span> (wend &gt;= new_size) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            wend = new_size;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            last = 1;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        }</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> seg_hi = wend * <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#aae8be31c27fcc807a9da17cab2a56c36">LMMP_BITSET_BITS</a>; <span class="comment">// 段结束全局位（不含）</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> end = (seg_hi &lt;= limit_idx + 1) ? seg_hi : limit_idx + 1; <span class="comment">// 本段标记上界（不含）</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="comment">// 段内 7*11 预筛填充（3、5 的倍数由 mod-30 存储结构性排除）。</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="comment">// 扩容增量不足一字时（new_size == old_size）无新字节可填，仅执行标记：</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="comment">// 有效增量位于旧表末字的陈旧 wheel 位上（皆为真合数，标记幂等）</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <a class="code hl_function" href="../../da/d29/test__mul__toom68_8c.html#a89873ec87b12891e601a35561a19bbe8">fill_pattern</a>(p, w * 8, wend * 8, <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a7825daa879b7edc26caa28c14242cce4">presieve77_table</a>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="comment">// p*p 落入界内的质数开始参与（next 单调，构成前缀）</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">while</span> (act &lt; max_idx &amp;&amp; next[act] &lt; end)</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            ++act;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> i = 5; i &lt; act; ++i) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> prime = <a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[i];</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> idx = next[i];</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            <span class="keywordflow">if</span> (idx &lt; skip_to) {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                <span class="comment">// 仅首段发生：跳到 &gt;= skip_num 的首个标记 m&#39; = p*k&#39;，k&#39; 为</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>                <span class="comment">// &gt;= ceil(skip_num/p) 的最小 wheel 数（被跳过的 k 满足 p*k &lt; skip_num，</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                <span class="comment">// 全在旧区域）。ulong 计算：p*k&#39; 与 skip_num 均可能贴近 2^32</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> = skip_num / prime + (skip_num % prime != 0);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> += <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#a9e3930c5aa69cfaf2edbd63fc686a200">bump30</a>[<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> % 30];</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> m = prime * <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                idx = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>)(8 * (m / 30) + <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[m % 30]);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            <span class="keywordflow">if</span> (idx &gt;= end) {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                <span class="comment">// 本段无需标记（仅可能发生在最后一段），保留取整后的 idx</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                next[i] = idx;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>* <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> c8 = ds + 8 * i;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> = dpos[8 * i + (idx &amp; 7)];</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keywordflow">while</span> (idx &lt; end) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                <span class="comment">// 环序展开 8 步：增量索引为常量，加载地址提前可算，idx 链只含加法</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> u = 0; u &lt; 8 &amp;&amp; idx &lt; end; ++u, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> = (<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> + 1) &amp; 7) {</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#a90e955748eba6924e059dcd59fe5d10f">set_not_prime</a>(p, idx);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                    idx += c8[<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>];</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            next[i] = idx;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">if</span> (last)</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        w = wend;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a>(blk);</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">if</span> (old_max == 0) {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="comment">// 首次修正：1 不是素数；7、11 是素数（预筛基表将其自身当倍数抹除）。</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="comment">// 13..29 未被任何 &gt;= 13*13 的标记触碰，自然保留</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        p[0] = 0xFE;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>}</div>
+</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="foldopen" id="foldopen00264" data-start="{" data-end="}">
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#ad83f6ffe7d8fad42894e9e4ad4bfe1b4">  264</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#ad83f6ffe7d8fad42894e9e4ad4bfe1b4">lmmp_is_prime_table_</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> p) {</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordflow">if</span> (p &lt; <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#ad9c4964d51f42061a3d434816628356c">PRIME_SHORT_TABLE_N</a>) {</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> i = <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">lmmp_prime_cnt16_</a>(p);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[i - 1] == p)</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (p &gt; <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.max) {</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="comment">// p&gt;=3</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(p &gt; 1);</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>((p &amp; 1) == 1);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> = <a class="code hl_variable" href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a>[p % 30];</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> == 0xFF)</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="keywordflow">return</span> 0; <span class="comment">// p &gt; 65536 且被 3 或 5 整除，必为合数</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> idx = 8 * (p / 30) + <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)((((<span class="keyword">const</span> <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>*)<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map)[idx &gt;&gt; 3] &gt;&gt; (idx &amp; 7)) &amp; 1);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    }</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>}</div>
+</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="foldopen" id="foldopen00284" data-start="{" data-end="}">
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#afe62da8724ab642c14401be9bab13c5f">  284</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#afe62da8724ab642c14401be9bab13c5f">lmmp_prime_cache_init_</a>(<a class="code hl_struct" href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a>* cache, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 2);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt;= <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.max);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a432c4988bf11b9d06f14f16a48e7deac">ALLOC_TYPE</a>(<a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#a56ee18e640cb142b0e85c27f2ede7745">PRIME_CACHE_SIZE</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a7368b42c6dc9dcbbf93e1987db9e0c0f">size</a> = 0;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">start_idx</a> = 0;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae742c804ef5f78994d2eb7d84618d3dd">end_num</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#aa295aca839032d276409dd579bcd4204">end_idx</a> = <a class="code hl_function" href="../../dd/dd3/prime__sieve_8c.html#a5cd962ba46015ec991e0016e64b14323">wheel_leq_idx</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) / <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#aae8be31c27fcc807a9da17cab2a56c36">LMMP_BITSET_BITS</a>;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a7140a174f6921b477e5eb064d445bf2b">is_end</a> = 0;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>}</div>
+</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="foldopen" id="foldopen00295" data-start="" data-end="">
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">  295</a></span><span class="preprocessor">#define DEC_WORD(m, wbase)                                             \</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="preprocessor">    while (m) {                                                        \</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="preprocessor">        uint t = lmmp_tailing_zeros_(m);                               \</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">        begin[size++] = (uint)((wbase) + 30 * (t &gt;&gt; 3) + res8[t &amp; 7]); \</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">        m &amp;= (m - 1);                                                  \</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">    }</span></div>
+</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="foldopen" id="foldopen00302" data-start="{" data-end="}">
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#a6b0071d242388d9ed82ccae17a240fb7">  302</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a6b0071d242388d9ed82ccae17a240fb7">lmmp_prime_cache_next_</a>(<a class="code hl_struct" href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a>* cache) {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> size = 0;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> idx = cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">start_idx</a>;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="comment">// 3、5 与 30 不互素，不在位图内；首次解码前补入（end_num &gt;= 5 才含 5）</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordflow">if</span> (cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">start_idx</a> == 0) {</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a>[size++] = 3;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="keywordflow">if</span> (cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae742c804ef5f78994d2eb7d84618d3dd">end_num</a> &gt;= 5)</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a>[size++] = 5;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    }</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordflow">if</span> (idx + <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#ac9d8fdbafbd55dc14e2327b3a1b2c48f">PRIME_CACHE_BLOCK_NUM &lt;= cache-&gt;</a>end_idx) {</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a> m0, m1, m2, m3;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a6b98591b85c9a46e3979e897f004fd1a">uintp</a> begin = cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a>;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> i = 0; i &lt; <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#ac9d8fdbafbd55dc14e2327b3a1b2c48f">PRIME_CACHE_BLOCK_NUM</a> / 4; ++i) {</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            m0 = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map[idx + 0];</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>            m1 = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map[idx + 1];</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            m2 = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map[idx + 2];</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            m3 = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map[idx + 3];</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> base = idx * 240; <span class="comment">// 每字 8 字节 = 240 个数</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a>(m0, base)</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            base += 240;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a>(m1, base)</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            base += 240;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a>(m2, base)</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            base += 240;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>            <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a>(m3, base)</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>            idx += 4;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        }</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(idx - cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">start_idx</a> == <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#ac9d8fdbafbd55dc14e2327b3a1b2c48f">PRIME_CACHE_BLOCK_NUM</a>);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(size &lt;= <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#a56ee18e640cb142b0e85c27f2ede7745">PRIME_CACHE_SIZE</a>);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">start_idx</a> = idx;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a7368b42c6dc9dcbbf93e1987db9e0c0f">size</a> = size;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> last_off = <a class="code hl_function" href="../../dd/dd3/prime__sieve_8c.html#a5cd962ba46015ec991e0016e64b14323">wheel_leq_idx</a>(cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae742c804ef5f78994d2eb7d84618d3dd">end_num</a>) &amp; (<a class="code hl_define" href="../../d1/d98/prime__table_8h.html#aae8be31c27fcc807a9da17cab2a56c36">LMMP_BITSET_BITS</a> - 1);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        <a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a> last_mask =</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>            (last_off == <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#aae8be31c27fcc807a9da17cab2a56c36">LMMP_BITSET_BITS</a> - 1) ? (<a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a>)-1 : (((<a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a>)1 &lt;&lt; (last_off + 1)) - 1);</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <a class="code hl_typedef" href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a> m;</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a6b98591b85c9a46e3979e897f004fd1a">uintp</a> begin = cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a>;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a> i = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>)idx; i &lt; cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#aa295aca839032d276409dd579bcd4204">end_idx</a>; ++i) {</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            m = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map[i];</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> base = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)i * 240;</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a>(m, base)</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        }</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        m = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map[cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#aa295aca839032d276409dd579bcd4204">end_idx</a>] &amp; last_mask;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> base = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#aa295aca839032d276409dd579bcd4204">end_idx</a> * 240;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a>(m, base)</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(size &lt;= <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#a56ee18e640cb142b0e85c27f2ede7745">PRIME_CACHE_SIZE</a>);</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">start_idx</a> = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map_size;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a7368b42c6dc9dcbbf93e1987db9e0c0f">size</a> = size;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a7140a174f6921b477e5eb064d445bf2b">is_end</a> = 1;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    }</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>}</div>
+</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">#undef DEC_WORD</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="preprocessor">#undef WHEEL_IDX</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="preprocessor">#undef WHEEL_NUM</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="preprocessor">#undef set_not_prime</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="foldopen" id="foldopen00363" data-start="{" data-end="}">
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#a0cc98f86f82fe1e5696a2fec6da664c5">  363</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a0cc98f86f82fe1e5696a2fec6da664c5">lmmp_prime_cache_free_</a>(<a class="code hl_struct" href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a>* cache) {</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a>(cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a>);</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    cache-&gt;<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">pp</a> = NULL;</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>}</div>
+</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
+<div class="foldopen" id="foldopen00368" data-start="{" data-end="}">
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">  368</a></span><a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">lmmp_prime_cnt16_</a>(<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &lt; 2)</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt;= <a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[<a class="code hl_define" href="../../d1/d98/prime__table_8h.html#a1b1448dd51c0af9bdc6fdb70093b3865">PRIME_SHORT_TABLE_SIZE</a> - 1])</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#a1b1448dd51c0af9bdc6fdb70093b3865">PRIME_SHORT_TABLE_SIZE</a>;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a> = 0;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> hi = <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#a1b1448dd51c0af9bdc6fdb70093b3865">PRIME_SHORT_TABLE_SIZE</a>;  <span class="comment">// [lo, hi)</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a> &lt; hi) {</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> mid = <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a> + (hi - <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a>) / 2;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[mid] &lt;= <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>            <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a> = mid + 1;</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>            hi = mid;</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        }</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    }</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a>;</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>}</div>
+</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span> </div>
+<div class="foldopen" id="foldopen00388" data-start="{" data-end="}">
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno"><a class="line" href="../../d1/d98/prime__table_8h.html#a8d84fd00b81aae70f5f2817d6da415a6">  388</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#a8d84fd00b81aae70f5f2817d6da415a6">lmmp_prime_int_table_free_</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a>(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map);</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map = NULL;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.max = 0;</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.map_size = 0;</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>}</div>
+</div>
+<div class="ttc" id="abinvert_8c_html_a13b230ea1d237595fb236c951a0849e0"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a></div><div class="ttdeci">#define k</div></div>
+<div class="ttc" id="ainlines_8h_html"><div class="ttname"><a href="../../d1/de6/inlines_8h.html">inlines.h</a></div></div>
+<div class="ttc" id="almmp_2arch_2arm64_2mparam_8h_html_a413754f5a92a5e59b24f924236f12a88"><div class="ttname"><a href="../../d9/dbb/lmmp_2arch_2arm64_2mparam_8h.html#a413754f5a92a5e59b24f924236f12a88">MP_UINT_MAX</a></div><div class="ttdeci">#define MP_UINT_MAX</div><div class="ttdef"><b>定义</b> <a href="../../d9/dbb/lmmp_2arch_2arm64_2mparam_8h_source.html#l00028">mparam.h:28</a></div></div>
+<div class="ttc" id="almmp_8h_html_a615856ce29bb791b82c2c8271aa829da"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a></div><div class="ttdeci">#define lmmp_debug_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00498">lmmp.h:498</a></div></div>
+<div class="ttc" id="almmp_8h_html_a9addf0b27643f70bce967ca4ef842ae9"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a></div><div class="ttdeci">void lmmp_free(void *ptr)</div><div class="ttdoc">内存释放函数（调用lmmp_heap_free_fn）</div><div class="ttdef"><b>定义</b> <a href="../../df/dd5/memory_8c_source.html#l00437">memory.c:437</a></div></div>
+<div class="ttc" id="almmp_8h_html_ac552dfb1d6733a6e156b7e046dfee360"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#ac552dfb1d6733a6e156b7e046dfee360">LMMP_THREAD_LOCAL</a></div><div class="ttdeci">#define LMMP_THREAD_LOCAL</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00114">lmmp.h:114</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00509">lmmp.h:509</a></div></div>
+<div class="ttc" id="amul__mersenne_8c_html_a23a03d74aaac82e57415808b25a37214"><div class="ttname"><a href="../../d7/d17/mul__mersenne_8c.html#a23a03d74aaac82e57415808b25a37214">b0</a></div><div class="ttdeci">#define b0</div></div>
+<div class="ttc" id="amul__toom42_8c_html_a1f0cf49f22a9b271d1d9e6e14609faed"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#a1f0cf49f22a9b271d1d9e6e14609faed">t</a></div><div class="ttdeci">#define t</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ac9562ee4ecb3b8aeebeb04656e7e57a9"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a></div><div class="ttdeci">#define s</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="amullo_8c_html_a06c5f8eeca62bb9b7d4c85d43c4f20d9"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a></div><div class="ttdeci">#define lo</div></div>
+<div class="ttc" id="anumth_2arch_2arm64_2mparam_8h_html_a56ee18e640cb142b0e85c27f2ede7745"><div class="ttname"><a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#a56ee18e640cb142b0e85c27f2ede7745">PRIME_CACHE_SIZE</a></div><div class="ttdeci">#define PRIME_CACHE_SIZE</div><div class="ttdef"><b>定义</b> <a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h_source.html#l00102">mparam.h:102</a></div></div>
+<div class="ttc" id="anumth_2arch_2arm64_2mparam_8h_html_ac9d8fdbafbd55dc14e2327b3a1b2c48f"><div class="ttname"><a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#ac9d8fdbafbd55dc14e2327b3a1b2c48f">PRIME_CACHE_BLOCK_NUM</a></div><div class="ttdeci">#define PRIME_CACHE_BLOCK_NUM</div><div class="ttdef"><b>定义</b> <a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h_source.html#l00098">mparam.h:98</a></div></div>
+<div class="ttc" id="anumth_8h_html_a27c902d5ca78afa82d5ed75554d5cedc"><div class="ttname"><a href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></div><div class="ttdeci">uint8_t uchar</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00034">numth.h:34</a></div></div>
+<div class="ttc" id="anumth_8h_html_a4f5fce8c1ef282264f9214809524d836"><div class="ttname"><a href="../../de/da4/numth_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a></div><div class="ttdeci">uint32_t uint</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00038">numth.h:38</a></div></div>
+<div class="ttc" id="anumth_8h_html_a6b98591b85c9a46e3979e897f004fd1a"><div class="ttname"><a href="../../de/da4/numth_8h.html#a6b98591b85c9a46e3979e897f004fd1a">uintp</a></div><div class="ttdeci">uint32_t * uintp</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00046">numth.h:46</a></div></div>
+<div class="ttc" id="anumth_8h_html_a9e58a7bf060b7a5fbf6a401d3020adca"><div class="ttname"><a href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></div><div class="ttdeci">uint16_t ushort</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00036">numth.h:36</a></div></div>
+<div class="ttc" id="anumth_8h_html_ab46637ef82283186e57f54756fe67203"><div class="ttname"><a href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></div><div class="ttdeci">uint64_t ulong</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00039">numth.h:39</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a05a8c6a80f3d68c713092574d8f52fb2"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a05a8c6a80f3d68c713092574d8f52fb2">inv30_by_slot</a></div><div class="ttdeci">static const uchar inv30_by_slot[8]</div><div class="ttdef"><b>定义</b> <a href="#l00066">prime_sieve.c:66</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a076aa7c9af8df0f266ee935852295166"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a076aa7c9af8df0f266ee935852295166">PRIME_SEG_WORDS</a></div><div class="ttdeci">#define PRIME_SEG_WORDS</div><div class="ttdef"><b>定义</b> <a href="#l00090">prime_sieve.c:90</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a1b7ac0dbd7d9c45480c10a90e7a0d710"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a1b7ac0dbd7d9c45480c10a90e7a0d710">global_prime_int_table</a></div><div class="ttdeci">static LMMP_THREAD_LOCAL prime_int global_prime_int_table</div><div class="ttdef"><b>定义</b> <a href="#l00035">prime_sieve.c:35</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a3f76734c946a4bdc3fef3a582a149c86"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a3f76734c946a4bdc3fef3a582a149c86">res8</a></div><div class="ttdeci">static const uint res8[8]</div><div class="ttdef"><b>定义</b> <a href="#l00051">prime_sieve.c:51</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a5b4e0a8faf3835636dd0368845b49003"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a5b4e0a8faf3835636dd0368845b49003">prime_int::map_size</a></div><div class="ttdeci">uint map_size</div><div class="ttdef"><b>定义</b> <a href="#l00031">prime_sieve.c:31</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a5cd962ba46015ec991e0016e64b14323"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a5cd962ba46015ec991e0016e64b14323">wheel_leq_idx</a></div><div class="ttdeci">static uint wheel_leq_idx(uint n)</div><div class="ttdef"><b>定义</b> <a href="#l00073">prime_sieve.c:73</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a6e60de16bc9a4e3d156465433d7a3406"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a6e60de16bc9a4e3d156465433d7a3406">WHEEL_IDX</a></div><div class="ttdeci">#define WHEEL_IDX(x)</div><div class="ttdef"><b>定义</b> <a href="#l00068">prime_sieve.c:68</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a7825daa879b7edc26caa28c14242cce4"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a7825daa879b7edc26caa28c14242cce4">presieve77_table</a></div><div class="ttdeci">static const uchar presieve77_table[77]</div><div class="ttdef"><b>定义</b> <a href="#l00100">prime_sieve.c:100</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a90e955748eba6924e059dcd59fe5d10f"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a90e955748eba6924e059dcd59fe5d10f">set_not_prime</a></div><div class="ttdeci">#define set_not_prime(p, i)</div><div class="ttdef"><b>定义</b> <a href="#l00070">prime_sieve.c:70</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_a9e3930c5aa69cfaf2edbd63fc686a200"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#a9e3930c5aa69cfaf2edbd63fc686a200">bump30</a></div><div class="ttdeci">static const uchar bump30[30]</div><div class="ttdef"><b>定义</b> <a href="#l00058">prime_sieve.c:58</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_abd60ba74e9b36ca6a950be22a7926f4d"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#abd60ba74e9b36ca6a950be22a7926f4d">prime_int::max</a></div><div class="ttdeci">uint max</div><div class="ttdef"><b>定义</b> <a href="#l00032">prime_sieve.c:32</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_ac6b75d42e0aede5ba1096aaff962cbc1"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#ac6b75d42e0aede5ba1096aaff962cbc1">prime_table_words</a></div><div class="ttdeci">static uint prime_table_words(uint n)</div><div class="ttdef"><b>定义</b> <a href="#l00084">prime_sieve.c:84</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_ad1a1ace1ebce69d9f7c81fdf9b35f33a"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#ad1a1ace1ebce69d9f7c81fdf9b35f33a">DEC_WORD</a></div><div class="ttdeci">#define DEC_WORD(m, wbase)</div><div class="ttdef"><b>定义</b> <a href="#l00295">prime_sieve.c:295</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_aec77f9eaac73ba2c1ae3918b693912ef"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#aec77f9eaac73ba2c1ae3918b693912ef">gap30</a></div><div class="ttdeci">static const uchar gap30[30]</div><div class="ttdef"><b>定义</b> <a href="#l00062">prime_sieve.c:62</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_aed9ea78689ecce0b7264c02c7f8a9a54"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a></div><div class="ttdeci">#define G</div><div class="ttdef"><b>定义</b> <a href="#l00041">prime_sieve.c:41</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_af66b809810fb11519865b3f0e175a740"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#af66b809810fb11519865b3f0e175a740">prime_int::map</a></div><div class="ttdeci">lmmp_bitset_p restrict map</div><div class="ttdef"><b>定义</b> <a href="#l00030">prime_sieve.c:30</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_afca1357d1cb82624a14fa318551721b3"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#afca1357d1cb82624a14fa318551721b3">slot30</a></div><div class="ttdeci">static const uchar slot30[30]</div><div class="ttdef"><b>定义</b> <a href="#l00054">prime_sieve.c:54</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_d1/d3b/structprime__int"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#d1/d3b/structprime__int">prime_int</a></div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="#l00029">prime_sieve.c:29</a></div></div>
+<div class="ttc" id="aprime__table_8h_html"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html">prime_table.h</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a0a09af96a83d1ebe3544a41a38932397"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a0a09af96a83d1ebe3544a41a38932397">lmmp_bitset_t</a></div><div class="ttdeci">uint64_t lmmp_bitset_t</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00029">prime_table.h:29</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a0a47609063e684241ccdd8c984074a47"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a0a47609063e684241ccdd8c984074a47">prime_cache_t::start_idx</a></div><div class="ttdeci">uint start_idx</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00123">prime_table.h:123</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a0cc98f86f82fe1e5696a2fec6da664c5"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a0cc98f86f82fe1e5696a2fec6da664c5">lmmp_prime_cache_free_</a></div><div class="ttdeci">void lmmp_prime_cache_free_(prime_cache_t *cache)</div><div class="ttdoc">释放素数表缓存</div><div class="ttdef"><b>定义</b> <a href="#l00363">prime_sieve.c:363</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a1b1448dd51c0af9bdc6fdb70093b3865"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a1b1448dd51c0af9bdc6fdb70093b3865">PRIME_SHORT_TABLE_SIZE</a></div><div class="ttdeci">#define PRIME_SHORT_TABLE_SIZE</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00036">prime_table.h:36</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a6b0071d242388d9ed82ccae17a240fb7"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a6b0071d242388d9ed82ccae17a240fb7">lmmp_prime_cache_next_</a></div><div class="ttdeci">void lmmp_prime_cache_next_(prime_cache_t *cache)</div><div class="ttdoc">素数表缓存更新（从小到大遍历全局质数表）</div><div class="ttdef"><b>定义</b> <a href="#l00302">prime_sieve.c:302</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a7140a174f6921b477e5eb064d445bf2b"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a7140a174f6921b477e5eb064d445bf2b">prime_cache_t::is_end</a></div><div class="ttdeci">int is_end</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00126">prime_table.h:126</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a7368b42c6dc9dcbbf93e1987db9e0c0f"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a7368b42c6dc9dcbbf93e1987db9e0c0f">prime_cache_t::size</a></div><div class="ttdeci">uint size</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00122">prime_table.h:122</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a77e8d1a0a9c20f7b518af89071283ab3"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a77e8d1a0a9c20f7b518af89071283ab3">lmmp_bitset_p</a></div><div class="ttdeci">uint64_t * lmmp_bitset_p</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00030">prime_table.h:30</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a8d84fd00b81aae70f5f2817d6da415a6"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a8d84fd00b81aae70f5f2817d6da415a6">lmmp_prime_int_table_free_</a></div><div class="ttdeci">void lmmp_prime_int_table_free_(void)</div><div class="ttdoc">释放全局素数表</div><div class="ttdef"><b>定义</b> <a href="#l00388">prime_sieve.c:388</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a925aad8580cd1f37a2caabd567e5f82d"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a925aad8580cd1f37a2caabd567e5f82d">prime_cache_t::pp</a></div><div class="ttdeci">uintp restrict pp</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00121">prime_table.h:121</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_aa295aca839032d276409dd579bcd4204"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#aa295aca839032d276409dd579bcd4204">prime_cache_t::end_idx</a></div><div class="ttdeci">uint end_idx</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00124">prime_table.h:124</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_aae8be31c27fcc807a9da17cab2a56c36"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#aae8be31c27fcc807a9da17cab2a56c36">LMMP_BITSET_BITS</a></div><div class="ttdeci">#define LMMP_BITSET_BITS</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00032">prime_table.h:32</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ad83f6ffe7d8fad42894e9e4ad4bfe1b4"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ad83f6ffe7d8fad42894e9e4ad4bfe1b4">lmmp_is_prime_table_</a></div><div class="ttdeci">int lmmp_is_prime_table_(uint p)</div><div class="ttdoc">根据全局素数表判断一个数是否为素数</div><div class="ttdef"><b>定义</b> <a href="#l00264">prime_sieve.c:264</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ad9c4964d51f42061a3d434816628356c"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ad9c4964d51f42061a3d434816628356c">PRIME_SHORT_TABLE_N</a></div><div class="ttdeci">#define PRIME_SHORT_TABLE_N</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00038">prime_table.h:38</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ae09042f4289ebd3a538f8b586747dfe8"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a></div><div class="ttdeci">const ushort prime_short_table[6542]</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00030">prime_table.c:30</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ae15572db81682838454d6fdf65ad64b6"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ae15572db81682838454d6fdf65ad64b6">lmmp_prime_int_table_init_</a></div><div class="ttdeci">void lmmp_prime_int_table_init_(uint n)</div><div class="ttdoc">初始化全局素数表</div><div class="ttdef"><b>定义</b> <a href="#l00123">prime_sieve.c:123</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ae742c804ef5f78994d2eb7d84618d3dd"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ae742c804ef5f78994d2eb7d84618d3dd">prime_cache_t::end_num</a></div><div class="ttdeci">uint end_num</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00125">prime_table.h:125</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_af5e76d78983e57b2468d365a69354c73"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">lmmp_prime_cnt16_</a></div><div class="ttdeci">ushort lmmp_prime_cnt16_(ushort n)</div><div class="ttdoc">计算小于等于 n 的素数数量</div><div class="ttdef"><b>定义</b> <a href="#l00368">prime_sieve.c:368</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_afe62da8724ab642c14401be9bab13c5f"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#afe62da8724ab642c14401be9bab13c5f">lmmp_prime_cache_init_</a></div><div class="ttdeci">void lmmp_prime_cache_init_(prime_cache_t *cache, uint n)</div><div class="ttdoc">初始化素数表缓存</div><div class="ttdef"><b>定义</b> <a href="#l00284">prime_sieve.c:284</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_d8/d94/structprime__cache__t"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#d8/d94/structprime__cache__t">prime_cache_t</a></div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00120">prime_table.h:120</a></div></div>
+<div class="ttc" id="atest__mul__toom68_8c_html_a89873ec87b12891e601a35561a19bbe8"><div class="ttname"><a href="../../da/d29/test__mul__toom68_8c.html#a89873ec87b12891e601a35561a19bbe8">fill_pattern</a></div><div class="ttdeci">static void fill_pattern(mp_ptr p, size_t n, mp_limb_t pat)</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../da/d29/test__mul__toom68_8c_source.html#l00036">test_mul_toom68.c:36</a></div></div>
+<div class="ttc" id="atest__powmod_8c_html_a080abdcb9c02438f1cd2bb707af25af8"><div class="ttname"><a href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a></div><div class="ttdeci">#define restrict</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../d5/df1/test__powmod_8c_source.html#l00035">test_powmod.c:35</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html">tmp_alloc.h</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a106577f032b0f8fb94dbeebe88aa39e2"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a106577f032b0f8fb94dbeebe88aa39e2">REALLOC_TYPE</a></div><div class="ttdeci">#define REALLOC_TYPE(p, new_size, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00201">tmp_alloc.h:201</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a432c4988bf11b9d06f14f16a48e7deac"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a432c4988bf11b9d06f14f16a48e7deac">ALLOC_TYPE</a></div><div class="ttdeci">#define ALLOC_TYPE(n, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00199">tmp_alloc.h:199</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_9396b6e68ae869ebd0dbb83c8694b260.html">lmmp</a></li><li class="navelem"><a href="../../dir_e81495a29da127ca13adb73f7de0dac8.html">numth</a></li><li class="navelem"><a href="../../dd/dd3/prime__sieve_8c.html">prime_sieve.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

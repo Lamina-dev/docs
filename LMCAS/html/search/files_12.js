@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['value_2ecpp_0',['value.cpp',['../d2/dc0/value_8cpp.html',1,'']]],
+  ['value_2ehpp_1',['value.hpp',['../d6/dda/value_8hpp.html',1,'']]],
+  ['value_5ffacade_2ecpp_2',['value_facade.cpp',['../d0/dee/value__facade_8cpp.html',1,'']]],
+  ['vector_5fcalculus_2ehpp_3',['vector_calculus.hpp',['../d9/d83/vector__calculus_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5falgebra_2ecpp_4',['vector_calculus_algebra.cpp',['../db/d99/vector__calculus__algebra_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fcurves_2ecpp_5',['vector_calculus_curves.cpp',['../da/dba/vector__calculus__curves_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fcurves_2ehpp_6',['vector_calculus_curves.hpp',['../d9/da7/vector__calculus__curves_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5fdifferential_2ecpp_7',['vector_calculus_differential.cpp',['../d7/d2a/vector__calculus__differential_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fdifferential_2ehpp_8',['vector_calculus_differential.hpp',['../d1/dc8/vector__calculus__differential_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5fdirectional_2ecpp_9',['vector_calculus_directional.cpp',['../d6/d98/vector__calculus__directional_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fextrema_2ecpp_10',['vector_calculus_extrema.cpp',['../d0/d92/vector__calculus__extrema_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fextrema_2ehpp_11',['vector_calculus_extrema.hpp',['../d9/da5/vector__calculus__extrema_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5fintegral_5fapi_2ecpp_12',['vector_calculus_integral_api.cpp',['../de/db3/vector__calculus__integral__api_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fintegrals_2ecpp_13',['vector_calculus_integrals.cpp',['../df/d9e/vector__calculus__integrals_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5flagrange_2ecpp_14',['vector_calculus_lagrange.cpp',['../de/d77/vector__calculus__lagrange_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fmatrices_2ecpp_15',['vector_calculus_matrices.cpp',['../da/d08/vector__calculus__matrices_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fmatrices_2ehpp_16',['vector_calculus_matrices.hpp',['../de/d67/vector__calculus__matrices_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5fsupport_2ecpp_17',['vector_calculus_support.cpp',['../d8/dac/vector__calculus__support_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fsupport_2ehpp_18',['vector_calculus_support.hpp',['../de/d6f/vector__calculus__support_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5fsurfaces_2ecpp_19',['vector_calculus_surfaces.cpp',['../d0/d39/vector__calculus__surfaces_8cpp.html',1,'']]],
+  ['vector_5fcalculus_5fsurfaces_2ehpp_20',['vector_calculus_surfaces.hpp',['../d6/d7a/vector__calculus__surfaces_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5ftheorems_2ehpp_21',['vector_calculus_theorems.hpp',['../df/d6a/vector__calculus__theorems_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5ftypes_2ehpp_22',['vector_calculus_types.hpp',['../d6/da7/vector__calculus__types_8hpp.html',1,'']]],
+  ['vector_5fcalculus_5fvectors_2ehpp_23',['vector_calculus_vectors.hpp',['../d6/d83/vector__calculus__vectors_8hpp.html',1,'']]]
+];

@@ -1,0 +1,1026 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMP: src/lmmp/numth/nthroot.c 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMP<span id="projectnumber">&#160;4.3.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d5/d3f/nthroot_8c_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">nthroot.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d5/d3f/nthroot_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *  Copyright (C) 2026 HJimmyK (Jericho Knox)</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  This file is part of LMMP.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *  LMMP is free software: you can redistribute it and/or modify it</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *  under the terms of the GNU Lesser General Public License as</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *  published by the Free Software Foundation; either version 3 of</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *  the License, or (at your option) any later version.</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *  This library is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *  You should have received a copy of the GNU Lesser General Public</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *  License along with this library.  If not, see</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> *  &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *  SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/de6/inlines_8h.html">impl/inlines.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/dbe/log2__exp2_8h.html">numth/log2_exp2.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d39/lmmpn_8h.html">lmmp/lmmpn.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/da4/numth_8h.html">lmmp/numth.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"></span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * @brief 取 [p,n] &gt;&gt; s 的低 64bit（自 cbrt.c 同名辅助移植）</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * @param p 源操作数指针</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> * @param n 源操作数的 limb 长度</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * @param s 右移位数</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * @return (p &gt;&gt; s) 的低 64bit</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * @warning n&gt;0, 0 &lt;= s &lt; 64*n</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#a621aa56685867eb3b28cc463d4c46a0f">   37</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_function" href="../../d2/def/cbrt__1_8c.html#a0ff70a9565e928c9e01ae1a46db43ebd">lmmp_shr64_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> p, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> w = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &gt;&gt; 6);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> b = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &amp; 63;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a> = p[w];</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> hi = (w + 1 &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) ? p[w + 1] : 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> b ? ((<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a> &gt;&gt; b) | (hi &lt;&lt; (64 - b))) : <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">    窗口截断幂链的截断+归一化：v（*plen limb）截至顶 wlimbs limb 并把</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">    顶 bit 左移到 limb 顶（MSB=1），丢弃位数（bit 计）累入 *dr。</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">    语义不变量：v_stored·2^dr ≈ 真值。</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * @brief 截断幂链的逐层截断+归一化（nthroot_pow_trunc_ 的层内步骤）</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * @param v 值缓冲（原地覆写为截断结果）</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> * @param plen 输入 v 的有效长度，输出截断后长度</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * @param dr 丢弃位数（bit 计）的累计记账（输出累入本次截断量）</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> * @param wlimbs 窗口宽度（limb）</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * @warning plen!=NULL, dr!=NULL</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> * @note 不变量 [v,*plen]·2^(*dr) ≈ 调用前的真值；顶 limb 恒 MSB=1</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"> *       （或 *plen==0），供后续截断/除法使用。</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"> *       顶零 limb 至多 1 个（值界：入口/sqr 顶恒非零；mul 积</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"> *       ≥ 2^(64l-65) ⟹ bitlen ≥ 64(l-1)），单次顶 limb 探测即精确。</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#adedad55f04227177235b075b0a9f8185">   62</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adedad55f04227177235b075b0a9f8185">nthroot_chop_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> v, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> *plen, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> *dr, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> wlimbs) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> l = *plen;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (l &gt; wlimbs) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        *dr += 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)(l - wlimbs);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(v, v + (l - wlimbs), wlimbs);  <span class="comment">// memmove 前向安全</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        l = wlimbs;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (l &gt; 0 &amp;&amp; v[l - 1] == 0) --l;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (l &gt; 0) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordtype">unsigned</span> b = (unsigned)<a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(v[l - 1]);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">if</span> (b &lt; 64) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(v, v, l, 64 - b);  <span class="comment">// 顶 bit 移至 63，进位恒 0</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            *dr -= 64 - b;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    *plen = l;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">    截断幂链：dst（归一化，≤ wlimbs limb）≈ base^exp / 2^(*drop)</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"></span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">    左扫二进制幂，每次 sqr 后先截断再乘 base（乘积 ≤ wlimbs+bn ≤</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">    2·wlimbs limb），bufa/bufb 乒乓（各 2·wlimbs+8 limb）。相对误差</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">    ≤ (2·log2(exp)+4)·2^-(64·wlimbs)，由层的守卫 limb 吸收。</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment"> * @brief 计算窗口截断幂链 [dst] ≈ [base,bn]^exp / 2^(*drop)</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"> * @param dst 结果指针（归一化，≤ wlimbs limb）</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment"> * @param drop 输出：为匹配窗口而丢弃的位数（bit 计，精确记账）</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment"> * @param wlimbs 窗口宽度（limb）</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"> * @param base 底数指针（顶 limb 允许为 0，内部截断时归一）</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"> * @param bn 底数的 limb 长度（≤ wlimbs 或顶 limb 为 0 等价归一后 ≤ wlimbs）</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * @param exp 指数</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * @param bufa 幂链乒乓缓冲（≥ 2·wlimbs+8 limb）</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> * @param bufb 同 bufa，sep(bufa,bufb)</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> * @return dst 长度</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment"> * @warning exp &gt;= 2, sep(dst,bufa,bufb), base 与两缓冲 sep</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"> * @note 不变量 [dst,返回值]·2^(*drop) = base^exp·(1±ε)，</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"> *       ε ≤ (2·log2(exp)+4)·2^-(64·wlimbs)，由调用方的守卫 limb 吸收。</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#a94c4bdcd54474d96e3a6ed03bbd25275">  102</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a94c4bdcd54474d96e3a6ed03bbd25275">nthroot_pow_trunc_</a>(</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> dst, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> *drop, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> wlimbs,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> base, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> exp, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> bufa, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> bufb</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> P = bufa;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> pl = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> &lt; wlimbs ? <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> : wlimbs;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(P, base + (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> - pl), pl);  <span class="comment">// 底数超窗时取顶 pl limb（低位 64·(bn-pl) bit 计入 dr）</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> dr = 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)(<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> - pl);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adedad55f04227177235b075b0a9f8185">nthroot_chop_</a>(P, &amp;pl, &amp;dr, wlimbs);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">int</span> hb = <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(exp) - 1;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = hb - 1; i &gt;= 0; --i) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Q = (P == bufa) ? bufb : bufa;  <span class="comment">// sqr 目标（P 旧值即死）</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a>(Q, P, pl);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> ql = 2 * pl;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        dr *= 2;  <span class="comment">// (P·2^dr)² = P²·2^(2dr)：平方使累积 drop 翻倍（乘 base 不变）</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adedad55f04227177235b075b0a9f8185">nthroot_chop_</a>(Q, &amp;ql, &amp;dr, wlimbs);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">if</span> ((exp &gt;&gt; i) &amp; 1) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="comment">// 乘回 base：写回 P 旧缓冲（长操作数在前）</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            <span class="keywordflow">if</span> (ql &gt;= <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>) <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(P, Q, ql, base, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            <span class="keywordflow">else</span>          <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(P, base, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, Q, ql);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            pl = ql + <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adedad55f04227177235b075b0a9f8185">nthroot_chop_</a>(P, &amp;pl, &amp;dr, wlimbs);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            P = Q;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            pl = ql;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dst, P, pl);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    *drop = dr;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">return</span> pl;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">    Nseg 提取：A 的顶 nlimbs 个 limb（左补零语义）</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment"></span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">        值 = floor(A / 2^s)，s = bl - 64·nlimbs（s &lt; 0 时为 A·2^(-s)）</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment"></span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">    即把 A 视作左端补零到恰 nlimbs limb 的整体；值域恰 [2^(64·nlimbs-1),</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">    2^(64·nlimbs)) 的截断情形顶 bit 为 A 的顶 bit。</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment"> * @brief 提取 [numa,na] 的顶 nlimbs 个 limb（左补零语义）</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment"> * @param dst 结果指针（容量 ≥ nlimbs+1）</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment"> * @param nlimbs 提取的 limb 数</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment"> * @param numa 源操作数指针</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment"> * @param na 源操作数的 limb 长度</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment"> * @param bl bitlen([numa,na])（调用方已算好，避免重扫）</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment"> * @warning na&gt;0, numa[na-1]!=0, sep(dst,numa)</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment"> * @note 值 = floor(A/2^s)，s = bl-64·nlimbs（s&lt;0 时为 A·2^(-s)）；</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment"> *       s&gt;0 且移出 bit 非零时值暂占 nlimbs+1 limb，顶 limb 恒 0。</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#a5cd7908ce5b3b6605166d6c93c430490">  154</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a5cd7908ce5b3b6605166d6c93c430490">nthroot_top_limbs_</a>(</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> dst, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nlimbs, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> numa, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> na, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> bl</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>) {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)bl - 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)nlimbs;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &gt;= 0) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> off = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &gt;&gt; 6);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordtype">unsigned</span> bit = (unsigned)(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &amp; 63);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">if</span> (off &gt;= na) {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dst, nlimbs);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> m = na - off;  <span class="comment">// ≤ nlimbs+1（bit&gt;0 时顶 limb 移位后恒 0）</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dst, numa + off, m);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dst + m, nlimbs + 1 - m);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">if</span> (bit) <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a>(dst, dst, m, bit);  <span class="comment">// 原地右移（契约允许）</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> loff = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)((-<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>) &gt;&gt; 6);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordtype">unsigned</span> bit = (unsigned)((-<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>) &amp; 63);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dst, nlimbs);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> m = na;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span> (m &gt; nlimbs - loff) m = nlimbs - loff;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(dst + loff, numa, m, bit);  <span class="comment">// bit=0 时函数内即拷贝</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">if</span> (loff + m &lt; nlimbs) dst[loff + m] = cy;  <span class="comment">// 进位必 0（bitlen 恒等）</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment"></span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment"> * @brief 零扩展比较：把 [a,an] 与 [b,bn] 视作等长后比较</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> * @param a 左操作数指针</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> * @param an 左操作数的比较长度（高位允许 0）</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> * @param b 右操作数指针</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment"> * @param bn 右操作数的比较长度（高位允许 0）</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> * @return 比较结果（&lt;0 / 0 / &gt;0 对应 a &lt; / = / &gt; b）</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment"> * @warning an&gt;0, bn&gt;0</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> * @note 高位段非零者大，再比较公共低位段——避免为 cmp_ 反复 trim。</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">  190</a></span><span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> a, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> b, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>) {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>; i-- &gt; <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;) <span class="keywordflow">if</span> (a[i]) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>; i-- &gt; <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>;) <span class="keywordflow">if</span> (b[i]) <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an &lt; bn ? an : bn; i-- &gt;</a> 0;)</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">if</span> (a[i] != b[i]) <span class="keywordflow">return</span> a[i] &lt; b[i] ? -1 : 1;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>}</div>
+</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment"></span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment"> * @brief [y,yn] += 1 并维护精确长度</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment"> * @param y 值指针（原地）</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"> * @param yn 值的精确 limb 长度（顶 limb 非零）</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"> * @return 加 1 后的精确 limb 长度</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> * @warning yn&gt;0, y 容量 ≥ yn+1</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> * @note 全 1 形态进位写到 y[yn]（长度 +1），其余形态长度不变——</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> *       判定不读 y[yn]，缓冲上方残留垃圾不影响。</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00207" data-start="{" data-end="}">
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#a44cf6049efde1318722811e984d6cfa1">  207</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a44cf6049efde1318722811e984d6cfa1">nthroot_inc_len_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> y, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yn) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = 0;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">while</span> (i &lt; yn &amp;&amp; y[i] == <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a88648caa32de20ac2d5e0bdecc806a64">LIMB_MAX</a>) y[i++] = 0;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">if</span> (i == yn) {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        y[yn] = 1;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">return</span> yn + 1;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    ++y[i];</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordflow">return</span> yn;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>}</div>
+</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment"></span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment"> * @brief [y,yn] -= 1 并维护精确长度</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment"> * @param y 值指针（原地）</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment"> * @param yn 值的精确 limb 长度（顶 limb 非零）</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment"> * @return 减 1 后的精确 limb 长度</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment"> * @warning yn&gt;0, 值 ≥ 2（减后非零）</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment"> * @note 仅 2^(64k) 精确形态缩短 1 limb（bitlen ≥ 64(yn-1)+2 的值减 1</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment"> *       后 bitlen ≥ 64(yn-1)+1，顶 limb 恒非零）——单次顶 limb 探测。</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00227" data-start="{" data-end="}">
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#ae14f5a8582c1e5c0cedc6ae64dae7fb6">  227</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#ae14f5a8582c1e5c0cedc6ae64dae7fb6">nthroot_dec_len_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> y, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yn) {</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <a class="code hl_define" href="../../d6/d39/lmmpn_8h.html#a29ab1eb3b7124254a32a001dcd019ee6">lmmp_dec</a>(y);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">if</span> (y[yn - 1] == 0) --yn;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordflow">return</span> yn;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>}</div>
+</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment"></span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment"> * @brief [p,n] += c0 + c1·B（探针证书的小常数增量）</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment"> * @param p 值指针（原地）</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment"> * @param n 值的 limb 长度</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment"> * @param c0 低 limb 增量</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment"> * @param c1 次 limb 增量</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment"> * @warning n &gt;= 2</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment"> * @note 调用方值域保证无 p[n] 溢出，debug 断言为绊线。</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00242" data-start="{" data-end="}">
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#a69074465f1060fc1a209288cc098ca47">  242</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a69074465f1060fc1a209288cc098ca47">nthroot_add_small_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> p, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cc = <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a> ? <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a344093e8760ed368490d9a527ea2c6e9">lmmp_add_1_</a>(p, p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>) : 0;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(cc == 0);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cc2 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a344093e8760ed368490d9a527ea2c6e9">lmmp_add_1_</a>(p + 1, p + 1, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a> + cc);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(cc2 == 0);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>}</div>
+</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment"></span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment"> * @brief [p,n] -= c0 + c1·B（探针证书的小常数量减）</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment"> * @param p 值指针（原地）</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment"> * @param n 值的 limb 长度</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment"> * @param c0 低 limb 减量</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment"> * @param c1 次 limb 减量</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment"> * @warning n &gt;= 2</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment"> * @note 调用方值域保证无下借，debug 断言为绊线。</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00258" data-start="{" data-end="}">
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="../../d5/d3f/nthroot_8c.html#a9569d61b4b6fab8da7363166f62a8bbb">  258</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a9569d61b4b6fab8da7363166f62a8bbb">nthroot_sub_small_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> p, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>) {</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> bb = <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a> ? <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#adb916bdc219e06dbf8f8f0cdf00d89aa">lmmp_sub_1_</a>(p, p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a>) : 0;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(bb == 0);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> bb2 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#adb916bdc219e06dbf8f8f0cdf00d89aa">lmmp_sub_1_</a>(p + 1, p + 1, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1, <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a>);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(bb2 == 0);</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>}</div>
+</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="comment">    tp 需求（nr = ceil(na/root)，nq = nr+1 ≥ ceil(L&#39;/64)）：</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment"></span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">        Y, Y2   终点幂/试探幂   2·Ycap</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment">        work    余数中转        na + 4</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="comment">        xb/asmb/qb/a1/t2 精化   5·(nq + 8)</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="comment">        Db      除数            2·nq + 18</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="comment">        bufa/bufb 幂链乒乓      2·(2·nq + 16)</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="comment">        Nseg    被除数段/移位   2·nq + 13</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="comment"></span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment">    Ycap = max(root·nr+8, na+root/64+4)：全幂端点幂的值界</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment">    y^root &lt; 2^(bl+root+1)（y ≤ T+8，层域 T ≥ 2^128 ⟹ (1+8·root/T)^root</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment">    ≤ 1+2^-9，增值至多 1 bit）需 na+root/64+4 limb——对齐大 root 形状</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="comment">    （root=10^6、na=root、nr=1）可比 root·nr+8 大 ~root/64，取 max。</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="comment">    root=4 专用路线的分段（q1/r1/r2 各 na/2+2、sum na/2+3、S nr+2、</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="comment">    prd 3·nr+4，合计 2·na+4·nr+16 ≤ 2·Ycap+na+4·nr+4，由 na ≤ 4·nr</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment">    恒被覆盖）。合计 2·Ycap + na + 13·nq + 127。</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment">*/</span></div>
+<div class="foldopen" id="foldopen00283" data-start="{" data-end="}">
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#a1bd3fbbb49d00fa2d3f36ed2fad3b6e7">  283</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../de/da4/numth_8h.html#a1bd3fbbb49d00fa2d3f36ed2fad3b6e7">lmmp_nthroot_size_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> na, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> root) {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(na &gt; 0);</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(root &gt;= 4 &amp;&amp; root &lt;= (1ull &lt;&lt; 56));</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nr = (na + (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)root - 1) / (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)root;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nq = nr + 1;  <span class="comment">// ceil(L&#39;/64) ≤ ceil((64na+root)/(64root)) + 0 ≤ nr+1</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> ycap = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)root * nr + 8;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yneed = na + (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(root &gt;&gt; 6) + 4;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordflow">if</span> (ycap &lt; yneed) ycap = yneed;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keywordflow">return</span> 2 * ycap + na + 4 + 13 * nq + 123;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>}</div>
+</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="foldopen" id="foldopen00294" data-start="{" data-end="}">
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#ab2d765a2648d700b824177ea84307958">  294</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../de/da4/numth_8h.html#ab2d765a2648d700b824177ea84307958">lmmp_nthroot_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> dsts, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> dstr, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> numa, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> na, <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> root, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>) {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(na &gt; 0 &amp;&amp; numa != NULL &amp;&amp; numa[na - 1] != 0);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(root &gt;= 4 &amp;&amp; root &lt;= (1ull &lt;&lt; 56));</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(dsts != NULL &amp;&amp; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a> != NULL);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nr = (na + (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)root - 1) / (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)root;  <span class="comment">// 根长</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="comment">// 平凡域：A &lt; 2^(64na) &lt;= 2^root → 根为 1</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="comment">// 除法形式等价于 (ulong)na * LIMB_BITS &lt;= root 且避免大 na 乘法回绕</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordflow">if</span> (na &lt;= root / <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a>) {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        dsts[0] = 1;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keywordflow">if</span> (dstr) {</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dstr, numa, na);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>            <a class="code hl_define" href="../../d6/d39/lmmpn_8h.html#a29ab1eb3b7124254a32a001dcd019ee6">lmmp_dec</a>(dstr);  <span class="comment">// rem = A - 1（A &gt;= 1，无下借）</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dstr + na, (root - 1) * nr + 1 - na);</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        }</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    }</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keywordflow">if</span> (na == 1) {</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        dsts[0] = <a class="code hl_function" href="../../de/da4/numth_8h.html#ab02af954cd20175e25220579c368eacb">lmmp_nthroot_ulong_</a>(numa[0], root);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordflow">if</span> (dstr) {</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> acc = 1;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> i = 0; i &lt; root; ++i) acc *= dsts[0];</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            dstr[0] = numa[0] - acc;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dstr + 1, (root - 1) * nr);  <span class="comment">// 契约区 [0, root) 余 [1, root)</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        }</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="comment">// 位长上限 2^64：na &lt; 2^58 时无回绕（2^58 limb = 2^61 字节，现实不可分配）</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> bl = <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a> * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)(na - 1) + (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)<a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(numa[na - 1]);</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="comment">/*</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="comment">        root=4 专用路线：sqrt∘sqrt 嵌套 floor 恒等式（与顶入口的</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">        Ã = A·2^root 恢复同族定理）</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment"></span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="comment">            floor(sqrt(floor(sqrt(A)))) = floor(A^(1/4))</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="comment"></span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="comment">        双向夹逼：S = floor(A^(1/4)) ⟹ S² ≤ floor(sqrt(A)) ⟹ S⁴ ≤ A；</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="comment">        反向 (S+1)² &gt; floor(sqrt(A)) ⟹ (S+1)² ≥ floor(sqrt(A))+1 ⟹</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="comment">        (S+1)⁴ &gt; A。余数由两级 sqrtrem 展开：</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="comment">            A = q1² + r1 = (S²+r2)² + r1 ⟹ A - S⁴ = r2·(q1+S²) + r1</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="comment">        （q1 = floor(sqrt A)，(S,r2) = sqrtrem(q1)）。</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="comment"></span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="comment">        长度全解析（免 trim 扫描）：精确定理</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="comment">        bitlen(floor(sqrt(A))) = ceil(bl/2)、bitlen(S) = ceil(bl/4)</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="comment">        （2^(bl-1) ≤ A &lt; 2^bl 两端开方夹逼，嵌套 ceil 复合），故两级</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="comment">        sqrt 的输入/输出长度均由 bl 推出；r1/r2 取 sqrt_ 写满的余数区</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="comment">        （含顶零）直接作 mul/add 操作数（加减乘不要求归一化），输出</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="comment">        先清零 dstr 再拷贝乘积容器全长（顶零拷入零区无害）。</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="comment"></span> </div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="comment">        tp 分段（值域 na ≤ 4·nr 保证覆盖）：</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="comment">        q1/r1/r2 各 na/2+2，sum na/2+3，S nr+2，prd 3·nr+4。</span></div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="comment">    */</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordflow">if</span> (root == 4) {</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> q1 = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a7eaf5903abe583c64f4324081140b84e">r1</a> = q1 + na / 2 + 2, S = <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a7eaf5903abe583c64f4324081140b84e">r1</a> + na / 2 + 2, r2v = S + nr + 2,</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>               sum = r2v + na / 2 + 2, prd = sum + na / 2 + 3;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <a class="code hl_function" href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a>(q1, dstr ? <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a7eaf5903abe583c64f4324081140b84e">r1</a> : NULL, numa, na, 0);</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nq1 = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(((bl + 1) / 2 + 63) &gt;&gt; 6);  <span class="comment">// bitlen(q1)=ceil(bl/2)</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <a class="code hl_function" href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a>(S, dstr ? r2v : NULL, q1, nq1, 0);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> sn = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(((bl + 3) / 4 + 63) &gt;&gt; 6);  <span class="comment">// bitlen(S)=ceil(bl/4)（= nr）</span></div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">if</span> (dstr) {</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            <span class="comment">// rem = r2·(q1 + S²) + r1</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a>(sum, S, sn);</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> s2n = 2 * sn;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> un = nq1 &gt; s2n ? nq1 : s2n;  <span class="comment">// q1+S² 容器长（add 长在前）</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>            <span class="keywordflow">if</span> (un &gt; s2n) <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(sum + s2n, un - s2n);  <span class="comment">// sqr 只写 [0,2sn)，补零</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a1eb04fffd70d523647b7b4ed64a438c5">lmmp_add_</a>(sum, sum, un, q1, nq1);</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            <span class="keywordflow">if</span> (cy) sum[un++] = cy;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> r2n = nq1 / 2 + 1;  <span class="comment">// r2 余数区（sqrt_ 写满含零）</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> r1n = na / 2 + 1;   <span class="comment">// r1 余数区（sqrt_ 写满含零）</span></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(prd, sum, un, r2v, r2n);  <span class="comment">// 长在前：un ≥ nq1 ≥ nq1/2+1</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> pn = un + r2n;      <span class="comment">// 乘积容器长（顶零 limb 无害）</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(pn &gt;= r1n);  <span class="comment">// un ≥ nq1 ≥ ceil(na/2)-1，+r2n ≥ r1n</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy2 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a1eb04fffd70d523647b7b4ed64a438c5">lmmp_add_</a>(prd, prd, pn, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a7eaf5903abe583c64f4324081140b84e">r1</a>, r1n);</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            <span class="keywordflow">if</span> (cy2) prd[pn++] = cy2;  <span class="comment">// 值界 rem &lt; 2^(192·nr+3)：pn ≥ 3nr 时进位恒 0</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> outr = (root - 1) * nr + 1;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            <span class="keywordflow">if</span> (pn &gt; outr) pn = outr;  <span class="comment">// 值界保证 [pn, outr) 段恒零</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dstr, prd, pn);        <span class="comment">// 拷贝容器长（含值上方的零 limb）</span></div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dstr + pn, outr - pn);</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        }</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dsts, S, sn);  <span class="comment">// sn == nr（bl ∈ (64(na-1), 64na] 双侧夹逼）</span></div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    }</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> <a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a> = bl + root;              <span class="comment">// bitlen(Ã)</span></div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> Lp = (<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a> + root - 1) / root; <span class="comment">// L&#39; = bitlen(T)</span></div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> shx;                        <span class="comment">// x ≈ T·2^-shx（scale 记账）</span></div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="comment">// ---- scratch 布局（单块手动分段，生命周期接力；注释 [p,n)：p 段首，n 段长）----</span></div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nqf = nr + 1;</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> XW = nqf + 8;          <span class="comment">// 精化窗宽：xb/asmb/qb/a1/t2 五段共用</span></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> DW = 2 * nqf + 18;     <span class="comment">// Db 段长（截断幂链结果/除数）</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> BW = 2 * (nqf + 4) + 8;  <span class="comment">// 幂链乒乓单段长</span></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> NW = 2 * nqf + 13;     <span class="comment">// Nseg 段长（被除数段/移位暂存）</span></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> Ycap = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)root * nr + 8;</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    {</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yneed = na + (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(root &gt;&gt; 6) + 4;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        <span class="keywordflow">if</span> (Ycap &lt; yneed) Ycap = yneed;  <span class="comment">// 全幂端点幂值界（见 size_ 注）</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    }</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Y = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a>;                 <span class="comment">// [Y,    Ycap]  终点幂/试探幂（回退）</span></div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Y2 = Y + Ycap;          <span class="comment">// [Y2,   Ycap]  试探幂 (y+1)^root（回退）</span></div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> work = Y2 + Ycap;       <span class="comment">// [work, na+4]  余数中转</span></div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> xb = work + na + 4;     <span class="comment">// [xb,     XW]  精化状态 x / 探针链结果 V</span></div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> asmb = xb + XW;         <span class="comment">// [asmb,   XW]  商/装配累加器 / 探针 Wc·L</span></div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> qb = asmb + XW;         <span class="comment">// [qb,     XW]  q·root 移位段 / 探针 slack·Sh / 回退 y+1</span></div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a> = qb + XW;           <span class="comment">// [a1,     XW]  (root-1)·x 暂存 / y 候选</span></div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> t2 = <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a> + XW;           <span class="comment">// [t2,     XW]  q·root·2^-X 段 / 探针 M 低位</span></div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Db = t2 + XW;           <span class="comment">// [Db,     DW]  截断幂链结果/除数 D</span></div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> bufa = Db + DW;         <span class="comment">// [bufa,   BW]  幂链乒乓 a</span></div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> bufb = bufa + BW;       <span class="comment">// [bufb,   BW]  幂链乒乓 b</span></div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Nseg = bufb + BW;       <span class="comment">// [Nseg,   NW]  被除数段/移位暂存（探针 M 高位接力）</span></div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span> </div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    <span class="comment">// ---- 1) 种子：x0 ≈ T·2^(127-I)，shx = I-127；xn/bx 显式（xb 高段无读者，不清零）----</span></div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> bx;</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    {</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        <span class="comment">// y = log2(Ã) = (B-1) + log2(1+f)，f 取 A 顶 129bit 去前导 1 的</span></div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        <span class="comment">// 128bit 小数（Ã 顶 bit 同 A）。y/root = I + (rem+f)/root，</span></div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        <span class="comment">// rem = (B-1) mod root（&lt; 2^56 独占第 3 limb）：</span></div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        <span class="comment">// 3 limb 定点 [f | rem] 除 root 得 128bit 商，exp2 后取 128bit</span></div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        <span class="comment">// 归一化尾数。</span></div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> flo, fhi;</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        <span class="keywordflow">if</span> (bl &gt;= 129) {</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>            <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> s0 = bl - 129;</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>            flo = <a class="code hl_function" href="../../d2/def/cbrt__1_8c.html#a0ff70a9565e928c9e01ae1a46db43ebd">lmmp_shr64_</a>(numa, na, s0);</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            fhi = <a class="code hl_function" href="../../d2/def/cbrt__1_8c.html#a0ff70a9565e928c9e01ae1a46db43ebd">lmmp_shr64_</a>(numa, na, s0 + 64);</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> w[3] = {0, 0, 0};</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> m = na &lt; 3 ? na : 3;  <span class="comment">// bl &lt; 129 ⟹ na ≤ 3</span></div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(w, numa, m);</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>            <span class="keywordtype">unsigned</span> sh = (unsigned)(129 - bl);</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>            <span class="keywordflow">if</span> (sh == 64) {</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>                <span class="comment">// bl=65（恰 2 limb、顶 limb=1）：整 limb 上移，越过 shl_ 的</span></div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>                <span class="comment">// [0,63] 契约域（asm 掩码行为未定义，须显式处理）</span></div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>                w[2] = w[1];</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>                w[1] = w[0];</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>                w[0] = 0;</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(w, w, 3, sh);</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>                (void)cy;  <span class="comment">// 高于 129bit 的进位即前导 1 之上，弃</span></div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>            }</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>            flo = w[0];</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>            fhi = w[1];</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>        }</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> fr[3];</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>        <a class="code hl_function" href="../../d5/d7c/log2__exp2_8c.html#a81643a846b590ef0d6bc7614a5b64e17">log2_fixed_128</a>(fr, fhi, flo);          <span class="comment">// fr = log2(1+f) 的 128bit 定点</span></div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>        fr[2] = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)((<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a> - 1) % root);</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a0ef4f96c3aafbe15673fa15739a9879f">lmmp_div_1_</a>(fr, fr, 3, root);          <span class="comment">// (rem·2^128 + f)/root，商 ≤ 2^128</span></div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> e[2];</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>        <a class="code hl_function" href="../../d5/d7c/log2__exp2_8c.html#a1184c6d609245863e0f06332097d29e6">exp2_fixed_128</a>(e, fr[1], fr[0]);       <span class="comment">// 2^frac 的 128bit 小数</span></div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>        xb[0] = (e[0] &gt;&gt; 1) | (e[1] &lt;&lt; 63);</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>        xb[1] = (1ULL &lt;&lt; 63) | (e[1] &gt;&gt; 1);    <span class="comment">// x0 = 2^127 + (e &gt;&gt; 1)</span></div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>        <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> = 2;</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>        bx = 128;  <span class="comment">// x0 ∈ [2^127, 2^128) 恰 128 bit</span></div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>        shx = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)((<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a> - 1) / root) - 127;</div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>    }</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span> </div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>    <span class="comment">// ---- 2) 位窗牛顿精化：e_eff = L&#39;-shx → L&#39;（全程显式长度，零 trim 扫描/零全段清零）----</span></div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> lambda = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)<a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(root - 1) + 12;</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    <span class="keywordflow">for</span> (;;) {</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> e_eff = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)Lp - shx;</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>        <span class="keywordflow">if</span> (e_eff &gt;= (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)Lp) <span class="keywordflow">break</span>;  <span class="comment">// 种子直达域（shx ≤ 0）；层出口恒 shx=0</span></div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> e2 = 2 * e_eff - lambda;   <span class="comment">// e_eff ≥ 128 &gt; λ ⟹ e2 &gt; e_eff</span></div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>        <span class="keywordtype">int</span> final_stage = 0;</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>        <span class="keywordflow">if</span> (e2 &gt;= (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)Lp) {</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>            e2 = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)Lp;</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>            final_stage = 1;  <span class="comment">// 终层后无条件退出（renorm ±1 不再依赖 e_eff 判定）</span></div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>        }</div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> shx2 = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)Lp - e2;</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> delta = e2 - e_eff;</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span> </div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nq = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)((e2 + 63) / 64) + 1;</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> Lseg = 2 * nq + 3;</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> w = nq + 4;</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span> </div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>        <span class="comment">// D = root·P，P = x^(root-1) 截断至 w limb（drop 为丢弃 bit 数）</span></div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> drop;</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> pl = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a94c4bdcd54474d96e3a6ed03bbd25275">nthroot_pow_trunc_</a>(Db, &amp;drop, w, xb, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>, root - 1, bufa, bufb);</div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(Db, Db, pl, root);</div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> dl = pl;</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>        <span class="keywordflow">if</span> (cy) Db[dl++] = cy;</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>        <span class="comment">// 除数取 D 的顶 nd limb [Db+dl-nd, nd)（nd ≤ nq+3；顶 limb 恒非零），</span></div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>        <span class="comment">// 低位截断量 64·(dl-nd) 由尺度恒等式吸收。lmmp_div_ 内部归一化并</span></div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>        <span class="comment">// 支持仅算商（dstr=NULL）：div_s 的 MSB 契约、手工提窗移位与</span></div>
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>        <span class="comment">// 商顶 limb 回收一并免去</span></div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nd = dl &lt; nq + 3 ? dl : nq + 3;</div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span> </div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span>        <span class="comment">// Nseg = A 的顶 Lseg limb（左补零语义）</span></div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a5cd7908ce5b3b6605166d6c93c430490">nthroot_top_limbs_</a>(Nseg, Lseg, numa, na, bl);</div>
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span> </div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>        <span class="comment">// q_seg = floor(Nseg/Dseg)（仅商；[asmb, Lseg-nd+1]，顶 limb 可为 0，</span></div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>        <span class="comment">// mul_1/移位不要求归一化，容器长直传）</span></div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#add02162837d61d6b5abb1901937af5b3">lmmp_div_</a>(asmb, NULL, Nseg, Lseg, Db + dl - nd, nd);</div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> ql = Lseg - nd + 1;</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span> </div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>        <span class="comment">/*</span></div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span><span class="comment">            尺度恒等式（层核心）：q_true := N_{e2}/y^(root-1) ≈ q_seg·root·2^-X，</span></div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span><span class="comment"></span> </div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span><span class="comment">            X = 64·(dl-nd) + 64·Lseg - bl + root·shx2 - root + (root-1)·delta + drop</span></div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span><span class="comment"></span> </div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span><span class="comment">            推导：Nseg = A·2^(64Lseg-bl)·(1±2^-64Lseg)，</span></div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span><span class="comment">            Dseg = floor(D/2^(64(dl-nd))) = root·P·2^-(64(dl-nd))，</span></div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span><span class="comment">            P = x^(root-1)·2^-drop，y^(root-1) = x^(root-1)·2^((root-1)·delta)，</span></div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span><span class="comment">            N_{e2} = A·2^(root-root·shx2)；代入相消即得（各 floor 误差</span></div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span><span class="comment">            ≤ 1 ulp 由守卫吸收）。root&gt;=5 时恒 dl &gt;= nq+3（首层 bitlen(D)</span></div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span><span class="comment">            &gt;= 64(nq+3)，之后 (root-1)e_eff 增速快于 e2），min 为防御。</span></div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span><span class="comment">        */</span></div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> X = 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)(dl - nd) + 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)Lseg - (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)bl + (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)root * shx2</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>                  - (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)root + (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)(root - 1) * delta + drop;</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span> </div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>        <span class="comment">// t2 = (q_seg·root)·2^-X（值底对齐；X&lt;0 时左移暂驻 Nseg，</span></div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>        <span class="comment">// 与 a1 的相加直接消费驻留形态，不回拷）</span></div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> tq;</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tl;</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>        {</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy2 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(t2, asmb, ql, root);</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>            tl = ql;</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>            <span class="keywordflow">if</span> (cy2) t2[tl++] = cy2;</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>            <span class="keywordflow">if</span> (X &gt; 0) {</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> loff = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(X &gt;&gt; 6);</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>                <span class="keywordflow">if</span> (loff &gt;= tl) {</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>                    tl = 0;  <span class="comment">// 商整体低于窗（早层）→ t2 = 0</span></div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>                    <span class="comment">// shr_ 允许 dst&lt;numa 重叠（含 shr=0 的整段拷贝分支）</span></div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>                    <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a>(t2, t2 + loff, tl - loff, (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(X &amp; 63));</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>                    tl -= loff;</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>                }</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>                tq = t2;</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (X &lt; 0) {</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> loff = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)((-X) &gt;&gt; 6);</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>                <span class="keywordtype">unsigned</span> bit = (unsigned)((-X) &amp; 63);</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(Nseg, loff);</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy3 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(Nseg + loff, t2, tl, bit);  <span class="comment">// bit=0 时函数内即拷贝</span></div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>                tl += loff;</div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>                <span class="keywordflow">if</span> (cy3) Nseg[tl++] = cy3;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(tl &lt;= NW);</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>                tq = Nseg;</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>                tq = t2;</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>            }</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        }</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span> </div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>        <span class="comment">// a1 = (root-1)·x·2^delta 落位 asmb：[asmb, dloff) 清零 + 乘积左移</span></div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> al;</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        {</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> dloff = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)(delta &gt;&gt; 6);</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>            <span class="keywordtype">unsigned</span> dbit = (unsigned)(delta &amp; 63);</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>            al = <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>;</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy4 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(asmb + dloff, xb, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>, root - 1);</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>            <span class="keywordflow">if</span> (cy4) asmb[dloff + al++] = cy4;</div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>            <span class="keywordflow">if</span> (dbit) {</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>                <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> cy5 = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(asmb + dloff, asmb + dloff, al, dbit);</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>                <span class="keywordflow">if</span> (cy5) asmb[dloff + al++] = cy5;</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>            }</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(asmb, dloff);</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>            al += dloff;</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        }</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(al &lt;= XW);</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        <span class="comment">// x&#39; = floor((a1 + t2)/root)：长者在前的单次 add + 原地单limb除</span></div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>        {</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> np;</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nl;</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> c = 0;</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>            <span class="keywordflow">if</span> (tl == 0) {</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>                np = asmb;</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>                nl = al;</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (al &gt;= tl) {</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                c = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a1eb04fffd70d523647b7b4ed64a438c5">lmmp_add_</a>(asmb, asmb, al, tq, tl);</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>                np = asmb;</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                nl = al;</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                c = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a1eb04fffd70d523647b7b4ed64a438c5">lmmp_add_</a>(tq, tq, tl, asmb, al);</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>                np = tq;</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>                nl = tl;</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>            }</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>            <span class="keywordflow">if</span> (c) np[nl++] = c;</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a0ef4f96c3aafbe15673fa15739a9879f">lmmp_div_1_</a>(np, np, nl, root);  <span class="comment">// 原地（契约 eqsep），商高位补零</span></div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>            <span class="comment">/*</span></div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span><span class="comment">                x&#39; 精确长度（免 trim 扫描）：记 t = bx+delta（x·2^delta 的</span></div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span><span class="comment">                位长，v := x·2^delta ≥ 2^(t-1)）。num ≥ (root-1)·v ⟹</span></div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span><span class="comment">                x&#39; ≥ (root-1)/root·v - 1 ≥ (4/5)v - 1 ≥ 2^(t-2)（root≥5、</span></div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span><span class="comment">                t ≥ 4）⟹ bitlen(x&#39;) ≥ t-1；层误差定理（e2 = 2·e_eff-λ</span></div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span><span class="comment">                排程）给 x&#39; ≤ v·(1+2^-59) &lt; 2·v &lt; 2^(t+1) ⟹ bitlen ≤ t+1。</span></div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span><span class="comment">                两界跨 ≤2 bit ⟹ xn ∈ {limbs(t+1), limbs(t+1)-1}，</span></div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span><span class="comment">                单次顶 limb 探测即精确。</span></div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span><span class="comment">            */</span></div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>            <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)((bx + (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)delta + 64) &gt;&gt; 6);</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>            <span class="keywordflow">if</span> (np[<a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> - 1] == 0) --<a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>;</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>            bx = 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)(<a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> - 1) + (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)<a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(np[<a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> - 1]);</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(xb, np, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>);</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        }</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>        <span class="comment">// 不做 mantissa 归一化：shx ← shx2 保持排程精度语义（x&#39; 的 bitlen</span></div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>        <span class="comment">// 允许略低于 64·nq——牛顿准确度由 e2 = 2·e_eff-λ 的排程保证，</span></div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        <span class="comment">// 若按 limb 归一化上移会把&quot;scale&quot;虚标为&quot;精度&quot;，下层排程基于虚标</span></div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>        <span class="comment">// 精度直接 e2 → L&#39; 会越过牛顿的二次收敛保证，终值误差 ~2^(L&#39;-2e+λ)）</span></div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        shx = shx2;</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>        <span class="keywordflow">if</span> (final_stage) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    }</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>    <span class="comment">// ---- 3) 终点：y0 = x·2^-shx ≈ T；S_cand = y0 &gt;&gt; 1，A 域先降后升 ----</span></div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    <span class="comment">// 层出口恒 shx=0（终层 e2=L&#39; 钳制）→ 纯拷贝；种子直达域 shx&lt;0</span></div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    <span class="comment">// （|shx| ≤ 126，x0 恰 128bit ⟹ 移后 bitlen = 128+shx 精确已知）</span></div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> y = <a class="code hl_define" href="../../d7/d17/mul__mersenne_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a>;  <span class="comment">// [y, XW)</span></div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yn;</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    <span class="keywordflow">if</span> (shx &lt; 0) {</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> loff = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)((-shx) &gt;&gt; 6);</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        <span class="keywordtype">unsigned</span> bit = (unsigned)((-shx) &amp; 63);</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a>(y, xb + loff, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> - loff, bit);  <span class="comment">// bit=0 时函数内即拷贝</span></div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>        yn = <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> - loff;  <span class="comment">// bitlen 恰 128+shx ≥ 2，顶 limb 非零</span></div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(shx == 0);</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(y, xb, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>);</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>        yn = <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>;</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    }</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a>(y, y, yn, 1);      <span class="comment">// S_cand = y0 &gt;&gt; 1（库移位，原地）</span></div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    <span class="keywordflow">if</span> (y[yn - 1] == 0) --yn;    <span class="comment">// 仅 2^(64k) 精确形态掉 1 limb</span></div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span> </div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <span class="comment">/*</span></div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span><span class="comment">        认证式窗口探针避免在终点计算全尺寸幂。</span></div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span><span class="comment"></span> </div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span><span class="comment">        以截断幂链 V·2^dr ≈ P（P = y^root；drop 精确记账，相对误差</span></div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span><span class="comment">        ε ≤ 2^(hb+66-64·w)，V 恰 pl limb 且 MSB=1）与 A 的同尺度顶窗</span></div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span><span class="comment">        Wc 做单侧认证比较。尺度对齐是精确的：C := A·2^-dr 为实值，</span></div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span><span class="comment">        bitlen(C) = bl - dr 恰已知，shift = bitlen(C) - 64·pl ∈ {-1,0,1}</span></div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="comment">        （由 C = V·(1±ε) 与 bitlen(V) = 64·pl 推出），Wc 取</span></div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span><span class="comment">        nthroot_top_limbs_ 的 64·pl bit 顶窗后按 shift 移位，恒有</span></div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span><span class="comment">        Wc ≤ C &lt; Wc + 2。结合 P 的双侧界 P ∈ [(V-δ0)·2^dr,</span></div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span><span class="comment">        (V+δ0)·2^dr]（δ0 = 2^(hb+68) ≥ 4·ε·2^64·pl）与 A 的界</span></div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span><span class="comment">        A ∈ [Wc·2^dr, (Wc+2)·2^dr)，四项判决均为无条件定理：</span></div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span><span class="comment"></span> </div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span><span class="comment">            dec-cert   V - Wc &gt;= 2^(hb+69)                    ⟹ P &gt; A</span></div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span><span class="comment">            le-cert    Wc - V &gt;= 2^(hb+69)                    ⟹ P &lt;= A</span></div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span><span class="comment">            done-cert  (V-δ0)·root &gt;= (Wc-V+δ0+2)·(ȳ+1)·2^s  ⟹ (y+1)^root &gt; A</span></div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span><span class="comment">            inc-cert   (V+δ0)·root·(1+2^-c1) &lt;= (Wc-V-δ0)·ȳ·2^s ⟹ (y+1)^root &lt;= A</span></div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span><span class="comment"></span> </div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span><span class="comment">        done/inc 由二项式首项 (y+1)^root &gt;= P + root·y^(root-1)（整数、</span></div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span><span class="comment">        精确）与 (1+1/y)^root &lt;= 1+u(1+u)（u = root/y &lt;= 2^-c1，</span></div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span><span class="comment">        c1 = bitlen(y)-58）承载不等式方向；ȳ = floor(y/2^s)，</span></div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span><span class="comment">        s = bitlen(y)-128（gate bitlen(y) &gt;= 256 保证 2 limb ȳ 与富余）。</span></div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span><span class="comment">        le-cert + done-cert ⟹ y = S（定理），无需任何幂。</span></div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span><span class="comment"></span> </div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span><span class="comment">        落入不确定带（|V-Wc| &lt; 2^(hb+69)，或两证书均失败；随机输入</span></div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span><span class="comment">        概率 ~2^-(hb+69)，完全幂/区间顶构造必中）或预算耗尽时回退</span></div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span><span class="comment">        全幂端点（先降后升单调循环，从任意起点收敛）。概率只决定</span></div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span><span class="comment">        快路径命中率，正确性由定理 + 精确回退承载。rem 口径在 y</span></div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span><span class="comment">        认证后仍需一次全幂（余数需要精确 y^root），root-only 免。</span></div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span><span class="comment"></span> </div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span><span class="comment">        y 的 ±1 调整经 nthroot_inc_len_/nthroot_dec_len_ 维护精确长度</span></div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span><span class="comment">        （yn 全程有效，探针/回退的后续读者不再扫描）。</span></div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span><span class="comment">    */</span></div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    <span class="keywordtype">int</span> settled = 0;</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iter = 0; iter &lt; 4 &amp;&amp; !settled; ++iter) {</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        <span class="keywordflow">if</span> (yn &lt; 4 || 64 * (yn - 1) + <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(y[yn - 1]) &lt; 256) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>        <span class="keywordtype">unsigned</span> hb = <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(root) - 1;  <span class="comment">// root &lt;= 2^56 ⟹ hb &lt;= 55</span></div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> d0hi = 1ULL &lt;&lt; (hb + 4);        <span class="comment">// δ0 = 2^(hb+68) 的 limb 对 {0, d0hi}</span></div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> dr;</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> V = xb;                            <span class="comment">// 链结果（pl limb，MSB=1）</span></div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> pl = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a94c4bdcd54474d96e3a6ed03bbd25275">nthroot_pow_trunc_</a>(V, &amp;dr, nr + 5, y, yn, root, bufa, bufb);</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(pl &gt;= 8);</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> shift = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)bl - dr - 64 * (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a>)pl;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        <span class="keywordflow">if</span> (shift &lt; -1 || shift &gt; 1) <span class="keywordflow">break</span>;       <span class="comment">// 定理域外（不可能）：回退</span></div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Wc = asmb;                         <span class="comment">// W0 → 按 shift 移位后的比较窗</span></div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a5cd7908ce5b3b6605166d6c93c430490">nthroot_top_limbs_</a>(Wc, pl, numa, na, bl);</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> wl = pl;</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="keywordflow">if</span> (shift &gt; 0) {</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>            <span class="comment">// C = Ã·2^shift（Ã ∈ [W0, W0+1)）⟹ shift=+1: C ∈ [2W0, 2W0+2)</span></div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> wc = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(Wc, Wc, pl, 1);  <span class="comment">// W0 MSB=1 ⟹ 恒产生第 pl limb</span></div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(wc == 1);</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>            Wc[pl] = wc;</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            wl = pl + 1;</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (shift &lt; 0) {</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>            <span class="comment">// shift=-1: C = Ã/2 ∈ [W0/2, W0/2 + 1/2) ⟹ C ∈ [W0&gt;&gt;1, (W0&gt;&gt;1)+1)</span></div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a>(Wc, Wc, pl, 1);  <span class="comment">// 顶 limb ≥ 2^62，wl 不变</span></div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>        }</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        <span class="comment">// slack = |V - Wc|（SPL limb 容器，高位清零），方向 vgtw</span></div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> SPL = pl + 1;</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> slk = qb;</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(slk + wl, SPL - wl);</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>        <span class="keywordtype">int</span> vgtw = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(V, pl, Wc, wl) &gt;= 0;</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>        <span class="keywordflow">if</span> (vgtw) <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(slk, V, pl, Wc, wl);</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        <span class="keywordflow">else</span>      <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(slk, Wc, wl, V, pl);</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> sn = SPL;</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>        <span class="keywordflow">while</span> (sn &gt; 0 &amp;&amp; slk[sn - 1] == 0) --sn;  <span class="comment">// 数据依赖（slack 值任意小）</span></div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>        <span class="comment">// 守卫带宽判定：slack &gt;= 2^(hb+69) ⟺ bitlen(slack) &gt;= hb+70</span></div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        <span class="keywordflow">if</span> (sn &lt; 2 || <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(slk[sn - 1]) + 64 * (<span class="keywordtype">unsigned</span>)(sn - 1) &lt; hb + 70)</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>            <span class="keywordflow">break</span>;  <span class="comment">// 不确定带 → 回退全幂端点</span></div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        <span class="keywordflow">if</span> (vgtw) {</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>            yn = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#ae14f5a8582c1e5c0cedc6ae64dae7fb6">nthroot_dec_len_</a>(y, yn);  <span class="comment">// dec-cert：P &gt; A（y 过高，牛顿 +1 残余）</span></div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        }</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>        <span class="comment">// le-cert 成立：P &lt;= A。done-cert / inc-cert 判定</span></div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        <span class="keywordtype">unsigned</span> tb = <a class="code hl_define" href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a>(y[yn - 1]);</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> = 64 * (yn - 1) + (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>)tb - 128;</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> alo = <a class="code hl_function" href="../../d2/def/cbrt__1_8c.html#a0ff70a9565e928c9e01ae1a46db43ebd">lmmp_shr64_</a>(y, yn, (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a>);</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> ahi = <a class="code hl_function" href="../../d2/def/cbrt__1_8c.html#a0ff70a9565e928c9e01ae1a46db43ebd">lmmp_shr64_</a>(y, yn, (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> + 64);</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> loff = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &gt;&gt; 6;</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>        <span class="keywordtype">unsigned</span> sbit = (unsigned)(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> &amp; 63);</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        <span class="comment">// L = (V-δ0)·root；M = (slack+δ0+2)·(ȳ+1)·2^s（落位 t2+loff 再原地位移）</span></div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> L = asmb;  <span class="comment">// Wc 已消费（slack 物化于 slk）</span></div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(L, V, pl);</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a9569d61b4b6fab8da7363166f62a8bbb">nthroot_sub_small_</a>(L, pl, 0, d0hi);</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> lcy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(L, L, pl, (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)root);</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> ln = pl;</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>        <span class="keywordflow">if</span> (lcy) {</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>            L[ln] = lcy;</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            ++ln;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>        }</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a69074465f1060fc1a209288cc098ca47">nthroot_add_small_</a>(slk, SPL, 2, d0hi);</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a>[3] = {alo + 1, ahi + (alo + 1 == 0), 0};</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a>[2] = (<a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a>[0] == 0 &amp;&amp; <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a>[1] == 0);  <span class="comment">// ȳ+1 进位到 2^128 的形态</span></div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> bpn = 2 + (<a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a>[2] != 0);</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(t2, loff);  <span class="comment">// M = 乘积 &lt;&lt; (64·loff)：低位 loff limb 必须显式清零</span></div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(t2 + loff, slk, SPL, <a class="code hl_define" href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a>, bpn);</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> mn = loff + SPL + bpn;</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>        <span class="keywordflow">if</span> (sbit) {</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> mcy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(t2 + loff, t2 + loff, SPL + bpn, sbit);</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>            <span class="keywordflow">if</span> (mcy) {</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>                t2[loff + SPL + bpn] = mcy;</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                ++mn;</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>            }</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>        }</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(L, ln, t2, mn) &gt;= 0) {</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>            settled = 1;  <span class="comment">// done-cert：(y+1)^root &gt; A，结合 le-cert 得 y = S</span></div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>        }</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        <span class="comment">// L2 = (V+δ0)·root；M2 = (slack-δ0)·ȳ·2^s；判 L2·(1+2^-c1) &lt;= M2</span></div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(L, V, pl);</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a69074465f1060fc1a209288cc098ca47">nthroot_add_small_</a>(L, pl, 0, d0hi);</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        lcy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(L, L, pl, (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)root);</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>        ln = pl;</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>        <span class="keywordflow">if</span> (lcy) {</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>            L[ln] = lcy;</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>            ++ln;</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>        }</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>        <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a9569d61b4b6fab8da7363166f62a8bbb">nthroot_sub_small_</a>(slk, SPL, 2, 2 * d0hi);  <span class="comment">// (slack+δ0+2)-(2+2δ0) = slack-δ0 &gt;= 0（le-cert 守卫 slack &gt;= 2δ0）</span></div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> ybar[2] = {alo, ahi};</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(t2, loff);  <span class="comment">// 同上：低位清零</span></div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(t2 + loff, slk, SPL, ybar, 2);</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>        mn = loff + SPL + 2;</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>        <span class="keywordflow">if</span> (sbit) {</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>            <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> mcy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a>(t2 + loff, t2 + loff, SPL + 2, sbit);</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>            <span class="keywordflow">if</span> (mcy) {</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>                t2[loff + SPL + 2] = mcy;</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>                ++mn;</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>            }</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        }</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>        <span class="comment">// L2 += L2 &gt;&gt; c1 再 +1（整数化 L2·(1+2^-c1) 的上界）</span></div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a> = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a> + 70;</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> l2 = <a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a> &gt;&gt; 6;</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>        <span class="keywordtype">unsigned</span> <a class="code hl_define" href="../../de/d4d/mul__toom33_8c.html#acff3bec713fd324f76ac8042293272bf">b2</a> = (unsigned)(<a class="code hl_define" href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a> &amp; 63);</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> shn = ln - l2;</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> Sh = qb;  <span class="comment">// slack 已消费（M2 已物化于 t2）</span></div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a>(Sh, L + l2, shn, <a class="code hl_define" href="../../de/d4d/mul__toom33_8c.html#acff3bec713fd324f76ac8042293272bf">b2</a>);  <span class="comment">// b2=0 时函数内即拷贝</span></div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> acy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a1eb04fffd70d523647b7b4ed64a438c5">lmmp_add_</a>(L, L, ln, Sh, shn);</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <span class="keywordflow">if</span> (acy) {</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>            L[ln] = acy;</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>            ++ln;</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>        }</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>        acy = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a344093e8760ed368490d9a527ea2c6e9">lmmp_add_1_</a>(L, L, ln, 1);</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>        <span class="keywordflow">if</span> (acy) {</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>            L[ln] = acy;</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>            ++ln;</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>        }</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(L, ln, t2, mn) &lt;= 0) {</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>            yn = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a44cf6049efde1318722811e984d6cfa1">nthroot_inc_len_</a>(y, yn);  <span class="comment">// inc-cert：(y+1)^root &lt;= A，y+1 成为新候选</span></div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>        }</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>        <span class="keywordflow">break</span>;  <span class="comment">// 不确定带 → 回退全幂端点</span></div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    }</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span> </div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn = 0;  <span class="comment">// Y = y^root 的精确长度（回退/认证幂共用）</span></div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    <span class="keywordflow">if</span> (!settled) {</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    <span class="comment">// 全幂回退端点（不确定带 / 小根 / bitlen(y) &lt; 256 / 预算耗尽）：</span></div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    <span class="comment">// 先降后升单调修正（降循环至 y^root &lt;= A，升循环至 (y+1)^root &gt; A），</span></div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    <span class="comment">// 从任意起点收敛于真值；Y 恒持有 y^root 供余数。注意与上方探针的</span></div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>    <span class="comment">// 区别：早轮被否决的 wcmp 以未认证的截断比较直接作循环条件（无尺度</span></div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>    <span class="comment">// 恒等式、无双侧界、误判即失控）；现行探针的每次判决都是单侧定理 +</span></div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>    <span class="comment">// 精确回退。y 长度经 inc/dec 助手维护，幂比较用 cmp_ext 直接吃</span></div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>    <span class="comment">// 精确长度（无零填充）。</span></div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    <span class="keywordtype">int</span> dec_cnt = 0, inc_cnt = 0;</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    <span class="keywordflow">for</span> (;;) {</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>        tn = <a class="code hl_function" href="../../de/da4/numth_8h.html#aa2bac441513edbba602396a8648c7756">lmmp_pow_</a>(Y, Ycap, y, yn, root);</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(Y, tn, numa, na) &lt;= 0) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>        yn = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#ae14f5a8582c1e5c0cedc6ae64dae7fb6">nthroot_dec_len_</a>(y, yn);</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>        ++dec_cnt;</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>    }</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>    <span class="keywordflow">for</span> (;;) {</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(qb, y, yn);</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> qn = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#a44cf6049efde1318722811e984d6cfa1">nthroot_inc_len_</a>(qb, yn);</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn2 = <a class="code hl_function" href="../../de/da4/numth_8h.html#aa2bac441513edbba602396a8648c7756">lmmp_pow_</a>(Y2, Ycap, qb, qn, root);</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(Y2, tn2, numa, na) &gt; 0) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(y, qb, qn);</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>        yn = qn;</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> sw = Y;</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>        Y = Y2;</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>        Y2 = sw;  <span class="comment">// Y 恒持有 y^root（供余数）</span></div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>        tn = tn2;</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>        ++inc_cnt;</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>    }</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(dec_cnt &lt;= 8 &amp;&amp; inc_cnt &lt;= 8);  <span class="comment">// 误差预算绊线（定理 ≤ ~4）</span></div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dstr) {</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>        <span class="comment">// y = S 已由定理认证；余数需要精确 y^root，付一次全幂（root-only 免）</span></div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        tn = <a class="code hl_function" href="../../de/da4/numth_8h.html#aa2bac441513edbba602396a8648c7756">lmmp_pow_</a>(Y, Ycap, y, yn, root);</div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        <span class="keywordtype">int</span> yle = <a class="code hl_function" href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a>(Y, tn, numa, na);  <span class="comment">// le-cert 绊线（cmp 先算局部变量）</span></div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(yle &lt;= 0);</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>    }</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span> </div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>    <span class="comment">// 输出根：yn ≤ nr 恒成立（y = S 精确，S &lt; 2^(64nr)），min 为防御</span></div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dsts, y, yn &lt; nr ? yn : nr);</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    <span class="keywordflow">if</span> (yn &lt; nr) <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dsts + yn, nr - yn);</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    <span class="keywordflow">if</span> (dstr) {</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>        <span class="comment">// rem = A - y^root：值 &lt; A &lt; 2^(64na) ⟹ 差在 [work, na) 内；</span></div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>        <span class="comment">// 契约区 [(root-1)nr+1] 的顶零直接写 dstr（勿经 work 补零——</span></div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>        <span class="comment">// nr=1 大 root 形状 outr ≫ na+13nq 会越出 tp 末端）</span></div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yl = tn &gt; na ? na : tn;</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> bo = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(work, numa, na, Y, yl);</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(bo == 0);</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> outr = (root - 1) * nr + 1;</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> on = outr &lt; na ? outr : na;</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dstr, work, on);</div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a>(dstr + on, outr - on);</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    }</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>}</div>
+</div>
+<div class="ttc" id="abinvert__1_8c_html_aa8d1894d5181fc1acf0b0c9da29485cf"><div class="ttname"><a href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a></div><div class="ttdeci">#define xn</div></div>
+<div class="ttc" id="acbrt__1_8c_html_a0ff70a9565e928c9e01ae1a46db43ebd"><div class="ttname"><a href="../../d2/def/cbrt__1_8c.html#a0ff70a9565e928c9e01ae1a46db43ebd">lmmp_shr64_</a></div><div class="ttdeci">static mp_limb_t lmmp_shr64_(mp_srcptr p, mp_size_t n, uint64_t s)</div><div class="ttdef"><b>定义</b> <a href="../../d2/def/cbrt__1_8c_source.html#l00134">cbrt_1.c:134</a></div></div>
+<div class="ttc" id="agcd_8h_html_a111da81ae5883147168bbb8366377b10"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a></div><div class="ttdeci">#define B</div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_ab6046b175919e8bb86671d50e1e1c0b1"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a></div><div class="ttdeci">#define an</div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_addc824dd84cd6194b18fa4b6d2fc120d"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a></div><div class="ttdeci">#define bn</div></div>
+<div class="ttc" id="ainlines_8h_html"><div class="ttname"><a href="../../d1/de6/inlines_8h.html">inlines.h</a></div></div>
+<div class="ttc" id="ainlines_8h_html_a08288e3608330359afa46d16d7638828"><div class="ttname"><a href="../../d1/de6/inlines_8h.html#a08288e3608330359afa46d16d7638828">lmmp_limb_bits_</a></div><div class="ttdeci">#define lmmp_limb_bits_</div><div class="ttdef"><b>定义</b> <a href="../../d1/de6/inlines_8h_source.html#l00164">inlines.h:164</a></div></div>
+<div class="ttc" id="ainlines_8h_html_a3a90a8260131e93bfcf1f8959607e872"><div class="ttname"><a href="../../d1/de6/inlines_8h.html#a3a90a8260131e93bfcf1f8959607e872">lmmp_sqr_</a></div><div class="ttdeci">#define lmmp_sqr_</div><div class="ttdef"><b>定义</b> <a href="../../d1/de6/inlines_8h_source.html#l00168">inlines.h:168</a></div></div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00096">lmmp.h:96</a></div></div>
+<div class="ttc" id="almmp_8h_html_a1e058c47a192be811139a760f7dc99c3"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a></div><div class="ttdeci">#define lmmp_copy(dst, src, n)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00474">lmmp.h:474</a></div></div>
+<div class="ttc" id="almmp_8h_html_a3fabf66f2aa6e968f9a29a0b85be2e86"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a3fabf66f2aa6e968f9a29a0b85be2e86">lmmp_zero</a></div><div class="ttdeci">#define lmmp_zero(dst, n)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00476">lmmp.h:476</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00093">lmmp.h:93</a></div></div>
+<div class="ttc" id="almmp_8h_html_a615856ce29bb791b82c2c8271aa829da"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a></div><div class="ttdeci">#define lmmp_debug_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00498">lmmp.h:498</a></div></div>
+<div class="ttc" id="almmp_8h_html_a748ad941e186db2ca030aa4d766a0e5e"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></div><div class="ttdeci">const mp_limb_t * mp_srcptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00097">lmmp.h:97</a></div></div>
+<div class="ttc" id="almmp_8h_html_a88648caa32de20ac2d5e0bdecc806a64"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a88648caa32de20ac2d5e0bdecc806a64">LIMB_MAX</a></div><div class="ttdeci">#define LIMB_MAX</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00105">lmmp.h:105</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00092">lmmp.h:92</a></div></div>
+<div class="ttc" id="almmp_8h_html_adda5c1e66c2b1099eee5706f3550ae07"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#adda5c1e66c2b1099eee5706f3550ae07">LIMB_BITS</a></div><div class="ttdeci">#define LIMB_BITS</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00102">lmmp.h:102</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00509">lmmp.h:509</a></div></div>
+<div class="ttc" id="almmpn_8h_html"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html">lmmpn.h</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a0ef4f96c3aafbe15673fa15739a9879f"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a0ef4f96c3aafbe15673fa15739a9879f">lmmp_div_1_</a></div><div class="ttdeci">mp_limb_t lmmp_div_1_(mp_ptr dstq, mp_srcptr numa, mp_size_t na, mp_limb_t x)</div><div class="ttdoc">单精度数除法</div><div class="ttdef"><b>定义</b> <a href="../../d1/d43/arch_2generic_2div_8c_source.html#l00137">div.c:137</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a1eb04fffd70d523647b7b4ed64a438c5"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a1eb04fffd70d523647b7b4ed64a438c5">lmmp_add_</a></div><div class="ttdeci">static mp_limb_t lmmp_add_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">加法静态内联函数 [dst,na]=[numa,na]+[numb,nb]</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01206">lmmpn.h:1206</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a29ab1eb3b7124254a32a001dcd019ee6"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a29ab1eb3b7124254a32a001dcd019ee6">lmmp_dec</a></div><div class="ttdeci">#define lmmp_dec(p)</div><div class="ttdoc">减1宏（预期无借位）</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01133">lmmpn.h:1133</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a344093e8760ed368490d9a527ea2c6e9"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a344093e8760ed368490d9a527ea2c6e9">lmmp_add_1_</a></div><div class="ttdeci">static mp_limb_t lmmp_add_1_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_limb_t x)</div><div class="ttdoc">加单精度数静态内联函数 [dst,na]=[numa,na]+x</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01259">lmmpn.h:1259</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a5a6e9b6e715cedac419406deab5b44bb"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a5a6e9b6e715cedac419406deab5b44bb">lmmp_shr_</a></div><div class="ttdeci">mp_limb_t lmmp_shr_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_size_t shr)</div><div class="ttdoc">右移操作 [dst,na] = [numa,na]&gt;&gt;shr，dst的高shr位填充0</div><div class="ttdef"><b>定义</b> <a href="../../de/d50/shr_8c_source.html#l00026">shr.c:26</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a72d4d8c682124218c7a0c7c3e5f818ce"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a></div><div class="ttdeci">void lmmp_mul_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">不等长乘法操作 [dst,na+nb] = [numa,na] * [numb,nb]</div></div>
+<div class="ttc" id="almmpn_8h_html_ab4ccd1983f4e30251d638f089275892e"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ab4ccd1983f4e30251d638f089275892e">lmmp_shl_</a></div><div class="ttdeci">mp_limb_t lmmp_shl_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_size_t shl)</div><div class="ttdoc">左移操作 [dst,na] = [numa,na]&lt;&lt;shl，dst的低shl位填充0</div><div class="ttdef"><b>定义</b> <a href="../../d1/d49/shl_8c_source.html#l00026">shl.c:26</a></div></div>
+<div class="ttc" id="almmpn_8h_html_ab6382940233ad6954ef892141066bc8a"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a></div><div class="ttdeci">static mp_limb_t lmmp_sub_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">减法静态内联函数 [dst,na]=[numa,na]-[numb,nb]</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01220">lmmpn.h:1220</a></div></div>
+<div class="ttc" id="almmpn_8h_html_ac837c3ce41191aecaaa2f226de50331c"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a></div><div class="ttdeci">mp_limb_t lmmp_mul_1_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_limb_t x)</div><div class="ttdoc">乘以单limb操作 [dst,na] = [numa,na] * x</div><div class="ttdef"><b>定义</b> <a href="../../d3/dd1/arch_2generic_2mul__1_8c_source.html#l00027">mul_1.c:27</a></div></div>
+<div class="ttc" id="almmpn_8h_html_adb916bdc219e06dbf8f8f0cdf00d89aa"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#adb916bdc219e06dbf8f8f0cdf00d89aa">lmmp_sub_1_</a></div><div class="ttdeci">static mp_limb_t lmmp_sub_1_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_limb_t x)</div><div class="ttdoc">减单精度数静态内联函数 [dst,na]=[numa,na]-x</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01272">lmmpn.h:1272</a></div></div>
+<div class="ttc" id="almmpn_8h_html_add02162837d61d6b5abb1901937af5b3"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#add02162837d61d6b5abb1901937af5b3">lmmp_div_</a></div><div class="ttdeci">void lmmp_div_(mp_ptr dstq, mp_ptr dstr, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">除法和取模操作</div><div class="ttdef"><b>定义</b> <a href="../../d3/db2/div_8c_source.html#l00085">div.c:85</a></div></div>
+<div class="ttc" id="alog2__exp2_8c_html_a1184c6d609245863e0f06332097d29e6"><div class="ttname"><a href="../../d5/d7c/log2__exp2_8c.html#a1184c6d609245863e0f06332097d29e6">exp2_fixed_128</a></div><div class="ttdeci">void exp2_fixed_128(uint64_t *dst, uint64_t high, uint64_t low)</div><div class="ttdoc">计算 floor(exp2(x/B)*B-B), B=2^128</div><div class="ttdef"><b>定义</b> <a href="../../d5/d7c/log2__exp2_8c_source.html#l00461">log2_exp2.c:461</a></div></div>
+<div class="ttc" id="alog2__exp2_8c_html_a81643a846b590ef0d6bc7614a5b64e17"><div class="ttname"><a href="../../d5/d7c/log2__exp2_8c.html#a81643a846b590ef0d6bc7614a5b64e17">log2_fixed_128</a></div><div class="ttdeci">void log2_fixed_128(uint64_t *dst, uint64_t high, uint64_t low)</div><div class="ttdoc">计算 floor(log2(1+x/B)*B), B=2^128</div><div class="ttdef"><b>定义</b> <a href="../../d5/d7c/log2__exp2_8c_source.html#l00392">log2_exp2.c:392</a></div></div>
+<div class="ttc" id="alog2__exp2_8h_html"><div class="ttname"><a href="../../da/dbe/log2__exp2_8h.html">log2_exp2.h</a></div></div>
+<div class="ttc" id="amul__mersenne_8c_html_ab89a77e63a7226fffaecb2e2c2ab5219"><div class="ttname"><a href="../../d7/d17/mul__mersenne_8c.html#ab89a77e63a7226fffaecb2e2c2ab5219">a1</a></div><div class="ttdeci">#define a1</div></div>
+<div class="ttc" id="amul__toom32_8c_html_a6b432b564a3055139e33c53164d64922"><div class="ttname"><a href="../../d4/d6a/mul__toom32_8c.html#a6b432b564a3055139e33c53164d64922">bp1</a></div><div class="ttdeci">#define bp1</div></div>
+<div class="ttc" id="amul__toom32_8c_html_a7eaf5903abe583c64f4324081140b84e"><div class="ttname"><a href="../../d4/d6a/mul__toom32_8c.html#a7eaf5903abe583c64f4324081140b84e">r1</a></div><div class="ttdeci">#define r1</div></div>
+<div class="ttc" id="amul__toom33_8c_html_acff3bec713fd324f76ac8042293272bf"><div class="ttname"><a href="../../de/d4d/mul__toom33_8c.html#acff3bec713fd324f76ac8042293272bf">b2</a></div><div class="ttdeci">#define b2</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ab025e87040bd241c89f5a880c12fc80c"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ab025e87040bd241c89f5a880c12fc80c">tp</a></div><div class="ttdeci">#define tp</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ac9562ee4ecb3b8aeebeb04656e7e57a9"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ac9562ee4ecb3b8aeebeb04656e7e57a9">s</a></div><div class="ttdeci">#define s</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="amullo_8c_html_a06c5f8eeca62bb9b7d4c85d43c4f20d9"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#a06c5f8eeca62bb9b7d4c85d43c4f20d9">lo</a></div><div class="ttdeci">#define lo</div></div>
+<div class="ttc" id="amullo_8c_html_a8f9aca421a560153a31ebb326da34216"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#a8f9aca421a560153a31ebb326da34216">c1</a></div><div class="ttdeci">#define c1</div></div>
+<div class="ttc" id="amullo_8c_html_ac18b3d0edccb2b9062a09d00b0d8b83b"><div class="ttname"><a href="../../dd/d6c/mullo_8c.html#ac18b3d0edccb2b9062a09d00b0d8b83b">c0</a></div><div class="ttdeci">#define c0</div></div>
+<div class="ttc" id="anthroot_8c_html_a44cf6049efde1318722811e984d6cfa1"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#a44cf6049efde1318722811e984d6cfa1">nthroot_inc_len_</a></div><div class="ttdeci">static mp_size_t nthroot_inc_len_(mp_ptr y, mp_size_t yn)</div><div class="ttdoc">[y,yn] += 1 并维护精确长度</div><div class="ttdef"><b>定义</b> <a href="#l00207">nthroot.c:207</a></div></div>
+<div class="ttc" id="anthroot_8c_html_a5cd7908ce5b3b6605166d6c93c430490"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#a5cd7908ce5b3b6605166d6c93c430490">nthroot_top_limbs_</a></div><div class="ttdeci">static void nthroot_top_limbs_(mp_ptr dst, mp_size_t nlimbs, mp_srcptr numa, mp_size_t na, ulong bl)</div><div class="ttdoc">提取 [numa,na] 的顶 nlimbs 个 limb（左补零语义）</div><div class="ttdef"><b>定义</b> <a href="#l00154">nthroot.c:154</a></div></div>
+<div class="ttc" id="anthroot_8c_html_a69074465f1060fc1a209288cc098ca47"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#a69074465f1060fc1a209288cc098ca47">nthroot_add_small_</a></div><div class="ttdeci">static void nthroot_add_small_(mp_ptr p, mp_size_t n, mp_limb_t c0, mp_limb_t c1)</div><div class="ttdoc">[p,n] += c0 + c1·B（探针证书的小常数增量）</div><div class="ttdef"><b>定义</b> <a href="#l00242">nthroot.c:242</a></div></div>
+<div class="ttc" id="anthroot_8c_html_a94c4bdcd54474d96e3a6ed03bbd25275"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#a94c4bdcd54474d96e3a6ed03bbd25275">nthroot_pow_trunc_</a></div><div class="ttdeci">static mp_size_t nthroot_pow_trunc_(mp_ptr dst, slong *drop, mp_size_t wlimbs, mp_srcptr base, mp_size_t bn, ulong exp, mp_ptr bufa, mp_ptr bufb)</div><div class="ttdoc">计算窗口截断幂链 [dst] ≈ [base,bn]^exp / 2^(*drop)</div><div class="ttdef"><b>定义</b> <a href="#l00102">nthroot.c:102</a></div></div>
+<div class="ttc" id="anthroot_8c_html_a9569d61b4b6fab8da7363166f62a8bbb"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#a9569d61b4b6fab8da7363166f62a8bbb">nthroot_sub_small_</a></div><div class="ttdeci">static void nthroot_sub_small_(mp_ptr p, mp_size_t n, mp_limb_t c0, mp_limb_t c1)</div><div class="ttdoc">[p,n] -= c0 + c1·B（探针证书的小常数量减）</div><div class="ttdef"><b>定义</b> <a href="#l00258">nthroot.c:258</a></div></div>
+<div class="ttc" id="anthroot_8c_html_adbea6d6155450cd1fddd8214f42614f5"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#adbea6d6155450cd1fddd8214f42614f5">nthroot_cmp_ext_</a></div><div class="ttdeci">static int nthroot_cmp_ext_(mp_srcptr a, mp_size_t an, mp_srcptr b, mp_size_t bn)</div><div class="ttdoc">零扩展比较：把 [a,an] 与 [b,bn] 视作等长后比较</div><div class="ttdef"><b>定义</b> <a href="#l00190">nthroot.c:190</a></div></div>
+<div class="ttc" id="anthroot_8c_html_adedad55f04227177235b075b0a9f8185"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#adedad55f04227177235b075b0a9f8185">nthroot_chop_</a></div><div class="ttdeci">static void nthroot_chop_(mp_ptr v, mp_size_t *plen, slong *dr, mp_size_t wlimbs)</div><div class="ttdoc">截断幂链的逐层截断+归一化（nthroot_pow_trunc_ 的层内步骤）</div><div class="ttdef"><b>定义</b> <a href="#l00062">nthroot.c:62</a></div></div>
+<div class="ttc" id="anthroot_8c_html_ae14f5a8582c1e5c0cedc6ae64dae7fb6"><div class="ttname"><a href="../../d5/d3f/nthroot_8c.html#ae14f5a8582c1e5c0cedc6ae64dae7fb6">nthroot_dec_len_</a></div><div class="ttdeci">static mp_size_t nthroot_dec_len_(mp_ptr y, mp_size_t yn)</div><div class="ttdoc">[y,yn] -= 1 并维护精确长度</div><div class="ttdef"><b>定义</b> <a href="#l00227">nthroot.c:227</a></div></div>
+<div class="ttc" id="anumth_8h_html"><div class="ttname"><a href="../../de/da4/numth_8h.html">numth.h</a></div></div>
+<div class="ttc" id="anumth_8h_html_a1bd3fbbb49d00fa2d3f36ed2fad3b6e7"><div class="ttname"><a href="../../de/da4/numth_8h.html#a1bd3fbbb49d00fa2d3f36ed2fad3b6e7">lmmp_nthroot_size_</a></div><div class="ttdeci">mp_size_t lmmp_nthroot_size_(mp_size_t na, ulong root)</div><div class="ttdoc">计算 lmmp_nthroot_ 所需的 tp 缓冲区长度（任意长度输入入口）</div><div class="ttdef"><b>定义</b> <a href="#l00283">nthroot.c:283</a></div></div>
+<div class="ttc" id="anumth_8h_html_a72c7b2b3165b6eb83d5dd69971eb1f0e"><div class="ttname"><a href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a></div><div class="ttdeci">int64_t slong</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00041">numth.h:41</a></div></div>
+<div class="ttc" id="anumth_8h_html_aa2bac441513edbba602396a8648c7756"><div class="ttname"><a href="../../de/da4/numth_8h.html#aa2bac441513edbba602396a8648c7756">lmmp_pow_</a></div><div class="ttdeci">mp_size_t lmmp_pow_(mp_ptr dst, mp_size_t rn, mp_srcptr base, mp_size_t n, ulong exp)</div><div class="ttdoc">计算大整数幂 [dst,rn] = [base,n] ^ exp</div></div>
+<div class="ttc" id="anumth_8h_html_ab02af954cd20175e25220579c368eacb"><div class="ttname"><a href="../../de/da4/numth_8h.html#ab02af954cd20175e25220579c368eacb">lmmp_nthroot_ulong_</a></div><div class="ttdeci">ulong lmmp_nthroot_ulong_(ulong n, ulong root)</div><div class="ttdoc">计算 floor(n^(1/root))</div><div class="ttdef"><b>定义</b> <a href="../../d5/d25/nthroot__ulong_8c_source.html#l00051">nthroot_ulong.c:51</a></div></div>
+<div class="ttc" id="anumth_8h_html_ab2d765a2648d700b824177ea84307958"><div class="ttname"><a href="../../de/da4/numth_8h.html#ab2d765a2648d700b824177ea84307958">lmmp_nthroot_</a></div><div class="ttdeci">void lmmp_nthroot_(mp_ptr dsts, mp_ptr dstr, mp_srcptr numa, mp_size_t na, ulong root, mp_ptr tp)</div><div class="ttdoc">计算算术根 [dsts,nr] = floor([numa,na]^(1/root))（任意 na/任意顶 limb）</div><div class="ttdef"><b>定义</b> <a href="#l00294">nthroot.c:294</a></div></div>
+<div class="ttc" id="anumth_8h_html_ab46637ef82283186e57f54756fe67203"><div class="ttname"><a href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></div><div class="ttdeci">uint64_t ulong</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00039">numth.h:39</a></div></div>
+<div class="ttc" id="anumth_8h_html_ae0b4726620c46767b8fa9dd6a2b9ae28"><div class="ttname"><a href="../../de/da4/numth_8h.html#ae0b4726620c46767b8fa9dd6a2b9ae28">lmmp_sqrt_</a></div><div class="ttdeci">void lmmp_sqrt_(mp_ptr dsts, mp_ptr dstr, mp_srcptr numa, mp_size_t na, mp_size_t nf)</div><div class="ttdoc">计算 [numa,na] * B^(2*nf) 的平方根和余数</div><div class="ttdef"><b>定义</b> <a href="../../dd/de3/sqrt_8c_source.html#l00441">sqrt.c:441</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_9396b6e68ae869ebd0dbb83c8694b260.html">lmmp</a></li><li class="navelem"><a href="../../dir_e81495a29da127ca13adb73f7de0dac8.html">numth</a></li><li class="navelem"><a href="../../d5/d3f/nthroot_8c.html">nthroot.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

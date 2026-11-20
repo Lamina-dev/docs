@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['cbrt_5ffloor_5fok_0',['cbrt_floor_ok',['../db/d05/test__cbrt_8c.html#ae8f8dfaf31d674b7c5de85f997de61bb',1,'test_cbrt.c']]],
+  ['chain_5fmul_5fsmall_1',['chain_mul_small',['../d7/d2d/lmmp__test__utils_8h.html#afb1b5a7603995bae410fbfb441d6ee8d',1,'lmmp_test_utils.h']]],
+  ['check_5faddmul_5f2_2',['check_addmul_2',['../da/dcf/test__asm__functions_8c.html#ae342dcf0055a91d317ac3a8188c81fe6',1,'test_asm_functions.c']]],
+  ['check_5fdecimal_5fone_3',['check_decimal_one',['../dd/d14/test__str_8c.html#af0efc74af8def93173421fcd81700922',1,'test_str.c']]],
+  ['check_5ffloor_4',['check_floor',['../d7/d3a/test__nthroot_8c.html#a9ef0aa1b2855d99bdbdf583236e649d6',1,'test_nthroot.c']]],
+  ['check_5fgcdext_5',['check_gcdext',['../db/d0a/test__gcdext_8c.html#af0aab0dec20c45c83e115cb68304bf20',1,'test_gcdext.c']]],
+  ['check_5fhex_5fone_6',['check_hex_one',['../dd/d14/test__str_8c.html#a6028d38625b0f72df53d6d5a0d92657e',1,'test_str.c']]],
+  ['check_5fmul_5fn_7',['check_mul_n',['../d7/d06/test__threshold__boundaries_8c.html#a583a8282569e329646487a99441530e2',1,'test_threshold_boundaries.c']]],
+  ['check_5fpow1_5fagree_8',['check_pow1_agree',['../d3/dc5/test__pow_8c.html#a6cdda54a26eb16c33183057eefb32846',1,'test_pow.c']]],
+  ['check_5fpow1_5flaws_9',['check_pow1_laws',['../d3/dc5/test__pow_8c.html#a5d649c9fa936ccb802d64cc1d4e9a758',1,'test_pow.c']]],
+  ['check_5fprime_5f2_5fagreement_10',['check_prime_2_agreement',['../d2/d15/test__prime2_8c.html#a49a1a1d1920a66bef889fa33a4ca078c',1,'test_prime2.c']]],
+  ['check_5fprod_5fmod_11',['check_prod_mod',['../de/d15/test__mul_8c.html#a0e4ce7764f0c9065f61697a1ad83e207',1,'test_mul.c']]],
+  ['check_5fvalue_12',['check_value',['../dd/d14/test__str_8c.html#a6aa0bfab37264e08bce125099b239ced',1,'test_str.c']]],
+  ['check_5fvs_5fdispatch_13',['check_vs_dispatch',['../da/d29/test__mul__toom68_8c.html#a17204d8575ecf367826235595ca893c5',1,'test_mul_toom68.c']]],
+  ['check_5fvs_5foracle_14',['check_vs_oracle',['../da/d29/test__mul__toom68_8c.html#ae6c62255e466bdbf5ccff8f0aa2768a4',1,'test_mul_toom68.c']]],
+  ['coeff_5fbound_5fl_15',['coeff_bound_l',['../db/d0a/test__gcdext_8c.html#acacb74a3bd4c7afa89531376871bc2c6',1,'test_gcdext.c']]],
+  ['count_5f2facodd_5ffactors_16',['count_2facodd_factors',['../d3/d03/factorial__extra_8c.html#afeca2650f1975d493de955bd3e393747',1,'factorial_extra.c']]],
+  ['count_5falloc_17',['count_alloc',['../db/db7/test__lifecycle_8c.html#a01e45cbe62184a977844536044bb81f7',1,'test_lifecycle.c']]],
+  ['count_5fbits_18',['count_bits',['../d7/dc6/powlo_8c.html#a736975950562f3ce3169024535f407a3',1,'count_bits(mp_srcptr p, mp_size_t n):&#160;powlo.c'],['../df/d78/powmod_8c.html#a736975950562f3ce3169024535f407a3',1,'count_bits(mp_srcptr p, mp_size_t n):&#160;powmod.c'],['../d5/d5a/powmod__1_8c.html#a736975950562f3ce3169024535f407a3',1,'count_bits(mp_srcptr p, mp_size_t n):&#160;powmod_1.c'],['../de/d0e/powmod__2_8c.html#a736975950562f3ce3169024535f407a3',1,'count_bits(mp_srcptr p, mp_size_t n):&#160;powmod_2.c']]],
+  ['count_5ffactors_19',['count_factors',['../d9/d3a/factorial_8c.html#aac1a569d5754e74d909aef7a83a1f4a8',1,'count_factors(fac_ptr fac, uint nfactors, uint n, uint p):&#160;factorial.c'],['../d5/d56/multinomial_8c.html#a4ef620ae072246971577b451380a0f69',1,'count_factors(fac_ptr fac, uint nfactors, uint n, const uintp r, uint m, uint p):&#160;multinomial.c'],['../dd/ded/nCr_8c.html#a7af35af2a899e19e014ef477aa4ea590',1,'count_factors(fac_ptr fac, uint nfactors, uint n, uint r, uint nr, uint p):&#160;nCr.c'],['../dc/d74/nPr_8c.html#ae182b866351945f80d74888fd7bc93d6',1,'count_factors(fac_ptr fac, uint nfactors, uint n, uint r, uint p):&#160;nPr.c']]],
+  ['count_5ffree_20',['count_free',['../db/db7/test__lifecycle_8c.html#a7a5610ae2da3df98d3ad3b0f2a02bbf3',1,'test_lifecycle.c']]],
+  ['count_5fhyperfac_5ffactors_21',['count_hyperfac_factors',['../d3/d03/factorial__extra_8c.html#adb8a21368e954167b83461ce1727d29e',1,'factorial_extra.c']]],
+  ['count_5frealloc_22',['count_realloc',['../db/db7/test__lifecycle_8c.html#a527ddd69a032d2f980c85021e420c5e2',1,'test_lifecycle.c']]],
+  ['count_5fsuperfac_5ffactors_23',['count_superfac_factors',['../d3/d03/factorial__extra_8c.html#a09086494bfb843e18e4bfc5d305ec024',1,'factorial_extra.c']]],
+  ['ctz_5fu128_24',['ctz_u128',['../da/d9a/gcd__2_8c.html#a090683f42670970e0bcaadd5dddcb7ea',1,'gcd_2.c']]]
+];

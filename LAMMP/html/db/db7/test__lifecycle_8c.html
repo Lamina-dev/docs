@@ -1,0 +1,962 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMP: src/lmmp/lmmp/test/test_lifecycle.c 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMP<span id="projectnumber">&#160;4.3.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('db/db7/test__lifecycle_8c.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_lifecycle.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../dd/d90/lmmp_8h_source.html">lmmp/lmmp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d39/lmmpn_8h_source.html">lmmp/lmmpn.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/da4/numth_8h_source.html">lmmp/numth.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/daf/lmmp_2test_2cases_8h_source.html">cases.h</a>&quot;</code><br />
+<code>#include &lt;stdatomic.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;windows.h&gt;</code><br />
+<code>#include &lt;process.h&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>test_lifecycle.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/d86/test__lifecycle_8c__incl.svg" width="100%" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../db/db7/test__lifecycle_8c_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+结构体</h2></td></tr>
+<tr class="memitem:thread_5Fcase_5Fd6_2Fd54_2Fstructthread_5F_5Fcase" id="r_thread_5Fcase_5Fd6_2Fd54_2Fstructthread_5F_5Fcase"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="#d6/d54/structthread__case">thread_case</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+枚举</h2></td></tr>
+<tr class="memitem:afcda0880d5d7da9a5661978997f60106" id="r_afcda0880d5d7da9a5661978997f60106"><td class="memItemLeft"><a class="el" href="#afcda0880d5d7da9a5661978997f60106">enum </a>&#160;</td><td class="memItemRight">{ <a class="el" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a> = 64
+, <a class="el" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a> = 20 * BIG_N + 8
+, <a class="el" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a> = 65537
+ }</td></tr>
+<tr class="memdesc:afcda0880d5d7da9a5661978997f60106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright (C) 2026 HJimmyK (Jericho Knox)  <a href="#afcda0880d5d7da9a5661978997f60106">更多...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a39a052799eaf9e62e07e5901f50996b0" id="r_a39a052799eaf9e62e07e5901f50996b0"><td class="memItemLeft">static <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> *out, <a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> a)</td></tr>
+<tr class="memitem:a01e45cbe62184a977844536044bb81f7" id="r_a01e45cbe62184a977844536044bb81f7"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a01e45cbe62184a977844536044bb81f7">count_alloc</a> (size_t n)</td></tr>
+<tr class="memitem:a7a5610ae2da3df98d3ad3b0f2a02bbf3" id="r_a7a5610ae2da3df98d3ad3b0f2a02bbf3"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a7a5610ae2da3df98d3ad3b0f2a02bbf3">count_free</a> (void *p)</td></tr>
+<tr class="memitem:a527ddd69a032d2f980c85021e420c5e2" id="r_a527ddd69a032d2f980c85021e420c5e2"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a527ddd69a032d2f980c85021e420c5e2">count_realloc</a> (void *p, size_t n)</td></tr>
+<tr class="memitem:a4fd67bd18fdc624786539ee19b0705f9" id="r_a4fd67bd18fdc624786539ee19b0705f9"><td class="memItemLeft">static <a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4fd67bd18fdc624786539ee19b0705f9">factorial_buffer</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> n)</td></tr>
+<tr class="memitem:a3bd772effe17f00174256ead8eeb54fc" id="r_a3bd772effe17f00174256ead8eeb54fc"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a3bd772effe17f00174256ead8eeb54fc">fill_big</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> a)</td></tr>
+<tr class="memitem:a1ca04fdf0f20a6ff120c5d1a6bfd7ad5" id="r_a1ca04fdf0f20a6ff120c5d1a6bfd7ad5"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a1ca04fdf0f20a6ff120c5d1a6bfd7ad5">test_fn_heap_balance_full_cycle</a> (void)</td></tr>
+<tr class="memitem:aade93744d7ca50693bde72e0b4bfa1c8" id="r_aade93744d7ca50693bde72e0b4bfa1c8"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#aade93744d7ca50693bde72e0b4bfa1c8">test_fn_lifecycle_idempotent</a> (void)</td></tr>
+<tr class="memitem:a703867d596cdbaa4eedcfecff50c9291" id="r_a703867d596cdbaa4eedcfecff50c9291"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a703867d596cdbaa4eedcfecff50c9291">test_fn_thread_isolation</a> (void)</td></tr>
+<tr class="memitem:a56a65645c778947ecfc4165b5a4478e5" id="r_a56a65645c778947ecfc4165b5a4478e5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a56a65645c778947ecfc4165b5a4478e5">test_lifecycle</a> (void)</td></tr>
+<tr class="memdesc:a56a65645c778947ecfc4165b5a4478e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright (C) 2026 HJimmyK (Jericho Knox)  <br /></td></tr>
+<tr class="memitem:a81beb2d3deae84c2e2ff84bb81ad3089" id="r_a81beb2d3deae84c2e2ff84bb81ad3089"><td class="memItemLeft">static unsigned __stdcall&#160;</td><td class="memItemRight"><a class="el" href="#a81beb2d3deae84c2e2ff84bb81ad3089">thread_worker</a> (void *arg)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:adaadd7e1c2f41cca72ded6b4832e5a92" id="r_adaadd7e1c2f41cca72ded6b4832e5a92"><td class="memItemLeft">static atomic_long&#160;</td><td class="memItemRight"><a class="el" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a></td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">结构体说明</h2>
+<a name="d6/d54/structthread__case" id="d6/d54/structthread__case"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d6/d54/structthread__case">&#9670;&#160;</a></span>thread_case</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct thread_case</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00147">147</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>thread_case 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../df/d1b/structthread__case__coll__graph.svg" width="342" height="274"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="ac69655590d8b674667cff49fa1f1e329" name="ac69655590d8b674667cff49fa1f1e329"></a><a class="el" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a></td>
+<td class="fieldname">
+bits</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a3b1b33d1b23721bfbca791a01ba3f6d5" name="a3b1b33d1b23721bfbca791a01ba3f6d5"></a>const <a class="el" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> *</td>
+<td class="fieldname">
+decimal</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aafd23f7cc2924bdc40c288aa15fa927c" name="aafd23f7cc2924bdc40c288aa15fa927c"></a><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>
+<td class="fieldname">
+input</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7a198e4bb58fc898d141c7090343d881" name="a7a198e4bb58fc898d141c7090343d881"></a><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>
+<td class="fieldname">
+len</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="acfeb7ec8a92944ac680a1c506b249b9b" name="acfeb7ec8a92944ac680a1c506b249b9b"></a>bool</td>
+<td class="fieldname">
+pass</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a0b9cca2ca868bbef55659fc136354d76" name="a0b9cca2ca868bbef55659fc136354d76"></a><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>
+<td class="fieldname">
+rn</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">枚举类型说明</h2>
+<a id="afcda0880d5d7da9a5661978997f60106" name="afcda0880d5d7da9a5661978997f60106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcda0880d5d7da9a5661978997f60106">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copyright (C) 2026 HJimmyK (Jericho Knox) </p>
+<p>This file is part of LMMP.</p>
+<p>LMMP is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+<p>SPDX-License-Identifier: LGPL-3.0-or-later </p>
+<table class="fieldtable">
+<tr><th colspan="3">枚举值</th></tr><tr><td class="fieldname"><a id="afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4" name="afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4"></a>BIG_N&#160;</td><td class="fieldinit">64&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a" name="afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a"></a>DECIMAL_CAP&#160;</td><td class="fieldinit">20 * BIG_N + 8&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311" name="afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311"></a>FACTORIAL_N&#160;</td><td class="fieldinit">65537&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">46</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>{ <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a> = 64, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a> = 20 * <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a> + 8, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a> = 65537 };</div>
+<div class="ttc" id="atest__lifecycle_8c_html_afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a"><div class="ttname"><a href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a></div><div class="ttdeci">@ DECIMAL_CAP</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00046">test_lifecycle.c:46</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311"><div class="ttname"><a href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a></div><div class="ttdeci">@ FACTORIAL_N</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00046">test_lifecycle.c:46</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4"><div class="ttname"><a href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a></div><div class="ttdeci">@ BIG_N</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00046">test_lifecycle.c:46</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="a39a052799eaf9e62e07e5901f50996b0" name="a39a052799eaf9e62e07e5901f50996b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39a052799eaf9e62e07e5901f50996b0">&#9670;&#160;</a></span>big_to_decimal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> big_to_decimal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> *</td>          <td class="paramname"><span class="paramname"><em>out</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">54</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>                                                             {</div>
+<div class="line"><span class="lineno">   55</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a6322ab8e9cf460abc363e7d6efd5ed78">lmmp_to_str_</a>(out, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>, 10);</div>
+<div class="line"><span class="lineno">   56</span>}</div>
+<div class="ttc" id="almmpn_8h_html_a6322ab8e9cf460abc363e7d6efd5ed78"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a6322ab8e9cf460abc363e7d6efd5ed78">lmmp_to_str_</a></div><div class="ttdeci">mp_size_t lmmp_to_str_(mp_byte_t *dst, mp_srcptr numa, mp_size_t na, int base)</div><div class="ttdoc">limb数组转字节数组操作 [numa,na,B] to [dst,return value,base]</div><div class="ttdef"><b>定义</b> <a href="../../db/d22/to__str_8c_source.html#l00169">to_str.c:169</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">BIG_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">big_to_decimal()</a> , 以及 <a class="el" href="../../db/d22/to__str_8c_source.html#l00169">lmmp_to_str_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">big_to_decimal()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00065">test_fn_lifecycle_idempotent()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00177">test_fn_thread_isolation()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00156">thread_worker()</a>.</p>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a39a052799eaf9e62e07e5901f50996b0_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a39a052799eaf9e62e07e5901f50996b0_icgraph.svg" width="616" height="232"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a01e45cbe62184a977844536044bb81f7" name="a01e45cbe62184a977844536044bb81f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e45cbe62184a977844536044bb81f7">&#9670;&#160;</a></span>count_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * count_alloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00102">102</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>                                   {</div>
+<div class="line"><span class="lineno">  103</span>    <span class="keywordtype">void</span> *p = malloc(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  104</span>    <span class="keywordflow">if</span> (p)</div>
+<div class="line"><span class="lineno">  105</span>        ++<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>;</div>
+<div class="line"><span class="lineno">  106</span>    <span class="keywordflow">return</span> p;</div>
+<div class="line"><span class="lineno">  107</span>}</div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_adaadd7e1c2f41cca72ded6b4832e5a92"><div class="ttname"><a href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a></div><div class="ttdeci">static atomic_long live_allocations</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00100">test_lifecycle.c:100</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00102">count_alloc()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00100">live_allocations</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00102">count_alloc()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00115">count_realloc()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>.</p>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a01e45cbe62184a977844536044bb81f7_cgraph.svg" width="107" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a01e45cbe62184a977844536044bb81f7_icgraph.svg" width="474" height="96"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7a5610ae2da3df98d3ad3b0f2a02bbf3" name="a7a5610ae2da3df98d3ad3b0f2a02bbf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a5610ae2da3df98d3ad3b0f2a02bbf3">&#9670;&#160;</a></span>count_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void count_free </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00109">109</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  109</span>                                {</div>
+<div class="line"><span class="lineno">  110</span>    <span class="keywordflow">if</span> (p)</div>
+<div class="line"><span class="lineno">  111</span>        --<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>;</div>
+<div class="line"><span class="lineno">  112</span>    free(p);</div>
+<div class="line"><span class="lineno">  113</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00109">count_free()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00100">live_allocations</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00109">count_free()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>.</p>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a7a5610ae2da3df98d3ad3b0f2a02bbf3_cgraph.svg" width="102" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a7a5610ae2da3df98d3ad3b0f2a02bbf3_icgraph.svg" width="312" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a527ddd69a032d2f980c85021e420c5e2" name="a527ddd69a032d2f980c85021e420c5e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a527ddd69a032d2f980c85021e420c5e2">&#9670;&#160;</a></span>count_realloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * count_realloc </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00115">115</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  115</span>                                              {</div>
+<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">return</span> p ? realloc(p, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) : <a class="code hl_function" href="#a01e45cbe62184a977844536044bb81f7">count_alloc</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><span class="lineno">  117</span>}</div>
+<div class="ttc" id="atest__lifecycle_8c_html_a01e45cbe62184a977844536044bb81f7"><div class="ttname"><a href="#a01e45cbe62184a977844536044bb81f7">count_alloc</a></div><div class="ttdeci">static void * count_alloc(size_t n)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00102">test_lifecycle.c:102</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00102">count_alloc()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00115">count_realloc()</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00115">count_realloc()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>.</p>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a527ddd69a032d2f980c85021e420c5e2_cgraph.svg" width="263" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a527ddd69a032d2f980c85021e420c5e2_icgraph.svg" width="331" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4fd67bd18fdc624786539ee19b0705f9" name="a4fd67bd18fdc624786539ee19b0705f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fd67bd18fdc624786539ee19b0705f9">&#9670;&#160;</a></span>factorial_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> factorial_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00058">58</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>                                            {</div>
+<div class="line"><span class="lineno">   59</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> buffer = calloc(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> + 1, <span class="keyword">sizeof</span>(*buffer));</div>
+<div class="line"><span class="lineno">   60</span>    <span class="keywordflow">if</span> (!buffer)</div>
+<div class="line"><span class="lineno">   61</span>        abort();</div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">return</span> buffer;</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00096">lmmp.h:96</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00058">factorial_buffer()</a> , 以及 <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00058">factorial_buffer()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00065">test_fn_lifecycle_idempotent()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00156">thread_worker()</a>.</p>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a4fd67bd18fdc624786539ee19b0705f9_cgraph.svg" width="131" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a4fd67bd18fdc624786539ee19b0705f9_icgraph.svg" width="616" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3bd772effe17f00174256ead8eeb54fc" name="a3bd772effe17f00174256ead8eeb54fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bd772effe17f00174256ead8eeb54fc">&#9670;&#160;</a></span>fill_big()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fill_big </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00048">48</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>                               {</div>
+<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = 0; i &lt; <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>; ++i)</div>
+<div class="line"><span class="lineno">   50</span>        a[i] = 0x9e3779b97f4a7c15ull * (i + 1) + 0x123456789abcdefull;</div>
+<div class="line"><span class="lineno">   51</span>    a[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a> - 1] |= 1;</div>
+<div class="line"><span class="lineno">   52</span>}</div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00093">lmmp.h:93</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">BIG_N</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00048">fill_big()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00048">fill_big()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00065">test_fn_lifecycle_idempotent()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00177">test_fn_thread_isolation()</a>.</p>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a3bd772effe17f00174256ead8eeb54fc_cgraph.svg" width="75" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a3bd772effe17f00174256ead8eeb54fc_icgraph.svg" width="334" height="159"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1ca04fdf0f20a6ff120c5d1a6bfd7ad5" name="a1ca04fdf0f20a6ff120c5d1a6bfd7ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ca04fdf0f20a6ff120c5d1a6bfd7ad5">&#9670;&#160;</a></span>test_fn_heap_balance_full_cycle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_fn_heap_balance_full_cycle </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">119</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>                                                       {</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a> counting = {<a class="code hl_function" href="#a01e45cbe62184a977844536044bb81f7">count_alloc</a>, <a class="code hl_function" href="#a7a5610ae2da3df98d3ad3b0f2a02bbf3">count_free</a>, <a class="code hl_function" href="#a527ddd69a032d2f980c85021e420c5e2">count_realloc</a>};</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a> libc = {malloc, free, realloc};</div>
+<div class="line"><span class="lineno">  122</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a1d7ed84bade971e6852cff99315e02ce">lmmp_set_heap_allocator</a>(&amp;counting);</div>
+<div class="line"><span class="lineno">  123</span>    <span class="keywordtype">long</span> baseline = atomic_load(&amp;<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>);</div>
+<div class="line"><span class="lineno">  124</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(baseline &gt; 0);</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>], dst[2 * <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>];</div>
+<div class="line"><span class="lineno">  127</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> decimal[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a>];</div>
+<div class="line"><span class="lineno">  128</span>    <a class="code hl_function" href="#a3bd772effe17f00174256ead8eeb54fc">fill_big</a>(a);</div>
+<div class="line"><span class="lineno">  129</span>    <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(dst, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>);</div>
+<div class="line"><span class="lineno">  130</span>    <a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(decimal, a);</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> bits = 0;</div>
+<div class="line"><span class="lineno">  133</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> rn = <a class="code hl_function" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_</a>(<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>, &amp;bits);</div>
+<div class="line"><span class="lineno">  134</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> fac = <a class="code hl_function" href="#a4fd67bd18fdc624786539ee19b0705f9">factorial_buffer</a>(rn);</div>
+<div class="line"><span class="lineno">  135</span>    <a class="code hl_function" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_</a>(fac, bits, rn + 1, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>);</div>
+<div class="line"><span class="lineno">  136</span>    free(fac);</div>
+<div class="line"><span class="lineno">  137</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(atomic_load(&amp;<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>) &gt; baseline);</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a>();</div>
+<div class="line"><span class="lineno">  140</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(atomic_load(&amp;<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>) == 0);</div>
+<div class="line"><span class="lineno">  141</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a>();</div>
+<div class="line"><span class="lineno">  142</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(atomic_load(&amp;<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>) == baseline);</div>
+<div class="line"><span class="lineno">  143</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a1d7ed84bade971e6852cff99315e02ce">lmmp_set_heap_allocator</a>(&amp;libc);</div>
+<div class="line"><span class="lineno">  144</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(atomic_load(&amp;<a class="code hl_variable" href="#adaadd7e1c2f41cca72ded6b4832e5a92">live_allocations</a>) == 0);</div>
+<div class="line"><span class="lineno">  145</span>}</div>
+<div class="ttc" id="almmp_8h_html_a0fd36f16051f9d09180cb739e2f8a95c"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a></div><div class="ttdeci">uint8_t mp_byte_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00091">lmmp.h:91</a></div></div>
+<div class="ttc" id="almmp_8h_html_a1d7ed84bade971e6852cff99315e02ce"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a1d7ed84bade971e6852cff99315e02ce">lmmp_set_heap_allocator</a></div><div class="ttdeci">void lmmp_set_heap_allocator(const lmmp_heap_allocator_t *heap)</div><div class="ttdoc">设置 LMMP 全局堆内存分配函数</div><div class="ttdef"><b>定义</b> <a href="../../df/dd5/memory_8c_source.html#l00100">memory.c:100</a></div></div>
+<div class="ttc" id="almmp_8h_html_a56546655f77216fbe0fa5f906c686787"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a></div><div class="ttdeci">size_t mp_bitcnt_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00098">lmmp.h:98</a></div></div>
+<div class="ttc" id="almmp_8h_html_abbd99ccfcc05a5deb0b80a6ac0c2e5d6"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a></div><div class="ttdeci">void lmmp_global_init(void)</div><div class="ttdoc">全局初始化函数（线程局部的）</div><div class="ttdef"><b>定义</b> <a href="../../dc/d57/global_8c_source.html#l00058">global.c:58</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00092">lmmp.h:92</a></div></div>
+<div class="ttc" id="almmp_8h_html_ac2c1f6e12685755673ae478a8f99776e"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a></div><div class="ttdeci">void lmmp_global_deinit(void)</div><div class="ttdoc">全局释放函数（线程局部的）</div><div class="ttdef"><b>定义</b> <a href="../../dc/d57/global_8c_source.html#l00065">global.c:65</a></div></div>
+<div class="ttc" id="almmp_8h_html_d8/d93/structlmmp__heap__allocator__t"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#d8/d93/structlmmp__heap__allocator__t">lmmp_heap_allocator_t</a></div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00239">lmmp.h:239</a></div></div>
+<div class="ttc" id="almmpn_8h_html_a72d4d8c682124218c7a0c7c3e5f818ce"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a></div><div class="ttdeci">void lmmp_mul_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">不等长乘法操作 [dst,na+nb] = [numa,na] * [numb,nb]</div></div>
+<div class="ttc" id="anumth_8h_html_a6f0d5cd6f84e40c9194a114f689175b8"><div class="ttname"><a href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_</a></div><div class="ttdeci">mp_size_t lmmp_factorial_size_(uint n, mp_bitcnt_t *bits)</div><div class="ttdoc">计算 n!</div></div>
+<div class="ttc" id="anumth_8h_html_a8bd1af6d4917b4c9888f1347b59ab0db"><div class="ttname"><a href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_</a></div><div class="ttdeci">mp_size_t lmmp_factorial_(mp_ptr dst, mp_bitcnt_t bits, mp_size_t rn, uint n)</div><div class="ttdoc">计算 n!</div></div>
+<div class="ttc" id="atest_8h_html_a1f11495375db2b0daa6efe2850388dd9"><div class="ttname"><a href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a></div><div class="ttdeci">#define TEST_CHECK(cond)</div><div class="ttdef"><b>定义</b> <a href="../../d2/ddc/test_8h_source.html#l00037">test.h:37</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a39a052799eaf9e62e07e5901f50996b0"><div class="ttname"><a href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a></div><div class="ttdeci">static mp_size_t big_to_decimal(mp_byte_t *out, mp_srcptr a)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00054">test_lifecycle.c:54</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a3bd772effe17f00174256ead8eeb54fc"><div class="ttname"><a href="#a3bd772effe17f00174256ead8eeb54fc">fill_big</a></div><div class="ttdeci">static void fill_big(mp_ptr a)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00048">test_lifecycle.c:48</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a4fd67bd18fdc624786539ee19b0705f9"><div class="ttname"><a href="#a4fd67bd18fdc624786539ee19b0705f9">factorial_buffer</a></div><div class="ttdeci">static mp_ptr factorial_buffer(mp_size_t n)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00058">test_lifecycle.c:58</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a527ddd69a032d2f980c85021e420c5e2"><div class="ttname"><a href="#a527ddd69a032d2f980c85021e420c5e2">count_realloc</a></div><div class="ttdeci">static void * count_realloc(void *p, size_t n)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00115">test_lifecycle.c:115</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a7a5610ae2da3df98d3ad3b0f2a02bbf3"><div class="ttname"><a href="#a7a5610ae2da3df98d3ad3b0f2a02bbf3">count_free</a></div><div class="ttdeci">static void count_free(void *p)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00109">test_lifecycle.c:109</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">BIG_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">big_to_decimal()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00102">count_alloc()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00109">count_free()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00115">count_realloc()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">DECIMAL_CAP</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00058">factorial_buffer()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">FACTORIAL_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00048">fill_big()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00100">live_allocations</a>, <a class="el" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_()</a>, <a class="el" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_()</a>, <a class="el" href="../../dc/d57/global_8c_source.html#l00065">lmmp_global_deinit()</a>, <a class="el" href="../../dc/d57/global_8c_source.html#l00058">lmmp_global_init()</a>, <a class="el" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_()</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00100">lmmp_set_heap_allocator()</a>, <a class="el" href="../../d2/ddc/test_8h_source.html#l00035">TEST_CASE</a> , 以及 <a class="el" href="../../d2/ddc/test_8h_source.html#l00037">TEST_CHECK</a>.</p>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a1ca04fdf0f20a6ff120c5d1a6bfd7ad5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aade93744d7ca50693bde72e0b4bfa1c8" name="aade93744d7ca50693bde72e0b4bfa1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade93744d7ca50693bde72e0b4bfa1c8">&#9670;&#160;</a></span>test_fn_lifecycle_idempotent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_fn_lifecycle_idempotent </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00065">65</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>                                                    {</div>
+<div class="line"><span class="lineno">   66</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>], dst[2 * <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>], dst_ref[2 * <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>];</div>
+<div class="line"><span class="lineno">   67</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> before[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a>], after[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a>];</div>
+<div class="line"><span class="lineno">   68</span>    <a class="code hl_function" href="#a3bd772effe17f00174256ead8eeb54fc">fill_big</a>(a);</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a>();</div>
+<div class="line"><span class="lineno">   71</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a>();</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> len = <a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(before, a);</div>
+<div class="line"><span class="lineno">   74</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(len &gt; <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a> * 15);</div>
+<div class="line"><span class="lineno">   75</span>    <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(dst_ref, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>);</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> bits = 0;</div>
+<div class="line"><span class="lineno">   78</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> rn = <a class="code hl_function" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_</a>(<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>, &amp;bits);</div>
+<div class="line"><span class="lineno">   79</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> fac = <a class="code hl_function" href="#a4fd67bd18fdc624786539ee19b0705f9">factorial_buffer</a>(rn);</div>
+<div class="line"><span class="lineno">   80</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(<a class="code hl_function" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_</a>(fac, bits, rn + 1, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>) &gt; 0);</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a>();</div>
+<div class="line"><span class="lineno">   83</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a>();</div>
+<div class="line"><span class="lineno">   84</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a>();</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(<a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(after, a) == len &amp;&amp; memcmp(after, before, len) == 0);</div>
+<div class="line"><span class="lineno">   87</span>    <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_</a>(dst, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>, a, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>);</div>
+<div class="line"><span class="lineno">   88</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(memcmp(dst, dst_ref, <span class="keyword">sizeof</span>(dst)) == 0);</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> bits2 = 0;</div>
+<div class="line"><span class="lineno">   91</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> rn2 = <a class="code hl_function" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_</a>(<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>, &amp;bits2);</div>
+<div class="line"><span class="lineno">   92</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(rn2 == rn &amp;&amp; bits2 == bits);</div>
+<div class="line"><span class="lineno">   93</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> fac2 = <a class="code hl_function" href="#a4fd67bd18fdc624786539ee19b0705f9">factorial_buffer</a>(rn2);</div>
+<div class="line"><span class="lineno">   94</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(<a class="code hl_function" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_</a>(fac2, bits2, rn2 + 1, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>) &gt; 0);</div>
+<div class="line"><span class="lineno">   95</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(rn == rn2 &amp;&amp; memcmp(fac, fac2, (rn + 1) * <span class="keyword">sizeof</span>(*fac)) == 0);</div>
+<div class="line"><span class="lineno">   96</span>    free(fac2);</div>
+<div class="line"><span class="lineno">   97</span>    free(fac);</div>
+<div class="line"><span class="lineno">   98</span>}</div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">BIG_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">big_to_decimal()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">DECIMAL_CAP</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00058">factorial_buffer()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">FACTORIAL_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00048">fill_big()</a>, <a class="el" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_()</a>, <a class="el" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_()</a>, <a class="el" href="../../dc/d57/global_8c_source.html#l00065">lmmp_global_deinit()</a>, <a class="el" href="../../dc/d57/global_8c_source.html#l00058">lmmp_global_init()</a>, <a class="el" href="../../d6/d39/lmmpn_8h.html#a72d4d8c682124218c7a0c7c3e5f818ce">lmmp_mul_()</a>, <a class="el" href="../../d2/ddc/test_8h_source.html#l00035">TEST_CASE</a> , 以及 <a class="el" href="../../d2/ddc/test_8h_source.html#l00037">TEST_CHECK</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_aade93744d7ca50693bde72e0b4bfa1c8_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a703867d596cdbaa4eedcfecff50c9291" name="a703867d596cdbaa4eedcfecff50c9291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703867d596cdbaa4eedcfecff50c9291">&#9670;&#160;</a></span>test_fn_thread_isolation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_fn_thread_isolation </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00177">177</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  177</span>                                             {</div>
+<div class="line"><span class="lineno">  178</span>    <span class="keyword">enum</span> { WORKERS = 4 };</div>
+<div class="line"><span class="lineno">  179</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> a[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106af0acb2934cc4a59a13ea82195b9d38b4">BIG_N</a>];</div>
+<div class="line"><span class="lineno">  180</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> expected[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a>], decimal[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a>];</div>
+<div class="line"><span class="lineno">  181</span>    <a class="code hl_function" href="#a3bd772effe17f00174256ead8eeb54fc">fill_big</a>(a);</div>
+<div class="line"><span class="lineno">  182</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> len = <a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(expected, a);</div>
+<div class="line"><span class="lineno">  183</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> bits = 0;</div>
+<div class="line"><span class="lineno">  184</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> rn = <a class="code hl_function" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_</a>(<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>, &amp;bits);</div>
+<div class="line"><span class="lineno">  185</span>    <a class="code hl_struct" href="#d6/d54/structthread__case">thread_case</a> cases[WORKERS];</div>
+<div class="line"><span class="lineno">  186</span><span class="preprocessor">#if defined(LMMP_WINDOWS)</span></div>
+<div class="line"><span class="lineno">  187</span>    HANDLE workers[WORKERS];</div>
+<div class="line"><span class="lineno">  188</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  189</span>    pthread_t workers[WORKERS];</div>
+<div class="line"><span class="lineno">  190</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  191</span>    <span class="keywordtype">size_t</span> started = 0;</div>
+<div class="line"><span class="lineno">  192</span>    <span class="keywordflow">for</span> (; started &lt; WORKERS; ++started) {</div>
+<div class="line"><span class="lineno">  193</span>        cases[started] = (<a class="code hl_struct" href="#d6/d54/structthread__case">thread_case</a>){a, expected, len, rn, bits, <span class="keyword">false</span>};</div>
+<div class="line"><span class="lineno">  194</span><span class="preprocessor">#if defined(LMMP_WINDOWS)</span></div>
+<div class="line"><span class="lineno">  195</span>        workers[started] = (HANDLE)_beginthreadex(NULL, 0, <a class="code hl_function" href="#a81beb2d3deae84c2e2ff84bb81ad3089">thread_worker</a>, &amp;cases[started], 0, NULL);</div>
+<div class="line"><span class="lineno">  196</span>        <span class="keywordflow">if</span> (!workers[started])</div>
+<div class="line"><span class="lineno">  197</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  198</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  199</span>        <span class="keywordflow">if</span> (pthread_create(&amp;workers[started], NULL, <a class="code hl_function" href="#a81beb2d3deae84c2e2ff84bb81ad3089">thread_worker</a>, &amp;cases[started]) != 0)</div>
+<div class="line"><span class="lineno">  200</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  201</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  202</span>    }</div>
+<div class="line"><span class="lineno">  203</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#aee56315761fc83ea5005d93049d70481">TEST_CHECK_EQ</a>(started, WORKERS);</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> repeat = 0; repeat &lt; 8; ++repeat)</div>
+<div class="line"><span class="lineno">  206</span>        <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(<a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(decimal, a) == len &amp;&amp; memcmp(decimal, expected, len) == 0);</div>
+<div class="line"><span class="lineno">  207</span> </div>
+<div class="line"><span class="lineno">  208</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; started; ++i) {</div>
+<div class="line"><span class="lineno">  209</span><span class="preprocessor">#if defined(LMMP_WINDOWS)</span></div>
+<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">if</span> (WaitForSingleObject(workers[i], INFINITE) != WAIT_OBJECT_0)</div>
+<div class="line"><span class="lineno">  211</span>            abort();</div>
+<div class="line"><span class="lineno">  212</span>        CloseHandle(workers[i]);</div>
+<div class="line"><span class="lineno">  213</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">if</span> (pthread_join(workers[i], NULL) != 0)</div>
+<div class="line"><span class="lineno">  215</span>            abort();</div>
+<div class="line"><span class="lineno">  216</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  217</span>        <a class="code hl_define" href="../../d2/ddc/test_8h.html#abb3a8f30f7402b1efb2d6d8db06a726c">TEST_CHECK_MSG</a>(cases[i].pass, <span class="stringliteral">&quot;worker thread result mismatch&quot;</span>);</div>
+<div class="line"><span class="lineno">  218</span>    }</div>
+<div class="line"><span class="lineno">  219</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#a1f11495375db2b0daa6efe2850388dd9">TEST_CHECK</a>(<a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(decimal, a) == len &amp;&amp; memcmp(decimal, expected, len) == 0);</div>
+<div class="line"><span class="lineno">  220</span>}</div>
+<div class="ttc" id="atest_8h_html_abb3a8f30f7402b1efb2d6d8db06a726c"><div class="ttname"><a href="../../d2/ddc/test_8h.html#abb3a8f30f7402b1efb2d6d8db06a726c">TEST_CHECK_MSG</a></div><div class="ttdeci">#define TEST_CHECK_MSG(cond, msg)</div><div class="ttdef"><b>定义</b> <a href="../../d2/ddc/test_8h_source.html#l00038">test.h:38</a></div></div>
+<div class="ttc" id="atest_8h_html_aee56315761fc83ea5005d93049d70481"><div class="ttname"><a href="../../d2/ddc/test_8h.html#aee56315761fc83ea5005d93049d70481">TEST_CHECK_EQ</a></div><div class="ttdeci">#define TEST_CHECK_EQ(a, b)</div><div class="ttdef"><b>定义</b> <a href="../../d2/ddc/test_8h_source.html#l00039">test.h:39</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a81beb2d3deae84c2e2ff84bb81ad3089"><div class="ttname"><a href="#a81beb2d3deae84c2e2ff84bb81ad3089">thread_worker</a></div><div class="ttdeci">static unsigned __stdcall thread_worker(void *arg)</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00156">test_lifecycle.c:156</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_d6/d54/structthread__case"><div class="ttname"><a href="#d6/d54/structthread__case">thread_case</a></div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00147">test_lifecycle.c:147</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">BIG_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">big_to_decimal()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">DECIMAL_CAP</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">FACTORIAL_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00048">fill_big()</a>, <a class="el" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_()</a>, <a class="el" href="../../d2/ddc/test_8h_source.html#l00035">TEST_CASE</a>, <a class="el" href="../../d2/ddc/test_8h_source.html#l00037">TEST_CHECK</a>, <a class="el" href="../../d2/ddc/test_8h_source.html#l00039">TEST_CHECK_EQ</a>, <a class="el" href="../../d2/ddc/test_8h_source.html#l00038">TEST_CHECK_MSG</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00156">thread_worker()</a>.</p>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a703867d596cdbaa4eedcfecff50c9291_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a56a65645c778947ecfc4165b5a4478e5" name="a56a65645c778947ecfc4165b5a4478e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56a65645c778947ecfc4165b5a4478e5">&#9670;&#160;</a></span>test_lifecycle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_lifecycle </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copyright (C) 2026 HJimmyK (Jericho Knox) </p>
+<p>This file is part of LMMP.</p>
+<p>LMMP is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+<p>SPDX-License-Identifier: LGPL-3.0-or-later </p>
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00222">222</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  222</span>                          {</div>
+<div class="line"><span class="lineno">  223</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#afecf55a34e068704489453a0ac61cc68">TEST_RUN</a>(<span class="stringliteral">&quot;global/lifecycle&quot;</span>, lifecycle_idempotent);</div>
+<div class="line"><span class="lineno">  224</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#afecf55a34e068704489453a0ac61cc68">TEST_RUN</a>(<span class="stringliteral">&quot;global/lifecycle&quot;</span>, heap_balance_full_cycle);</div>
+<div class="line"><span class="lineno">  225</span>    <a class="code hl_define" href="../../d2/ddc/test_8h.html#afecf55a34e068704489453a0ac61cc68">TEST_RUN</a>(<span class="stringliteral">&quot;global/thread&quot;</span>, thread_isolation);</div>
+<div class="line"><span class="lineno">  226</span>}</div>
+<div class="ttc" id="atest_8h_html_afecf55a34e068704489453a0ac61cc68"><div class="ttname"><a href="../../d2/ddc/test_8h.html#afecf55a34e068704489453a0ac61cc68">TEST_RUN</a></div><div class="ttdeci">#define TEST_RUN(category, name)</div><div class="ttdef"><b>定义</b> <a href="../../d2/ddc/test_8h_source.html#l00036">test.h:36</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00222">test_lifecycle()</a> , 以及 <a class="el" href="../../d2/ddc/test_8h_source.html#l00036">TEST_RUN</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d9/d49/lmmp_2test_2main_8c_source.html#l00026">main()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00222">test_lifecycle()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a56a65645c778947ecfc4165b5a4478e5_cgraph.svg" width="119" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a56a65645c778947ecfc4165b5a4478e5_icgraph.svg" width="222" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a81beb2d3deae84c2e2ff84bb81ad3089" name="a81beb2d3deae84c2e2ff84bb81ad3089"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81beb2d3deae84c2e2ff84bb81ad3089">&#9670;&#160;</a></span>thread_worker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned __stdcall thread_worker </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00156">156</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>                                                   {</div>
+<div class="line"><span class="lineno">  157</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  158</span><span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code hl_function" href="#a81beb2d3deae84c2e2ff84bb81ad3089">thread_worker</a>(<span class="keywordtype">void</span> *arg) {</div>
+<div class="line"><span class="lineno">  159</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  160</span>    <a class="code hl_struct" href="#d6/d54/structthread__case">thread_case</a> *test = arg;</div>
+<div class="line"><span class="lineno">  161</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#abbd99ccfcc05a5deb0b80a6ac0c2e5d6">lmmp_global_init</a>();</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0fd36f16051f9d09180cb739e2f8a95c">mp_byte_t</a> decimal[<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106adedb0cac44221605cb67be53c410764a">DECIMAL_CAP</a>];</div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordtype">bool</span> match = <a class="code hl_function" href="#a39a052799eaf9e62e07e5901f50996b0">big_to_decimal</a>(decimal, test-&gt;<a class="code hl_variable" href="#aafd23f7cc2924bdc40c288aa15fa927c">input</a>) == test-&gt;<a class="code hl_variable" href="#a7a198e4bb58fc898d141c7090343d881">len</a> &amp;&amp;</div>
+<div class="line"><span class="lineno">  165</span>                 memcmp(decimal, test-&gt;<a class="code hl_variable" href="#a3b1b33d1b23721bfbca791a01ba3f6d5">decimal</a>, test-&gt;<a class="code hl_variable" href="#a7a198e4bb58fc898d141c7090343d881">len</a>) == 0;</div>
+<div class="line"><span class="lineno">  166</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> bits = 0;</div>
+<div class="line"><span class="lineno">  167</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> rn = <a class="code hl_function" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_</a>(<a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>, &amp;bits);</div>
+<div class="line"><span class="lineno">  168</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> fac = <a class="code hl_function" href="#a4fd67bd18fdc624786539ee19b0705f9">factorial_buffer</a>(rn);</div>
+<div class="line"><span class="lineno">  169</span>    test-&gt;<a class="code hl_variable" href="#acfeb7ec8a92944ac680a1c506b249b9b">pass</a> = match &amp;&amp; rn == test-&gt;<a class="code hl_variable" href="#a0b9cca2ca868bbef55659fc136354d76">rn</a> &amp;&amp; bits == test-&gt;<a class="code hl_variable" href="#ac69655590d8b674667cff49fa1f1e329">bits</a> &amp;&amp;</div>
+<div class="line"><span class="lineno">  170</span>                 <a class="code hl_function" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_</a>(fac, bits, rn + 1, <a class="code hl_enumvalue" href="#afcda0880d5d7da9a5661978997f60106ae923baa5126fe6ec3065b031de0fb311">FACTORIAL_N</a>) &gt; 0;</div>
+<div class="line"><span class="lineno">  171</span>    free(fac);</div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#ac2c1f6e12685755673ae478a8f99776e">lmmp_global_deinit</a>();</div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  175</span>}</div>
+<div class="ttc" id="atest__lifecycle_8c_html_a0b9cca2ca868bbef55659fc136354d76"><div class="ttname"><a href="#a0b9cca2ca868bbef55659fc136354d76">thread_case::rn</a></div><div class="ttdeci">mp_size_t rn</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00150">test_lifecycle.c:150</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a3b1b33d1b23721bfbca791a01ba3f6d5"><div class="ttname"><a href="#a3b1b33d1b23721bfbca791a01ba3f6d5">thread_case::decimal</a></div><div class="ttdeci">const mp_byte_t * decimal</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00149">test_lifecycle.c:149</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_a7a198e4bb58fc898d141c7090343d881"><div class="ttname"><a href="#a7a198e4bb58fc898d141c7090343d881">thread_case::len</a></div><div class="ttdeci">mp_size_t len</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00150">test_lifecycle.c:150</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_aafd23f7cc2924bdc40c288aa15fa927c"><div class="ttname"><a href="#aafd23f7cc2924bdc40c288aa15fa927c">thread_case::input</a></div><div class="ttdeci">mp_srcptr input</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00148">test_lifecycle.c:148</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_ac69655590d8b674667cff49fa1f1e329"><div class="ttname"><a href="#ac69655590d8b674667cff49fa1f1e329">thread_case::bits</a></div><div class="ttdeci">mp_bitcnt_t bits</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00151">test_lifecycle.c:151</a></div></div>
+<div class="ttc" id="atest__lifecycle_8c_html_acfeb7ec8a92944ac680a1c506b249b9b"><div class="ttname"><a href="#acfeb7ec8a92944ac680a1c506b249b9b">thread_case::pass</a></div><div class="ttdeci">bool pass</div><div class="ttdef"><b>定义</b> <a href="../../db/db7/test__lifecycle_8c_source.html#l00152">test_lifecycle.c:152</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00054">big_to_decimal()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00151">thread_case::bits</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00149">thread_case::decimal</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">DECIMAL_CAP</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00058">factorial_buffer()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00046">FACTORIAL_N</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00148">thread_case::input</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00150">thread_case::len</a>, <a class="el" href="../../de/da4/numth_8h.html#a8bd1af6d4917b4c9888f1347b59ab0db">lmmp_factorial_()</a>, <a class="el" href="../../de/da4/numth_8h.html#a6f0d5cd6f84e40c9194a114f689175b8">lmmp_factorial_size_()</a>, <a class="el" href="../../dc/d57/global_8c_source.html#l00065">lmmp_global_deinit()</a>, <a class="el" href="../../dc/d57/global_8c_source.html#l00058">lmmp_global_init()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00152">thread_case::pass</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00150">thread_case::rn</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00156">thread_worker()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00177">test_fn_thread_isolation()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00156">thread_worker()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a81beb2d3deae84c2e2ff84bb81ad3089_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../db/db7/test__lifecycle_8c_a81beb2d3deae84c2e2ff84bb81ad3089_icgraph.svg" width="352" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">变量说明</h2>
+<a id="adaadd7e1c2f41cca72ded6b4832e5a92" name="adaadd7e1c2f41cca72ded6b4832e5a92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaadd7e1c2f41cca72ded6b4832e5a92">&#9670;&#160;</a></span>live_allocations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">atomic_long live_allocations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html">test_lifecycle.c</a> 第 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00100">100</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00102">count_alloc()</a>, <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00109">count_free()</a> , 以及 <a class="el" href="../../db/db7/test__lifecycle_8c_source.html#l00119">test_fn_heap_balance_full_cycle()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_9396b6e68ae869ebd0dbb83c8694b260.html">lmmp</a></li><li class="navelem"><a href="../../dir_d9867dbebf976e8564b9b8346a6ba7d4.html">lmmp</a></li><li class="navelem"><a href="../../dir_a13d50481837dac8144ea8457b9023c3.html">test</a></li><li class="navelem"><a href="../../db/db7/test__lifecycle_8c.html">test_lifecycle.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

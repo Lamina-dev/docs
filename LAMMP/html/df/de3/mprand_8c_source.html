@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMP: src/lmmp/mprand/mprand.c 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMP<span id="projectnumber">&#160;4.3.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('df/de3/mprand_8c_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">mprand.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../df/de3/mprand_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *  Copyright (C) 2026 HJimmyK (Jericho Knox)</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  This file is part of LMMP.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *  LMMP is free software: you can redistribute it and/or modify it</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *  under the terms of the GNU Lesser General Public License as</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *  published by the Free Software Foundation; either version 3 of</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *  the License, or (at your option) any later version.</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *  This library is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *  You should have received a copy of the GNU Lesser General Public</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *  License along with this library.  If not, see</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> *  &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *  SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d07/mprand_8h.html">lmmp/mprand.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/da5/rand__state_8h.html">impl/rand_state.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/daa/tmp__alloc_8h.html">impl/tmp_alloc.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><a class="code hl_define" href="../../dd/d90/lmmp_8h.html#abfb5c547f9fddd5504a25b82b2c8a75d">LMMP_VECT_CONSERVATIVE</a></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html">   29</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">   30</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a0c2cef4bedf860a4998fb5b0dfe6ebd7">   31</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a0c2cef4bedf860a4998fb5b0dfe6ebd7">seed_type</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <a class="code hl_struct" href="../../df/de3/mprand_8c.html#d0/dd7/structlmmp__global__rng__t">lmmp_global_rng_t</a>;</div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a6f5797d009d66321af7210978863bc6c">   34</a></span><span class="preprocessor">#define GLOBAL_RNG_INIT_STATE 10451216379200822465ULL</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a39da18632055504bba74476d946567f8">   35</a></span><span class="preprocessor">#define GLOBAL_RNG_INIT_SEED_TYPE 1</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">   36</a></span><span class="keyword">static</span> <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#ac552dfb1d6733a6e156b7e046dfee360">LMMP_THREAD_LOCAL</a> <a class="code hl_struct" href="../../df/de3/mprand_8c.html#d0/dd7/structlmmp__global__rng__t">lmmp_global_rng_t</a> <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a> = {<a class="code hl_define" href="../../df/de3/mprand_8c.html#a6f5797d009d66321af7210978863bc6c">GLOBAL_RNG_INIT_STATE</a>, <a class="code hl_define" href="../../df/de3/mprand_8c.html#a39da18632055504bba74476d946567f8">GLOBAL_RNG_INIT_SEED_TYPE</a>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d4/d07/mprand_8h.html#a6a2349a922b538b5a428a3310cac4165">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#a6a2349a922b538b5a428a3310cac4165">lmmp_global_rng_init_</a>(<span class="keywordtype">unsigned</span> seed, <span class="keywordtype">unsigned</span> seed_type) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a> = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a>(seed + seed_type);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a0c2cef4bedf860a4998fb5b0dfe6ebd7">seed_type</a> = seed_type % 2;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../dc/da5/rand__state_8h.html#a564c19866d340e5709e7eaff25349edd">   43</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a564c19866d340e5709e7eaff25349edd">lmmp_randlimb_</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> ret = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac7bd44d521e7e8971af0501a2a302ad8">mix64</a>(<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a> = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a>(<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#ae137a4b464d305c0a086387e767df2be">   49</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#a1aa1f21a53bb4568250f557d1a986233">lmmp_seed_random_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> dst, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> seed, <span class="keywordtype">unsigned</span> seed_type) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    seed_type %= 2;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (seed_type == 0) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_struct" href="../../dc/da5/rand__state_8h.html#d8/d02/structpcg64__128__state">pcg64_128_state</a> rng;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#aaa9ce44c41c733a718b1b47c61def453">lmmp_pcg64_128_srandom</a>(&amp;rng, seed);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">for</span> (; i + 3 &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>; i += 4) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            dst[i + 0] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac48b7b5a1b8cb25b46ee481155b0969a">lmmp_pcg64_128_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            dst[i + 1] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac48b7b5a1b8cb25b46ee481155b0969a">lmmp_pcg64_128_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            dst[i + 2] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac48b7b5a1b8cb25b46ee481155b0969a">lmmp_pcg64_128_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            dst[i + 3] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac48b7b5a1b8cb25b46ee481155b0969a">lmmp_pcg64_128_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">for</span> (; i &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>; ++i) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            dst[i] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac48b7b5a1b8cb25b46ee481155b0969a">lmmp_pcg64_128_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_struct" href="../../dc/da5/rand__state_8h.html#d1/db3/structxoshiro256pp__state">xoshiro256pp_state</a> rng;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a4f15a8f2451ca95cfd8a75bce6ddf8e8">lmmp_xoshiro256pp_srandom</a>(&amp;rng, seed);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> i = 0;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">for</span> (; i + 3 &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>; i += 4) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            dst[i + 0] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a2115319e8cc9bc5ddb995daa3217d461">lmmp_xoshiro256pp_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            dst[i + 1] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a2115319e8cc9bc5ddb995daa3217d461">lmmp_xoshiro256pp_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            dst[i + 2] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a2115319e8cc9bc5ddb995daa3217d461">lmmp_xoshiro256pp_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            dst[i + 3] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a2115319e8cc9bc5ddb995daa3217d461">lmmp_xoshiro256pp_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">for</span> (; i &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>; ++i) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            dst[i] = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a2115319e8cc9bc5ddb995daa3217d461">lmmp_xoshiro256pp_random</a>(&amp;rng);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; dst[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1] == 0) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        --<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#ab9aabca7fe12f7b75a380bef694ff848">   84</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#aabe8ea651fa55d2a014de1fabab2c0ea">lmmp_random_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> dst, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> == 0 || dst == NULL) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> seed = <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a> + <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac7bd44d521e7e8971af0501a2a302ad8">mix64</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    seed ^= <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">state</a> = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a>(seed);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#a1aa1f21a53bb4568250f557d1a986233">lmmp_seed_random_</a>(dst, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, seed, <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a>.<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a0c2cef4bedf860a4998fb5b0dfe6ebd7">seed_type</a>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="};">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html">   94</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a> {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a9faf3b9140328fe65a4c450ae5a40f05">   95</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a9faf3b9140328fe65a4c450ae5a40f05">seed</a>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">   96</a></span>    <a class="code hl_struct" href="../../dc/da5/rand__state_8h.html#d4/d49/structpcg64__le__seq__t">pcg64_le_seq_t</a> <a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a79e47f19c34b0c4d1fe4f190f443c32f">   97</a></span>} <a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>;</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="../../d4/d07/mprand_8h.html#a280263b7a238520eadc28e2e9864f072">   99</a></span><a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>* <a class="code hl_function" href="../../d4/d07/mprand_8h.html#a280263b7a238520eadc28e2e9864f072">lmmp_strong_rng_init_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <span class="keywordtype">unsigned</span> seed) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> &gt; 0);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>* rng = (<a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>*)<a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a70ee66fd54cf1444186464c5dc05caf3">lmmp_alloc</a>(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>));</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a4f815421ac3ec297fb0ec5e109ee9d0d">k</a> = <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">state</a> = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a432c4988bf11b9d06f14f16a48e7deac">ALLOC_TYPE</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> new_seed = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a>(seed);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    new_seed ^= <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac7bd44d521e7e8971af0501a2a302ad8">mix64</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a9faf3b9140328fe65a4c450ae5a40f05">seed</a> = new_seed;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a03779ad9ef6399cf572d87c68fbb3cac">pcg64_le_seq_init</a>(&amp;rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>, 0, new_seed);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> rng;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="../../d4/d07/mprand_8h.html#aa81b9fdf769e35fc73c0e8b09d73c724">  113</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#aa81b9fdf769e35fc73c0e8b09d73c724">lmmp_strong_rng_extern_</a>(<a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>* rng, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(rng != NULL);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> &gt; 0);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k &lt;= rng-&gt;</a>stream.k) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> old_k = rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a4f815421ac3ec297fb0ec5e109ee9d0d">k</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">state</a> = (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>*)<a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a088900d6c023487d7dc82f3d9011273b">lmmp_realloc</a>(rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">state</a>, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>));</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> new_seed = <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a>(rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a4f815421ac3ec297fb0ec5e109ee9d0d">k</a>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    new_seed ^= <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac7bd44d521e7e8971af0501a2a302ad8">mix64</a>(<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> + rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a9faf3b9140328fe65a4c450ae5a40f05">seed</a>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a4f815421ac3ec297fb0ec5e109ee9d0d">k</a> = <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a9faf3b9140328fe65a4c450ae5a40f05">seed</a> = new_seed;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#a03779ad9ef6399cf572d87c68fbb3cac">pcg64_le_seq_init</a>(&amp;rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>, old_k, new_seed);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
+</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="}">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="../../d4/d07/mprand_8h.html#a556c84d5a60b575fb92dd4b6823feb66">  127</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#a556c84d5a60b575fb92dd4b6823feb66">lmmp_strong_rng_free_</a>(<a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>* rng) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (rng != NULL) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">if</span> (rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">state</a> != NULL) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a>(rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">state</a>);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a>(rng);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
+</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="../../df/de3/mprand_8c.html#a5718b66c118f722bec59701532729b4b">  136</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../d4/d07/mprand_8h.html#a60e951fce455f25b3ac31a3211ada0ca">lmmp_strong_random_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_define" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> dst, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="code hl_struct" href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a>* rng) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(dst != NULL);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(rng != NULL);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>.<a class="code hl_variable" href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">state</a> != NULL);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n &lt;= rng-&gt;</a>stream.k);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_function" href="../../dc/da5/rand__state_8h.html#ac66817a1503e045c752f6e5a2d0d1b22">pcg64_le_seq_next</a>(dst, <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, &amp;rng-&gt;<a class="code hl_variable" href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">stream</a>);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> &gt; 0 &amp;&amp; dst[<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a> - 1] == 0) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        --<a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
+</div>
+<div class="ttc" id="abinvert_8c_html_a13b230ea1d237595fb236c951a0849e0"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a></div><div class="ttdeci">#define k</div></div>
+<div class="ttc" id="almmp_8h_html_a088900d6c023487d7dc82f3d9011273b"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a088900d6c023487d7dc82f3d9011273b">lmmp_realloc</a></div><div class="ttdeci">void * lmmp_realloc(void *ptr, size_t size)</div><div class="ttdoc">内存重分配函数（调用lmmp_realloc_fn）</div><div class="ttdef"><b>定义</b> <a href="../../df/dd5/memory_8c_source.html#l00409">memory.c:409</a></div></div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00096">lmmp.h:96</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00093">lmmp.h:93</a></div></div>
+<div class="ttc" id="almmp_8h_html_a70ee66fd54cf1444186464c5dc05caf3"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a70ee66fd54cf1444186464c5dc05caf3">lmmp_alloc</a></div><div class="ttdeci">void * lmmp_alloc(size_t size)</div><div class="ttdoc">内存分配函数（调用lmmp_heap_alloc_fn）</div><div class="ttdef"><b>定义</b> <a href="../../df/dd5/memory_8c_source.html#l00382">memory.c:382</a></div></div>
+<div class="ttc" id="almmp_8h_html_a9addf0b27643f70bce967ca4ef842ae9"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a></div><div class="ttdeci">void lmmp_free(void *ptr)</div><div class="ttdoc">内存释放函数（调用lmmp_heap_free_fn）</div><div class="ttdef"><b>定义</b> <a href="../../df/dd5/memory_8c_source.html#l00437">memory.c:437</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00092">lmmp.h:92</a></div></div>
+<div class="ttc" id="almmp_8h_html_abfb5c547f9fddd5504a25b82b2c8a75d"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abfb5c547f9fddd5504a25b82b2c8a75d">LMMP_VECT_CONSERVATIVE</a></div><div class="ttdeci">#define LMMP_VECT_CONSERVATIVE</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00201">lmmp.h:201</a></div></div>
+<div class="ttc" id="almmp_8h_html_ac552dfb1d6733a6e156b7e046dfee360"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#ac552dfb1d6733a6e156b7e046dfee360">LMMP_THREAD_LOCAL</a></div><div class="ttdeci">#define LMMP_THREAD_LOCAL</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00114">lmmp.h:114</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00509">lmmp.h:509</a></div></div>
+<div class="ttc" id="amprand_8c_html_a0c2cef4bedf860a4998fb5b0dfe6ebd7"><div class="ttname"><a href="../../df/de3/mprand_8c.html#a0c2cef4bedf860a4998fb5b0dfe6ebd7">lmmp_global_rng_t::seed_type</a></div><div class="ttdeci">int seed_type</div><div class="ttdef"><b>定义</b> <a href="#l00031">mprand.c:31</a></div></div>
+<div class="ttc" id="amprand_8c_html_a21d2fdf147b18b5bb17f798efd595e4e"><div class="ttname"><a href="../../df/de3/mprand_8c.html#a21d2fdf147b18b5bb17f798efd595e4e">lmmp_global_rng</a></div><div class="ttdeci">static __thread lmmp_global_rng_t lmmp_global_rng</div><div class="ttdef"><b>定义</b> <a href="#l00036">mprand.c:36</a></div></div>
+<div class="ttc" id="amprand_8c_html_a39da18632055504bba74476d946567f8"><div class="ttname"><a href="../../df/de3/mprand_8c.html#a39da18632055504bba74476d946567f8">GLOBAL_RNG_INIT_SEED_TYPE</a></div><div class="ttdeci">#define GLOBAL_RNG_INIT_SEED_TYPE</div><div class="ttdef"><b>定义</b> <a href="#l00035">mprand.c:35</a></div></div>
+<div class="ttc" id="amprand_8c_html_a6f5797d009d66321af7210978863bc6c"><div class="ttname"><a href="../../df/de3/mprand_8c.html#a6f5797d009d66321af7210978863bc6c">GLOBAL_RNG_INIT_STATE</a></div><div class="ttdeci">#define GLOBAL_RNG_INIT_STATE</div><div class="ttdef"><b>定义</b> <a href="#l00034">mprand.c:34</a></div></div>
+<div class="ttc" id="amprand_8c_html_a71ad67c6fc2957ab1b136bc7b95d18dc"><div class="ttname"><a href="../../df/de3/mprand_8c.html#a71ad67c6fc2957ab1b136bc7b95d18dc">lmmp_strong_rng_t::stream</a></div><div class="ttdeci">pcg64_le_seq_t stream</div><div class="ttdef"><b>定义</b> <a href="#l00096">mprand.c:96</a></div></div>
+<div class="ttc" id="amprand_8c_html_a9faf3b9140328fe65a4c450ae5a40f05"><div class="ttname"><a href="../../df/de3/mprand_8c.html#a9faf3b9140328fe65a4c450ae5a40f05">lmmp_strong_rng_t::seed</a></div><div class="ttdeci">mp_limb_t seed</div><div class="ttdef"><b>定义</b> <a href="#l00095">mprand.c:95</a></div></div>
+<div class="ttc" id="amprand_8c_html_af5f9ea9222f6ca44b08a41a69089e550"><div class="ttname"><a href="../../df/de3/mprand_8c.html#af5f9ea9222f6ca44b08a41a69089e550">lmmp_global_rng_t::state</a></div><div class="ttdeci">mp_limb_t state</div><div class="ttdef"><b>定义</b> <a href="#l00030">mprand.c:30</a></div></div>
+<div class="ttc" id="amprand_8c_html_d0/dd7/structlmmp__global__rng__t"><div class="ttname"><a href="../../df/de3/mprand_8c.html#d0/dd7/structlmmp__global__rng__t">lmmp_global_rng_t</a></div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="#l00029">mprand.c:29</a></div></div>
+<div class="ttc" id="amprand_8c_html_de/dd1/structlmmp__strong__rng__t"><div class="ttname"><a href="../../df/de3/mprand_8c.html#de/dd1/structlmmp__strong__rng__t">lmmp_strong_rng_t</a></div><div class="ttdef"><b>定义</b> <a href="#l00094">mprand.c:94</a></div></div>
+<div class="ttc" id="amprand_8h_html"><div class="ttname"><a href="../../d4/d07/mprand_8h.html">mprand.h</a></div></div>
+<div class="ttc" id="amprand_8h_html_a1aa1f21a53bb4568250f557d1a986233"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#a1aa1f21a53bb4568250f557d1a986233">lmmp_seed_random_</a></div><div class="ttdeci">mp_size_t lmmp_seed_random_(mp_ptr dst, mp_size_t n, mp_limb_t seed, unsigned seed_type)</div><div class="ttdoc">生成随机大整数（0 - B^n-1 均匀分布）</div></div>
+<div class="ttc" id="amprand_8h_html_a280263b7a238520eadc28e2e9864f072"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#a280263b7a238520eadc28e2e9864f072">lmmp_strong_rng_init_</a></div><div class="ttdeci">lmmp_strong_rng_t * lmmp_strong_rng_init_(mp_size_t k, unsigned seed)</div><div class="ttdoc">创建k维度强随机数生成器</div><div class="ttdef"><b>定义</b> <a href="#l00099">mprand.c:99</a></div></div>
+<div class="ttc" id="amprand_8h_html_a556c84d5a60b575fb92dd4b6823feb66"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#a556c84d5a60b575fb92dd4b6823feb66">lmmp_strong_rng_free_</a></div><div class="ttdeci">void lmmp_strong_rng_free_(lmmp_strong_rng_t *rng)</div><div class="ttdoc">销毁强随机数生成器</div><div class="ttdef"><b>定义</b> <a href="#l00127">mprand.c:127</a></div></div>
+<div class="ttc" id="amprand_8h_html_a60e951fce455f25b3ac31a3211ada0ca"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#a60e951fce455f25b3ac31a3211ada0ca">lmmp_strong_random_</a></div><div class="ttdeci">mp_size_t lmmp_strong_random_(mp_ptr dst, mp_size_t n, lmmp_strong_rng_t *rng)</div><div class="ttdoc">生成n维度强随机数（0 - B^n-1 均匀分布）</div></div>
+<div class="ttc" id="amprand_8h_html_a6a2349a922b538b5a428a3310cac4165"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#a6a2349a922b538b5a428a3310cac4165">lmmp_global_rng_init_</a></div><div class="ttdeci">void lmmp_global_rng_init_(unsigned seed, unsigned seed_type)</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="#l00038">mprand.c:38</a></div></div>
+<div class="ttc" id="amprand_8h_html_aa81b9fdf769e35fc73c0e8b09d73c724"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#aa81b9fdf769e35fc73c0e8b09d73c724">lmmp_strong_rng_extern_</a></div><div class="ttdeci">void lmmp_strong_rng_extern_(lmmp_strong_rng_t *rng, mp_size_t k)</div><div class="ttdoc">将rng内部状态拓展至k维度</div><div class="ttdef"><b>定义</b> <a href="#l00113">mprand.c:113</a></div></div>
+<div class="ttc" id="amprand_8h_html_aabe8ea651fa55d2a014de1fabab2c0ea"><div class="ttname"><a href="../../d4/d07/mprand_8h.html#aabe8ea651fa55d2a014de1fabab2c0ea">lmmp_random_</a></div><div class="ttdeci">mp_size_t lmmp_random_(mp_ptr dst, mp_size_t n)</div><div class="ttdoc">生成随机大整数（0 - B^n-1 均匀分布）</div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="arand__state_8h_html"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html">rand_state.h</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a03779ad9ef6399cf572d87c68fbb3cac"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a03779ad9ef6399cf572d87c68fbb3cac">pcg64_le_seq_init</a></div><div class="ttdeci">static void pcg64_le_seq_init(pcg64_le_seq_t *rng, mp_size_t i, mp_limb_t seed)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00140">rand_state.h:140</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a1ae89cb50b867aee0e916fde1909a16e"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a1ae89cb50b867aee0e916fde1909a16e">pcg64_le_seq_t::state</a></div><div class="ttdeci">mp_limb_t *restrict state</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00137">rand_state.h:137</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a2115319e8cc9bc5ddb995daa3217d461"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a2115319e8cc9bc5ddb995daa3217d461">lmmp_xoshiro256pp_random</a></div><div class="ttdeci">static mp_limb_t lmmp_xoshiro256pp_random(xoshiro256pp_state *rng)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00105">rand_state.h:105</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a4f15a8f2451ca95cfd8a75bce6ddf8e8"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a4f15a8f2451ca95cfd8a75bce6ddf8e8">lmmp_xoshiro256pp_srandom</a></div><div class="ttdeci">static void lmmp_xoshiro256pp_srandom(xoshiro256pp_state *rng, mp_limb_t seed)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00120">rand_state.h:120</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a4f815421ac3ec297fb0ec5e109ee9d0d"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a4f815421ac3ec297fb0ec5e109ee9d0d">pcg64_le_seq_t::k</a></div><div class="ttdeci">mp_size_t k</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00136">rand_state.h:136</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a516b39e6234156f107731ad8a5a3be89"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a516b39e6234156f107731ad8a5a3be89">lmmp_seed_generator</a></div><div class="ttdeci">static mp_limb_t lmmp_seed_generator(mp_limb_t seed)</div><div class="ttdoc">种子生成器</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00053">rand_state.h:53</a></div></div>
+<div class="ttc" id="arand__state_8h_html_a564c19866d340e5709e7eaff25349edd"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#a564c19866d340e5709e7eaff25349edd">lmmp_randlimb_</a></div><div class="ttdeci">mp_limb_t lmmp_randlimb_(void)</div><div class="ttdoc">依据全局状态获取单个随机limb（0 - B 均匀分布）</div><div class="ttdef"><b>定义</b> <a href="#l00043">mprand.c:43</a></div></div>
+<div class="ttc" id="arand__state_8h_html_aaa9ce44c41c733a718b1b47c61def453"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#aaa9ce44c41c733a718b1b47c61def453">lmmp_pcg64_128_srandom</a></div><div class="ttdeci">static void lmmp_pcg64_128_srandom(pcg64_128_state *rng, mp_limb_t seed)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00082">rand_state.h:82</a></div></div>
+<div class="ttc" id="arand__state_8h_html_ac48b7b5a1b8cb25b46ee481155b0969a"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#ac48b7b5a1b8cb25b46ee481155b0969a">lmmp_pcg64_128_random</a></div><div class="ttdeci">static mp_limb_t lmmp_pcg64_128_random(pcg64_128_state *rng)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00093">rand_state.h:93</a></div></div>
+<div class="ttc" id="arand__state_8h_html_ac66817a1503e045c752f6e5a2d0d1b22"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#ac66817a1503e045c752f6e5a2d0d1b22">pcg64_le_seq_next</a></div><div class="ttdeci">static void pcg64_le_seq_next(mp_ptr restrict dst, mp_size_t n, pcg64_le_seq_t *rng)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00167">rand_state.h:167</a></div></div>
+<div class="ttc" id="arand__state_8h_html_ac7bd44d521e7e8971af0501a2a302ad8"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#ac7bd44d521e7e8971af0501a2a302ad8">mix64</a></div><div class="ttdeci">static mp_limb_t mix64(mp_limb_t h)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00060">rand_state.h:60</a></div></div>
+<div class="ttc" id="arand__state_8h_html_d1/db3/structxoshiro256pp__state"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#d1/db3/structxoshiro256pp__state">xoshiro256pp_state</a></div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00034">rand_state.h:34</a></div></div>
+<div class="ttc" id="arand__state_8h_html_d4/d49/structpcg64__le__seq__t"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#d4/d49/structpcg64__le__seq__t">pcg64_le_seq_t</a></div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00135">rand_state.h:135</a></div></div>
+<div class="ttc" id="arand__state_8h_html_d8/d02/structpcg64__128__state"><div class="ttname"><a href="../../dc/da5/rand__state_8h.html#d8/d02/structpcg64__128__state">pcg64_128_state</a></div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../dc/da5/rand__state_8h_source.html#l00029">rand_state.h:29</a></div></div>
+<div class="ttc" id="atest__powmod_8c_html_a080abdcb9c02438f1cd2bb707af25af8"><div class="ttname"><a href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a></div><div class="ttdeci">#define restrict</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../d5/df1/test__powmod_8c_source.html#l00035">test_powmod.c:35</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html">tmp_alloc.h</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a432c4988bf11b9d06f14f16a48e7deac"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a432c4988bf11b9d06f14f16a48e7deac">ALLOC_TYPE</a></div><div class="ttdeci">#define ALLOC_TYPE(n, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00199">tmp_alloc.h:199</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_9396b6e68ae869ebd0dbb83c8694b260.html">lmmp</a></li><li class="navelem"><a href="../../dir_388f43263d0a8160037b74911fb1c404.html">mprand</a></li><li class="navelem"><a href="../../df/de3/mprand_8c.html">mprand.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMP: src/lmmp/numth/trialdiv.c 文件参考</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMP<span id="projectnumber">&#160;4.3.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('d1/db8/trialdiv_8c.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">trialdiv.c 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="../../de/da4/numth_8h_source.html">lmmp/numth.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d39/lmmpn_8h_source.html">lmmp/lmmpn.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/de6/inlines_8h_source.html">impl/inlines.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/d59/longlong_8h_source.html">impl/longlong.h</a>&quot;</code><br />
+<code>#include &quot;mparam.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/d98/prime__table_8h_source.html">impl/prime_table.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/daa/tmp__alloc_8h_source.html">impl/tmp_alloc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/dd1/trialdiv_8h_source.html">impl/trialdiv.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>trialdiv.c 的引用(Include)关系图:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d5/da1/trialdiv_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="../../d1/db8/trialdiv_8c_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+结构体</h2></td></tr>
+<tr class="memitem:trialdiv_5Fblk_5Fdf_2Fd61_2Fstructtrialdiv_5F_5Fblk" id="r_trialdiv_5Fblk_5Fdf_2Fd61_2Fstructtrialdiv_5F_5Fblk"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a></td></tr>
+<tr class="memdesc:df/d61/structtrialdiv__blk"><td class="mdescLeft">&#160;</td><td class="mdescRight">块内字段分三组、各按水位 [0,bn_x) 惰性初始化，纯小 nn 负载不付 chunk 组预处理、纯大 nn 负载不付 preinv 组预处理： 打包组 t/p0/pn 建块即得 preinv 组 k/inv 首个 preinv 腿调用覆盖到该块时算 chunk 组 dinv/r2/base/mi 首个 chunk 腿调用覆盖到该块时算  <a href="#df/d61/structtrialdiv__blk">更多...</a><br /></td></tr>
+<tr class="memitem:trialdiv_5Ftable_5Fd7_2Fda4_2Fstructtrialdiv_5F_5Ftable" id="r_trialdiv_5Ftable_5Fd7_2Fda4_2Fstructtrialdiv_5F_5Ftable"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="#d7/da4/structtrialdiv__table">trialdiv_table</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a22d2e8690fbfee4371bb6845dbbdf526" id="r_a22d2e8690fbfee4371bb6845dbbdf526"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a22d2e8690fbfee4371bb6845dbbdf526">MAX_T</a>&#160;&#160;&#160;((<a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)0x7fffffffffff)</td></tr>
+<tr class="memdesc:a22d2e8690fbfee4371bb6845dbbdf526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copyright (C) 2026 HJimmyK (Jericho Knox)  <br /></td></tr>
+<tr class="memitem:a8b61b6e9ae202e67d5b7e5f64d32d748" id="r_a8b61b6e9ae202e67d5b7e5f64d32d748"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8b61b6e9ae202e67d5b7e5f64d32d748">TRIALDIV_BLK_MAX</a>&#160;&#160;&#160;((<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a>)2012)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:aeccb287569660148b3dc976fee3e02a8" id="r_aeccb287569660148b3dc976fee3e02a8"><td class="memItemLeft">typedef struct trialdiv_blk&#160;</td><td class="memItemRight"><a class="el" href="#aeccb287569660148b3dc976fee3e02a8">trialdiv_blk</a></td></tr>
+<tr class="memdesc:aeccb287569660148b3dc976fee3e02a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">块内字段分三组、各按水位 [0,bn_x) 惰性初始化，纯小 nn 负载不付 chunk 组预处理、纯大 nn 负载不付 preinv 组预处理： 打包组 t/p0/pn 建块即得 preinv 组 k/inv 首个 preinv 腿调用覆盖到该块时算 chunk 组 dinv/r2/base/mi 首个 chunk 腿调用覆盖到该块时算  <br /></td></tr>
+<tr class="memitem:a012822a777a76eb00281b62044ddc1d1" id="r_a012822a777a76eb00281b62044ddc1d1"><td class="memItemLeft">typedef <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>(*)&#160;</td><td class="memItemRight"><a class="el" href="#a012822a777a76eb00281b62044ddc1d1">trialdiv_leg_fn</a>(<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> np, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nn, const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *b)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a93fd931ed9db7ed92c591e97615a221f" id="r_a93fd931ed9db7ed92c591e97615a221f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a93fd931ed9db7ed92c591e97615a221f">lmmp_trialdiv_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a> np, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nn, <a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> N)</td></tr>
+<tr class="memitem:a601e24f311825398d1b6408d2c776ac6" id="r_a601e24f311825398d1b6408d2c776ac6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a601e24f311825398d1b6408d2c776ac6">lmmp_trialdiv_table_free_</a> (void)</td></tr>
+<tr class="memitem:a205fa512d2fc25d2521ee283800eba01" id="r_a205fa512d2fc25d2521ee283800eba01"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a205fa512d2fc25d2521ee283800eba01">trialdiv_close</a> (void)</td></tr>
+<tr class="memdesc:a205fa512d2fc25d2521ee283800eba01"><td class="mdescLeft">&#160;</td><td class="mdescRight">把开块落盘成 blks[bn] 里的一个新块，随后开块清空  <br /></td></tr>
+<tr class="memitem:af94c23f5ed8f8dfe76f4b621d7b64e3e" id="r_af94c23f5ed8f8dfe76f4b621d7b64e3e"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#af94c23f5ed8f8dfe76f4b621d7b64e3e">trialdiv_extend_</a> (<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> cnt)</td></tr>
+<tr class="memdesc:af94c23f5ed8f8dfe76f4b621d7b64e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">打包素数，把下标 [1,cnt) 内的奇素数全部收进闭块  <br /></td></tr>
+<tr class="memitem:a0226f5e0f8ddc130a1043b5011f082ac" id="r_a0226f5e0f8ddc130a1043b5011f082ac"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a0226f5e0f8ddc130a1043b5011f082ac">trialdiv_init_chunk_</a> (<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> n)</td></tr>
+<tr class="memdesc:a0226f5e0f8ddc130a1043b5011f082ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">给 [bn_chunk,n) 的块补算折叠腿要用的 dinv、mi、r2、base  <br /></td></tr>
+<tr class="memitem:a7dbc330dc57b073f111708c7c2f659ca" id="r_a7dbc330dc57b073f111708c7c2f659ca"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a7dbc330dc57b073f111708c7c2f659ca">trialdiv_init_inv_</a> (<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> n)</td></tr>
+<tr class="memdesc:a7dbc330dc57b073f111708c7c2f659ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">给 [bn_inv,n) 的块补算 k 和 inv  <br /></td></tr>
+<tr class="memitem:ad04510ce5280335063970040bc48a55a" id="r_ad04510ce5280335063970040bc48a55a"><td class="memItemLeft">static <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad04510ce5280335063970040bc48a55a">trialdiv_leg_4_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> np, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nn, const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *b)</td></tr>
+<tr class="memitem:a64762aad81266745844294d7a2f07e04" id="r_a64762aad81266745844294d7a2f07e04"><td class="memItemLeft">static <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a64762aad81266745844294d7a2f07e04">trialdiv_leg_8_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> np, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nn, const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *b)</td></tr>
+<tr class="memitem:af23886b8377ab1ced9436c77af79b138" id="r_af23886b8377ab1ced9436c77af79b138"><td class="memItemLeft">static <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#af23886b8377ab1ced9436c77af79b138">trialdiv_leg_preinv_</a> (<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> np, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nn, const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *b)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a4af110f8bcea116e0c555df40ef2ecf9" id="r_a4af110f8bcea116e0c555df40ef2ecf9"><td class="memItemLeft">static __thread <a class="el" href="#d7/da4/structtrialdiv__table">trialdiv_table</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4af110f8bcea116e0c555df40ef2ecf9">G</a></td></tr>
+<tr class="memitem:a4fa0b1911030d3a8578f2309e48862dd" id="r_a4fa0b1911030d3a8578f2309e48862dd"><td class="memItemLeft">const <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4fa0b1911030d3a8578f2309e48862dd">r35711_mask_map</a> [19]</td></tr>
+</table>
+<hr/><h2 id="header-inline_5Fclasses" class="groupheader">结构体说明</h2>
+<a name="df/d61/structtrialdiv__blk" id="df/d61/structtrialdiv__blk"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#df/d61/structtrialdiv__blk">&#9670;&#160;</a></span>trialdiv_blk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct trialdiv_blk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>块内字段分三组、各按水位 [0,bn_x) 惰性初始化，纯小 nn 负载不付 chunk 组预处理、纯大 nn 负载不付 preinv 组预处理： 打包组 t/p0/pn 建块即得 preinv 组 k/inv 首个 preinv 腿调用覆盖到该块时算 chunk 组 dinv/r2/base/mi 首个 chunk 腿调用覆盖到该块时算 </p>
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00046">46</a> 行定义.</p>
+</div><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>trialdiv_blk 的协作图:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/dc6/structtrialdiv__blk__coll__graph.svg" width="243" height="340"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="a4cbcebb16ac32819533b670d6e0f545f" name="a4cbcebb16ac32819533b670d6e0f545f"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+base</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a4c87907fffc41663611ed047077eb07a" name="a4c87907fffc41663611ed047077eb07a"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+dinv</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7d4ca4547d78bdd8cbaa534827a3395a" name="a7d4ca4547d78bdd8cbaa534827a3395a"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+inv</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="abe721f8d56f1e603b752d537d4af6f3e" name="abe721f8d56f1e603b752d537d4af6f3e"></a><a class="el" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></td>
+<td class="fieldname">
+k</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a72ff203045b3ff40f3da8a8f48b20005" name="a72ff203045b3ff40f3da8a8f48b20005"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+mi</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ac5564dbbf400841c46bc7431cb237e56" name="ac5564dbbf400841c46bc7431cb237e56"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+p0</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aa3e6a04141f260c4703bacc2a670ed4d" name="aa3e6a04141f260c4703bacc2a670ed4d"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+pn</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a06671c0bc4675379bfeb9b8ff766cbb1" name="a06671c0bc4675379bfeb9b8ff766cbb1"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+r2</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ae8cf589ea74a3af61a564525da8b401a" name="ae8cf589ea74a3af61a564525da8b401a"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+t</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="d7/da4/structtrialdiv__table" id="d7/da4/structtrialdiv__table"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#d7/da4/structtrialdiv__table">&#9670;&#160;</a></span>trialdiv_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct trialdiv_table</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00058">58</a> 行定义.</p>
+</div><div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>trialdiv_table 的协作图:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d3/dfc/structtrialdiv__table__coll__graph.svg" width="326" height="528"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="fieldtable">
+<tr><th colspan="3">成员变量</th></tr>
+<tr><td class="fieldtype">
+<a id="a9771648545f579ae96aa28b6a1ca34bc" name="a9771648545f579ae96aa28b6a1ca34bc"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+blkc</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a6d1ea552008308d834f61a5d3b9c7b64" name="a6d1ea552008308d834f61a5d3b9c7b64"></a><a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *</td>
+<td class="fieldname">
+blks</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ae8ae198edec9e70effc264ecd42866cc" name="ae8ae198edec9e70effc264ecd42866cc"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+bn</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aa623f8c7fd261ee61b187a52f412f38b" name="aa623f8c7fd261ee61b187a52f412f38b"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+bn_chunk</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="af5b72504150d3d2785f00df60711727e" name="af5b72504150d3d2785f00df60711727e"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+bn_inv</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a2d25d9948f7b004b5aba5092210080bd" name="a2d25d9948f7b004b5aba5092210080bd"></a><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>
+<td class="fieldname">
+pi</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a346ccbe92cfb66300c88ec269ecdd67c" name="a346ccbe92cfb66300c88ec269ecdd67c"></a><a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></td>
+<td class="fieldname">
+t</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">宏定义说明</h2>
+<a id="a22d2e8690fbfee4371bb6845dbbdf526" name="a22d2e8690fbfee4371bb6845dbbdf526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22d2e8690fbfee4371bb6845dbbdf526">&#9670;&#160;</a></span>MAX_T</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_T&#160;&#160;&#160;((<a class="el" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a>)0x7fffffffffff)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copyright (C) 2026 HJimmyK (Jericho Knox) </p>
+<p>This file is part of LMMP.</p>
+<p>LMMP is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+<p>SPDX-License-Identifier: LGPL-3.0-or-later </p>
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00032">32</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8b61b6e9ae202e67d5b7e5f64d32d748" name="a8b61b6e9ae202e67d5b7e5f64d32d748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b61b6e9ae202e67d5b7e5f64d32d748">&#9670;&#160;</a></span>TRIALDIV_BLK_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRIALDIV_BLK_MAX&#160;&#160;&#160;((<a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a>)2012)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00037">37</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00079">trialdiv_close()</a>.</p>
+
+</div>
+</div>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">类型定义说明</h2>
+<a id="aeccb287569660148b3dc976fee3e02a8" name="aeccb287569660148b3dc976fee3e02a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeccb287569660148b3dc976fee3e02a8">&#9670;&#160;</a></span>trialdiv_blk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct trialdiv_blk trialdiv_blk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>块内字段分三组、各按水位 [0,bn_x) 惰性初始化，纯小 nn 负载不付 chunk 组预处理、纯大 nn 负载不付 preinv 组预处理： 打包组 t/p0/pn 建块即得 preinv 组 k/inv 首个 preinv 腿调用覆盖到该块时算 chunk 组 dinv/r2/base/mi 首个 chunk 腿调用覆盖到该块时算 </p>
+
+</div>
+</div>
+<a id="a012822a777a76eb00281b62044ddc1d1" name="a012822a777a76eb00281b62044ddc1d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a012822a777a76eb00281b62044ddc1d1">&#9670;&#160;</a></span>trialdiv_leg_fn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>(*) trialdiv_leg_fn(<a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> np, <a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> nn, const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *b)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00156">156</a> 行定义.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">函数说明</h2>
+<a id="a93fd931ed9db7ed92c591e97615a221f" name="a93fd931ed9db7ed92c591e97615a221f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93fd931ed9db7ed92c591e97615a221f">&#9670;&#160;</a></span>lmmp_trialdiv_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lmmp_trialdiv_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> <a class="el" href="../../d5/df1/test__powmod_8c.html#a080abdcb9c02438f1cd2bb707af25af8">restrict</a></td>          <td class="paramname"><span class="paramname"><em>np</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>nn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>N</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">170</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  170</span>                                                                   {</div>
+<div class="line"><span class="lineno">  171</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(np != NULL);</div>
+<div class="line"><span class="lineno">  172</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(nn &gt; 0);</div>
+<div class="line"><span class="lineno">  173</span> </div>
+<div class="line"><span class="lineno">  174</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> cnt = <a class="code hl_function" href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">lmmp_prime_cnt16_</a>(N);</div>
+<div class="line"><span class="lineno">  175</span>    <span class="keywordflow">if</span> (cnt &lt;= 1) <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">/* N&lt;3：无奇素数可试除 */</span></div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>    <a class="code hl_function" href="#af94c23f5ed8f8dfe76f4b621d7b64e3e">trialdiv_extend_</a>(cnt);</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span>    <span class="comment">/* 用满块前缀：块含 &lt;=N 素数 ⟺ p0 &lt; cnt（p0 升序，首块越界即停） */</span></div>
+<div class="line"><span class="lineno">  180</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> un = 0;</div>
+<div class="line"><span class="lineno">  181</span>    <span class="keywordflow">while</span> (un &lt; <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn &amp;&amp; <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[un].p0 &lt; cnt) ++un;</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>    <a class="code hl_typedef" href="#a012822a777a76eb00281b62044ddc1d1">trialdiv_leg_fn</a> leg;</div>
+<div class="line"><span class="lineno">  184</span>    <span class="keywordflow">if</span> (nn &lt; <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#ad65bebbf712242d6e31649e1c1b173a8">TRIALDIV_PREINV_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv &lt; un) <a class="code hl_function" href="#a7dbc330dc57b073f111708c7c2f659ca">trialdiv_init_inv_</a>(un);</div>
+<div class="line"><span class="lineno">  186</span>        leg = <a class="code hl_function" href="#af23886b8377ab1ced9436c77af79b138">trialdiv_leg_preinv_</a>;</div>
+<div class="line"><span class="lineno">  187</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (nn &lt; <a class="code hl_define" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#aa7f59b122ad8cb09dd550c01a8500ddb">TRIALDIV_K8_THRESHOLD</a>) {</div>
+<div class="line"><span class="lineno">  188</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_chunk &lt; un) <a class="code hl_function" href="#a0226f5e0f8ddc130a1043b5011f082ac">trialdiv_init_chunk_</a>(un);</div>
+<div class="line"><span class="lineno">  189</span>        leg = <a class="code hl_function" href="#ad04510ce5280335063970040bc48a55a">trialdiv_leg_4_</a>;</div>
+<div class="line"><span class="lineno">  190</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  191</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_chunk &lt; un) <a class="code hl_function" href="#a0226f5e0f8ddc130a1043b5011f082ac">trialdiv_init_chunk_</a>(un);</div>
+<div class="line"><span class="lineno">  192</span>        leg = <a class="code hl_function" href="#a64762aad81266745844294d7a2f07e04">trialdiv_leg_8_</a>;</div>
+<div class="line"><span class="lineno">  193</span>    }</div>
+<div class="line"><span class="lineno">  194</span> </div>
+<div class="line"><span class="lineno">  195</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> i = 0; i &lt; un; ++i) {</div>
+<div class="line"><span class="lineno">  196</span>        <span class="keyword">const</span> <a class="code hl_struct" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a>* b = &amp;<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[i];</div>
+<div class="line"><span class="lineno">  197</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> r = leg(np, nn, b);</div>
+<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">if</span> (r == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  199</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> j = b-&gt;<a class="code hl_variable" href="#ac5564dbbf400841c46bc7431cb237e56">p0</a>, e = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a>)(b-&gt;<a class="code hl_variable" href="#ac5564dbbf400841c46bc7431cb237e56">p0</a> + b-&gt;<a class="code hl_variable" href="#aa3e6a04141f260c4703bacc2a670ed4d">pn</a>); j &lt; e; ++j)</div>
+<div class="line"><span class="lineno">  200</span>            <span class="keywordflow">if</span> (r % <a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[j] == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  201</span>    }</div>
+<div class="line"><span class="lineno">  202</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  203</span>}</div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00092">lmmp.h:92</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00509">lmmp.h:509</a></div></div>
+<div class="ttc" id="anumth_2arch_2arm64_2mparam_8h_html_aa7f59b122ad8cb09dd550c01a8500ddb"><div class="ttname"><a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#aa7f59b122ad8cb09dd550c01a8500ddb">TRIALDIV_K8_THRESHOLD</a></div><div class="ttdeci">#define TRIALDIV_K8_THRESHOLD</div><div class="ttdef"><b>定义</b> <a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h_source.html#l00089">mparam.h:89</a></div></div>
+<div class="ttc" id="anumth_2arch_2arm64_2mparam_8h_html_ad65bebbf712242d6e31649e1c1b173a8"><div class="ttname"><a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h.html#ad65bebbf712242d6e31649e1c1b173a8">TRIALDIV_PREINV_THRESHOLD</a></div><div class="ttdeci">#define TRIALDIV_PREINV_THRESHOLD</div><div class="ttdef"><b>定义</b> <a href="../../d0/d59/numth_2arch_2arm64_2mparam_8h_source.html#l00087">mparam.h:87</a></div></div>
+<div class="ttc" id="anumth_8h_html_a9e58a7bf060b7a5fbf6a401d3020adca"><div class="ttname"><a href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></div><div class="ttdeci">uint16_t ushort</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00036">numth.h:36</a></div></div>
+<div class="ttc" id="aprime__sieve_8c_html_aed9ea78689ecce0b7264c02c7f8a9a54"><div class="ttname"><a href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a></div><div class="ttdeci">#define G</div><div class="ttdef"><b>定义</b> <a href="../../dd/dd3/prime__sieve_8c_source.html#l00041">prime_sieve.c:41</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_ae09042f4289ebd3a538f8b586747dfe8"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a></div><div class="ttdeci">const ushort prime_short_table[6542]</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../d2/d9c/prime__table_8c_source.html#l00030">prime_table.c:30</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_af5e76d78983e57b2468d365a69354c73"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#af5e76d78983e57b2468d365a69354c73">lmmp_prime_cnt16_</a></div><div class="ttdeci">ushort lmmp_prime_cnt16_(ushort n)</div><div class="ttdoc">计算小于等于 n 的素数数量</div><div class="ttdef"><b>定义</b> <a href="../../dd/dd3/prime__sieve_8c_source.html#l00368">prime_sieve.c:368</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a012822a777a76eb00281b62044ddc1d1"><div class="ttname"><a href="#a012822a777a76eb00281b62044ddc1d1">trialdiv_leg_fn</a></div><div class="ttdeci">mp_limb_t(*) trialdiv_leg_fn(mp_srcptr np, mp_size_t nn, const trialdiv_blk *b)</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00156">trialdiv.c:156</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a0226f5e0f8ddc130a1043b5011f082ac"><div class="ttname"><a href="#a0226f5e0f8ddc130a1043b5011f082ac">trialdiv_init_chunk_</a></div><div class="ttdeci">static void trialdiv_init_chunk_(ushort n)</div><div class="ttdoc">给 [bn_chunk,n) 的块补算折叠腿要用的 dinv、mi、r2、base</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00134">trialdiv.c:134</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a64762aad81266745844294d7a2f07e04"><div class="ttname"><a href="#a64762aad81266745844294d7a2f07e04">trialdiv_leg_8_</a></div><div class="ttdeci">static mp_limb_t trialdiv_leg_8_(mp_srcptr np, mp_size_t nn, const trialdiv_blk *b)</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00166">trialdiv.c:166</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a7dbc330dc57b073f111708c7c2f659ca"><div class="ttname"><a href="#a7dbc330dc57b073f111708c7c2f659ca">trialdiv_init_inv_</a></div><div class="ttdeci">static void trialdiv_init_inv_(ushort n)</div><div class="ttdoc">给 [bn_inv,n) 的块补算 k 和 inv</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00118">trialdiv.c:118</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_aa3e6a04141f260c4703bacc2a670ed4d"><div class="ttname"><a href="#aa3e6a04141f260c4703bacc2a670ed4d">trialdiv_blk::pn</a></div><div class="ttdeci">ushort pn</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00054">trialdiv.c:54</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_ac5564dbbf400841c46bc7431cb237e56"><div class="ttname"><a href="#ac5564dbbf400841c46bc7431cb237e56">trialdiv_blk::p0</a></div><div class="ttdeci">ushort p0</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00053">trialdiv.c:53</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_ad04510ce5280335063970040bc48a55a"><div class="ttname"><a href="#ad04510ce5280335063970040bc48a55a">trialdiv_leg_4_</a></div><div class="ttdeci">static mp_limb_t trialdiv_leg_4_(mp_srcptr np, mp_size_t nn, const trialdiv_blk *b)</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00162">trialdiv.c:162</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_af23886b8377ab1ced9436c77af79b138"><div class="ttname"><a href="#af23886b8377ab1ced9436c77af79b138">trialdiv_leg_preinv_</a></div><div class="ttdeci">static mp_limb_t trialdiv_leg_preinv_(mp_srcptr np, mp_size_t nn, const trialdiv_blk *b)</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00158">trialdiv.c:158</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_af94c23f5ed8f8dfe76f4b621d7b64e3e"><div class="ttname"><a href="#af94c23f5ed8f8dfe76f4b621d7b64e3e">trialdiv_extend_</a></div><div class="ttdeci">static void trialdiv_extend_(ushort cnt)</div><div class="ttdoc">打包素数，把下标 [1,cnt) 内的奇素数全部收进闭块</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00102">trialdiv.c:102</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_df/d61/structtrialdiv__blk"><div class="ttname"><a href="#df/d61/structtrialdiv__blk">trialdiv_blk</a></div><div class="ttdoc">块内字段分三组、各按水位 [0,bn_x) 惰性初始化，纯小 nn 负载不付 chunk 组预处理、纯大 nn 负载不付 preinv 组预处理： 打包组 t/p0/pn 建块即得 preinv 组 k...</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00046">trialdiv.c:46</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00041">G</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00509">lmmp_param_assert</a>, <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00368">lmmp_prime_cnt16_()</a>, <a class="el" href="../../dd/dd1/trialdiv_8h.html#a9ec5581d402cf2cbbb8b256a283bac33">lmmp_trialdiv_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00053">trialdiv_blk::p0</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00054">trialdiv_blk::pn</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00030">prime_short_table</a>, <a class="el" href="../../d5/df1/test__powmod_8c_source.html#l00035">restrict</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00102">trialdiv_extend_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00134">trialdiv_init_chunk_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00118">trialdiv_init_inv_()</a>, <a class="el" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h_source.html#l00089">TRIALDIV_K8_THRESHOLD</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00162">trialdiv_leg_4_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00166">trialdiv_leg_8_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00158">trialdiv_leg_preinv_()</a> , 以及 <a class="el" href="../../d0/d59/numth_2arch_2arm64_2mparam_8h_source.html#l00087">TRIALDIV_PREINV_THRESHOLD</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a93fd931ed9db7ed92c591e97615a221f_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a601e24f311825398d1b6408d2c776ac6" name="a601e24f311825398d1b6408d2c776ac6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a601e24f311825398d1b6408d2c776ac6">&#9670;&#160;</a></span>lmmp_trialdiv_table_free_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lmmp_trialdiv_table_free_ </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00205">205</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>                                     {</div>
+<div class="line"><span class="lineno">  206</span>    <a class="code hl_function" href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a>(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks);</div>
+<div class="line"><span class="lineno">  207</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks = NULL;</div>
+<div class="line"><span class="lineno">  208</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc = 0;</div>
+<div class="line"><span class="lineno">  209</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn = 0;</div>
+<div class="line"><span class="lineno">  210</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv = 0;</div>
+<div class="line"><span class="lineno">  211</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_chunk = 0;</div>
+<div class="line"><span class="lineno">  212</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.pi = 1;</div>
+<div class="line"><span class="lineno">  213</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t = 1;</div>
+<div class="line"><span class="lineno">  214</span>}</div>
+<div class="ttc" id="almmp_8h_html_a9addf0b27643f70bce967ca4ef842ae9"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a9addf0b27643f70bce967ca4ef842ae9">lmmp_free</a></div><div class="ttdeci">void lmmp_free(void *ptr)</div><div class="ttdoc">内存释放函数（调用lmmp_heap_free_fn）</div><div class="ttdef"><b>定义</b> <a href="../../df/dd5/memory_8c_source.html#l00437">memory.c:437</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00041">G</a>, <a class="el" href="../../df/dd5/memory_8c_source.html#l00437">lmmp_free()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00205">lmmp_trialdiv_table_free_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dd/dd1/trialdiv_8h.html#a9ec5581d402cf2cbbb8b256a283bac33">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00205">lmmp_trialdiv_table_free_()</a>.</p>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a601e24f311825398d1b6408d2c776ac6_cgraph.svg" width="304" height="80"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a601e24f311825398d1b6408d2c776ac6_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a205fa512d2fc25d2521ee283800eba01" name="a205fa512d2fc25d2521ee283800eba01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a205fa512d2fc25d2521ee283800eba01">&#9670;&#160;</a></span>trialdiv_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trialdiv_close </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>把开块落盘成 blks[bn] 里的一个新块，随后开块清空 </p>
+<dl class="section note"><dt>注解</dt><dd>新块的块首下标接在上一块末尾之后，首块从下标 1 开始（素数 2 不打包）。 blks 放不下时容量翻倍，但封顶 TRIALDIV_BLK_MAX；realloc 会原样保留 旧块内容，不需要重算任何字段 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00079">79</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>                                 {</div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn == <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc) {</div>
+<div class="line"><span class="lineno">   81</span>        <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc ? <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc * 2 : 32;</div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc &gt; <a class="code hl_define" href="#a8b61b6e9ae202e67d5b7e5f64d32d748">TRIALDIV_BLK_MAX</a>) <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc = <a class="code hl_define" href="#a8b61b6e9ae202e67d5b7e5f64d32d748">TRIALDIV_BLK_MAX</a>;</div>
+<div class="line"><span class="lineno">   83</span>        <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a106577f032b0f8fb94dbeebe88aa39e2">REALLOC_TYPE</a>(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks, <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blkc, <a class="code hl_struct" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a>);</div>
+<div class="line"><span class="lineno">   84</span>    }</div>
+<div class="line"><span class="lineno">   85</span>    <a class="code hl_struct" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a>* b = &amp;<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn];</div>
+<div class="line"><span class="lineno">   86</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> p0 = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn ? (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a>)(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn - 1].p0 + <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn - 1].pn) : 1;</div>
+<div class="line"><span class="lineno">   87</span>    b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a> = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t;</div>
+<div class="line"><span class="lineno">   88</span>    b-&gt;<a class="code hl_variable" href="#ac5564dbbf400841c46bc7431cb237e56">p0</a> = p0;</div>
+<div class="line"><span class="lineno">   89</span>    b-&gt;<a class="code hl_variable" href="#aa3e6a04141f260c4703bacc2a670ed4d">pn</a> = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a>)(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.pi - p0);</div>
+<div class="line"><span class="lineno">   90</span>    ++<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn;</div>
+<div class="line"><span class="lineno">   91</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t = 1;</div>
+<div class="line"><span class="lineno">   92</span>}</div>
+<div class="ttc" id="atmp__alloc_8h_html_a106577f032b0f8fb94dbeebe88aa39e2"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a106577f032b0f8fb94dbeebe88aa39e2">REALLOC_TYPE</a></div><div class="ttdeci">#define REALLOC_TYPE(p, new_size, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00201">tmp_alloc.h:201</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a8b61b6e9ae202e67d5b7e5f64d32d748"><div class="ttname"><a href="#a8b61b6e9ae202e67d5b7e5f64d32d748">TRIALDIV_BLK_MAX</a></div><div class="ttdeci">#define TRIALDIV_BLK_MAX</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00037">trialdiv.c:37</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_ae8cf589ea74a3af61a564525da8b401a"><div class="ttname"><a href="#ae8cf589ea74a3af61a564525da8b401a">trialdiv_blk::t</a></div><div class="ttdeci">ulong t</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv.c:47</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00041">G</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00053">trialdiv_blk::p0</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00054">trialdiv_blk::pn</a>, <a class="el" href="../../d8/daa/tmp__alloc_8h_source.html#l00201">REALLOC_TYPE</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv_blk::t</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00037">TRIALDIV_BLK_MAX</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00079">trialdiv_close()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00079">trialdiv_close()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00102">trialdiv_extend_()</a>.</p>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a205fa512d2fc25d2521ee283800eba01_cgraph.svg" width="119" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a205fa512d2fc25d2521ee283800eba01_icgraph.svg" width="462" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af94c23f5ed8f8dfe76f4b621d7b64e3e" name="af94c23f5ed8f8dfe76f4b621d7b64e3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af94c23f5ed8f8dfe76f4b621d7b64e3e">&#9670;&#160;</a></span>trialdiv_extend_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trialdiv_extend_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>cnt</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>打包素数，把下标 [1,cnt) 内的奇素数全部收进闭块 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cnt</td><td>&lt;=N 的素数个数，即 lmmp_prime_cnt16_(N) 的返回值（含素数 2） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>素数逐个乘进开块，乘积一超过 MAX_T 就闭一块。盖住 cnt 之后，如果 开块乘积还没满，会继续乘到满块才停。故表中存储的均是完整块，块的 划分与 N 无关，扩容永远是纯追加，开块也从不跨调用留存。素数表用尽时 最后一块无法乘满，自动闭合。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00102">102</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>                                         {</div>
+<div class="line"><span class="lineno">  103</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.pi &lt; cnt || <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t &gt; 1) {</div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.pi == <a class="code hl_define" href="../../d1/d98/prime__table_8h.html#a1b1448dd51c0af9bdc6fdb70093b3865">PRIME_SHORT_TABLE_SIZE</a>) {</div>
+<div class="line"><span class="lineno">  105</span>            <a class="code hl_function" href="#a205fa512d2fc25d2521ee283800eba01">trialdiv_close</a>();</div>
+<div class="line"><span class="lineno">  106</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  107</span>        }</div>
+<div class="line"><span class="lineno">  108</span>        <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t *= <a class="code hl_variable" href="../../d1/d98/prime__table_8h.html#ae09042f4289ebd3a538f8b586747dfe8">prime_short_table</a>[<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.pi++];</div>
+<div class="line"><span class="lineno">  109</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t &gt; <a class="code hl_define" href="../../d9/d3a/factorial_8c.html#a22d2e8690fbfee4371bb6845dbbdf526">MAX_T</a>) <a class="code hl_function" href="#a205fa512d2fc25d2521ee283800eba01">trialdiv_close</a>();</div>
+<div class="line"><span class="lineno">  110</span>    }</div>
+<div class="line"><span class="lineno">  111</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.t == 1);</div>
+<div class="line"><span class="lineno">  112</span>}</div>
+<div class="ttc" id="afactorial_8c_html_a22d2e8690fbfee4371bb6845dbbdf526"><div class="ttname"><a href="../../d9/d3a/factorial_8c.html#a22d2e8690fbfee4371bb6845dbbdf526">MAX_T</a></div><div class="ttdeci">#define MAX_T</div></div>
+<div class="ttc" id="almmp_8h_html_a615856ce29bb791b82c2c8271aa829da"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a></div><div class="ttdeci">#define lmmp_debug_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00498">lmmp.h:498</a></div></div>
+<div class="ttc" id="aprime__table_8h_html_a1b1448dd51c0af9bdc6fdb70093b3865"><div class="ttname"><a href="../../d1/d98/prime__table_8h.html#a1b1448dd51c0af9bdc6fdb70093b3865">PRIME_SHORT_TABLE_SIZE</a></div><div class="ttdeci">#define PRIME_SHORT_TABLE_SIZE</div><div class="ttdef"><b>定义</b> <a href="../../d1/d98/prime__table_8h_source.html#l00036">prime_table.h:36</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a205fa512d2fc25d2521ee283800eba01"><div class="ttname"><a href="#a205fa512d2fc25d2521ee283800eba01">trialdiv_close</a></div><div class="ttdeci">static void trialdiv_close(void)</div><div class="ttdoc">把开块落盘成 blks[bn] 里的一个新块，随后开块清空</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00079">trialdiv.c:79</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00041">G</a>, <a class="el" href="../../dd/d90/lmmp_8h_source.html#l00498">lmmp_debug_assert</a>, <a class="el" href="../../d9/d3a/factorial_8c.html#a22d2e8690fbfee4371bb6845dbbdf526">MAX_T</a>, <a class="el" href="../../d2/d9c/prime__table_8c_source.html#l00030">prime_short_table</a>, <a class="el" href="../../d1/d98/prime__table_8h_source.html#l00036">PRIME_SHORT_TABLE_SIZE</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00079">trialdiv_close()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00102">trialdiv_extend_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00102">trialdiv_extend_()</a>.</p>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_af94c23f5ed8f8dfe76f4b621d7b64e3e_cgraph.svg" width="294" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_af94c23f5ed8f8dfe76f4b621d7b64e3e_icgraph.svg" width="304" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0226f5e0f8ddc130a1043b5011f082ac" name="a0226f5e0f8ddc130a1043b5011f082ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0226f5e0f8ddc130a1043b5011f082ac">&#9670;&#160;</a></span>trialdiv_init_chunk_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trialdiv_init_chunk_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>给 [bn_chunk,n) 的块补算折叠腿要用的 dinv、mi、r2、base </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>要补到的块数，不超过 bn </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>dinv 是 t 模 2^64 的逆元，mi 就是它的相反数；r2 与 base 共享一次 inv_1_ 未填的块顺手存进 preinv 组字段并推其水位（已填的块直接复用）， 后续 preinv 腿免再算。已经算过的块不会再算 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00134">134</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  134</span>                                           {</div>
+<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> i = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_chunk; i &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>; ++i) {</div>
+<div class="line"><span class="lineno">  136</span>        <a class="code hl_struct" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a>* b = &amp;<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[i];</div>
+<div class="line"><span class="lineno">  137</span>        b-&gt;<a class="code hl_variable" href="#a4c87907fffc41663611ed047077eb07a">dinv</a> = <a class="code hl_function" href="../../de/da4/numth_8h.html#a3926a6e48ffe7baef646e599da10ed2c">lmmp_binvert_ulong_</a>(b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a>);</div>
+<div class="line"><span class="lineno">  138</span>        b-&gt;<a class="code hl_variable" href="#a72ff203045b3ff40f3da8a8f48b20005">mi</a> = -b-&gt;<a class="code hl_variable" href="#a4c87907fffc41663611ed047077eb07a">dinv</a>;</div>
+<div class="line"><span class="lineno">  139</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> m = b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a>;</div>
+<div class="line"><span class="lineno">  140</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a> <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a> = 0;</div>
+<div class="line"><span class="lineno">  141</span>        <a class="code hl_define" href="../../d1/d59/longlong_8h.html#acc47888d2a45cee05505927c99382d5d">clz_shl_u64</a>(m, m, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>);</div>
+<div class="line"><span class="lineno">  142</span>        <a class="code hl_typedef" href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a> inv;</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">if</span> (i &lt; <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv)</div>
+<div class="line"><span class="lineno">  144</span>            inv = b-&gt;<a class="code hl_variable" href="#a7d4ca4547d78bdd8cbaa534827a3395a">inv</a>;</div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  146</span>            b-&gt;<a class="code hl_variable" href="#abe721f8d56f1e603b752d537d4af6f3e">k</a> = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>)<a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>;</div>
+<div class="line"><span class="lineno">  147</span>            b-&gt;<a class="code hl_variable" href="#a7d4ca4547d78bdd8cbaa534827a3395a">inv</a> = inv = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ae11829952d48fa25384c7bbfffbc440b">lmmp_inv_1_</a>(m);</div>
+<div class="line"><span class="lineno">  148</span>        }</div>
+<div class="line"><span class="lineno">  149</span>        b-&gt;<a class="code hl_variable" href="#a06671c0bc4675379bfeb9b8ff766cbb1">r2</a> = <a class="code hl_function" href="../../d1/d59/longlong_8h.html#a0db115708136816e42d7c0ec69b42df4">_bpow_preinv_</a>(m, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, 2, inv);</div>
+<div class="line"><span class="lineno">  150</span>        b-&gt;<a class="code hl_variable" href="#a4cbcebb16ac32819533b670d6e0f545f">base</a> = <a class="code hl_function" href="../../d1/d59/longlong_8h.html#a0db115708136816e42d7c0ec69b42df4">_bpow_preinv_</a>(m, <a class="code hl_define" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, 1, inv);</div>
+<div class="line"><span class="lineno">  151</span>    }</div>
+<div class="line"><span class="lineno">  152</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_chunk = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>) <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><span class="lineno">  154</span>}</div>
+<div class="ttc" id="abinvert_8c_html_a13b230ea1d237595fb236c951a0849e0"><div class="ttname"><a href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a></div><div class="ttdeci">#define k</div></div>
+<div class="ttc" id="almmp_8h_html_a56546655f77216fbe0fa5f906c686787"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a56546655f77216fbe0fa5f906c686787">mp_bitcnt_t</a></div><div class="ttdeci">size_t mp_bitcnt_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00098">lmmp.h:98</a></div></div>
+<div class="ttc" id="almmpn_8h_html_ae11829952d48fa25384c7bbfffbc440b"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ae11829952d48fa25384c7bbfffbc440b">lmmp_inv_1_</a></div><div class="ttdeci">mp_limb_t lmmp_inv_1_(mp_limb_t x)</div><div class="ttdoc">1阶逆元计算 (inv1)</div><div class="ttdef"><b>定义</b> <a href="../../d8/db7/arch_2generic_2inv_8c_source.html#l00124">inv.c:124</a></div></div>
+<div class="ttc" id="alonglong_8h_html_a0db115708136816e42d7c0ec69b42df4"><div class="ttname"><a href="../../d1/d59/longlong_8h.html#a0db115708136816e42d7c0ec69b42df4">_bpow_preinv_</a></div><div class="ttdeci">static uint64_t _bpow_preinv_(uint64_t m, uint64_t k, int nb, uint64_t inv)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d59/longlong_8h_source.html#l00626">longlong.h:626</a></div></div>
+<div class="ttc" id="alonglong_8h_html_acc47888d2a45cee05505927c99382d5d"><div class="ttname"><a href="../../d1/d59/longlong_8h.html#acc47888d2a45cee05505927c99382d5d">clz_shl_u64</a></div><div class="ttdeci">#define clz_shl_u64(r, x, cnt)</div><div class="ttdef"><b>定义</b> <a href="../../d1/d59/longlong_8h_source.html#l00069">longlong.h:69</a></div></div>
+<div class="ttc" id="amul__toom42_8c_html_ad5228cd48403ef9d8b632f5c7c124720"><div class="ttname"><a href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a></div><div class="ttdeci">#define n</div></div>
+<div class="ttc" id="anumth_8h_html_a27c902d5ca78afa82d5ed75554d5cedc"><div class="ttname"><a href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a></div><div class="ttdeci">uint8_t uchar</div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00034">numth.h:34</a></div></div>
+<div class="ttc" id="anumth_8h_html_a3926a6e48ffe7baef646e599da10ed2c"><div class="ttname"><a href="../../de/da4/numth_8h.html#a3926a6e48ffe7baef646e599da10ed2c">lmmp_binvert_ulong_</a></div><div class="ttdeci">ulong lmmp_binvert_ulong_(ulong a)</div><div class="ttdoc">计算 a 在2^64下的逆元</div><div class="ttdef"><b>定义</b> <a href="../../df/dea/binvert__1_8c_source.html#l00049">binvert_1.c:49</a></div></div>
+<div class="ttc" id="anumth_8h_html_ab46637ef82283186e57f54756fe67203"><div class="ttname"><a href="../../de/da4/numth_8h.html#ab46637ef82283186e57f54756fe67203">ulong</a></div><div class="ttdeci">uint64_t ulong</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00039">numth.h:39</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a06671c0bc4675379bfeb9b8ff766cbb1"><div class="ttname"><a href="#a06671c0bc4675379bfeb9b8ff766cbb1">trialdiv_blk::r2</a></div><div class="ttdeci">ulong r2</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00050">trialdiv.c:50</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a4c87907fffc41663611ed047077eb07a"><div class="ttname"><a href="#a4c87907fffc41663611ed047077eb07a">trialdiv_blk::dinv</a></div><div class="ttdeci">ulong dinv</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00049">trialdiv.c:49</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a4cbcebb16ac32819533b670d6e0f545f"><div class="ttname"><a href="#a4cbcebb16ac32819533b670d6e0f545f">trialdiv_blk::base</a></div><div class="ttdeci">ulong base</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00051">trialdiv.c:51</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a72ff203045b3ff40f3da8a8f48b20005"><div class="ttname"><a href="#a72ff203045b3ff40f3da8a8f48b20005">trialdiv_blk::mi</a></div><div class="ttdeci">ulong mi</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00052">trialdiv.c:52</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_a7d4ca4547d78bdd8cbaa534827a3395a"><div class="ttname"><a href="#a7d4ca4547d78bdd8cbaa534827a3395a">trialdiv_blk::inv</a></div><div class="ttdeci">ulong inv</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00048">trialdiv.c:48</a></div></div>
+<div class="ttc" id="atrialdiv_8c_html_abe721f8d56f1e603b752d537d4af6f3e"><div class="ttname"><a href="#abe721f8d56f1e603b752d537d4af6f3e">trialdiv_blk::k</a></div><div class="ttdeci">uchar k</div><div class="ttdef"><b>定义</b> <a href="../../d1/db8/trialdiv_8c_source.html#l00055">trialdiv.c:55</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/d59/longlong_8h_source.html#l00626">_bpow_preinv_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00051">trialdiv_blk::base</a>, <a class="el" href="../../d1/d59/longlong_8h_source.html#l00069">clz_shl_u64</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00049">trialdiv_blk::dinv</a>, <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00041">G</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00048">trialdiv_blk::inv</a>, <a class="el" href="../../dd/d93/binvert_8c.html#a13b230ea1d237595fb236c951a0849e0">k</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00055">trialdiv_blk::k</a>, <a class="el" href="../../df/dea/binvert__1_8c_source.html#l00049">lmmp_binvert_ulong_()</a>, <a class="el" href="../../d8/db7/arch_2generic_2inv_8c_source.html#l00124">lmmp_inv_1_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00052">trialdiv_blk::mi</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00050">trialdiv_blk::r2</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv_blk::t</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00134">trialdiv_init_chunk_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00134">trialdiv_init_chunk_()</a>.</p>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a0226f5e0f8ddc130a1043b5011f082ac_cgraph.svg" width="523" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a0226f5e0f8ddc130a1043b5011f082ac_icgraph.svg" width="327" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7dbc330dc57b073f111708c7c2f659ca" name="a7dbc330dc57b073f111708c7c2f659ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dbc330dc57b073f111708c7c2f659ca">&#9670;&#160;</a></span>trialdiv_init_inv_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trialdiv_init_inv_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>给 [bn_inv,n) 的块补算 k 和 inv </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>要补至的块数，不超过 bn </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00118">118</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>                                         {</div>
+<div class="line"><span class="lineno">  119</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a9e58a7bf060b7a5fbf6a401d3020adca">ushort</a> i = <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv; i &lt; <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>; ++i) {</div>
+<div class="line"><span class="lineno">  120</span>        <a class="code hl_struct" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a>* b = &amp;<a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.blks[i];</div>
+<div class="line"><span class="lineno">  121</span>        b-&gt;<a class="code hl_variable" href="#abe721f8d56f1e603b752d537d4af6f3e">k</a> = (<a class="code hl_typedef" href="../../de/da4/numth_8h.html#a27c902d5ca78afa82d5ed75554d5cedc">uchar</a>)<a class="code hl_define" href="../../d1/de6/inlines_8h.html#a0cbc2d75757382d53787bb748e625fcb">lmmp_leading_zeros_</a>(b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a>);</div>
+<div class="line"><span class="lineno">  122</span>        b-&gt;<a class="code hl_variable" href="#a7d4ca4547d78bdd8cbaa534827a3395a">inv</a> = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ae11829952d48fa25384c7bbfffbc440b">lmmp_inv_1_</a>(b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a> &lt;&lt; b-&gt;<a class="code hl_variable" href="#abe721f8d56f1e603b752d537d4af6f3e">k</a>);</div>
+<div class="line"><span class="lineno">  123</span>    }</div>
+<div class="line"><span class="lineno">  124</span>    <a class="code hl_define" href="../../dd/dd3/prime__sieve_8c.html#aed9ea78689ecce0b7264c02c7f8a9a54">G</a>.bn_inv = <a class="code hl_define" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>;</div>
+<div class="line"><span class="lineno">  125</span>}</div>
+<div class="ttc" id="ainlines_8h_html_a0cbc2d75757382d53787bb748e625fcb"><div class="ttname"><a href="../../d1/de6/inlines_8h.html#a0cbc2d75757382d53787bb748e625fcb">lmmp_leading_zeros_</a></div><div class="ttdeci">#define lmmp_leading_zeros_</div><div class="ttdef"><b>定义</b> <a href="../../d1/de6/inlines_8h_source.html#l00162">inlines.h:162</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../dd/dd3/prime__sieve_8c_source.html#l00041">G</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00048">trialdiv_blk::inv</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00055">trialdiv_blk::k</a>, <a class="el" href="../../d8/db7/arch_2generic_2inv_8c_source.html#l00124">lmmp_inv_1_()</a>, <a class="el" href="../../d1/de6/inlines_8h_source.html#l00162">lmmp_leading_zeros_</a>, <a class="el" href="../../d0/de5/mul__toom42_8c.html#ad5228cd48403ef9d8b632f5c7c124720">n</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv_blk::t</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00118">trialdiv_init_inv_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00118">trialdiv_init_inv_()</a>.</p>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a7dbc330dc57b073f111708c7c2f659ca_cgraph.svg" width="296" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a7dbc330dc57b073f111708c7c2f659ca_icgraph.svg" width="308" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad04510ce5280335063970040bc48a55a" name="ad04510ce5280335063970040bc48a55a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04510ce5280335063970040bc48a55a">&#9670;&#160;</a></span>trialdiv_leg_4_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> trialdiv_leg_4_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>np</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>nn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00162">162</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span>                                                                                    {</div>
+<div class="line"><span class="lineno">  163</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/dd1/trialdiv_8h.html#aab97ec59a1d3498ceaf85eecce89e54d">lmmp_mod_4chunk_1_</a>(np, nn, b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a>, b-&gt;<a class="code hl_variable" href="#a4c87907fffc41663611ed047077eb07a">dinv</a>, b-&gt;<a class="code hl_variable" href="#a06671c0bc4675379bfeb9b8ff766cbb1">r2</a>, b-&gt;<a class="code hl_variable" href="#a4cbcebb16ac32819533b670d6e0f545f">base</a>, b-&gt;<a class="code hl_variable" href="#a72ff203045b3ff40f3da8a8f48b20005">mi</a>);</div>
+<div class="line"><span class="lineno">  164</span>}</div>
+<div class="ttc" id="atrialdiv_8h_html_aab97ec59a1d3498ceaf85eecce89e54d"><div class="ttname"><a href="../../dd/dd1/trialdiv_8h.html#aab97ec59a1d3498ceaf85eecce89e54d">lmmp_mod_4chunk_1_</a></div><div class="ttdeci">mp_limb_t lmmp_mod_4chunk_1_(mp_srcptr numa, mp_size_t na, mp_limb_t d, mp_limb_t dinv, mp_limb_t r2, mp_limb_t base, mp_limb_t mi)</div><div class="ttdoc">4 链折叠取模：r = [numa,na] mod d</div><div class="ttdef"><b>定义</b> <a href="../../d6/d0d/mod__chunk_8c_source.html#l00052">mod_chunk.c:52</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00051">trialdiv_blk::base</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00049">trialdiv_blk::dinv</a>, <a class="el" href="../../d6/d0d/mod__chunk_8c_source.html#l00052">lmmp_mod_4chunk_1_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00052">trialdiv_blk::mi</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00050">trialdiv_blk::r2</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv_blk::t</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00162">trialdiv_leg_4_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00162">trialdiv_leg_4_()</a>.</p>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_ad04510ce5280335063970040bc48a55a_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_ad04510ce5280335063970040bc48a55a_icgraph.svg" width="295" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a64762aad81266745844294d7a2f07e04" name="a64762aad81266745844294d7a2f07e04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64762aad81266745844294d7a2f07e04">&#9670;&#160;</a></span>trialdiv_leg_8_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> trialdiv_leg_8_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>np</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>nn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00166">166</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  166</span>                                                                                    {</div>
+<div class="line"><span class="lineno">  167</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/dd1/trialdiv_8h.html#a0fdfec03c6bba4264e8fd189cc2e9c93">lmmp_mod_8chunk_1_</a>(np, nn, b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a>, b-&gt;<a class="code hl_variable" href="#a4c87907fffc41663611ed047077eb07a">dinv</a>, b-&gt;<a class="code hl_variable" href="#a06671c0bc4675379bfeb9b8ff766cbb1">r2</a>, b-&gt;<a class="code hl_variable" href="#a4cbcebb16ac32819533b670d6e0f545f">base</a>, b-&gt;<a class="code hl_variable" href="#a72ff203045b3ff40f3da8a8f48b20005">mi</a>);</div>
+<div class="line"><span class="lineno">  168</span>}</div>
+<div class="ttc" id="atrialdiv_8h_html_a0fdfec03c6bba4264e8fd189cc2e9c93"><div class="ttname"><a href="../../dd/dd1/trialdiv_8h.html#a0fdfec03c6bba4264e8fd189cc2e9c93">lmmp_mod_8chunk_1_</a></div><div class="ttdeci">mp_limb_t lmmp_mod_8chunk_1_(mp_srcptr numa, mp_size_t na, mp_limb_t d, mp_limb_t dinv, mp_limb_t r2, mp_limb_t base, mp_limb_t mi)</div><div class="ttdoc">8 链折叠取模：r = [numa,na] mod d</div><div class="ttdef"><b>定义</b> <a href="../../d6/d0d/mod__chunk_8c_source.html#l00114">mod_chunk.c:114</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00051">trialdiv_blk::base</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00049">trialdiv_blk::dinv</a>, <a class="el" href="../../d6/d0d/mod__chunk_8c_source.html#l00114">lmmp_mod_8chunk_1_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00052">trialdiv_blk::mi</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00050">trialdiv_blk::r2</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv_blk::t</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00166">trialdiv_leg_8_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00166">trialdiv_leg_8_()</a>.</p>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a64762aad81266745844294d7a2f07e04_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_a64762aad81266745844294d7a2f07e04_icgraph.svg" width="295" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af23886b8377ab1ced9436c77af79b138" name="af23886b8377ab1ced9436c77af79b138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af23886b8377ab1ced9436c77af79b138">&#9670;&#160;</a></span>trialdiv_leg_preinv_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> trialdiv_leg_preinv_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></td>          <td class="paramname"><span class="paramname"><em>np</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></td>          <td class="paramname"><span class="paramname"><em>nn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#df/d61/structtrialdiv__blk">trialdiv_blk</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00158">158</a> 行定义.</p>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>                                                                                         {</div>
+<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#a4b6cad3c585de08f0b56db407fdb78b6">lmmp_mod_preinv_1_</a>(np, nn, b-&gt;<a class="code hl_variable" href="#ae8cf589ea74a3af61a564525da8b401a">t</a>, b-&gt;<a class="code hl_variable" href="#a7d4ca4547d78bdd8cbaa534827a3395a">inv</a>, b-&gt;<a class="code hl_variable" href="#abe721f8d56f1e603b752d537d4af6f3e">k</a>);</div>
+<div class="line"><span class="lineno">  160</span>}</div>
+<div class="ttc" id="almmpn_8h_html_a4b6cad3c585de08f0b56db407fdb78b6"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#a4b6cad3c585de08f0b56db407fdb78b6">lmmp_mod_preinv_1_</a></div><div class="ttdeci">mp_limb_t lmmp_mod_preinv_1_(mp_srcptr numa, mp_size_t na, mp_limb_t x, mp_limb_t inv, mp_limb_t k)</div><div class="ttdoc">单精度数取余（预备逆元版） [numa,na] mod x，同 lmmp_mod_1_</div><div class="ttdef"><b>定义</b> <a href="../../d1/d43/arch_2generic_2div_8c_source.html#l00089">div.c:89</a></div></div>
+</div><!-- fragment -->
+<p class="reference">引用了 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00048">trialdiv_blk::inv</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00055">trialdiv_blk::k</a>, <a class="el" href="../../d1/d43/arch_2generic_2div_8c_source.html#l00089">lmmp_mod_preinv_1_()</a>, <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00047">trialdiv_blk::t</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00158">trialdiv_leg_preinv_()</a>.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00170">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00158">trialdiv_leg_preinv_()</a>.</p>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>函数调用图:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_af23886b8377ab1ced9436c77af79b138_cgraph.svg" width="374" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>这是这个函数的调用关系图:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d1/db8/trialdiv_8c_af23886b8377ab1ced9436c77af79b138_icgraph.svg" width="328" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">变量说明</h2>
+<a id="a4af110f8bcea116e0c555df40ef2ecf9" name="a4af110f8bcea116e0c555df40ef2ecf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af110f8bcea116e0c555df40ef2ecf9">&#9670;&#160;</a></span>G</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__thread <a class="el" href="#d7/da4/structtrialdiv__table">trialdiv_table</a> G</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>初始值:</b><div class="fragment"><div class="line">                                 = {</div>
+<div class="line">    .blks = NULL, .blkc = 0,  .bn = 0, .bn_inv = 0,</div>
+<div class="line">    .bn_chunk = 0, .pi = 1,   .t = 1,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00068">68</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4fa0b1911030d3a8578f2309e48862dd" name="a4fa0b1911030d3a8578f2309e48862dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa0b1911030d3a8578f2309e48862dd">&#9670;&#160;</a></span>r35711_mask_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> r35711_mask_map[19]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>初始值:</b><div class="fragment"><div class="line">                            = {</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x93cf359a5b74dee9), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x6badd25dadb36966), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x6ed3cd279e4bb4b6),</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xb66d6cd35ba6bb59), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xc976b2cde59a4f3c), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x34de792dd2f9a6b7),</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xb34d6e96ede59b4b), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xcf3696793ef259ad), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xf4b34b669add25fa),</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xfa4bb5966d2cd2f9), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x59a4f7c9e696cf35), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x2d9a7b76976b2cdb),</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xd659f4bb49e7b2cd), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xcf259a7b34d6e93e), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xadd65dacb36b66d3),</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0xd2dd279e4b3cb769), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x696cdb5ba4bb5d66), (<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x77b2eda59acf3c96),</div>
+<div class="line">(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>)(0x0000000000000001)}</div>
+</div><!-- fragment -->
+<p class="definition">在文件 <a class="el" href="../../d1/db8/trialdiv_8c_source.html">trialdiv.c</a> 第 <a class="el" href="../../d1/db8/trialdiv_8c_source.html#l00216">216</a> 行定义.</p>
+
+<p class="reference">被这些函数引用 <a class="el" href="../../dd/dd1/trialdiv_8h.html#a9ec5581d402cf2cbbb8b256a283bac33">lmmp_trialdiv_()</a> , 以及 <a class="el" href="../../dd/dd1/trialdiv_8h_source.html#l00083">trial_div35711()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_9396b6e68ae869ebd0dbb83c8694b260.html">lmmp</a></li><li class="navelem"><a href="../../dir_e81495a29da127ca13adb73f7de0dac8.html">numth</a></li><li class="navelem"><a href="../../d1/db8/trialdiv_8c.html">trialdiv.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

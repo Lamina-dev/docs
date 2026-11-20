@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMC: /home/runner/work/docs/docs/LMMC/src/interp_spline_boundary.c 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMC
+   </div>
+   <div id="projectbrief">Lamina Mathematic core</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('interp__spline__boundary_8c_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">interp_spline_boundary.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="interp__spline__boundary_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="interp__internal_8h.html">internal/interp_internal.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">static</span> <span class="keywordtype">void</span> interp_tridiag_solve(<span class="keywordtype">size_t</span> n, <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* sub,</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>                                 <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* dia, <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* sup,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                                 <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* rhs)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">for</span> (i = 1; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> factor = sub[i] / dia[i - 1];</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        dia[i] -= factor * sup[i - 1];</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        rhs[i] -= factor * rhs[i - 1];</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    }</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    rhs[n - 1] /= dia[n - 1];</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">for</span> (i = n - 1; i &gt; 0; --i) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        rhs[i - 1] = (rhs[i - 1] - sup[i - 1] * rhs[i]) / dia[i - 1];</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">static</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> interp_spline_rhs(<span class="keyword">const</span> <a class="code hl_struct" href="interp__internal_8h.html#structinterp__spline__workspace__t">interp_spline_workspace_t</a>* w,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                                    <span class="keywordtype">size_t</span> i)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> 6.0 * ((w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">ys</a>[i + 1] - w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">ys</a>[i]) / w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>[i]</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                 - (w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">ys</a>[i] - w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">ys</a>[i - 1]) / w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>[i - 1]);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">static</span> <span class="keywordtype">void</span> interp_spline_interior(<a class="code hl_struct" href="interp__internal_8h.html#structinterp__spline__workspace__t">interp_spline_workspace_t</a>* w,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                                    <span class="keywordtype">size_t</span> first, <span class="keywordtype">size_t</span> end, <span class="keywordtype">size_t</span> offset)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (i = first; i &lt; end; ++i) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">size_t</span> row = i - offset;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[row] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>[i - 1];</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[row] = 2.0 * (w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>[i - 1] + w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>[i]);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[row] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>[i];</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[row] = interp_spline_rhs(w, i);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="interp__internal_8h.html#a49156334f730511ea2cd30163117b25f">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="interp__internal_8h.html#a49156334f730511ea2cd30163117b25f">interp_spline_standard</a>(<a class="code hl_struct" href="interp__internal_8h.html#structinterp__spline__workspace__t">interp_spline_workspace_t</a>* w,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                            <a class="code hl_enumeration" href="interp_8h.html#a366d704dc3cd8498d049bf83a8883f18">lmmc_spline_bc_t</a> bc, <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> deriv_left,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                            <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> deriv_right)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">size_t</span> last = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a2443f94ded0c7baeb26db7136ab9baac">n</a> - 1;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* h = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* ys = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">ys</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    interp_spline_interior(w, 1, last, 0);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[0] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[0] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[0] = 0.0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[last] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[last] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[last] = 0.0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[0] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[last] = 1.0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (bc == <a class="code hl_enumvalue" href="interp_8h.html#a366d704dc3cd8498d049bf83a8883f18a522b48ad400117ef649dae1edf0984aa">LMMC_SPLINE_CLAMPED</a>) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[0] = 2.0 * h[0];</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[0] = h[0];</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[0] = 6.0 * ((ys[1] - ys[0]) / h[0] - deriv_left);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[last] = h[last - 1];</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[last] = 2.0 * h[last - 1];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[last] = 6.0 * (deriv_right - (ys[last] - ys[last - 1]) / h[last - 1]);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    interp_tridiag_solve(w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a2443f94ded0c7baeb26db7136ab9baac">n</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    memcpy(w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ac2d9e9d007063d7abf28a74cccb5ac34">moments</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a2443f94ded0c7baeb26db7136ab9baac">n</a> * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="interp__internal_8h.html#af8370adac36b49651109a79593165b09">   65</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="interp__internal_8h.html#af8370adac36b49651109a79593165b09">interp_spline_not_a_knot</a>(<a class="code hl_struct" href="interp__internal_8h.html#structinterp__spline__workspace__t">interp_spline_workspace_t</a>* w)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">size_t</span> n = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a2443f94ded0c7baeb26db7136ab9baac">n</a>, count = n - 2;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* h = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* moments = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ac2d9e9d007063d7abf28a74cccb5ac34">moments</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> ha, hb;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (n == 3) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> value = interp_spline_rhs(w, 1) / (3.0 * (h[0] + h[1]));</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        moments[0] = moments[1] = moments[2] = value;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    interp_spline_interior(w, 1, n - 1, 1);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[0] = h[0] * (h[0] + h[1]) / h[1] + 2.0 * (h[0] + h[1]);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[0] = h[1] - h[0] * h[0] / h[1];</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[0] = 0.0;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    ha = h[n - 3];</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    hb = h[n - 2];</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[count - 1] = ha - hb * hb / ha;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[count - 1] = 2.0 * (ha + hb) + hb * (ha + hb) / ha;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[count - 1] = 0.0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    interp_tridiag_solve(count, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    memcpy(moments + 1, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>, count * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    moments[0] = ((h[0] + h[1]) * moments[1] - h[0] * moments[2]) / h[1];</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    moments[n - 1] = ((ha + hb) * moments[n - 2] - hb * moments[n - 3]) / ha;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="interp__internal_8h.html#abcf3341638145876aeff4857be6c7e7a">   93</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="interp__internal_8h.html#abcf3341638145876aeff4857be6c7e7a">interp_spline_periodic</a>(<a class="code hl_struct" href="interp__internal_8h.html#structinterp__spline__workspace__t">interp_spline_workspace_t</a>* w)</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">size_t</span> count = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a2443f94ded0c7baeb26db7136ab9baac">n</a> - 1, i;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* h = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">h</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>* ys = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">ys</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a> corner = h[count - 1], gamma, vy, vz;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    interp_spline_interior(w, 1, count, 0);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[0] = 2.0 * (corner + h[0]);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[0] = h[0];</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>[0] = 0.0;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[0] = 6.0 * ((ys[1] - ys[0]) / h[0]</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                       - (ys[count] - ys[count - 1]) / corner);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    gamma = -w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[0];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[0] -= gamma;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>[count - 1] -= corner * corner / gamma;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>[count - 1] = 0.0;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">for</span> (i = 0; i &lt; count; ++i) w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>[i] = 0.0;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>[0] = gamma;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>[count - 1] = corner;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    memcpy(w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a5788adfbb4ef4d8132f59b9a80231159">diagonal_copy</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>, count * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a>));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    interp_tridiag_solve(count, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">dia</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    interp_tridiag_solve(count, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">sub</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a5788adfbb4ef4d8132f59b9a80231159">diagonal_copy</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">sup</a>, w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    vy = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[0] + (corner / gamma) * w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[count - 1];</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    vz = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>[0] + (corner / gamma) * w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>[count - 1];</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">for</span> (i = 0; i &lt; count; ++i) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ac2d9e9d007063d7abf28a74cccb5ac34">moments</a>[i] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">rhs</a>[i] - w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">auxiliary</a>[i] * vy / (1.0 + vz);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ac2d9e9d007063d7abf28a74cccb5ac34">moments</a>[count] = w-&gt;<a class="code hl_variable" href="interp__internal_8h.html#ac2d9e9d007063d7abf28a74cccb5ac34">moments</a>[0];</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+</div>
+<div class="ttc" id="aconfig_8h_html_aa4548c12a1662c29aa98371cb5885543"><div class="ttname"><a href="config_8h.html#aa4548c12a1662c29aa98371cb5885543">lmmc_real_t</a></div><div class="ttdeci">double lmmc_real_t</div><div class="ttdoc">Public and internal LMMC real type.</div><div class="ttdef"><b>定义</b> <a href="config_8h_source.html#l00028">config.h:28</a></div></div>
+<div class="ttc" id="ainterp_8h_html_a366d704dc3cd8498d049bf83a8883f18"><div class="ttname"><a href="interp_8h.html#a366d704dc3cd8498d049bf83a8883f18">lmmc_spline_bc_t</a></div><div class="ttdeci">lmmc_spline_bc_t</div><div class="ttdoc">样条边界条件类型.</div><div class="ttdef"><b>定义</b> <a href="interp_8h_source.html#l00046">interp.h:46</a></div></div>
+<div class="ttc" id="ainterp_8h_html_a366d704dc3cd8498d049bf83a8883f18a522b48ad400117ef649dae1edf0984aa"><div class="ttname"><a href="interp_8h.html#a366d704dc3cd8498d049bf83a8883f18a522b48ad400117ef649dae1edf0984aa">LMMC_SPLINE_CLAMPED</a></div><div class="ttdeci">@ LMMC_SPLINE_CLAMPED</div><div class="ttdef"><b>定义</b> <a href="interp_8h_source.html#l00048">interp.h:48</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html"><div class="ttname"><a href="interp__internal_8h.html">interp_internal.h</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a0dc9aef06ffece2f57f750635913f7d6"><div class="ttname"><a href="interp__internal_8h.html#a0dc9aef06ffece2f57f750635913f7d6">interp_spline_workspace_t::dia</a></div><div class="ttdeci">lmmc_real_t * dia</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00035">interp_internal.h:35</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a209ca7ce03ea79583fdc98f6e2736a53"><div class="ttname"><a href="interp__internal_8h.html#a209ca7ce03ea79583fdc98f6e2736a53">interp_spline_workspace_t::h</a></div><div class="ttdeci">lmmc_real_t * h</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00032">interp_internal.h:32</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a2443f94ded0c7baeb26db7136ab9baac"><div class="ttname"><a href="interp__internal_8h.html#a2443f94ded0c7baeb26db7136ab9baac">interp_spline_workspace_t::n</a></div><div class="ttdeci">size_t n</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00030">interp_internal.h:30</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a48557e49702d9f2c12f4beaf882f1380"><div class="ttname"><a href="interp__internal_8h.html#a48557e49702d9f2c12f4beaf882f1380">interp_spline_workspace_t::sub</a></div><div class="ttdeci">lmmc_real_t * sub</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00034">interp_internal.h:34</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a49156334f730511ea2cd30163117b25f"><div class="ttname"><a href="interp__internal_8h.html#a49156334f730511ea2cd30163117b25f">interp_spline_standard</a></div><div class="ttdeci">void interp_spline_standard(interp_spline_workspace_t *work, lmmc_spline_bc_t bc, lmmc_real_t deriv_left, lmmc_real_t deriv_right)</div><div class="ttdef"><b>定义</b> <a href="#l00042">interp_spline_boundary.c:42</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a5788adfbb4ef4d8132f59b9a80231159"><div class="ttname"><a href="interp__internal_8h.html#a5788adfbb4ef4d8132f59b9a80231159">interp_spline_workspace_t::diagonal_copy</a></div><div class="ttdeci">lmmc_real_t * diagonal_copy</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00039">interp_internal.h:39</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a68998028b8b73cb76d5cc89167d123b4"><div class="ttname"><a href="interp__internal_8h.html#a68998028b8b73cb76d5cc89167d123b4">interp_spline_workspace_t::rhs</a></div><div class="ttdeci">lmmc_real_t * rhs</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00037">interp_internal.h:37</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_a79fb9827c231f3f9232a0abb551d4470"><div class="ttname"><a href="interp__internal_8h.html#a79fb9827c231f3f9232a0abb551d4470">interp_spline_workspace_t::auxiliary</a></div><div class="ttdeci">lmmc_real_t * auxiliary</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00038">interp_internal.h:38</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_ab0d471d01a1dac26387f336f55c57338"><div class="ttname"><a href="interp__internal_8h.html#ab0d471d01a1dac26387f336f55c57338">interp_spline_workspace_t::ys</a></div><div class="ttdeci">const lmmc_real_t * ys</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00031">interp_internal.h:31</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_abcf3341638145876aeff4857be6c7e7a"><div class="ttname"><a href="interp__internal_8h.html#abcf3341638145876aeff4857be6c7e7a">interp_spline_periodic</a></div><div class="ttdeci">void interp_spline_periodic(interp_spline_workspace_t *work)</div><div class="ttdef"><b>定义</b> <a href="#l00093">interp_spline_boundary.c:93</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_ac2d9e9d007063d7abf28a74cccb5ac34"><div class="ttname"><a href="interp__internal_8h.html#ac2d9e9d007063d7abf28a74cccb5ac34">interp_spline_workspace_t::moments</a></div><div class="ttdeci">lmmc_real_t * moments</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00033">interp_internal.h:33</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_af8370adac36b49651109a79593165b09"><div class="ttname"><a href="interp__internal_8h.html#af8370adac36b49651109a79593165b09">interp_spline_not_a_knot</a></div><div class="ttdeci">void interp_spline_not_a_knot(interp_spline_workspace_t *work)</div><div class="ttdef"><b>定义</b> <a href="#l00065">interp_spline_boundary.c:65</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_afe7592acf84a1332a914c4a6bb93418f"><div class="ttname"><a href="interp__internal_8h.html#afe7592acf84a1332a914c4a6bb93418f">interp_spline_workspace_t::sup</a></div><div class="ttdeci">lmmc_real_t * sup</div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00036">interp_internal.h:36</a></div></div>
+<div class="ttc" id="ainterp__internal_8h_html_structinterp__spline__workspace__t"><div class="ttname"><a href="interp__internal_8h.html#structinterp__spline__workspace__t">interp_spline_workspace_t</a></div><div class="ttdef"><b>定义</b> <a href="interp__internal_8h_source.html#l00029">interp_internal.h:29</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="interp__spline__boundary_8c.html">interp_spline_boundary.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMC使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

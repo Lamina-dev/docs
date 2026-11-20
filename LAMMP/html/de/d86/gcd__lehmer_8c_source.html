@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LMMP: src/lmmp/numth/gcd_lehmer.c 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../codefolding.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">LMMP<span id="projectnumber">&#160;4.3.0</span>
+   </div>
+   <div id="projectbrief">Lamina High-Precision Arithmetic Library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "../../",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('de/d86/gcd__lehmer_8c_source.html','../../',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">gcd_lehmer.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../de/d86/gcd__lehmer_8c.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *  Copyright (C) 2026 HJimmyK (Jericho Knox)</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  This file is part of LMMP.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *  LMMP is free software: you can redistribute it and/or modify it</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *  under the terms of the GNU Lesser General Public License as</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *  published by the Free Software Foundation; either version 3 of</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *  the License, or (at your option) any later version.</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *  This library is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *  You should have received a copy of the GNU Lesser General Public</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *  License along with this library.  If not, see</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> *  &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *  SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d39/lmmpn_8h.html">lmmp/lmmpn.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/da4/numth_8h.html">lmmp/numth.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d3e/gcd_8h.html">numth/gcd.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/daa/tmp__alloc_8h.html">impl/tmp_alloc.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/* 步进矩阵与窗口提取见 impl/gcd.h（与 gcdext_lehmer.c 共享） */</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html">   30</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">   31</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">   32</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">   33</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> <a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">np</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">   34</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">   35</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">   36</a></span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>} <a class="code hl_struct" href="../../de/d86/gcd__lehmer_8c.html#dd/d96/structlehmer__stack__t">lehmer_stack_t</a>;</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"></span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * @brief dst = |x - y|（大数减法取绝对值），返回归一化长度</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> * @warning eqsep(dst,[x|y])</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#a7c1c7d76374bad0b7d086f2b453a5b15">   43</a></span><span class="keyword">static</span> <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../de/d86/gcd__lehmer_8c.html#a7c1c7d76374bad0b7d086f2b453a5b15">lmmp_lehmer_sub_mag_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> dst, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> x, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> y, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> yn) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> rn;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> &gt; yn) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(dst, x, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>, y, yn);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        rn = <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a> &lt; yn) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(dst, y, yn, x, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        rn = yn;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">int</span> cmp = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aa88bf3584b2d5e5b5ca6f1c1ad75adb1">lmmp_cmp_</a>(x, y, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">if</span> (cmp &gt;= 0) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(dst, x, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>, y, yn);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a>(dst, y, yn, x, <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        rn = <a class="code hl_define" href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">while</span> (rn &gt; 0 &amp;&amp; dst[rn - 1] == 0) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        --rn;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> rn;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment"></span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment"> * @brief    / a \ = / A  B \ * / a \</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment"> *           \ b /   \ C  D /   \ b /</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"> * @warning [a,an] &gt; [b,bn]</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> * @note 不保证返回结果 [a,an] &gt; [b,bn]</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * @return a和b是否有一个为0；返回 true 时保证 [a,an] 非零（若 a 先归零</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> *         则将 b 移入 a，gcd 即 a）</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../de/d86/gcd__lehmer_8c.html#aca6b167180234e2962a3aed9ed6d8a69">   74</a></span><span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../de/d86/gcd__lehmer_8c.html#aca6b167180234e2962a3aed9ed6d8a69">lmmp_lehmer_mul_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> a, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>* <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> b, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>* <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, <a class="code hl_struct" href="../../da/d3e/gcd_8h.html#dd/d7e/structlmmp__gcd__lehmer__t">lmmp_gcd_lehmer_t</a>* M, <a class="code hl_struct" href="../../de/d86/gcd__lehmer_8c.html#dd/d96/structlehmer__stack__t">lehmer_stack_t</a>* ms) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define A (M-&gt;m11)</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define B (M-&gt;m12)</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#define C (M-&gt;m21)</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#define D (M-&gt;m22)</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#define an (*an)</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#define bn (*bn)</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a955f504eccf76b4eb2489c0adab03121">A</a> == 0) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">/*     / 0  1 \ / a \   =  /        b        \</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">               \ 1 -q / \ b /      \ a - q*b (new a) /            */</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a>(<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a> == 1 &amp;&amp; <a class="code hl_define" href="../../da/d3e/gcd_8h.html#ac4cf4b2ab929bd23951a8676eeac086b">C</a> == 1 &amp;&amp; <a class="code hl_define" href="../../da/d3e/gcd_8h.html#af316c33cc298530f245e8b55330e86b5">D</a> &lt; 0);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> c = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, -<a class="code hl_define" href="../../da/d3e/gcd_8h.html#af316c33cc298530f245e8b55330e86b5">D</a>);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> tn = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">if</span> (c != 0) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            ++tn;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            (ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>)[tn - 1] = c;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">// a = |a - q*b|, b = b</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> = <a class="code hl_function" href="../../de/d86/gcd__lehmer_8c.html#a7c1c7d76374bad0b7d086f2b453a5b15">lmmp_lehmer_sub_mag_</a>(a, a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>, tn);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> == 0) {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="comment">// a - q*b == 0：b | a，gcd = b，移入 a</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(a, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            b[0] = 0;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> = 0;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> == 0;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a955f504eccf76b4eb2489c0adab03121">A</a> &lt; 0) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <a class="code hl_define" href="../../da/d3e/gcd_8h.html#a955f504eccf76b4eb2489c0adab03121">A</a> = -<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a955f504eccf76b4eb2489c0adab03121">A</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <a class="code hl_define" href="../../da/d3e/gcd_8h.html#af316c33cc298530f245e8b55330e86b5">D</a> = -<a class="code hl_define" href="../../da/d3e/gcd_8h.html#af316c33cc298530f245e8b55330e86b5">D</a>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a> = -<a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <a class="code hl_define" href="../../da/d3e/gcd_8h.html#ac4cf4b2ab929bd23951a8676eeac086b">C</a> = -<a class="code hl_define" href="../../da/d3e/gcd_8h.html#ac4cf4b2ab929bd23951a8676eeac086b">C</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// ms-&gt;np = |A * a - (-B) * b|（B 取负后系数均为正，差的绝对值即线性组合）</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a> ca = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>, a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, <a class="code hl_define" href="../../da/d3e/gcd_8h.html#a955f504eccf76b4eb2489c0adab03121">A</a>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a> = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">if</span> (ca != 0)</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            (ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>)[ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a>++] = ca;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        ca = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, <a class="code hl_define" href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a> = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span> (ca != 0)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            (ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>)[ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a>++] = ca;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a> = <a class="code hl_function" href="../../de/d86/gcd__lehmer_8c.html#a7c1c7d76374bad0b7d086f2b453a5b15">lmmp_lehmer_sub_mag_</a>(ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">np</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a>);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">// a = |C * a - (-D) * b|</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        ca = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>, a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, <a class="code hl_define" href="../../da/d3e/gcd_8h.html#ac4cf4b2ab929bd23951a8676eeac086b">C</a>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a> = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">if</span> (ca != 0)</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            (ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>)[ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a>++] = ca;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        ca = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a>(ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, <a class="code hl_define" href="../../da/d3e/gcd_8h.html#af316c33cc298530f245e8b55330e86b5">D</a>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a> = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">if</span> (ca != 0)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            (ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>)[ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a>++] = ca;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> = <a class="code hl_function" href="../../de/d86/gcd__lehmer_8c.html#a7c1c7d76374bad0b7d086f2b453a5b15">lmmp_lehmer_sub_mag_</a>(a, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">tn</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">mn</a>);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="comment">// now       a = C * a + D * b</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">//      ms-&gt;np = A * a + B * b</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> == 0) {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="comment">// a 归零：gcd = ms-&gt;np，移入 a</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(a, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">np</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a>);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> = ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            b[0] = 0;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> = 0;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">if</span> (ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a> &gt; 0) {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(b, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">np</a>, ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a>);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> = ms-&gt;<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">nn</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            b[0] = 0;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> = 0;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#undef A</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="preprocessor">#undef B</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">#undef C</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">#undef D</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="preprocessor">#undef an</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">#undef bn</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="../../de/da4/numth_8h.html#a1ea89f24b0daddd75fa7ed3f13b851f4">  159</a></span><a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> <a class="code hl_function" href="../../de/da4/numth_8h.html#a1ea89f24b0daddd75fa7ed3f13b851f4">lmmp_gcd_lehmer_</a>(<a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> dst, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> up, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> un, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a> vp, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a> vn) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(un &gt; 0 &amp;&amp; vn &gt; 0);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(up != NULL &amp;&amp; vp != NULL);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(dst != NULL);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(up[un - 1] != 0);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a>(vp[vn - 1] != 0);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">if</span> (un &lt; vn) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a16f7ce40e47f002f341a024a7e45f4c9">LMMP_SWAP</a>(up, vp, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a>);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a16f7ce40e47f002f341a024a7e45f4c9">LMMP_SWAP</a>(un, vn, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (un == vn) {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordtype">int</span> cmp = <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aa88bf3584b2d5e5b5ca6f1c1ad75adb1">lmmp_cmp_</a>(up, vp, un);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">if</span> (cmp == 0) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dst, up, un);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <span class="keywordflow">return</span> un;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cmp &lt; 0) {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a16f7ce40e47f002f341a024a7e45f4c9">LMMP_SWAP</a>(up, vp, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a>);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="comment">// u &gt; v</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <a class="code hl_struct" href="../../da/d3e/gcd_8h.html#dd/d7e/structlmmp__gcd__lehmer__t">lmmp_gcd_lehmer_t</a> M;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <a class="code hl_typedef" href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a> x = 0, y = 0;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">#define an un</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#define bn vn</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#a8c7d2f554a0d517ab3247c1a1f4c0b56">TEMP_B_DECL</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="comment">// [a,an+1] [b,bn+1]</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="comment">// A * a_old may overlow</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> a = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>(<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> + 1, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> b = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>(<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> + 1, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <a class="code hl_struct" href="../../de/d86/gcd__lehmer_8c.html#dd/d96/structlehmer__stack__t">lehmer_stack_t</a> ms;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a> temp = <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a>((<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> + 1) * 3, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a>);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    ms.<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">tp</a> = temp;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    ms.<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">mp</a> = temp + (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> + 1);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    ms.<a class="code hl_variable" href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">np</a> = temp + (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> + 1) * 2;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(a, up, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(b, vp, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">bool</span> bzero = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">while</span> (bzero == <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> &gt; 1 &amp;&amp; <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> == 1) {</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            dst[0] = <a class="code hl_function" href="../../de/da4/numth_8h.html#ad6a92bb4e6fe1f9511e9874d8784bca2">lmmp_gcd_1_</a>(a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, b[0]);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> == 1 &amp;&amp; <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> == 1) {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            dst[0] = <a class="code hl_function" href="../../de/da4/numth_8h.html#a93cac93b00e068a7e3f92eb856b18389">lmmp_gcd_11_</a>(a[0], b[0]);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        }</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="comment">// a &gt; b</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <a class="code hl_function" href="../../da/d3e/gcd_8h.html#a1fd1c167066641e1c65fbb0defbc07b6">lmmp_gcd_lehmer_extract_</a>(a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, &amp;x, &amp;y);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <a class="code hl_function" href="../../da/d3e/gcd_8h.html#a1f4309776b4071f51b6f773c2694f63d">lmmp_gcd_lehmer_step_</a>(x, y, &amp;M);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">if</span> (M.<a class="code hl_variable" href="../../da/d3e/gcd_8h.html#a57ba24d22d2ba3eadced9812497afae1">m21</a> == 0) {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#add02162837d61d6b5abb1901937af5b3">lmmp_div_</a>(NULL, dst, a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(a, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> = <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <span class="keywordflow">while</span> (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> &gt; 0 &amp;&amp; dst[<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> - 1] == 0) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                --<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            }</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> == 0)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                bzero = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(b, dst, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            bzero = <a class="code hl_function" href="../../de/d86/gcd__lehmer_8c.html#aca6b167180234e2962a3aed9ed6d8a69">lmmp_lehmer_mul_</a>(a, &amp;<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, b, &amp;<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, &amp;M, &amp;ms);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            <span class="keywordflow">if</span> ((<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> &lt; <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>) || (<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a> == <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a> &amp;&amp; <a class="code hl_function" href="../../d6/d39/lmmpn_8h.html#aa88bf3584b2d5e5b5ca6f1c1ad75adb1">lmmp_cmp_</a>(a, b, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>) &lt; 0)) {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a16f7ce40e47f002f341a024a7e45f4c9">LMMP_SWAP</a>(a, b, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a>);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a16f7ce40e47f002f341a024a7e45f4c9">LMMP_SWAP</a>(<a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a>, <a class="code hl_typedef" href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a>);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <a class="code hl_define" href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a>(dst, a, <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <a class="code hl_define" href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a>;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a>;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">#undef an</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">#undef bn</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>}</div>
+</div>
+<div class="ttc" id="abinvert__1_8c_html_aa8d1894d5181fc1acf0b0c9da29485cf"><div class="ttname"><a href="../../df/dea/binvert__1_8c.html#aa8d1894d5181fc1acf0b0c9da29485cf">xn</a></div><div class="ttdeci">#define xn</div></div>
+<div class="ttc" id="agcd_8h_html"><div class="ttname"><a href="../../da/d3e/gcd_8h.html">gcd.h</a></div></div>
+<div class="ttc" id="agcd_8h_html_a111da81ae5883147168bbb8366377b10"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#a111da81ae5883147168bbb8366377b10">B</a></div><div class="ttdeci">#define B</div></div>
+<div class="ttc" id="agcd_8h_html_a1f4309776b4071f51b6f773c2694f63d"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#a1f4309776b4071f51b6f773c2694f63d">lmmp_gcd_lehmer_step_</a></div><div class="ttdeci">static void lmmp_gcd_lehmer_step_(slong u, slong v, lmmp_gcd_lehmer_t *M)</div><div class="ttdef"><b>定义</b> <a href="../../da/d3e/gcd_8h_source.html#l00113">gcd.h:113</a></div></div>
+<div class="ttc" id="agcd_8h_html_a1fd1c167066641e1c65fbb0defbc07b6"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#a1fd1c167066641e1c65fbb0defbc07b6">lmmp_gcd_lehmer_extract_</a></div><div class="ttdeci">static void lmmp_gcd_lehmer_extract_(mp_srcptr up, mp_size_t un, mp_srcptr vp, mp_size_t vn, slong *restrict a, slong *restrict b)</div><div class="ttdef"><b>定义</b> <a href="../../da/d3e/gcd_8h_source.html#l00142">gcd.h:142</a></div></div>
+<div class="ttc" id="agcd_8h_html_a57ba24d22d2ba3eadced9812497afae1"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#a57ba24d22d2ba3eadced9812497afae1">lmmp_gcd_lehmer_t::m21</a></div><div class="ttdeci">slong m21</div><div class="ttdef"><b>定义</b> <a href="../../da/d3e/gcd_8h_source.html#l00105">gcd.h:105</a></div></div>
+<div class="ttc" id="agcd_8h_html_a955f504eccf76b4eb2489c0adab03121"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#a955f504eccf76b4eb2489c0adab03121">A</a></div><div class="ttdeci">#define A</div></div>
+<div class="ttc" id="agcd_8h_html_ac4cf4b2ab929bd23951a8676eeac086b"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#ac4cf4b2ab929bd23951a8676eeac086b">C</a></div><div class="ttdeci">#define C</div></div>
+<div class="ttc" id="agcd_8h_html_af316c33cc298530f245e8b55330e86b5"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#af316c33cc298530f245e8b55330e86b5">D</a></div><div class="ttdeci">#define D</div></div>
+<div class="ttc" id="agcd_8h_html_dd/d7e/structlmmp__gcd__lehmer__t"><div class="ttname"><a href="../../da/d3e/gcd_8h.html#dd/d7e/structlmmp__gcd__lehmer__t">lmmp_gcd_lehmer_t</a></div><div class="ttdef"><b>定义</b> <a href="../../da/d3e/gcd_8h_source.html#l00103">gcd.h:103</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_a0c4d94e70644a16dc7355efa0d9d1b88"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#a0c4d94e70644a16dc7355efa0d9d1b88">lehmer_stack_t::mn</a></div><div class="ttdeci">mp_size_t mn</div><div class="ttdef"><b>定义</b> <a href="#l00035">gcd_lehmer.c:35</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_a3516de9293981b0411049cbefe264b32"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#a3516de9293981b0411049cbefe264b32">lehmer_stack_t::np</a></div><div class="ttdeci">mp_ptr np</div><div class="ttdef"><b>定义</b> <a href="#l00033">gcd_lehmer.c:33</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_a7c1c7d76374bad0b7d086f2b453a5b15"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#a7c1c7d76374bad0b7d086f2b453a5b15">lmmp_lehmer_sub_mag_</a></div><div class="ttdeci">static mp_size_t lmmp_lehmer_sub_mag_(mp_ptr dst, mp_srcptr x, mp_size_t xn, mp_srcptr y, mp_size_t yn)</div><div class="ttdoc">dst = |x - y|（大数减法取绝对值），返回归一化长度</div><div class="ttdef"><b>定义</b> <a href="#l00043">gcd_lehmer.c:43</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_a8643f0c2db7b2c2b926040f862ac1213"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#a8643f0c2db7b2c2b926040f862ac1213">lehmer_stack_t::tp</a></div><div class="ttdeci">mp_ptr tp</div><div class="ttdef"><b>定义</b> <a href="#l00031">gcd_lehmer.c:31</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_ab1386bf574ce4bad327b49f929ef9346"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#ab1386bf574ce4bad327b49f929ef9346">lehmer_stack_t::nn</a></div><div class="ttdeci">mp_size_t nn</div><div class="ttdef"><b>定义</b> <a href="#l00036">gcd_lehmer.c:36</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_ab6046b175919e8bb86671d50e1e1c0b1"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#ab6046b175919e8bb86671d50e1e1c0b1">an</a></div><div class="ttdeci">#define an</div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_aca6b167180234e2962a3aed9ed6d8a69"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#aca6b167180234e2962a3aed9ed6d8a69">lmmp_lehmer_mul_</a></div><div class="ttdeci">static bool lmmp_lehmer_mul_(mp_ptr a, mp_size_t *an, mp_ptr b, mp_size_t *bn, lmmp_gcd_lehmer_t *M, lehmer_stack_t *ms)</div><div class="ttdoc">/ a \ = / A B \ * / a \ \ b / \ C D / \ b /</div><div class="ttdef"><b>定义</b> <a href="#l00074">gcd_lehmer.c:74</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_addc824dd84cd6194b18fa4b6d2fc120d"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#addc824dd84cd6194b18fa4b6d2fc120d">bn</a></div><div class="ttdeci">#define bn</div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_aeba68c012623b3c9fb626217b0458967"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#aeba68c012623b3c9fb626217b0458967">lehmer_stack_t::tn</a></div><div class="ttdeci">mp_size_t tn</div><div class="ttdef"><b>定义</b> <a href="#l00034">gcd_lehmer.c:34</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_aff1045e2ed182cb02136464d03e3be69"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#aff1045e2ed182cb02136464d03e3be69">lehmer_stack_t::mp</a></div><div class="ttdeci">mp_ptr mp</div><div class="ttdef"><b>定义</b> <a href="#l00032">gcd_lehmer.c:32</a></div></div>
+<div class="ttc" id="agcd__lehmer_8c_html_dd/d96/structlehmer__stack__t"><div class="ttname"><a href="../../de/d86/gcd__lehmer_8c.html#dd/d96/structlehmer__stack__t">lehmer_stack_t</a></div><div class="ttdoc">Copyright (C) 2026 HJimmyK (Jericho Knox)</div><div class="ttdef"><b>定义</b> <a href="#l00030">gcd_lehmer.c:30</a></div></div>
+<div class="ttc" id="almmp_8h_html_a0e1a5ea354e7a20f0c664d9a2cc30ed4"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a0e1a5ea354e7a20f0c664d9a2cc30ed4">mp_ptr</a></div><div class="ttdeci">mp_limb_t * mp_ptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00096">lmmp.h:96</a></div></div>
+<div class="ttc" id="almmp_8h_html_a16f7ce40e47f002f341a024a7e45f4c9"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a16f7ce40e47f002f341a024a7e45f4c9">LMMP_SWAP</a></div><div class="ttdeci">#define LMMP_SWAP(x, y, type)</div><div class="ttdoc">交换两个变量的值</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00458">lmmp.h:458</a></div></div>
+<div class="ttc" id="almmp_8h_html_a1e058c47a192be811139a760f7dc99c3"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a1e058c47a192be811139a760f7dc99c3">lmmp_copy</a></div><div class="ttdeci">#define lmmp_copy(dst, src, n)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00474">lmmp.h:474</a></div></div>
+<div class="ttc" id="almmp_8h_html_a582308f4f1cba89403f4d56b773b48ea"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a582308f4f1cba89403f4d56b773b48ea">mp_size_t</a></div><div class="ttdeci">uint64_t mp_size_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00093">lmmp.h:93</a></div></div>
+<div class="ttc" id="almmp_8h_html_a615856ce29bb791b82c2c8271aa829da"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a615856ce29bb791b82c2c8271aa829da">lmmp_debug_assert</a></div><div class="ttdeci">#define lmmp_debug_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00498">lmmp.h:498</a></div></div>
+<div class="ttc" id="almmp_8h_html_a748ad941e186db2ca030aa4d766a0e5e"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#a748ad941e186db2ca030aa4d766a0e5e">mp_srcptr</a></div><div class="ttdeci">const mp_limb_t * mp_srcptr</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00097">lmmp.h:97</a></div></div>
+<div class="ttc" id="almmp_8h_html_abcbacf2a224ef33eca95b53e726b0aed"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#abcbacf2a224ef33eca95b53e726b0aed">mp_limb_t</a></div><div class="ttdeci">uint64_t mp_limb_t</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00092">lmmp.h:92</a></div></div>
+<div class="ttc" id="almmp_8h_html_aed286bd48be0c22cebbe4c53954d3b88"><div class="ttname"><a href="../../dd/d90/lmmp_8h.html#aed286bd48be0c22cebbe4c53954d3b88">lmmp_param_assert</a></div><div class="ttdeci">#define lmmp_param_assert(x)</div><div class="ttdef"><b>定义</b> <a href="../../dd/d90/lmmp_8h_source.html#l00509">lmmp.h:509</a></div></div>
+<div class="ttc" id="almmpn_8h_html"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html">lmmpn.h</a></div></div>
+<div class="ttc" id="almmpn_8h_html_aa88bf3584b2d5e5b5ca6f1c1ad75adb1"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#aa88bf3584b2d5e5b5ca6f1c1ad75adb1">lmmp_cmp_</a></div><div class="ttdeci">int lmmp_cmp_(mp_srcptr numa, mp_srcptr numb, mp_size_t n)</div><div class="ttdoc">比较函数</div><div class="ttdef"><b>定义</b> <a href="../../d5/d32/cmp_8c_source.html#l00026">cmp.c:26</a></div></div>
+<div class="ttc" id="almmpn_8h_html_ab6382940233ad6954ef892141066bc8a"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ab6382940233ad6954ef892141066bc8a">lmmp_sub_</a></div><div class="ttdeci">static mp_limb_t lmmp_sub_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">减法静态内联函数 [dst,na]=[numa,na]-[numb,nb]</div><div class="ttdef"><b>定义</b> <a href="../../d6/d39/lmmpn_8h_source.html#l01220">lmmpn.h:1220</a></div></div>
+<div class="ttc" id="almmpn_8h_html_ac837c3ce41191aecaaa2f226de50331c"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#ac837c3ce41191aecaaa2f226de50331c">lmmp_mul_1_</a></div><div class="ttdeci">mp_limb_t lmmp_mul_1_(mp_ptr dst, mp_srcptr numa, mp_size_t na, mp_limb_t x)</div><div class="ttdoc">乘以单limb操作 [dst,na] = [numa,na] * x</div><div class="ttdef"><b>定义</b> <a href="../../d3/dd1/arch_2generic_2mul__1_8c_source.html#l00027">mul_1.c:27</a></div></div>
+<div class="ttc" id="almmpn_8h_html_add02162837d61d6b5abb1901937af5b3"><div class="ttname"><a href="../../d6/d39/lmmpn_8h.html#add02162837d61d6b5abb1901937af5b3">lmmp_div_</a></div><div class="ttdeci">void lmmp_div_(mp_ptr dstq, mp_ptr dstr, mp_srcptr numa, mp_size_t na, mp_srcptr numb, mp_size_t nb)</div><div class="ttdoc">除法和取模操作</div><div class="ttdef"><b>定义</b> <a href="../../d3/db2/div_8c_source.html#l00085">div.c:85</a></div></div>
+<div class="ttc" id="anumth_8h_html"><div class="ttname"><a href="../../de/da4/numth_8h.html">numth.h</a></div></div>
+<div class="ttc" id="anumth_8h_html_a1ea89f24b0daddd75fa7ed3f13b851f4"><div class="ttname"><a href="../../de/da4/numth_8h.html#a1ea89f24b0daddd75fa7ed3f13b851f4">lmmp_gcd_lehmer_</a></div><div class="ttdeci">mp_size_t lmmp_gcd_lehmer_(mp_ptr dst, mp_srcptr up, mp_size_t un, mp_srcptr vp, mp_size_t vn)</div><div class="ttdoc">计算两个无符号整数的最大公约数（Lehmer算法）</div><div class="ttdef"><b>定义</b> <a href="#l00159">gcd_lehmer.c:159</a></div></div>
+<div class="ttc" id="anumth_8h_html_a72c7b2b3165b6eb83d5dd69971eb1f0e"><div class="ttname"><a href="../../de/da4/numth_8h.html#a72c7b2b3165b6eb83d5dd69971eb1f0e">slong</a></div><div class="ttdeci">int64_t slong</div><div class="ttdef"><b>定义</b> <a href="../../de/da4/numth_8h_source.html#l00041">numth.h:41</a></div></div>
+<div class="ttc" id="anumth_8h_html_a93cac93b00e068a7e3f92eb856b18389"><div class="ttname"><a href="../../de/da4/numth_8h.html#a93cac93b00e068a7e3f92eb856b18389">lmmp_gcd_11_</a></div><div class="ttdeci">mp_limb_t lmmp_gcd_11_(mp_limb_t u, mp_limb_t v)</div><div class="ttdoc">计算两个无符号整数的最大公约数</div><div class="ttdef"><b>定义</b> <a href="../../dc/d07/gcd__1_8c_source.html#l00028">gcd_1.c:28</a></div></div>
+<div class="ttc" id="anumth_8h_html_ad6a92bb4e6fe1f9511e9874d8784bca2"><div class="ttname"><a href="../../de/da4/numth_8h.html#ad6a92bb4e6fe1f9511e9874d8784bca2">lmmp_gcd_1_</a></div><div class="ttdeci">mp_limb_t lmmp_gcd_1_(mp_srcptr up, mp_size_t un, mp_limb_t v)</div><div class="ttdoc">计算两个无符号整数的最大公约数</div><div class="ttdef"><b>定义</b> <a href="../../dc/d07/gcd__1_8c_source.html#l00046">gcd_1.c:46</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html">tmp_alloc.h</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_a8c7d2f554a0d517ab3247c1a1f4c0b56"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#a8c7d2f554a0d517ab3247c1a1f4c0b56">TEMP_B_DECL</a></div><div class="ttdeci">#define TEMP_B_DECL</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00149">tmp_alloc.h:149</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_ac5513b439318f5921c3f467b478eaf71"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#ac5513b439318f5921c3f467b478eaf71">BALLOC_TYPE</a></div><div class="ttdeci">#define BALLOC_TYPE(n, type)</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00171">tmp_alloc.h:171</a></div></div>
+<div class="ttc" id="atmp__alloc_8h_html_aeea3976838b21a1af4ede1096adc90aa"><div class="ttname"><a href="../../d8/daa/tmp__alloc_8h.html#aeea3976838b21a1af4ede1096adc90aa">TEMP_B_FREE</a></div><div class="ttdeci">#define TEMP_B_FREE</div><div class="ttdef"><b>定义</b> <a href="../../d8/daa/tmp__alloc_8h_source.html#l00184">tmp_alloc.h:184</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_9396b6e68ae869ebd0dbb83c8694b260.html">lmmp</a></li><li class="navelem"><a href="../../dir_e81495a29da127ca13adb73f7de0dac8.html">numth</a></li><li class="navelem"><a href="../../de/d86/gcd__lehmer_8c.html">gcd_lehmer.c</a></li>
+    <li class="footer">生成于 <span class="timestamp"></span> , 为 LMMP使用  <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

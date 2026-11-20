@@ -1,0 +1,28 @@
+var sparse__storage_8h =
+[
+    [ "lmmc_sparse_builder_create", "sparse__storage_8h.html#a565696e185416551be21cdc1653b6fa1", null ],
+    [ "lmmc_sparse_builder_add", "sparse__storage_8h.html#aa99ef3ff0fd770aaa0aff7d0559ccb24", null ],
+    [ "lmmc_sparse_builder_build", "sparse__storage_8h.html#a2b226a455dc4265c32fbc5be88e71d43", null ],
+    [ "lmmc_sparse_builder_destroy", "sparse__storage_8h.html#a3fc332fb573583c8a1cfd777a703581b", null ],
+    [ "lmmc_sparse_create_csr", "sparse__storage_8h.html#aa2267ebd3cc4109b80de6546eab09f46", null ],
+    [ "lmmc_sparse_create_csc", "sparse__storage_8h.html#a25f668f3cbb48d49de9d3f755d53f3fd", null ],
+    [ "lmmc_sparse_wrap_csr", "sparse__storage_8h.html#ab5fd68e4d861bce59bc1bda9524a93a1", null ],
+    [ "lmmc_sparse_wrap_csc", "sparse__storage_8h.html#a338591f0b75c1e8121fea4c098ea74ec", null ],
+    [ "lmmc_sparse_destroy", "sparse__storage_8h.html#a83123a9cca994cead31746b6e9d962ca", null ],
+    [ "lmmc_sparse_from_dense", "sparse__storage_8h.html#af614df2529e7dc14d374300e721ed21f", null ],
+    [ "lmmc_sparse_to_dense", "sparse__storage_8h.html#aab1d2649443aa679c7ad6377648d0735", null ],
+    [ "lmmc_sparse_transpose", "sparse__storage_8h.html#a30c82c964d03e31fa4b736b58ab47c67", null ],
+    [ "lmmc_sparse_to_csc", "sparse__storage_8h.html#a6668ebac53ba5e23964e98b328afdc7e", null ],
+    [ "lmmc_sparse_to_csr", "sparse__storage_8h.html#a6e470fa9a6c89b74d744dbc5665997d3", null ],
+    [ "lmmc_sparse_coo_create", "sparse__storage_8h.html#a56e1e8b74a57b898d5cf2ceb7a0eecd5", null ],
+    [ "lmmc_sparse_coo_add_entry", "sparse__storage_8h.html#a0d9f8d05e9680ad1a28f8d4187ea0cb2", null ],
+    [ "lmmc_sparse_coo_to_csr", "sparse__storage_8h.html#a3794e8ba81e0b1a60aa02f6edc1d0521", null ],
+    [ "lmmc_sparse_coo_to_csc", "sparse__storage_8h.html#aae512daa539ee5ff3e9fd726f9599f46", null ],
+    [ "lmmc_sparse_coo_destroy", "sparse__storage_8h.html#ada913f3527f114186ea0f9aca8e24372", null ],
+    [ "lmmc_sparse_bsr_create", "sparse__storage_8h.html#a7c31d9f53dfb2232a80ea7bfd0bb97e6", null ],
+    [ "lmmc_sparse_bsr_to_dense", "sparse__storage_8h.html#a7d7f89c826650ae5c5e4ff511307a1ff", null ],
+    [ "lmmc_sparse_dense_to_bsr", "sparse__storage_8h.html#a991f12f2aab6af87f69e64f84c6dde58", null ],
+    [ "lmmc_sparse_bsr_destroy", "sparse__storage_8h.html#a5392318d3a537f3656a086bb3541658a", null ],
+    [ "lmmc_sparse_sym_csr_from_csr", "sparse__storage_8h.html#a10c16089cefd21bc7a08795316fa3c5f", null ],
+    [ "lmmc_sparse_sym_csr_destroy", "sparse__storage_8h.html#a6d2a383e8bc754568720caa9ade21a74", null ]
+];
