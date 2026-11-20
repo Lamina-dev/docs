@@ -51,7 +51,9 @@ jobs:
           "${install_dir}/bin/doxygen" --version
 
       - name: Create output directory
-        run: mkdir -p docs/LAMMP docs/LMCAS docs/LMMC
+        run: |
+          mkdir -p docs/portal docs/LAMMP docs/LMCAS docs/LMMC
+          cp docs/index.html docs/portal/index.html
 
       - name: Build LAMMP docs
         working-directory: LAMMP
@@ -94,20 +96,21 @@ jobs:
           ) | doxygen -
 
       - name: Remove Doxygen graph intermediates
-        run: find docs/LMCAS/html docs/LMMC/html -type f \( -name '*.md5' -o -name '*.map' \) -delete
+        run: find docs/LAMMP/html docs/LMCAS/html docs/LMMC/html -type f \( -name '*.md5' -o -name '*.map' \) -delete
 
       - name: Verify generated entry points
         run: |
-          for project in LAMMP LMCAS LMMC; do
-            test -s "docs/$project/html/index.html" || { echo "Missing $project documentation" >&2; exit 1; }
+          for directory in docs/portal docs/LAMMP/html docs/LMCAS/html docs/LMMC/html; do
+            test -s "$directory/index.html" || { echo "Missing $directory/index.html" >&2; exit 1; }
+            files=$(find "$directory" -type f | wc -l)
+            echo "$directory: $files files"
+            test "$files" -le 20000 || { echo "Cloudflare Pages supports at most 20,000 files per site ($directory generated $files)" >&2; exit 1; }
           done
           for project in LMCAS LMMC; do
             for graph in cgraph icgraph; do
               test -n "$(find "docs/$project/html" -name "*_${graph}.svg" -print -quit)" || { echo "Missing $project $graph" >&2; exit 1; }
             done
           done
-          files=$(find docs -type f | wc -l)
-          test "$files" -le 20000 || { echo "Cloudflare Pages supports at most 20,000 files (generated $files)" >&2; exit 1; }
 
       - name: Deploy to dep branch
         if: github.ref == 'refs/heads/main'
